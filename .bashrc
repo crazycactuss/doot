@@ -68,7 +68,7 @@
 #  Conversely, if the default group name is *different* from the username
 #  AND the user id is greater than 99, we're on the server, and set umask
 #  022 for easy collaborative editing.
-if [ "`id -gn`" == "`id -un`" -a `id -u` -gt 99 ]; then
+if [ "`id -gn`" == "`id -un`" -o  `id -u` -gt 99 ]; then
 	umask 002
 else
 	umask 022
@@ -175,24 +175,19 @@ alias cp="cp -i"
 set -o noclobber
 
 # 2.2) Listing, directories, and motion
-alias ll="ls -alrtF --color"
+alias ll="ls -alrthG"
 alias la="ls -A"
 alias l="ls -CF"
-alias dir='ls --color=auto --format=vertical'
-alias vdir='ls --color=auto --format=long'
 alias m='less'
 alias ..='cd ..'
 alias ...='cd ..;cd ..'
-alias md='mkdir'
-alias cl='clear'
-alias du='du -ch --max-depth=1'
-alias treeacl='tree -A -C -L 2'
+alias du='du -ch'
 
 # 2.3) Text and editor commands
 alias emacs='emacs -nw'     # No X11 windows
-alias eqq='emacs -nw -Q' # No config and no X11
+alias eqq='emacs -nw -q' # No config and no X11
 export EDITOR='emacs -nw'
-export VISUAL='emacs -nw' 
+export VISUAL='emacs -nw'
 
 # 2.4) grep options
 export GREP_OPTIONS='--color=auto'
@@ -210,25 +205,3 @@ export LC_ALL=POSIX
 
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
-
-day=$(date +"%A" | cut -c 1-3)
-export HTTP_PROXY="http://29523:$day@proxy-west.aero.org:8080/"
-export http_proxy="http://29523:$day@proxy-west.aero.org:8080/"
-source ~/target/setup_env.sh
-#export CPLUS_INCLUDE_PATH=/usr/include/c++/4.8/:/usr/include/x86_64-linux-gnu/c++/4.8/:/usr/include/c++/4.8/backward/:/usr/lib/gcc/x86_64-linux-gnu/4.8/include/:/usr/local/include/:/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/:/usr/include/x86_64-linux-gnu/:/usr/include/:/home/kai/target/include/:/home/kai/gnurad/includes/
-
-function wget() {
-    local wgetexe=`which wget`
-    $wgetexe --proxy-user=29523 --proxy-password=`date +%a` "@"
-}
-export -f wget
-
-function proxyset() {
-    for proto in ftp http https;
-    do 
-	export {${proto}_proxy,${proto^^*}_PROXY}="$proto://29523:"`date +%a`"@proxy-west.aero.org:8080"
-    done
-    export all_proxy=$http_proxy
-    export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-}
-export -f proxyset
