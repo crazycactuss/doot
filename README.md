@@ -1,6 +1,6 @@
 doot.git
 ============
-Clone and run this on  Ubuntu 12.04.2 to
+Clone and run this on Ubuntu to
 configure your `bash` and `emacs` development environment as follows:
 
 **1) Install git  and add keys**
@@ -11,6 +11,7 @@ ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
+on -sb dotfiles/.bash_logout .
 mv .emacs.d .emacs.d~
 ln -s dotfiles/.emacs.d .
 ```
