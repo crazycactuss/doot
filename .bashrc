@@ -210,25 +210,3 @@ export LC_ALL=POSIX
 
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
-
-day=$(date +"%A" | cut -c 1-3)
-export HTTP_PROXY="http://29523:$day@proxy-west.aero.org:8080/"
-export http_proxy="http://29523:$day@proxy-west.aero.org:8080/"
-source ~/target/setup_env.sh
-#export CPLUS_INCLUDE_PATH=/usr/include/c++/4.8/:/usr/include/x86_64-linux-gnu/c++/4.8/:/usr/include/c++/4.8/backward/:/usr/lib/gcc/x86_64-linux-gnu/4.8/include/:/usr/local/include/:/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/:/usr/include/x86_64-linux-gnu/:/usr/include/:/home/kai/target/include/:/home/kai/gnurad/includes/
-
-function wget() {
-    local wgetexe=`which wget`
-    $wgetexe --proxy-user=29523 --proxy-password=`date +%a` "@"
-}
-export -f wget
-
-function proxyset() {
-    for proto in ftp http https;
-    do 
-	export {${proto}_proxy,${proto^^*}_PROXY}="$proto://29523:"`date +%a`"@proxy-west.aero.org:8080"
-    done
-    export all_proxy=$http_proxy
-    export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-}
-export -f proxyset
