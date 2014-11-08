@@ -16,6 +16,7 @@
 ## -----------------------------------------------------------------------------------------
 ## -- 1) Set variables and keybindings for emacs compatibility (remapping Ctrl-A to Ctrl-T)
 ## -----------------------------------------------------------------------------------------
+shell -$SHELL
 markkeys "h=^B:l=^F:$=^E"             # emacs style keybindings during copy mode movement in screen
 autodetach             on             # default: on
 crlf                  off             # default: off
@@ -88,6 +89,7 @@ hardstatus alwayslastline "%H %-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
 screen -t emacs 0
 screen -t bash 1
 screen -t bash 2
+screen -t serve 3
 
 # 2.4) Description of the keywords used in hardstatus
 # caption always "%?%F%{-b bc}%:%{-b bb}%?%C|%D|%M %d|%H%?%F%{+u wb}%? %L=%-Lw%45>%{+b by}%n%f* %t%{-}%+Lw%-0<"

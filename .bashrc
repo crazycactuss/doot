@@ -210,3 +210,11 @@ export LC_ALL=POSIX
 
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+export NVM_DIR="/home/kai/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+nvm use v0.10.33 > /dev/null
