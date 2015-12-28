@@ -7,6 +7,7 @@ Mac OSX, then switch to the mac branch. To be installed with 'setup.sh' in the
 clone and run this on a Linux setup to configure your development environment
 as follows:
 
+**1) Install git  and add keys**
 ```sh
 cd $HOME
 git clone https://github.com/majoranaa/doot.git
@@ -14,6 +15,7 @@ ln -sb dotfiles/screenrc .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
+on -sb dotfiles/.bash_logout .
 mv .emacs.d .emacs.d~
 ln -s dotfiles/.emacs.d .
 ```

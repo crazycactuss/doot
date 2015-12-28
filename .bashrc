@@ -69,9 +69,9 @@
 #  AND the user id is greater than 99, we're on the server, and set umask
 #  022 for easy collaborative editing.
 if [ "`id -gn`" == "`id -un`" -a `id -u` -gt 99 ]; then
-	umask 002
+    umask 002
 else
-	umask 022
+    umask 022
 fi
 
 # ---------------------------------------------------------
@@ -83,31 +83,31 @@ fi
 if [ "$PS1" ]; then
 
     if [ -x /usr/bin/tput ]; then
-      if [ "x`tput kbs`" != "x" ]; then # We can't do this with "dumb" terminal
-        stty erase `tput kbs`
-      elif [ -x /usr/bin/wc ]; then
-        if [ "`tput kbs|wc -c `" -gt 0 ]; then # We can't do this with "dumb" terminal
-          stty erase `tput kbs`
-        fi
-      fi
+	if [ "x`tput kbs`" != "x" ]; then # We can't do this with "dumb" terminal
+            stty erase `tput kbs`
+	elif [ -x /usr/bin/wc ]; then
+            if [ "`tput kbs|wc -c `" -gt 0 ]; then # We can't do this with "dumb" terminal
+		stty erase `tput kbs`
+            fi
+	fi
     fi
     case $TERM in
 	xterm*)
-		if [ -e /etc/sysconfig/bash-prompt-xterm ]; then
-			PROMPT_COMMAND=/etc/sysconfig/bash-prompt-xterm
-		else
+	    if [ -e /etc/sysconfig/bash-prompt-xterm ]; then
+		PROMPT_COMMAND=/etc/sysconfig/bash-prompt-xterm
+	    else
 	    	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
-		fi
-		;;
+	    fi
+	    ;;
 	screen)
-		if [ -e /etc/sysconfig/bash-prompt-screen ]; then
-			PROMPT_COMMAND=/etc/sysconfig/bash-prompt-screen
-		else
+	    if [ -e /etc/sysconfig/bash-prompt-screen ]; then
+		PROMPT_COMMAND=/etc/sysconfig/bash-prompt-screen
+	    else
 		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\033\\"'
-		fi
-		;;
+	    fi
+	    ;;
 	*)
-		[ -e /etc/sysconfig/bash-prompt-default ] && PROMPT_COMMAND=/etc/sysconfig/bash-prompt-default
+	    [ -e /etc/sysconfig/bash-prompt-default ] && PROMPT_COMMAND=/etc/sysconfig/bash-prompt-default
 
 	    ;;
     esac
@@ -146,7 +146,7 @@ if [ "$PS1" ]; then
 
     #Prompt edited from default
     [ "$PS1" = "\\s-\\v\\\$ " ] && PS1="[\u \w]\\$ "
-
+    
     if [ "x$SHLVL" != "x1" ]; then # We're not a login shell
         for i in /etc/profile.d/*.sh; do
 	    if [ -r "$i" ]; then
@@ -211,24 +211,10 @@ export LC_ALL=POSIX
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
 
-day=$(date +"%A" | cut -c 1-3)
-export HTTP_PROXY="http://29523:$day@proxy-west.aero.org:8080/"
-export http_proxy="http://29523:$day@proxy-west.aero.org:8080/"
-source ~/target/setup_env.sh
-#export CPLUS_INCLUDE_PATH=/usr/include/c++/4.8/:/usr/include/x86_64-linux-gnu/c++/4.8/:/usr/include/c++/4.8/backward/:/usr/lib/gcc/x86_64-linux-gnu/4.8/include/:/usr/local/include/:/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed/:/usr/include/x86_64-linux-gnu/:/usr/include/:/home/kai/target/include/:/home/kai/gnurad/includes/
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
 
-function wget() {
-    local wgetexe=`which wget`
-    $wgetexe --proxy-user=29523 --proxy-password=`date +%a` "@"
-}
-export -f wget
+export NVM_DIR="/home/kai/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-function proxyset() {
-    for proto in ftp http https;
-    do 
-	export {${proto}_proxy,${proto^^*}_PROXY}="$proto://29523:"`date +%a`"@proxy-west.aero.org:8080"
-    done
-    export all_proxy=$http_proxy
-    export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-}
-export -f proxyset
+nvm use v0.10.33 > /dev/null
