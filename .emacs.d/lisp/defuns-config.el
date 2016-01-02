@@ -57,3 +57,32 @@ and their terminal equivalents.")
   (or (and window-system (read-kbd-macro desc))
       (or (cdr (assoc desc real-keyboard-keys))
 	  (read-kbd-macro desc))))
+
+(defun tf-toggle-show-trailing-whitespace ()
+  "Toggle show-trailing-whitespace between t and nil"
+  (interactive)
+    (setq show-trailing-whitespace (not show-trailing-whitespace)))
+
+(defun scroll-up-and-recenter ()
+  "Scroll up and recenter"
+  (interactive)
+  (scroll-up-command)
+  (recenter))
+
+(defun scroll-down-and-recenter ()
+  "Scroll down and recenter"
+  (interactive)
+  (scroll-down-command)
+  (recenter))
+
+(defun eighty-column-mark ()
+  "Turn on marker for column 80"
+  (interactive)
+  (message "column 80 marker ON")
+  (column-marker-1 80))
+
+(defun column-mark-off ()
+  "Turn off column markers"
+  (interactive)
+  (message "column markers OFF")
+  (column-marker-1 -2))
