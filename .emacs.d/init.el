@@ -38,9 +38,8 @@
                                   ;; point is not there
 
 ;; set whitespace style
-(setq whitespace-style '(tabs spaces trailing lines-tail space-before-tab
-			      newline indentation empty space-after-tab
-			      space-mark tab-mark newline-mark))
+(setq whitespace-style '(face tabs spaces trailing lines-tail space-before-tab
+			      newline indentation empty space-after-tab))
 (setq suggest-key-bindings t) ;; suggest key binding when command executed using
                               ;; M-x
 (setq vc-follow-symlinks t) ;; follow symlinks w/o messages if target is
