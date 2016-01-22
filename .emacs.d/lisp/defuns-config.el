@@ -86,3 +86,11 @@ and their terminal equivalents.")
   (interactive)
   (message "column markers OFF")
   (column-marker-1 -2))
+
+(defun lint-on ()
+  "Turn google lint on"
+  (interactive)
+  (message "google lint ON")
+  (my:flymake-google-init)
+  (google-set-c-style)
+  (google-make-newline-indent))
