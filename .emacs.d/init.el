@@ -12,6 +12,8 @@
 (require 'ansi-color) ;; interpret ansi color escape sequences
 (require 'recentf) ;; recent files menu
 (require 'linum) ;; line numbers
+(require 'hlinum)
+(hlinum-activate) ;; highlight current linum
 (require 'smooth-scrolling) ;; scroll one line at a time
 (require 'whitespace) ;; highlight whitespace using faces
 (require 'column-marker) ;; highlight column
@@ -19,9 +21,17 @@
 (require 'dired-x) ;; extra features for dired mode
 (require 'compile) ;; compile file
 
+(require 'package) ;; MELPA package manager
+
 (ido-mode t) ;; standard ido-mode setup
 (menu-bar-mode -1) ;; turn off top menu bar (file, edit, etc)
 (normal-erase-is-backspace-mode 0) ;; delete deletes left not right
+
+(show-paren-mode 1) ;; show matching parentheses
+(require 'paren)
+(set-face-background 'show-paren-match (face-background 'default))
+(set-face-foreground 'show-paren-match "#def")
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
 
 ;; NOTE: put lets you define a value of a member of a symbol's propery list.
 ;; To enable a symbol you set the 'disabled value to nil.
@@ -48,6 +58,20 @@
 (global-linum-mode 1) ;; show line numbers
 (recentf-mode 1) ;; turn on recentf menu
 (setq recentf-max-menu-items 25)
+
+;; For reference on dired:
+;; See: http://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html#Dired
+(setq dired-isearch-filenames 'dwim) ;; in dired mode, if point is on a filename
+                                     ;; then search searches only filenames
+
+;; initialize MELPA
+;; ***** ALL requires for MELPA packages must come after package-initialize
+(add-to-list 'package-archives ;; MELPA configuration
+	     '("melpa" . "https://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -78,6 +102,39 @@
  )
 
 ;; ------------
+;; -- MELPA  --
+;; ------------
+;; USING MELPA:
+;; To install a package, use {M-x package-install RET <package> RET} or in the
+;; *Packages* buffer (activated by {M-x package-list-packages RET}) press i
+;; (install) by the package you want to install and press x (execute). To
+;; uninstall press d (delete) by the desired package and press x.
+
+;; Some packages are from the "C/C++ Development Environment for Emacs" article
+;; See: http://tuhdo.github.io/c-ide.html#sec-2
+
+;; Many of these packages are from the video series "Emacs as a C/C++ editor/IDE
+;; by user "b yuksel" on youtube.
+;; See: https://www.youtube.com/watch?v=HTUE03LnaXA
+
+;; UNCOMMENT the following if you installed and what to use auto-complete
+
+(require 'auto-complete) ;; GNU auto-complete
+(require 'auto-complete-config) ;; default auto-complete config
+(ac-config-default)
+
+;; flymake: Highlights in red lines that don't adhere to google style & tells
+;; you the error in the echo buffer
+(defun my:flymake-google-init ()
+  (require 'flymake-google-cpplint)
+  (custom-set-variables
+   '(flymake-google-cpplint-command "/usr/local/bin/cpplint"))
+  (flymake-google-cpplint-load))
+
+;; additional google style stuff (e.g.: indentation)
+(require 'google-c-style)
+
+;; ------------
 ;; -- Macros --
 ;; ------------
 (load "defuns-config.el")
@@ -100,6 +157,12 @@
 (global-set-key (kbd "C-c j") 'tabify)
 (global-set-key (kbd "C-c k") 'untabify)
 (global-set-key (kbd "C-z") nil)
+(global-set-key (kbd "C-c l") 'iedit-mode)
+(global-set-key (kbd "C-c g") 'lint-on)
+;; view mode lets you view a file by screenfuls without editing them.
+;; SPC scrolls forward. DEL scrolls backwards. s searchs
+(global-set-key (kbd "C-c v") 'view-mode)
+(global-set-key (kbd "C-x p") 'package-list-packages)
 
 ;; If having problems,
 ;; See: http://www.emacswiki.org/emacs/BackspaceKey
@@ -172,3 +235,13 @@
       (append '(("\\.ml[ily]?$" . tuareg-mode)
 		("\\.topml$" . tuareg-mode))
 	      auto-mode-alist))
+
+;; emacs Solarized theme
+(add-to-list 'custom-theme-load-path "~/emacs-color-theme-solarized")
+(load-theme 'solarized t)
+(set-frame-parameter nil 'background-mode 'dark)
+(set-terminal-parameter nil 'background-mode 'dark)
+(enable-theme 'solarized)
+
+;; change linum color
+(set-face-attribute 'linum nil :foreground "#586e75")

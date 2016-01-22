@@ -92,10 +92,10 @@ if [ "$PS1" ]; then
     # See: https://www.cs.utah.edu/~rdjackso/cgi-bin/blosxom.cgi/computers/linux/redhat
     if [ -x /usr/bin/tput ]; then
 	if [ "x`tput kbs`" != "x" ]; then # We can't do this with "dumb" terminal
-            stty erase `tput kbs`
+            [[ $- == *i* ]] && stty erase `tput kbs` # make sure is interactive shell
 	elif [ -x /usr/bin/wc ]; then
             if [ "`tput kbs|wc -c `" -gt 0 ]; then # We can't do this with "dumb" terminal
-		stty erase `tput kbs`
+		[[ $- == *i* ]] && stty erase `tput kbs`
             fi
 	fi
     fi
@@ -121,12 +121,17 @@ if [ "$PS1" ]; then
 		# using tmux/screen
 		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\033\\"'
 	    fi
+	    # set $WINDOW for tmux
+	    WINDOW=${WINDOW:-$(tmux display-message -p '#I')}
 	    ;;
 	*)
 	    [ -e /etc/sysconfig/bash-prompt-default ] && PROMPT_COMMAND=/etc/sysconfig/bash-prompt-default
 
 	    ;;
     esac
+    if [ "$TERM" == "screen" ] || [ "$TERM" == "xterm" ]; then
+    	export TERM="$TERM-256color"
+    fi
 
     # Bash eternal history
     # --------------------
@@ -155,9 +160,6 @@ if [ "$PS1" ]; then
     # define a bash function which escapes the string before writing it; if you
     # have a fix for that which doesn't slow the command down, please submit
     # a patch or pull request.
-
-    # set $WINDOW for tmux
-    WINDOW=${WINDOW:-$(tmux display-message -p '#I')}
     
     PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo -e $$\\t$USER\\t$HOSTNAME\\tscreen $WINDOW\\t`date +%D%t%T%t%Y%t%s`\\t$PWD"$(history 1)" >> ~/.bash_eternal_history'
 
@@ -197,7 +199,7 @@ shopt -s histappend
 PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
 
 # Reset erase character back to ^? from ^h
-stty erase ^?
+[[ $- == *i* ]] && stty erase ^?
 
 ## -----------------------
 ## -- 2) Set up aliases --
@@ -228,3 +230,5 @@ export GREP_COLOR='1;31' # green for matches
 # http://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021
 unset LANG
 export LC_ALL=POSIX
+
+eval `dircolors ~/.dircolors`
