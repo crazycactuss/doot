@@ -3,6 +3,6 @@
 int main() {
   int asdf;
   for (asdf = 0; asdf < 4; asdf++) {
-
+    asdf++;
   }
 }

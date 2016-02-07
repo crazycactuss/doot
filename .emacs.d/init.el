@@ -159,6 +159,7 @@
 (global-set-key (kbd "C-z") nil)
 (global-set-key (kbd "C-c l") 'iedit-mode)
 (global-set-key (kbd "C-c g") 'lint-on)
+(global-set-key (kbd "C-c r") 'revert-buffer)
 ;; view mode lets you view a file by screenfuls without editing them.
 ;; SPC scrolls forward. DEL scrolls backwards. s searchs
 (global-set-key (kbd "C-c v") 'view-mode)
