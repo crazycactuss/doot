@@ -245,7 +245,7 @@
 
 ;; emacs Solarized theme ONLY FOR LINUX. On Mac would SSH
 ;; Need to clone repository: emacs-color-theme-solarized
-(if (eq system-type 'darwin)
+(if (eq system-type 'gnu/linux)
     (progn
       (add-to-list 'custom-theme-load-path "~/emacs-color-theme-solarized")
       (load-theme 'solarized t)
