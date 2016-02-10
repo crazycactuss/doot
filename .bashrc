@@ -241,7 +241,7 @@ if [ "$platform" == "linux" ]; then
     unset LANG
     export LC_ALL=POSIX
     
-    # set ls solarized colors
+    # set ls solarized colors. Need to clone dircolors-solarized repository
     eval `dircolors ~/.dircolors`
 fi
 
