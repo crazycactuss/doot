@@ -219,7 +219,7 @@ set -o noclobber
 # 2.2) Listing, directories, and motion
 if [ "$platform" == "linux" ]; then
     alias ll="ls -alrhF --color"
-elif ["$platform" == "mac" ]; then
+elif [ "$platform" == "mac" ]; then
     alias ll="ls -alrhGF"
 fi
 alias ..='cd ..'
