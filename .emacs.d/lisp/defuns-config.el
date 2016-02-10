@@ -75,17 +75,29 @@ and their terminal equivalents.")
   (scroll-down-command)
   (recenter))
 
-(defun eighty-column-mark ()
-  "Turn on marker for column 80"
+(setq show-eighty-column-marker 'nil)
+(defun eighty-column-mark-toggle ()
+  "Toggle marker for column 80"
   (interactive)
-  (message "column 80 marker ON")
-  (column-marker-1 80))
+  (if show-eighty-column-marker
+      (progn
+	(message "column 80 marker OFF")
+	(column-marker-1 -2))
+    (progn
+      (message "column 80 marker ON")
+      (column-marker-1 80)))
+  (setq show-eighty-column-marker (not show-eighty-column-marker)))
+;; (defun eighty-column-mark ()
+;;   "Turn on marker for column 80"
+;;   (interactive)
+;;   (message "column 80 marker ON")
+;;   (column-marker-1 80))
 
-(defun column-mark-off ()
-  "Turn off column markers"
-  (interactive)
-  (message "column markers OFF")
-  (column-marker-1 -2))
+;; (defun column-mark-off ()
+;;   "Turn off column markers"
+;;   (interactive)
+;;   (message "column markers OFF")
+;;   (column-marker-1 -2))
 
 (defun lint-on ()
   "Turn google lint on"

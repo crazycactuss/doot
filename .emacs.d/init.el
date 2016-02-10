@@ -251,7 +251,10 @@
       (load-theme 'solarized t)
       (set-frame-parameter nil 'background-mode 'dark)
       (set-terminal-parameter nil 'background-mode 'dark)
-      (enable-theme 'solarized)))
+      (enable-theme 'solarized)
+
+      ;; change linum color
+      (set-face-attribute 'linum nil :foreground "#586e75")))
  
 ;; ------------
 ;; -- Macros --
@@ -271,8 +274,9 @@
 (global-set-key (kbd "M-d") 'delete-word)
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (global-set-key (kbd "C-c i") 'tf-toggle-show-trailing-whitespace)
-(global-set-key (kbd "C-c o") 'eighty-column-mark)
-(global-set-key (kbd "C-c p") 'column-mark-off)
+;; (global-set-key (kbd "C-c o") 'eighty-column-mark)
+;; (global-set-key (kbd "C-c p") 'column-mark-off)
+(global-set-key (kbd "C-c o") 'eighty-column-mark-toggle)
 (global-set-key (kbd "C-c j") 'tabify)
 (global-set-key (kbd "C-c k") 'untabify)
 (global-set-key (kbd "C-z") nil)
@@ -326,9 +330,6 @@
       (append '(("\\.ml[ily]?$" . tuareg-mode)
 		("\\.topml$" . tuareg-mode))
 	      auto-mode-alist))
-
-;; change linum color
-(set-face-attribute 'linum nil :foreground "#586e75")
 
 ;; ;; irony mode (c/c++/obj-c autocompletion)
 ;; ;; See: https://github.com/Sarcasm/irony-mode
