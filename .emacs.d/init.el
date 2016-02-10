@@ -243,7 +243,7 @@
 ;; (set-terminal-parameter nil 'background-mode 'light)
 ;; (enable-theme 'solarized))
 
-;; emacs Solarized theme ONLY FOR LINUX. On Mac would SSH
+;; emacs Solarized theme FOR LINUX ONLY
 ;; Need to clone repository: emacs-color-theme-solarized
 (if (eq system-type 'gnu/linux)
     (progn
@@ -251,10 +251,13 @@
       (load-theme 'solarized t)
       (set-frame-parameter nil 'background-mode 'dark)
       (set-terminal-parameter nil 'background-mode 'dark)
-      (enable-theme 'solarized)
+      (enable-theme 'solarized)))
 
-      ;; change linum color
-      (set-face-attribute 'linum nil :foreground "#586e75")))
+;; NOTE: ON MAC: need osx-terminal.app-colors-solarized color palette for
+;;               terminal preferences
+
+;; change linum color to make line numbers more readable
+(set-face-attribute 'linum nil :foreground "#586e75")
  
 ;; ------------
 ;; -- Macros --
