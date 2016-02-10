@@ -233,9 +233,9 @@
 ;; (add-hook 'c-mode-common-hook 'google-set-c-style)
 ;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
-;;(require 'color-theme)
-;;(setq color-theme-is-global t)
-;;(color-theme-initialize)
+;; (require 'color-theme)
+;; (setq color-theme-is-global t)
+;; (color-theme-initialize)
 
 ;; (color-theme-solarized) ;; solarized color scheme
 ;; (setq solarized-termcolors 256) ;; set 256 instead 16 colors (only mac)
