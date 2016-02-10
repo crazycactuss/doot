@@ -243,14 +243,16 @@
 ;; (set-terminal-parameter nil 'background-mode 'light)
 ;; (enable-theme 'solarized))
 
-;; emacs Solarized theme
+;; emacs Solarized theme ONLY FOR LINUX. On Mac would SSH
 ;; Need to clone repository: emacs-color-theme-solarized
-(add-to-list 'custom-theme-load-path "~/emacs-color-theme-solarized")
-(load-theme 'solarized t)
-(set-frame-parameter nil 'background-mode 'dark)
-(set-terminal-parameter nil 'background-mode 'dark)
-(enable-theme 'solarized)
-
+(if (eq system-type 'darwin)
+    (progn
+      (add-to-list 'custom-theme-load-path "~/emacs-color-theme-solarized")
+      (load-theme 'solarized t)
+      (set-frame-parameter nil 'background-mode 'dark)
+      (set-terminal-parameter nil 'background-mode 'dark)
+      (enable-theme 'solarized)))
+ 
 ;; ------------
 ;; -- Macros --
 ;; ------------
