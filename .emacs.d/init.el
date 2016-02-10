@@ -255,6 +255,10 @@
 
 ;; NOTE: ON MAC: need osx-terminal.app-colors-solarized color palette for
 ;;               terminal preferences
+;;  ALSO change: menlo regular 12 font w/ 1.01 line spacing
+;;               use bold fonts/allow blinking text ON
+;;               use bright colors for bold text OFF
+;;               option key as meta ON
 
 ;; change linum color to make line numbers more readable
 (set-face-attribute 'linum nil :foreground "#586e75")
