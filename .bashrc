@@ -41,7 +41,12 @@
 #      --norc option. The --rcfile file option will force Bash to read and
 #      execute commands from file instead of ~/.bashrc.
 
-
+platform='unknown'
+if [ "`uname`" == "Linux" ]; then # Linux OS
+    platform='linux'
+elif ["`uname`" == "Darwin" ]; then # Mac OS
+    platform='mac'
+fi
 
 # -----------------------------------
 # -- 1.1) Set up umask permissions --
@@ -212,7 +217,11 @@ alias cp="cp -i"
 set -o noclobber
 
 # 2.2) Listing, directories, and motion
-alias ll="ls -alrhF --color"
+if [ "$platform" == "linux" ]; then
+    alias ll="ls -alrhF --color"
+elif ["$platform" == "mac" ]; then
+    alias ll="ls -alrhGF"
+fi
 alias ..='cd ..'
 alias du='du -ch'
 
@@ -225,10 +234,18 @@ export VISUAL='emacs -nw'
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;31' # green for matches
 
-# 2.5) sort options
-# Ensures cross-platform sorting behavior of GNU sort.
-# http://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021
-unset LANG
-export LC_ALL=POSIX
+if [ "$platform" == "linux" ]; then
+    # LINUX 2.5) sort options
+    # Ensures cross-platform sorting behavior of GNU sort.
+    # http://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021
+    unset LANG
+    export LC_ALL=POSIX
+    
+    # set ls solarized colors
+    eval `dircolors ~/.dircolors`
+fi
 
-eval `dircolors ~/.dircolors`
+if [ "$platform" == "mac" ]; then
+    # MAC 2.5) Matlab
+    alias matlab="matlab -nodesktop"
+fi

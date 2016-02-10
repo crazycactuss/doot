@@ -64,6 +64,26 @@
 (setq dired-isearch-filenames 'dwim) ;; in dired mode, if point is on a filename
                                      ;; then search searches only filenames
 
+;; CEDET CONFIGURATION (UNCOMMENT the following if you wish to use this instead
+;;     of irony-mode. irony-mode should be faster since it uses the clang
+;;     library.)
+
+;; ;; turn on Semantic for CEDET
+;; (semantic-mode 1)
+;; ;; define func that adds semantic as suggestion backend to auto-complete
+;; (defun my:add-semantic-to-autocomplete()
+;;   (add-to-list 'ac-sources 'ac-source-semantic))
+;; (add-hook 'c-mode-common-hook 'my:add-semantic-to-autocomplete)
+;; ;; turn on ede mode
+;; (global-ede-mode 1)
+;; ;; turn on auto reparsing open buffers in semantic during idle emacs
+;; (global-semantic-idle-scheduler-mode 1)
+;;
+;; ;; *************** EDIT PROJECTS FOR CEDET AUTOCOMPLETE HERE ***************
+;; (ede-cpp-root-project "my project" :file "~/.emacs.d/test/src/main.cpp"
+;;     		         :include-path '("/../my_inc"))
+;; ;; can use system-include-path for setting up system header file locations
+
 ;; initialize MELPA
 ;; ***** ALL requires for MELPA packages must come after package-initialize
 (add-to-list 'package-archives ;; MELPA configuration
@@ -113,26 +133,122 @@
 ;; Some packages are from the "C/C++ Development Environment for Emacs" article
 ;; See: http://tuhdo.github.io/c-ide.html#sec-2
 
+;; BEGIN COMPANY
+
+;; UNCOMMENT the following if you installed and what to use company-mode (as
+;; opposed to auto-complete)
+
+;; ;; Turn on company (complete any) mode for all files. May want to change to a
+;; ;; hook for a select number of modes (e.g.: c/c++)
+;; (add-hook 'after-init-hook 'global-company-mode)
+;; ;; Don't turn on too quickly, like when writing comments. Note that 0.5 sec is
+;; ;; the default. 0 or 0.1 will activate very quickly to emulate auto-complete.
+;; (setq company-idle-delay 0)
+;; ;; Don't put a lower bound on the number of characters. Activate as frequently
+;; ;; as possible. Note that it won't activate if the preceding part of the line is
+;; ;; all whitespace (if set to 0). Set to 1 so that when writing comments it won't
+;; ;; activate before words in the middle of a sentence.
+;; (setq company-minimum-prefix-length 1)
+
+;; ;; Try to get company to complete with TAB key (when appropriate)
+;; ;; (global-set-key (kbd "TAB") 'company-complete-common)
+;; ;; (defun complete-or-indent ()
+;; ;;   (interactive)
+;; ;;   (if (company-manual-begin)
+;; ;;       (company-complete-common)
+;; ;;     (indent-according-to-mode)))
+;; ;; (global-set-key (kbd "TAB") 'complete-or-indent)
+
+;; (global-set-key (kbd "C-c d") 'company-show-doc-buffer)
+;; (global-set-key (kbd "M-RET") 'company-complete-common)
+;; ;; **** NOTE: Might want a frontend that inline expands and doesn't show tooltip
+;; ;; until navigating is done, like auto-complete. Tried adding
+;; ;; company-preview-frontend to company-frontends, but tooltip still appears and
+;; ;; looks ugly.
+;; ;; See: http://www.emacswiki.org/emacs/CompanyMode
+
+;; ;; Customize company colors (doesn't work for some reason)
+;; ;; See: http://www.emacswiki.org/emacs/CompanyMode#toc5
+;; ;; (require 'color)
+;; ;; (let ((bg (face-attribute 'default :background)))
+;; ;;   (custom-set-faces
+;; ;;    `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+;; ;;    `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+;; ;;    `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+;; ;;    `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+;; ;;   `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+
+;; END COMPANY
+
 ;; Many of these packages are from the video series "Emacs as a C/C++ editor/IDE
 ;; by user "b yuksel" on youtube.
 ;; See: https://www.youtube.com/watch?v=HTUE03LnaXA
 
-;; UNCOMMENT the following if you installed and what to use auto-complete
+;; UNCOMMENT the following if you installed and what to use auto-complete (as
+;; opposed to company-mode)
 
 (require 'auto-complete) ;; GNU auto-complete
 (require 'auto-complete-config) ;; default auto-complete config
 (ac-config-default)
 
+;; UNCOMMENT the following if you installed and want to use yasnippet
+
+;; (require 'yasnippet)
+;; (yas-global-mode 1) ;; turn yasnippet on for all buffers
+
+;; UNCOMMENT the following if you installed and want to use auto-complete-c-headers
+
+;; ;; define func that initializes auto-complete-c-headers and is called for c/c++
+;; ;; hooks
+;; (defun my:ac-c-header-init ()
+;;   (require 'auto-complete-c-headers)
+;;   (add-to-list 'ac-sources 'ac-source-c-headers)
+;;   (add-to-list 'achead:include-directories '"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1"))
+;; ;; call func from c/c++ mode hooks
+;; (add-hook 'c++-mode-hook 'my:ac-c-header-init)
+;; (add-hook 'c-mode-hook 'my:ac-c-header-init)
+
 ;; flymake: Highlights in red lines that don't adhere to google style & tells
 ;; you the error in the echo buffer
 (defun my:flymake-google-init ()
   (require 'flymake-google-cpplint)
-  (custom-set-variables
-   '(flymake-google-cpplint-command "/usr/local/bin/cpplint"))
+  (if (eq system-type 'gnu/linux)
+      (custom-set-variables
+       '(flymake-google-cpplint-command "/usr/local/bin/cpplint")))
+  (if (eq system-type 'darwin)
+      (custom-set-variables
+       '(flymake-google-cpplint-command "/Users/kaiyang/anaconda/bin/cpplint")))
   (flymake-google-cpplint-load))
+
+;; UNCOMMENT the following if you want lint to be auto-on for all c/c++ files
+
+;; (add-hook 'c-mode-hook 'my:flymake-google-init)
+;; (add-hook 'c++-mode-hook 'my:flymake-google-init)
 
 ;; additional google style stuff (e.g.: indentation)
 (require 'google-c-style)
+
+;; UNCOMMENT the following if you want lint to be auto-on for all c/c++ files
+
+;; (add-hook 'c-mode-common-hook 'google-set-c-style)
+;; (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+;;(require 'color-theme)
+;;(setq color-theme-is-global t)
+;;(color-theme-initialize)
+
+;; (color-theme-solarized) ;; solarized color scheme
+;; (setq solarized-termcolors 256) ;; set 256 instead 16 colors (only mac)
+;; (set-frame-parameter nil 'background-mode 'light)
+;; (set-terminal-parameter nil 'background-mode 'light)
+;; (enable-theme 'solarized))
+
+;; emacs Solarized theme
+(add-to-list 'custom-theme-load-path "~/emacs-color-theme-solarized")
+(load-theme 'solarized t)
+(set-frame-parameter nil 'background-mode 'dark)
+(set-terminal-parameter nil 'background-mode 'dark)
+(enable-theme 'solarized)
 
 ;; ------------
 ;; -- Macros --
@@ -168,15 +284,15 @@
 ;; If having problems,
 ;; See: http://www.emacswiki.org/emacs/BackspaceKey
 ;; See: https://www.gnu.org/software/emacs/manual/html_node/efaq/Backspace-invokes-help.html
-(global-set-key "\C-h" 'backward-delete-char)
-(global-set-key "\M-h" 'backward-delete-word)
+(global-set-key (kbd "C-h") 'backward-delete-char)
+(global-set-key (kbd "M-h") 'backward-delete-word)
 (global-set-key (kbd "C-x ?") 'help-command) ;; "C-?" fails. Sends ASCII 127?
 
 ;; ------------
 ;; -- Modes  --
 ;; ------------
 
-;; Octave mode
+;; Octave mode (no longer relevant since matlab)
 ;; (autoload 'octave-mode "octave-mod" nil t)
 ;; (setq auto-mode-alist
 ;;       (cons '("\\.m$" . octave-mode) auto-mode-alist))
@@ -199,35 +315,6 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
 
-;; Rust emacs mode. Check out https://github.com/rust-lang/rust-mode and then
-;;     change the load path to its location
-(add-to-list 'load-path "/Users/kaiyang/rust-mode/")
-(autoload 'rust-mode "rust-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-
-;; Matlab mode
-(autoload 'matlab-mode "matlab" "Enter Matlab mode." t)
-(setq auto-mode-alist (cons '("\\.m\\'" . matlab-mode) auto-mode-alist))
-(autoload 'matlab-shell "matlab" "Interactive Matlab mode." t)
-
-(defun my-matlab-mode-hook ()
-  (setq matlab-function-indent t); if you want function bodies indented
-  (setq fill-column 76); where auto-fill should wrap
-  (font-lock-mode 1)
-  (turn-on-auto-fill)
-  ;; (if (not running-xemacs)
-  (matlab-mode-hilit)
-  ;;   )
-  )
-(setq matlab-mode-hook 'my-matlab-mode-hook)
-
-(defun my-matlab-shell-mode-hook ()
-  (setq matlab-function-indent t); if you want function bodies indented
-  (setq fill-column 76); where auto-fill should wrap
-  (font-lock-mode 1)
-  )
-(setq matlab-shell-mode-hook 'my-matlab-shell-mode-hook)
-
 ;; OCaml mode
 (add-to-list 'load-path "~/.emacs.d/lisp/tuareg-mode")
 (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
@@ -237,12 +324,144 @@
 		("\\.topml$" . tuareg-mode))
 	      auto-mode-alist))
 
-;; emacs Solarized theme
-(add-to-list 'custom-theme-load-path "~/emacs-color-theme-solarized")
-(load-theme 'solarized t)
-(set-frame-parameter nil 'background-mode 'dark)
-(set-terminal-parameter nil 'background-mode 'dark)
-(enable-theme 'solarized)
-
 ;; change linum color
 (set-face-attribute 'linum nil :foreground "#586e75")
+
+;; ;; irony mode (c/c++/obj-c autocompletion)
+;; ;; See: https://github.com/Sarcasm/irony-mode
+;; ;; FOR MAC: You need to first install llvm for libclang and cmake, which are
+;; ;;     used for irony-server. Use `brew install llvm --with-clang` and
+;; ;;     `brew install cmake`. When you first start irony-mode you need to build
+;; ;;     and install irony-server using {M-x irony-install-server RET}. It will
+;; ;;     give you a cmake command to execute. Before executing it, you need to
+;; ;;     provide the path llvm was installed in by adding the flags:
+;; ;;     -DCMAKE_PREFIX_PATH=/usr/local/opt/llvm -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON
+;; ;;     After compiling, you need to then set the runtime path for irony-server:
+;; ;;     `install_name_tool -change @rpath/libclang.dylib /usr/local/opt/llvm/lib/libclang.dylib ~/.emacs.d/irony/bin/irony-server`
+;; ;; See: https://github.com/Sarcasm/irony-mode/issues/167
+;; ;; FOR DEBIAN: Install libclang-3.4-dev
+;; (add-hook 'c++-mode-hook 'irony-mode)
+;; (add-hook 'c-mode-hook 'irony-mode)
+;; (add-hook 'objc-mode-hook 'irony-mode)
+
+;; ;; replace the `completion-at-point' and `complete-symbol' bindings in
+;; ;; irony-mode's buffers by irony-mode's function
+;; (defun my-irony-mode-hook ()
+;;   (define-key irony-mode-map [remap completion-at-point]
+;;     'irony-completion-at-point-async)
+;;   (define-key irony-mode-map [remap complete-symbol]
+;;     'irony-completion-at-point-async))
+;; (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+;; **** IMPORTANT!!!!
+;; CHANGES: removed irony installed via MELPA (this led to requiring removing
+;; company-irony too since irony didn't exist anymore. Instead, I downloaded
+;; irony-mode v0.0.1-alpha, which is identical to the version in yuksel's
+;; video series. This version still had irony-enable and the auto-complete
+;; plugin built-in. I followed his video directly, with the only differences
+;; being instead of explicitly setting LD_LIBRARY path I used install_name_tool.
+;; I also used the aforementioned cmake flags to locate llvm, which I installed
+;; via brew (instructions detailed in modern version of irony-mode). Also,
+;; doxygen was installed via brew instead of port (small difference).
+;; **** NOTE: When using this version of irony-mode, you must use {C-c C-b}
+;; and press {l} to choose to load a .clang_complete that describes compilation
+;; include directories (from gcc include flags)
+;; **** NOTE: When you access a file in a newly opened project for this emacs
+;; session, you may receive the following error:
+;;     Type `C-c C-b' to configure project
+;; Just ignore the message. It's a legacy of the old irony-mode-develop code. If
+;; it bothers you, do the following:
+;;     To see what are the flags sent to the irony-server process you can call
+;;     M-: (kill-new (mapconcat 'identity (irony-get-libclang-flags) " ")) RET.
+;;     Use C-y in the scratch buffer to paste.
+;; and make sure the outputted flags match those in your .clang_complete
+
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/irony-mode/elisp"))
+(require 'irony)
+(irony-enable 'ac) ;; enable ac plugin
+(defun my:irony-enable()
+  (when (member major-mode irony-known-modes)
+    (irony-mode 1)
+    (irony-cdb-load-clang-complete)))
+(add-hook 'c++-mode-hook 'my:irony-enable)
+(add-hook 'c-mode-hook 'my:irony-enable)
+
+;; ;; configure irony for auto-complete (dependency ac-irony.el)
+;; ;; **** NOTE: irony-mode documentation says to install ac-irony via MELPA, but
+;; ;; it doesn't exist in the package database. ac-irony didn't exist in yuksel's
+;; ;; video series, and it hasn't been updated in two years. Maybe deprecated?
+;; ;; Instead, I downloaded ac-irony.el directly from its github.
+;; ;; See: https://github.com/Sarcasm/ac-irony
+;; ;; **** RESULT: ac-irony isn't really maintained anymore. Author favors company
+;; ;; so you should use company-irony. HOWEVER, the code is complete enough. Refer
+;; ;; below for usage.
+;; ;; See: https://github.com/Sarcasm/ac-irony/issues/1
+;; ;; See: https://github.com/Sarcasm/ac-irony#status
+;; ;; For a comparison of auto-complete and company,
+;; ;; See: https://github.com/company-mode/company-mode/issues/68
+;; (require 'ac-irony)
+
+;; ;; (defun my-ac-irony-setup ()
+;; ;;   ;; be cautious, if yas is not enabled before (auto-complete-mode 1), overlays
+;; ;;   ;; *may* persist after an expansion.
+;; ;;   (yas-minor-mode 1)
+;; ;;   (auto-complete-mode 1)
+;; ;;   (add-to-list 'ac-sources 'ac-source-irony)
+;; ;;   (define-key irony-mode-map (kbd "TAB") 'ac-complete-irony-async))
+
+;; ;; **** NOTE: ac-irony github suggested the previous setup function, but I think
+;; ;; all we need is to add ac-source-irony to ac-sources. ac-complete-irony-async
+;; ;; starts completion manually. This is useful for if you don't have any prefix
+;; ;; at all to complete with (e.g.: a method). Company will be able to detect
+;; ;; member accesses automatically (while not activating if it's the beginning
+;; ;; of a line). However, I like the inline expansion of auto-complete better and
+;; ;; not showing the tooltip until needed.
+;; ;; **** NOTE: auto-complete is a little weird though. Depending on if you call
+;; ;; ac-complete-irony-async, it might not show documentation as auto-complete
+;; ;; normally would.
+
+;; (defun my-ac-irony-setup ()
+;;   (add-to-list 'ac-sources 'ac-source-irony)
+;;   (define-key irony-mode-map (kbd "M-RET") 'ac-complete-irony-async))
+;; (add-hook 'irony-mode-hook 'my-ac-irony-setup)
+
+;; ;; Configure company-irony
+;; (eval-after-load 'company
+;;     '(add-to-list 'company-backends 'company-irony))
+;; ;; **** NOTE: Write a .clang_complete in project root directory with include
+;; ;; compiler flags to reference other files.
+
+;; MAC-SPECIFIC CONFIGURATION
+(if (eq system-type 'darwin)
+    ;; Rust emacs mode. Check out https://github.com/rust-lang/rust-mode and then
+    ;;     change the load path to its location
+    (progn
+      (add-to-list 'load-path "/Users/kaiyang/rust-mode/")
+      (autoload 'rust-mode "rust-mode" nil t)
+      (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
+      ;; Matlab mode
+      (autoload 'matlab-mode "matlab" "Enter Matlab mode." t)
+      (setq auto-mode-alist (cons '("\\.m\\'" . matlab-mode) auto-mode-alist))
+      (autoload 'matlab-shell "matlab" "Interactive Matlab mode." t)
+
+      (defun my-matlab-mode-hook ()
+	(setq matlab-function-indent t); if you want function bodies indented
+	(setq fill-column 76); where auto-fill should wrap
+	(font-lock-mode 1)
+	(turn-on-auto-fill)
+	;; (if (not running-xemacs)
+	(matlab-mode-hilit)
+	;;   )
+	)
+      (setq matlab-mode-hook 'my-matlab-mode-hook)
+
+      (defun my-matlab-shell-mode-hook ()
+	(setq matlab-function-indent t); if you want function bodies indented
+	(setq fill-column 76); where auto-fill should wrap
+	(font-lock-mode 1)
+	)
+      (setq matlab-shell-mode-hook 'my-matlab-shell-mode-hook)
+      )
+)

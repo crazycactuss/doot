@@ -1,5 +1,5 @@
 # .bash_profile file
-# Courtesty of Balaji S. Srinivasan <balajis@stanford.edu>
+# Courtesy of Balaji S. Srinivasan <balajis@stanford.edu>
 #
 # FOR BASH TIPS,
 # See: http://www.ukuug.org/events/linux2003/papers/bash_tips/
@@ -41,6 +41,12 @@
 #      --norc option. The --rcfile file option will force Bash to read and
 #      execute commands from file instead of ~/.bashrc.
 
+platform='unknown'
+if [ "`uname`" == "Linux" ]; then # Linux OS
+    platform='linux'
+elif ["`uname`" == "Darwin" ]; then # Mac OS
+    platform='mac'
+fi
 
 
 ## -----------------------
@@ -61,4 +67,30 @@ export PATH="$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="/usr/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
+if [ "$platform" == "linux" ]; then
+    export PATH="/usr/local/sbin:$PATH"
+fi
+
+if [ "$platform" == "mac" ]; then
+    # added by Anaconda 2.0.1 installer
+    export PATH="/Users/kaiyang/anaconda/bin:$PATH"
+
+    # pebble 2.9 stuff
+    export PATH="$HOME/Projects/lahacks_2015/pebble/PebbleSDK-2.9/bin:$PATH"
+
+    # matlab
+    export PATH="/Applications/MATLAB_R2015a.app/bin:$PATH"
+
+    # change mac locale to UTF-8
+    export LC_ALL=en_US.UTF-8
+    export LANG=en_US.UTF-8
+
+    # add MAMP bin to path
+    export PATH="$PATH:/Applications/MAMP/Library/bin/mysql"
+
+    # julia
+    export PATH="/Applications/Julia-0.3.7.app/Contents/Resources/julia/bin:$PATH"
+
+    # OPAM (octave pkg manager) configuration
+    . /Users/kaiyang/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+fi

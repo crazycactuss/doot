@@ -3,4 +3,8 @@ recentf
 *~
 *#
 elpa
+irony-mode
+semanticdb
+ac-comphist.dat
+ede-projects.el
 *.dat
