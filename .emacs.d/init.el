@@ -244,6 +244,7 @@
 ;; (enable-theme 'solarized))
 
 ;; emacs Solarized theme
+;; Need to clone repository: emacs-color-theme-solarized
 (add-to-list 'custom-theme-load-path "~/emacs-color-theme-solarized")
 (load-theme 'solarized t)
 (set-frame-parameter nil 'background-mode 'dark)

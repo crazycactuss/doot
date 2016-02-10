@@ -44,7 +44,7 @@
 platform='unknown'
 if [ "`uname`" == "Linux" ]; then # Linux OS
     platform='linux'
-elif ["`uname`" == "Darwin" ]; then # Mac OS
+elif [ "`uname`" == "Darwin" ]; then # Mac OS
     platform='mac'
 fi
 
