@@ -357,7 +357,8 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-ct" 'org-todo)
 (define-key global-map "\C-cs" 'org-schedule)
-(setq org-agenda-files (list "/Users/kaiyang/Google Drive/org/stuff.org"))
+(if (eq system-type 'darwin)
+    (setq org-agenda-files (list "/Users/kaiyang/Google Drive/org/stuff.org")))
 (setq org-log-done t)
 
 ;; -----------------
