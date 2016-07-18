@@ -301,7 +301,7 @@
 (global-set-key (kbd "C-c j") 'tabify)
 (global-set-key (kbd "C-c k") 'untabify)
 (global-set-key (kbd "C-z") nil)
-(global-set-key (kbd "C-c l") 'iedit-mode)
+(global-set-key (kbd "C-c e") 'iedit-mode)
 (global-set-key (kbd "C-c g") 'lint-on)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 ;; view mode lets you view a file by screenfuls without editing them.
@@ -351,6 +351,14 @@
       (append '(("\\.ml[ily]?$" . tuareg-mode)
 		("\\.topml$" . tuareg-mode))
 	      auto-mode-alist))
+
+;; Org mode
+(require 'org)
+(define-key global-map "\C-ca" 'org-agenda)
+(define-key global-map "\C-ct" 'org-todo)
+(define-key global-map "\C-cs" 'org-schedule)
+(setq org-agenda-files (list "/Users/kaiyang/Google Drive/org/stuff.org"))
+(setq org-log-done t)
 
 ;; -----------------
 ;; -- IRONY Mode  --

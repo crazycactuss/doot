@@ -25,7 +25,9 @@ ln -s doot/.emacs.d .
 
 **3) Install emacs MELPA packages**
 By default, the following are required:
-* auto-complete
+* company
+* company-irony
+* org
 * irony-mode (requires additional setup. Refer to init.el)
 * iedit
 * flymake-google-cpplint
@@ -34,8 +36,7 @@ By default, the following are required:
 
 Optionally, you can install (and uncomment corresponding configuration in
 init.el):
-* company
-* company-irony
+* auto-complete
 * auto-complete-c-headers
 * yasnippet
 
