@@ -150,7 +150,7 @@
 (add-hook 'after-init-hook 'global-company-mode)
 ;; Don't turn on too quickly, like when writing comments. Note that 0.5 sec is
 ;; the default. 0 or 0.1 will activate very quickly to emulate auto-complete.
-(setq company-idle-delay 0.1)
+(setq company-idle-delay 0.3)
 ;; Don't put a lower bound on the number of characters. Activate as frequently
 ;; as possible. Note that it won't activate if the preceding part of the line is
 ;; all whitespace (if set to 0). Set to 1 so that when writing comments it won't
@@ -257,6 +257,9 @@
 
 ;; emacs Solarized theme FOR LINUX ONLY
 ;; Need to clone repository: emacs-color-theme-solarized
+;; when starting emacs, we get errors about being unable to load colors
+;; we can fix this by setting the termcolors to 256, but this messses up
+;; the actual colors
 (if (eq system-type 'gnu/linux)
     (progn
       (add-to-list 'custom-theme-load-path "~/emacs-color-theme-solarized")
