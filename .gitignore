@@ -8,3 +8,6 @@ semanticdb
 ac-comphist.dat
 ede-projects.el
 *.dat
+org-mode
+irony
+*_old
