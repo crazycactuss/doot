@@ -88,44 +88,45 @@ fi
 #  Set various bash parameters based on whether the shell is 'interactive'
 #  or not.  An interactive shell is one you type commands into, a
 #  non-interactive one is the bash environment used in scripts.
-if [ "$PS1" ]; then
+#  *********** IS THIS STUFF NECESSARY??? ***********
+## if [ "$PS1" ]; then
 
     # `tput kbs` returns the character in the terminfo database for the
     # backspace character: ^h. `stty erase <char>` sets <char> as the character
     # for erasing, which is normally ASCII 127: ^?. We set it to ^h temporarily
     # here and reset it to ^? later. For reference,
     # See: https://www.cs.utah.edu/~rdjackso/cgi-bin/blosxom.cgi/computers/linux/redhat
-    if [ -x /usr/bin/tput ]; then
-	if [ "x`tput kbs`" != "x" ]; then # We can't do this with "dumb" terminal
-            [[ $- == *i* ]] && stty erase `tput kbs` # make sure is interactive shell
-	elif [ -x /usr/bin/wc ]; then
-            if [ "`tput kbs|wc -c `" -gt 0 ]; then # We can't do this with "dumb" terminal
-		[[ $- == *i* ]] && stty erase `tput kbs`
-            fi
-	fi
-    fi
+    ## if [ -x /usr/bin/tput ]; then
+	## if [ "x`tput kbs`" != "x" ]; then # We can't do this with "dumb" terminal
+            ## [[ $- == *i* ]] && stty erase `tput kbs` # make sure is interactive shell
+	## elif [ -x /usr/bin/wc ]; then
+            ## if [ "`tput kbs|wc -c `" -gt 0 ]; then # We can't do this with "dumb" terminal
+		## [[ $- == *i* ]] && stty erase `tput kbs`
+            ## fi
+	## fi
+    ## fi
     case $TERM in
 	xterm*)
-	    if [ -e /etc/sysconfig/bash-prompt-xterm ]; then
-		PROMPT_COMMAND=/etc/sysconfig/bash-prompt-xterm
-	    else
+	    ## if [ -e /etc/sysconfig/bash-prompt-xterm ]; then
+		## PROMPT_COMMAND=/etc/sysconfig/bash-prompt-xterm
+	    ## else
 		# See: https://en.wikipedia.org/wiki/ANSI_escape_code
 		# \033 is ASCII <ESC>. \007 is ASCII bell (plays audio
 		# bell). The \033]0;<text>\007 escape sequence changes the
 		# window title to <text>
 	    	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
-	    fi
+	    ## fi
 	    ;;
 	# a window in screen or tmux
 	screen)
-	    if [ -e /etc/sysconfig/bash-prompt-screen ]; then
-		PROMPT_COMMAND=/etc/sysconfig/bash-prompt-screen
-	    else
+	    ## if [ -e /etc/sysconfig/bash-prompt-screen ]; then
+		## PROMPT_COMMAND=/etc/sysconfig/bash-prompt-screen
+	    ## else
 		# The \033_<text>\033\\ sequence captures <text> and xterm
 		# ignores it. We don't want to change the window title if
 		# using tmux/screen
 		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\033\\"'
-	    fi
+	    ## fi
 	    # set $WINDOW for tmux
 	    WINDOW=${WINDOW:-$(tmux display-message -p '#I')}
 	    ;;
@@ -171,15 +172,15 @@ if [ "$PS1" ]; then
     # Turn on checkwinsize (checks LINES and COLUMNS every prompt)
     shopt -s checkwinsize
 
-    if [ "x$SHLVL" != "x1" ]; then # We're not a login shell
+    ## if [ "x$SHLVL" != "x1" ]; then # We're not a login shell
 	# normally nothing here
-        for i in /etc/profile.d/*.sh; do
-	    if [ -r "$i" ]; then
-	        . $i
-	    fi
-	done
-    fi
-fi
+        ## for i in /etc/profile.d/*.sh; do
+	    ## if [ -r "$i" ]; then
+	        ## . $i
+	    ## fi
+	## done
+    ## fi
+## fi
 
 # About set & shopt: `help shopt` and `help set` (which are almost the same)
 # Normally `shopt -s/-u <option>` or `set -o/+o <option>'. For reference,
@@ -204,7 +205,7 @@ shopt -s histappend
 PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
 
 # Reset erase character back to ^? from ^h
-[[ $- == *i* ]] && stty erase ^?
+## [[ $- == *i* ]] && stty erase ^?
 
 ## -----------------------
 ## -- 2) Set up aliases --
@@ -245,7 +246,8 @@ if [ "$platform" == "linux" ]; then
     eval `dircolors ~/.dircolors`
 fi
 
-if [ "$platform" == "mac" ]; then
+# **** UNCOMMENT IF MATLAB IS INSTALLED
+# if [ "$platform" == "mac" ]; then
     # MAC 2.5) Matlab
-    alias matlab="matlab -nodesktop"
-fi
+    # alias matlab="matlab -nodesktop"
+# fi

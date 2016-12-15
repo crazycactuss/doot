@@ -39,7 +39,7 @@
 (put 'upcase-region 'disabled nil)
 
 ;; NOTE: (setq <thing> ...) is equivalent to (set '<thing> ...). Symbols are
-;; always quoted.
+;;       always quoted.
 (setq column-number-mode t) ;; display column number on bottom info bar
 (setq inhibit-startup-message t) ;; don't display emacs startup message
 (setq save-abbrevs nil) ;; don't automatically save newly defined abbreviations
@@ -295,8 +295,8 @@
 (global-set-key (kbd "M-d") 'delete-word)
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 (global-set-key (kbd "C-c i") 'tf-toggle-show-trailing-whitespace)
-;; (global-set-key (kbd "C-c o") 'eighty-column-mark)
-;; (global-set-key (kbd "C-c p") 'column-mark-off)
+;; (global-set-key (kbd "C-c o") 'eighty-column-mark) ;; DEPRECATED - use eighty-column-mark-toggle instead
+;; (global-set-key (kbd "C-c p") 'column-mark-off) ;; DEPRECATED - use eighty-column-mark-toggle instead
 (global-set-key (kbd "C-c o") 'eighty-column-mark-toggle)
 (global-set-key (kbd "C-c j") 'tabify)
 (global-set-key (kbd "C-c k") 'untabify)
