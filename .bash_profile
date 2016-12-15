@@ -48,7 +48,6 @@ elif [ "`uname`" == "Darwin" ]; then # Mac OS
     platform='mac'
 fi
 
-
 ## -----------------------
 ## -- 1) Import .bashrc --
 ## -----------------------
@@ -63,7 +62,8 @@ fi
 # Configure PATH
 #  - These are line by line so that you can kill one without affecting the others.
 #  - Lowest priority first, highest priority last.
-export PATH="$PATH"
+# **** THESE LINES WILL PROBABLY REQUIRE EDITING AFTER INSTALLATION
+#export PATH="$PATH"
 export PATH="$HOME/bin:$PATH"
 #export PATH="/usr/bin:$PATH"
 #export PATH="/usr/local/bin:$PATH"
@@ -71,6 +71,7 @@ if [ "$platform" == "linux" ]; then
     export PATH="/usr/local/sbin:$PATH"
 fi
 
+# **** UNCOMMENT IF NEW MAC-SPECIFIC PATHS ARE INSTALLED
 # if [ "$platform" == "mac" ]; then
     # added by Anaconda 2.0.1 installer
     #export PATH="/Users/kaiyang/anaconda/bin:$PATH"
