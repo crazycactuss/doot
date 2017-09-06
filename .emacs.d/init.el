@@ -25,6 +25,8 @@
 
 (ido-mode t) ;; standard ido-mode setup
 (menu-bar-mode -1) ;; turn off top menu bar (file, edit, etc)
+(tool-bar-mode -1) ;; turn off tool bar
+(toggle-scroll-bar -1) ;; turn off scroll bar
 (normal-erase-is-backspace-mode 0) ;; delete deletes left not right
 
 (show-paren-mode 1) ;; show matching parentheses
@@ -56,13 +58,26 @@
                             ;; version-controlled (b/c it's probably git, which
                             ;; doesn't matter
 (global-linum-mode 1) ;; show line numbers
+(global-auto-revert-mode t) ;; automatically revert buffers
 (recentf-mode 1) ;; turn on recentf menu
 (setq recentf-max-menu-items 25)
+
+(setq-default indent-tabs-mode nil)
+(setq-default c-basic-offset 4)
+;; (setq-default tab-width 4) ;; display tab with 4 spaces
+;; (setq-default tab-stop-list '(4 8))
+;; (defvaralias 'c-basic-offset 'tab-width) ;; c indent is 4 spaces
 
 ;; For reference on dired:
 ;; See: http://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html#Dired
 (setq dired-isearch-filenames 'dwim) ;; in dired mode, if point is on a filename
                                      ;; then search searches only filenames
+
+;; highlight TODO, FIXME, BUG in c files
+(add-hook 'c-mode-common-hook
+	  (lambda ()
+	    (font-lock-add-keywords nil
+				    '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
 
 ;; ---------------------
 ;; --- CEDET Settings --
@@ -103,28 +118,19 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit autoface-default :strike-through nil :underline nil
-			 :slant normal :weight normal :height 120 :width normal
-			 :family "monaco"))))
+ '(default ((t (:inherit autoface-default :strike-through nil :underline nil :slant normal :weight normal :height 120 :width normal :family "monaco"))))
  '(column-marker-1 ((t (:background "red"))))
  '(diff-added ((t (:foreground "cyan"))))
  '(flymake-errline ((((class color) (background light)) (:background "Red"))))
- '(font-lock-comment-face ((((class color) (min-colors 8) (background light))
-			    (:foreground "red"))))
+ '(font-lock-comment-face ((((class color) (min-colors 8) (background light)) (:foreground "red"))))
  '(fundamental-mode-default ((t (:inherit default))))
- '(highlight ((((class color) (min-colors 8))
-	       (:background "white":foreground "magenta"))))
- '(isearch ((((class color) (min-colors 8))
-	     (:background "yellow" :foreground "black"))))
+ '(highlight ((((class color) (min-colors 8)) (:background "white" :foreground "magenta"))))
+ '(isearch ((((class color) (min-colors 8)) (:background "yellow" :foreground "black"))))
  '(linum ((t (:foreground "black" :weight bold))))
- '(region ((((class color) (min-colors 8))
-	    (:background "white" :foreground "magenta"))))
- '(secondary-selection ((((class color) (min-colors 8))
-			 (:background "gray" :foreground "cyan"))))
- '(show-paren-match ((((class color) (background light))
-		      (:background "black"))))
- '(vertical-border ((t nil)))
- )
+ '(region ((((class color) (min-colors 8)) (:background "white" :foreground "magenta"))))
+ '(secondary-selection ((((class color) (min-colors 8)) (:background "gray" :foreground "cyan"))))
+ '(show-paren-match ((((class color) (background light)) (:background "black"))))
+ '(vertical-border ((t nil))))
 
 ;; ------------
 ;; -- MELPA  --
@@ -138,6 +144,10 @@
 ;; Some packages are from the "C/C++ Development Environment for Emacs" article
 ;; See: http://tuhdo.github.io/c-ide.html#sec-2
 
+(require 'ein) ;; emacs ipython notebook
+(elpy-enable)
+(require 'latex-pretty-symbols)
+
 ;; ---------------------
 ;; -- COMPANY Settings -
 ;; ---------------------
@@ -148,6 +158,7 @@
 ;; Turn on company (complete any) mode for all files. May want to change to a
 ;; hook for a select number of modes (e.g.: c/c++)
 (add-hook 'after-init-hook 'global-company-mode)
+(setq company-global-modes '(not org-mode markdown-mode))
 ;; Don't turn on too quickly, like when writing comments. Note that 0.5 sec is
 ;; the default. 0 or 0.1 will activate very quickly to emulate auto-complete.
 (setq company-idle-delay 0.3)
@@ -223,7 +234,7 @@
        '(flymake-google-cpplint-command "/usr/local/bin/cpplint")))
   (if (eq system-type 'darwin)
       (custom-set-variables
-       '(flymake-google-cpplint-command "/Users/kaiyang/anaconda/bin/cpplint")))
+       '(flymake-google-cpplint-command "/Users/kaiyang/anaconda2/bin/cpplint")))
   (flymake-google-cpplint-load))
 
 ;; COMMENT/UNCOMMENT the following if you want lint to be auto-on for all c/c++
@@ -273,6 +284,7 @@
 ;;  ALSO change: menlo regular 12 font w/ 1.01 line spacing
 ;;               use bold fonts/allow blinking text ON
 ;;               option key as meta ON
+;; NOTE: for zenburn theme, use https://github.com/bdesham/zenburn-terminal
 
 ;; change linum color to make line numbers more readable
 (set-face-attribute 'linum nil :foreground "#586e75")
@@ -354,12 +366,75 @@
 
 ;; Org mode
 (require 'org)
+(load-library "find-lisp")
 (define-key global-map "\C-ca" 'org-agenda)
 (define-key global-map "\C-ct" 'org-todo)
 (define-key global-map "\C-cs" 'org-schedule)
 (if (eq system-type 'darwin)
-    (setq org-agenda-files (list "/Users/kaiyang/Google Drive/org/stuff.org")))
+    (setq org-agenda-files (cons "/Users/kaiyang/Google Drive/org/stuff.org"
+				 (find-lisp-find-files (concat
+							"/Users/kaiyang/Google Drive/logs/"
+							(shell-command-to-string "echo -n $(date +%Y)"))
+						       "\.org$"))))
 (setq org-log-done t)
+(setq org-todo-keywords
+      '((sequence "TODO" "IDLE" "|" "DONE")))
+
+;; Markdown mode
+
+;; Two ways of previewing markdown
+;; (1) (PREFERRED) markdown-preview-mode (load upon saves). Start via "M-x m-pr-m RET"
+;; (2) impatient-mode (live preview). Toggle via "C-c C-c i"
+
+;; (setq markdown-preview-stylesheets
+;;       (list "http://strapdownjs.com/v/0.2/themes/united.min.css"
+;; 	    "http://strapdownjs.com/v/0.2/strapdown.css"
+;; 	    "http://strapdownjs.com/v/0.2/themes/bootstrap-responsive.min.css"))
+
+(add-hook 'markdown-preview-mode-hook
+          (lambda ()
+            (set-process-query-on-exit-flag
+	     (get-buffer-process (current-buffer)) nil)))
+
+(add-hook 'markdown-mode-hook 'md-hook)
+(defun md-hook ()
+  (define-key markdown-mode-map (kbd "M-p") #'prev5)
+  (define-key markdown-mode-map (kbd "M-n") #'next5)
+
+  (defun markdown-html (buffer)
+    (princ (with-current-buffer buffer
+	     (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+	   (current-buffer)))
+
+  (defun start-imp-markdown ()
+    "Start the impatient mode for markdown and opens the rendering
+in the user's default web browser. Note that if the web browser
+wasn't running, Emacs starts it - you may want to close the
+browser before Emacs in this case (Emacs will complain at quit
+time otherwise)"
+    (httpd-start)
+    (impatient-mode 1)
+    (imp-set-user-filter #'markdown-html))
+  
+  (defun stop-imp-markdown ()
+    "Stop the impatient mode for markdown"
+    (impatient-mode 0)
+    (httpd-stop))
+
+  (setq majoranaa-impatient-markdown 'nil)
+  (defun imp-markdown-toggle ()
+    "Toggle impatient markdown mode"
+    (interactive)
+    (if majoranaa-impatient-markdown
+	(progn
+	  (message "Stopping impatient markdown mode")
+	  (stop-imp-markdown))
+      (progn
+	(message "Starting impatient markdown mode")
+	(start-imp-markdown)))
+    (setq majoranaa-impatient-markdown (not majoranaa-impatient-markdown)))
+  
+  (global-set-key (kbd "C-c C-c i") 'imp-markdown-toggle))
 
 ;; -----------------
 ;; -- IRONY Mode  --
@@ -370,9 +445,14 @@
 
 ;; irony mode (c/c++/obj-c autocompletion)
 ;; See: https://github.com/Sarcasm/irony-mode
-;; FOR MAC: You need to first install llvm for libclang and cmake, which are
-;;     used for irony-server. Use `brew install llvm --with-clang` and
-;;     `brew install cmake`. When you first start irony-mode you need to build
+;; FOR MAC:
+;;     You need to first install llvm for libclang and cmake, which are
+;;     used for irony-server. Use `brew install --with-toolchain llvm` and
+;;     `brew install cmake`. Note that there are no binaries (ie: bottles) for
+;;     clang in brew, so building might take a long time (>90 min). You might
+;;     just want to download the binary directly from the llvm site.
+;;     
+;;     When you first start irony-mode you need to build
 ;;     and install irony-server using {M-x irony-install-server RET}. It will
 ;;     give you a cmake command to execute. Before executing it, you need to
 ;;     provide the path llvm was installed in by adding the flags:
@@ -397,7 +477,7 @@
 
 ;; Configure company-irony
 (eval-after-load 'company
-    '(add-to-list 'company-backends 'company-irony))
+    '(add-to-list 'company-backends 'company-irony 'ein:company-backend))
 ;; **** NOTE: Write a .clang_complete in project root directory with include
 ;; compiler flags to reference other files.
 
@@ -517,4 +597,23 @@
 	)
       (setq matlab-shell-mode-hook 'my-matlab-shell-mode-hook)
       )
-)
+  )
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-backends
+   (quote
+    (company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
+                  (company-dabbrev-code company-gtags company-etags company-keywords)
+                  company-oddmuse company-dabbrev company-irony)))
+ '(custom-safe-themes
+   (quote
+    ("a0dc0c1805398db495ecda1994c744ad1a91a9455f2a17b59b716f72d3585dde" default)))
+ '(package-selected-packages
+   (quote
+    (ensime latex-pretty-symbols company-auctex auctex ein elpy 0blayout zenburn-theme markdown-preview-mode impatient-mode markdown-mode org iedit google-c-style flymake-google-cpplint flymake-cursor company-irony))))
+
+(load-theme 'zenburn)
