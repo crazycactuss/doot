@@ -56,6 +56,8 @@
 
   ;; highlight whitespace at end of lines when point is not there
   (setq-default show-trailing-whitespace t)
+  (add-hook 'org-agenda-mode-hook
+            (lambda () (setq show-trailing-whitespace nil)))
   ;; define what whitespace is
   (setq whitespace-style '(face tabs spaces trailing lines-tail space-before-tab
                                 newline indentation empty space-after-tab))
