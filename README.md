@@ -10,6 +10,14 @@ via `uname`. To set up a new system, run the following commands:
 
 **2) Install [git](http://git-scm.com/downloads) and add keys to Github**
 
+**3) Configure git
+```sh
+git config --global user.name <your_user_name>
+git config --global user.email <your_user_email>
+git config --global --bool pull.rebase true
+git config --global push.default current
+```
+
 **3) Execute:**
 ```sh
 cd $HOME
