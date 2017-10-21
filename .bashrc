@@ -13,7 +13,7 @@
 #    2) .bash_profile is the *login* config for bash, launched upon first
 #        connection (in Ubuntu)
 #    3) .bash_profile imports .bashrc in our script, but not vice versa.
-#           
+#
 # When using GNU screen or tmux:
 #
 #    1) .bash_profile is loaded the first time you login, and should be used
@@ -166,7 +166,7 @@ shopt -s histappend
 # See: http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
 # See: http://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html
 # See: http://www.cyberciti.biz/faq/bash-shell-change-the-color-of-my-shell-prompt-under-linux-or-unix/
-PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
+PS1="\[\033[0;34m\][\u@\h:\w]\[\033[0m\]\n\[\e[1;32m\]$\[\e[0m\]"
 
 ## -----------------------
 ## -- 2) Set up aliases --
@@ -180,9 +180,9 @@ set -o noclobber
 
 # 2.2) Listing, directories, and motion
 if [ "$platform" == "linux" ]; then
-    alias ll="ls -alrhF --color"
+    alias ll="ls -alhF --color"
 elif [ "$platform" == "mac" ]; then
-    alias ll="ls -alrhGF"
+    alias ll="ls -alhGF"
 fi
 alias ..='cd ..'
 alias du='du -ch'
@@ -196,13 +196,15 @@ export VISUAL='emacs -nw'
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;31' # green for matches
 
+alias eternal='cat ~/.bash_eternal_history | cut -f6 | less'
+
 if [ "$platform" == "linux" ]; then
     # LINUX 2.5) sort options
     # Ensures cross-platform sorting behavior of GNU sort.
     # http://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021
     unset LANG
     export LC_ALL=POSIX
-    
+
     # set ls solarized colors. Need to clone dircolors-solarized repository
     eval `dircolors ~/.dircolors`
 fi
@@ -212,3 +214,6 @@ if [ "$platform" == "mac" ]; then
     # MAC 2.5) Matlab
     alias matlab="matlab -nodesktop -nosplash -nojvm -nodisplay"
 fi
+
+# allow forward i-search in commands
+stty -ixon
