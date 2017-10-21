@@ -15,6 +15,11 @@
 (require 'hlinum)
 (hlinum-activate) ;; highlight current linum
 (require 'smooth-scrolling) ;; scroll one line at a time
+;; scroll one line at a time (less "jumpy" than defaults)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 1) ;; keyboard scroll one line at a time
 (require 'whitespace) ;; highlight whitespace using faces
 (require 'column-marker) ;; highlight column
 ;; don't really need these next two because tmux
@@ -28,6 +33,7 @@
 (tool-bar-mode -1) ;; turn off tool bar
 (toggle-scroll-bar -1) ;; turn off scroll bar
 (normal-erase-is-backspace-mode 0) ;; delete deletes left not right
+(fset 'yes-or-no-p 'y-or-n-p) ;; change yes/no to y/n
 
 (show-paren-mode 1) ;; show matching parentheses
 (require 'paren)
@@ -58,9 +64,14 @@
                             ;; version-controlled (b/c it's probably git, which
                             ;; doesn't matter
 (global-linum-mode 1) ;; show line numbers
+(setq save-interprogram-paste-before-kill t) ;; save clipboard to kill ring before replace
 (global-auto-revert-mode t) ;; automatically revert buffers
+(setq auto-revert-verbose nil) ;; silent auto-revert
+
+(global-hl-line-mode t) ;; highlight current line
 (recentf-mode 1) ;; turn on recentf menu
 (setq recentf-max-menu-items 25)
+(setq ring-bell-function 'ignore)
 
 (setq-default indent-tabs-mode nil)
 (setq-default c-basic-offset 4)
@@ -78,6 +89,8 @@
 	  (lambda ()
 	    (font-lock-add-keywords nil
 				    '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+
+(setq-default fill-column 120)
 
 ;; ---------------------
 ;; --- CEDET Settings --
@@ -112,6 +125,74 @@
   ;; For important compatibility libraries like cl-lib
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(use-package expand-region
+  :ensure t
+  :config
+  (global-set-key (kbd "C-=") 'er/expand-region))
+
+(use-package hungry-delete
+  :ensure t
+  :config
+  (global-hungry-delete-mode))
+
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode t))
+
+;; (defun my/python-mode-hook ()
+;;   (add-to-list 'company-backends 'company-jedi))
+
+;; (use-package company-jedi
+;;   :ensure t
+;;   :init
+;;   (add-hook 'python-mode-hook 'my/python-mode-hook))
+
+(use-package undo-tree
+  :ensure t
+  :init
+  (global-undo-tree-mode))
+
+(use-package try
+  :ensure t)
+
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
+
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+(use-package counsel
+  :ensure t
+  :bind
+  (("M-y" . counsel-yank-pop)
+   :map ivy-minibuffer-map
+   ("M-y" . ivy-next-line)))
+
+(use-package swiper
+  :ensure t
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper)
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file))
+  :config
+  (progn
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq enable-recursive-minibuffers t))
+  )
+
+(use-package avy
+  :ensure t
+  :bind ("M-s" . avy-goto-char))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -354,6 +435,8 @@
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+(setq web-mode-enable-auto-closing t)
+(setq web-mode-enable-auto-quoting t)
 
 ;; OCaml mode
 (add-to-list 'load-path "~/.emacs.d/lisp/tuareg-mode")
@@ -371,14 +454,19 @@
 (define-key global-map "\C-ct" 'org-todo)
 (define-key global-map "\C-cs" 'org-schedule)
 (if (eq system-type 'darwin)
-    (setq org-agenda-files (cons "/Users/kaiyang/Google Drive/org/stuff.org"
+    (setq org-agenda-files (cjons "/Users/kaiyang/Google Drive/org/stuff.org"
 				 (find-lisp-find-files (concat
 							"/Users/kaiyang/Google Drive/logs/"
 							(shell-command-to-string "echo -n $(date +%Y)"))
 						       "\.org$"))))
 (setq org-log-done t)
 (setq org-todo-keywords
-      '((sequence "TODO" "IDLE" "|" "DONE")))
+      '((sequence "IDLE" "TODO" "|" "DONE")))
+(setq org-refile-targets '((nil :maxlevel . 9)
+                           (org-agenda-files :maxlevel . 9)))
+(setq org-outline-path-complete-in-steps nil) ; Refile in a single go
+(setq org-refile-use-outline-path t) ; Show full paths for refiling
+(setq org-refile-allow-creating-parent-nodes 'confirm) ; allow creating parent nodes
 
 ;; Markdown mode
 
@@ -604,16 +692,20 @@ time otherwise)"
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(blink-cursor-mode nil)
  '(company-backends
    (quote
     (company-bbdb company-nxml company-css company-eclim company-semantic company-clang company-xcode company-cmake company-capf company-files
                   (company-dabbrev-code company-gtags company-etags company-keywords)
                   company-oddmuse company-dabbrev company-irony)))
+ '(custom-enabled-themes (quote (zenburn)))
  '(custom-safe-themes
    (quote
     ("a0dc0c1805398db495ecda1994c744ad1a91a9455f2a17b59b716f72d3585dde" default)))
  '(package-selected-packages
    (quote
-    (ensime latex-pretty-symbols company-auctex auctex ein elpy 0blayout zenburn-theme markdown-preview-mode impatient-mode markdown-mode org iedit google-c-style flymake-google-cpplint flymake-cursor company-irony))))
+    (expand-region hungry-delete avy counsel swiper which-key try use-package ensime latex-pretty-symbols company-auctex auctex ein elpy 0blayout zenburn-theme markdown-preview-mode impatient-mode markdown-mode org iedit google-c-style flymake-google-cpplint flymake-cursor company-irony))))
 
 (load-theme 'zenburn)

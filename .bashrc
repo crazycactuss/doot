@@ -208,7 +208,7 @@ if [ "$platform" == "linux" ]; then
 fi
 
 # **** UNCOMMENT IF MATLAB IS INSTALLED
-# if [ "$platform" == "mac" ]; then
+if [ "$platform" == "mac" ]; then
     # MAC 2.5) Matlab
-    # alias matlab="matlab -nodesktop"
-# fi
+    alias matlab="matlab -nodesktop -nosplash -nojvm -nodisplay"
+fi

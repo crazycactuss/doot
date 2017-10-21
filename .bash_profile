@@ -71,20 +71,18 @@ if [ "$platform" == "linux" ]; then
     export PATH="/usr/local/sbin:$PATH"
 fi
 
-# **** UNCOMMENT IF NEW MAC-SPECIFIC PATHS ARE INSTALLED
-# if [ "$platform" == "mac" ]; then
-    # added by Anaconda 2.0.1 installer
-    #export PATH="/Users/kaiyang/anaconda/bin:$PATH"
+if [ "$platform" == "mac" ]; then
+    # added by Anaconda2 4.2.0 installer
+    export PATH="/Users/kaiyang/anaconda2/bin:$PATH"
+
+    # MySQL
+    export PATH="/usr/local/mysql/bin:$PATH"
 
     # pebble 2.9 stuff
     #export PATH="$HOME/Projects/lahacks_2015/pebble/PebbleSDK-2.9/bin:$PATH"
 
     # matlab
-    #export PATH="/Applications/MATLAB_R2015a.app/bin:$PATH"
-
-    # change mac locale to UTF-8
-    #export LC_ALL=en_US.UTF-8
-    #export LANG=en_US.UTF-8
+    export PATH="/Applications/MATLAB_R2016a.app/bin:$PATH"
 
     # add MAMP bin to path
     #export PATH="$PATH:/Applications/MAMP/Library/bin/mysql"
@@ -94,4 +92,7 @@ fi
 
     # OPAM (octave pkg manager) configuration
     #. /Users/kaiyang/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-# fi
+
+    # PHP 7.1
+    export PATH="/usr/local/php5/bin:$PATH"
+fi
