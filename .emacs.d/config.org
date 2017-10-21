@@ -1,0 +1,547 @@
+#+TITLE: emacs configuration
+#+AUTHOR: Kai Yang
+#+EMAIL: kai.yang412@gmail.com
+
+* Personal Information
+
+#+BEGIN_SRC emacs-lisp
+  (setq user-full-name "Kai Yang"
+        user-mail-address "kai.yang412@gmail.com")
+#+END_SRC
+
+* Global Settings
+** Basic Setup
+   - *ELISP NOTE*: =put= lets you define a value of a member of a symbol's propery list.
+
+#+BEGIN_SRC emacs-lisp
+  ;; location of lisp utilities
+  (add-to-list 'load-path "~/.emacs.d/lisp")
+  (load "defuns-config.el")
+
+  ;; clean up interface
+  (menu-bar-mode -1) ;; turn off top menu bar (file, edit, etc)
+  (tool-bar-mode -1) ;; turn off tool bar
+  (toggle-scroll-bar -1) ;; turn off scroll bar
+
+  ;; change yes/no to y/n
+  (fset 'yes-or-no-p 'y-or-n-p)
+
+  ;; show matching parentheses
+  (show-paren-mode 1)
+  ;; customize its face
+  ;; (set-face-background 'show-paren-match (face-background 'default))
+  ;; (set-face-foreground 'show-paren-match "#def")
+  ;; (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+
+  ;; NOTE: put lets you define a value of a member of a symbol's propery list.
+  ;; To enable a symbol you set the 'disabled value to nil.
+
+  ;; turn a region of text into lower case with "C-x C-l"
+  (put 'downcase-region 'disabled nil)
+  ;; turn a region of text into upper case with "C-x C-u"
+  (put 'upcase-region 'disabled nil)
+
+  ;; display column number on bottom info bar
+  (setq column-number-mode t)
+
+  ;; don't display emacs startup message
+  (setq inhibit-startup-message t)
+
+  ;; allow definition/expansion of abbreviations
+  ;; "C-x a g" to define a global abbreviation. simply use <SPC> to expand it
+  ;; "M-x list-abbrevs" to see a list of defined abbrevs.
+  (setq-default abbrev-mode 1)
+  ;; don't automatically save newly defined abbreviations upon emacs exit
+  (setq save-abbrevs nil)
+
+  ;; highlight whitespace at end of lines when point is not there
+  (setq-default show-trailing-whitespace t)
+  ;; define what whitespace is
+  (setq whitespace-style '(face tabs spaces trailing lines-tail space-before-tab
+                                newline indentation empty space-after-tab))
+
+  ;; follow symlinks w/o messages if target is version-controlled
+  ;; (b/c it's probably git, which doesn't matter)
+  (setq vc-follow-symlinks t)
+
+  ;; save clipboard to kill ring before replace
+  (setq save-interprogram-paste-before-kill t)
+
+  ;; automatically revert buffers
+  (global-auto-revert-mode t)
+  ;; silent auto-revert
+  (setq auto-revert-verbose nil)
+
+  ;; disable audio/visual bell
+  (setq ring-bell-function 'ignore)
+
+  ;; in dired mode, if point is on a filename then search searches only filenames
+  (setq dired-isearch-filenames t)
+
+  ;; disable tabs
+  (setq-default indent-tabs-mode nil)
+  ;; set tab width
+  (setq-default tab-width 4)
+
+  (setq-default fill-column 100)
+#+END_SRC
+
+** Built-in Packages
+   - *ELISP NOTE*: =(setq <thing> ...)= is equivalent to =(set '<thing> ...)=. Symbols are always quoted.
+
+#+BEGIN_SRC emacs-lisp
+  ;; recent files menu
+  (recentf-mode 1)
+  (setq recentf-max-menu-items 25)
+
+  ;; whitespace mode
+  (require 'whitespace)
+
+  ;; dired-x (i.e.: dired extensions)
+  (require 'dired-x)
+#+END_SRC
+
+** Smooth Scrolling
+*** Stand-alone Application
+    Scroll one line at a time (less "jumpy" than defaults).
+
+#+BEGIN_SRC emacs-lisp
+  ;; one line at a time
+  (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+  ;; don't accelerate scrolling
+  (setq mouse-wheel-progressive-speed nil)
+  ;; scroll window under mouse
+  (setq mouse-wheel-follow-mouse 't)
+  ;; keyboard scroll one line at a time
+  (setq scroll-step 1)
+#+END_SRC
+
+*** Terminal
+    Make sure the buffer doesn't "jump" when the cursor scrolls near the ends. Applies only to the terminal.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package smooth-scrolling
+    :ensure t)
+  (smooth-scrolling-mode t)
+#+END_SRC
+
+** Line Numbers
+*** Setup
+#+BEGIN_SRC emacs-lisp
+  ;; show line numbers
+  (require 'linum)
+  (global-linum-mode 1)
+
+  ;; highlight current linum
+  (global-hl-line-mode t)
+#+END_SRC
+
+*** hlinum
+    Highlights the current line number.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hlinum
+    :ensure t)
+  (hlinum-activate)
+#+END_SRC
+
+** Flycheck
+
+#+BEGIN_SRC emacs-lisp
+  ;; linting
+  (use-package flycheck
+    :ensure t
+    :init
+    (global-flycheck-mode t))
+#+END_SRC
+
+** Counsel/Swiper
+
+#+BEGIN_SRC emacs-lisp
+  (use-package counsel
+    :ensure t
+    :bind
+    (("M-y" . counsel-yank-pop)
+     :map ivy-minibuffer-map
+     ("M-y" . ivy-next-line)))
+
+  (use-package swiper
+    :ensure t
+    :config
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq enable-recursive-minibuffers t))
+#+END_SRC
+
+** Company Mode
+   Auto-complete
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    ;; turn on company for all files
+    :init (global-company-mode)
+    :config
+    ;; turn off company for org and markdown files
+    (setq company-global-modes '(not org-mode markdown-mode))
+    ;; don't show the tooltip too quickly, like when writing comments.
+    ;; 0.5 sec is the default.
+    (setq company-idle-delay 0.3)
+    ;; don't put a lower bound on the number of characters.
+    ;; activate as quickly as possible.
+    ;; note that it won't activate if the line is all whitespace. that required a prefix length of 0.
+    ;; set to 1 so it won't activate before words in the middle of the sentence when writing comments.
+    (setq company-minimum-prefix-length 1))
+#+END_SRC
+
+*** REFERENCES
+    Many of these packages are from the video series "Emacs as a C/C++ editor/IDE by user "b yuksel"
+    on youtube. See: https://www.youtube.com/watch?v=HTUE03LnaXA
+
+** Misc. Packages
+*** column-marker
+
+#+BEGIN_SRC emacs-lisp
+  ;; Highlight a certain column.
+  (use-package column-marker
+    :ensure t)
+
+  ;; Use "C-=" to mark a region that expands each time you activate it.
+  (use-package expand-region
+    :ensure t)
+
+  ;; Deletion (forwards and backwards deletes as much whitespace as possible.
+  (use-package hungry-delete
+    :ensure t
+    :config
+    (global-hungry-delete-mode))
+
+  ;; "C-x u to see visual representation of history
+  (use-package undo-tree
+    :ensure t
+    :init
+    (global-undo-tree-mode))
+
+  ;; Helps list possible following keystrokes
+  (use-package which-key
+    :ensure t
+    :config (which-key-mode))
+
+  ;; jump to anywhere on the screen
+  (use-package avy
+    :ensure t
+    :bind ("M-s" . avy-goto-char))
+#+END_SRC
+
+** Key Bindings
+
+#+BEGIN_SRC emacs-lisp
+  ;; company
+  (global-set-key (kbd "C-c d") 'company-show-doc-buffer)
+  (global-set-key (kbd "M-RET") 'company-complete-common)
+
+  ;; recentf
+  (global-set-key (kbd "C-x C-r") 'recentf-open-files)
+
+  ;; expand-region
+  (global-set-key (kbd "C-=") 'er/expand-region)
+
+  ;; counsel/swiper
+  (global-set-key (kbd "C-s") 'swiper)
+  (global-set-key (kbd "C-r") 'swiper)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+
+  ;; navigation
+  (global-set-key (kbd "M-n") 'next10)
+  (global-set-key (kbd "M-p") 'prev10)
+
+  ;; window management
+  (global-set-key (kbd "M-o") 'other-window)
+
+  ;; whitespace mode
+  (global-set-key (kbd "C-c w") 'whitespace-mode)
+
+  ;; column marker
+  (global-set-key (kbd "C-c o") 'eighty-column-mark-toggle)
+
+  ;; disable zap to char
+  (global-set-key (kbd "C-z") nil)
+
+  ;; iedit
+  (global-set-key (kbd "C-c e") 'iedit-mode)
+
+  ;; revert buffer
+  (global-set-key (kbd "C-c r") 'revert-buffer)
+
+  ;; MELPA
+  (global-set-key (kbd "C-x p") 'package-list-packages)
+
+  ;; If having problems,
+  ;; See: http://www.emacswiki.org/emacs/BackspaceKey
+  ;; See: https://www.gnu.org/software/emacs/manual/html_node/efaq/Backspace-invokes-help.html
+  (global-set-key (kbd "C-h") 'backward-delete-char)
+  (global-set-key (kbd "M-h") 'backward-delete-word)
+  ;; "C-?" fails. Sends ASCII 127?
+  (global-set-key (kbd "C-x ?") 'help-command)
+#+END_SRC
+
+** Themes
+
+#+BEGIN_SRC emacs-lisp
+  (use-package zenburn-theme
+    :ensure t
+    :config (load-theme 'zenburn t))
+#+END_SRC
+
+* C/C++
+** Basic Settings
+
+#+BEGIN_SRC emacs-lisp
+  ;; set indent width
+  (setq-default c-basic-offset 4)
+
+  ;; highlight TODO, FIXME, BUG in c files
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (font-lock-add-keywords
+               nil
+               '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+#+END_SRC
+
+** Google C/C++ Style Guide
+
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package flycheck-google-cpplint
+  ;;   :ensure t
+  ;;   :config
+  ;;   (flycheck-add-next-checker 'c/c++-clang
+  ;;                              '(warning . c/c++-googlelint)))
+
+  ;; additional linting
+  (use-package google-c-style
+    :ensure t)
+
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+  (add-hook 'c++-mode-common-hook 'google-set-c-style)
+  (add-hook 'c++-mode-common-hook 'google-make-newline-indent)
+#+END_SRC
+
+** Irony Mode
+
+#+BEGIN_SRC emacs-lisp
+  ;; ;; irony mode (c/c++/obj-c autocompletion)
+  ;; ;; See: https://github.com/Sarcasm/irony-mode
+  ;; ;; FOR MAC:
+  ;; ;;     You need to first install llvm for libclang and cmake, which are
+  ;; ;;     used for irony-server. Use `brew install --with-toolchain llvm` and
+  ;; ;;     `brew install cmake`. Note that there are no binaries (ie: bottles) for
+  ;; ;;     clang in brew, so building might take a long time (>90 min). You might
+  ;; ;;     just want to download the binary directly from the llvm site.
+  ;; ;;
+  ;; ;;     When you first start irony-mode you need to build
+  ;; ;;     and install irony-server using {M-x irony-install-server RET}. It will
+  ;; ;;     give you a cmake command to execute. Before executing it, you need to
+  ;; ;;     provide the path llvm was installed in by adding the flags:
+  ;; ;;     -DCMAKE_PREFIX_PATH=/usr/local/opt/llvm -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON
+  ;; ;;     After compiling, you need to then set the runtime path for irony-server:
+  ;; ;;     `install_name_tool -change @rpath/libclang.dylib /usr/local/opt/llvm/lib/libclang.dylib ~/.emacs.d/irony/bin/irony-server`
+  ;; ;; See: https://github.com/Sarcasm/irony-mode/issues/167
+  ;; ;; FOR DEBIAN: Install libclang-3.4-dev
+  ;; (add-hook 'c++-mode-hook 'irony-mode)
+  ;; (add-hook 'c-mode-hook 'irony-mode)
+  ;; (add-hook 'objc-mode-hook 'irony-mode)
+
+  ;; ;; replace the `completion-at-point' and `complete-symbol' bindings in
+  ;; ;; irony-mode's buffers by irony-mode's function
+  ;; (defun my-irony-mode-hook ()
+  ;;   (define-key irony-mode-map [remap completion-at-point]
+  ;;     'irony-completion-at-point-async)
+  ;;   (define-key irony-mode-map [remap complete-symbol]
+  ;;     'irony-completion-at-point-async))
+  ;; (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+  ;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+  ;; ;; Configure company-irony
+  ;; (eval-after-load 'company
+  ;;     '(add-to-list 'company-backends 'company-irony 'ein:company-backend))
+  ;; ;; **** NOTE: Write a .clang_complete in project root directory with include
+  ;; ;; compiler flags to reference other files.
+
+#+END_SRC
+
+** REFERENCES
+   Some packages are from the "C/C++ Development Environment for Emacs" article
+   See: http://tuhdo.github.io/c-ide.html#sec-2
+* Python
+
+#+BEGIN_SRC emacs-lisp
+  ;; (defun my/python-mode-hook ()
+  ;;   (add-to-list 'company-backends 'company-jedi))
+
+  ;; (use-package company-jedi
+  ;;   :ensure t
+  ;;   :init
+  ;;   (add-hook 'python-mode-hook 'my/python-mode-hook))
+
+  ;; (require 'ein) ;; emacs ipython notebook
+  ;; (elpy-enable)
+
+#+END_SRC
+
+* Org Mode
+** Basic Settings
+
+#+BEGIN_SRC emacs-lisp
+  ;; hide leading stars at the beginning of headings
+  (setq org-hide-leading-stars t)
+#+END_SRC
+
+** Agenda
+
+#+BEGIN_SRC emacs-lisp
+  ;; to get find-lisp-find-files:
+  (load-library "find-lisp")
+  ;; set up agenda files
+  (if (eq system-type 'darwin)
+      (setq org-agenda-files
+            (cons "/Users/kaiyang/Google Drive/org/stuff.org"
+                   (find-lisp-find-files
+                    (concat
+                     "/Users/kaiyang/Google Drive/logs/"
+                     (shell-command-to-string "echo -n $(date +%Y)"))
+                    "\.org$"))))
+#+END_SRC
+
+** Workflow
+
+#+BEGIN_SRC emacs-lisp
+  ;; add timestamp to DONE
+  (setq org-log-done 'time)
+
+  ;; set workflows
+  (setq org-todo-keywords
+        '((sequence "IDLE" "TODO" "|" "DONE")))
+#+END_SRC
+
+** Capture
+
+** Refile
+
+#+BEGIN_SRC emacs-lisp
+  ;; increase depth of refile targets
+  (setq org-refile-targets '((nil :maxlevel . 9)
+                             (org-agenda-files :maxlevel . 9)))
+
+  ;; Refile in a single go
+  (setq org-outline-path-complete-in-steps nil)
+  ;; Show full paths for refiling
+  (setq org-refile-use-outline-path t)
+
+  ;; allow creation of parent nodes
+  (setq org-refile-allow-creating-parent-nodes 'confirm)
+#+END_SRC
+
+** Archive
+
+** Tags
+
+** Key Bindings
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c t") 'org-todo)
+  (global-set-key (kbd "C-c s") 'org-schedule)
+#+END_SRC
+
+* LaTeX
+
+#+BEGIN_SRC emacs-lisp
+  ;; (require 'latex-pretty-symbols)
+#+END_SRC
+* Web Mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+    (setq web-mode-enable-auto-closing t)
+    (setq web-mode-enable-auto-quoting t))
+#+END_SRC
+
+* OCaml Mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package tuareg
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\\.ml[ily]?$" . tuareg-mode))
+    (add-to-list 'auto-mode-alist '("\\.topml$" . tuareg-mode)))
+#+END_SRC
+
+* Markdown Mode
+
+#+BEGIN_SRC emacs-lisp
+  ;; ;; Two ways of previewing markdown
+  ;; ;; (1) (PREFERRED) markdown-preview-mode (load upon saves). Start via "M-x m-pr-m RET"
+  ;; ;; (2) impatient-mode (live preview). Toggle via "C-c C-c i"
+
+  ;; ;; (setq markdown-preview-stylesheets
+  ;; ;;       (list "http://strapdownjs.com/v/0.2/themes/united.min.css"
+  ;; ;;       "http://strapdownjs.com/v/0.2/strapdown.css"
+  ;; ;;       "http://strapdownjs.com/v/0.2/themes/bootstrap-responsive.min.css"))
+
+  ;; (add-hook 'markdown-preview-mode-hook
+  ;;           (lambda ()
+  ;;             (set-process-query-on-exit-flag
+  ;;       (get-buffer-process (current-buffer)) nil)))
+
+  ;; (add-hook 'markdown-mode-hook 'md-hook)
+  ;; (defun md-hook ()
+  ;;   (define-key markdown-mode-map (kbd "M-p") #'prev5)
+  ;;   (define-key markdown-mode-map (kbd "M-n") #'next5)
+
+  ;;   (defun markdown-html (buffer)
+  ;;     (princ (with-current-buffer buffer
+  ;;       (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+  ;;     (current-buffer)))
+
+  ;;   (defun start-imp-markdown ()
+  ;;     "Start the impatient mode for markdown and opens the rendering
+  ;; in the user's default web browser. Note that if the web browser
+  ;; wasn't running, Emacs starts it - you may want to close the
+  ;; browser before Emacs in this case (Emacs will complain at quit
+  ;; time otherwise)"
+  ;;     (httpd-start)
+  ;;     (impatient-mode 1)
+  ;;     (imp-set-user-filter #'markdown-html))
+    
+  ;;   (defun stop-imp-markdown ()
+  ;;     "Stop the impatient mode for markdown"
+  ;;     (impatient-mode 0)
+  ;;     (httpd-stop))
+
+  ;;   (setq majoranaa-impatient-markdown 'nil)
+  ;;   (defun imp-markdown-toggle ()
+  ;;     "Toggle impatient markdown mode"
+  ;;     (interactive)
+  ;;     (if majoranaa-impatient-markdown
+  ;;  (progn
+  ;;    (message "Stopping impatient markdown mode")
+  ;;    (stop-imp-markdown))
+  ;;       (progn
+  ;;  (message "Starting impatient markdown mode")
+  ;;  (start-imp-markdown)))
+  ;;     (setq majoranaa-impatient-markdown (not majoranaa-impatient-markdown)))
+    
+  ;;   (global-set-key (kbd "C-c C-c i") 'imp-markdown-toggle))
+
+#+END_SRC
+
+* Rust Mode
+
+* Matlab Mode
