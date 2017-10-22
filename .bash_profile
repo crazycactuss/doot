@@ -62,21 +62,15 @@ fi
 # Configure PATH
 #  - These are line by line so that you can kill one without affecting the others.
 #  - Lowest priority first, highest priority last.
-# **** THESE LINES WILL PROBABLY REQUIRE EDITING AFTER INSTALLATION
-#export PATH="$PATH"
 export PATH="$HOME/bin:$PATH"
-#export PATH="/usr/bin:$PATH"
-#export PATH="/usr/local/bin:$PATH"
 if [ "$platform" == "linux" ]; then
-    export PATH="/usr/local/sbin:$PATH"
+    #export PATH="/usr/local/sbin:$PATH"
+    export PATH="$PATH"
 fi
 
 if [ "$platform" == "mac" ]; then
-    # added by Anaconda2 4.2.0 installer
-    export PATH="/Users/kaiyang/anaconda2/bin:$PATH"
-
     # MySQL
-    export PATH="/usr/local/mysql/bin:$PATH"
+    #export PATH="/usr/local/mysql/bin:$PATH"
 
     # pebble 2.9 stuff
     #export PATH="$HOME/Projects/lahacks_2015/pebble/PebbleSDK-2.9/bin:$PATH"
@@ -94,5 +88,8 @@ if [ "$platform" == "mac" ]; then
     #. /Users/kaiyang/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
     # PHP 7.1
-    export PATH="/usr/local/php5/bin:$PATH"
+    #export PATH="/usr/local/php5/bin:$PATH"
+
+    # added by Anaconda2 5.0.0 installer
+    export PATH="/Users/kaiyang/anaconda2/bin:$PATH"
 fi

@@ -520,7 +520,7 @@
   ;;     (httpd-start)
   ;;     (impatient-mode 1)
   ;;     (imp-set-user-filter #'markdown-html))
-    
+
   ;;   (defun stop-imp-markdown ()
   ;;     "Stop the impatient mode for markdown"
   ;;     (impatient-mode 0)
@@ -538,7 +538,7 @@
   ;;  (message "Starting impatient markdown mode")
   ;;  (start-imp-markdown)))
   ;;     (setq majoranaa-impatient-markdown (not majoranaa-impatient-markdown)))
-    
+
   ;;   (global-set-key (kbd "C-c C-c i") 'imp-markdown-toggle))
 
 #+END_SRC
