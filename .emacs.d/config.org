@@ -54,6 +54,8 @@
   (setq-default show-trailing-whitespace t)
   (add-hook 'org-agenda-mode-hook
             (lambda () (setq show-trailing-whitespace nil)))
+  (add-hook 'buffer-menu-mode-hook
+            (lambda () (setq show-trailing-whitespace nil)))
   ;; define what whitespace is
   (setq whitespace-style '(face tabs spaces trailing lines-tail space-before-tab
                                 newline indentation empty space-after-tab))
@@ -104,6 +106,18 @@
   (require 'dired-x)
 #+END_SRC
 
+** GPG
+
+#+BEGIN_SRC emacs-lisp
+  ;; have gpg prompt for passphrase in minibuffer
+  (setf epa-pinentry-mode 'loopback)
+
+  ;; cache symmetric encryption passphrase
+  (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+
+  (setq epa-file-select-keys (quote silent))
+#+END_SRC
+
 ** Smooth Scrolling
 *** Stand-alone Application
     Scroll one line at a time (less "jumpy" than defaults).
@@ -130,13 +144,17 @@
 
 ** Line Numbers
 *** Setup
+
 #+BEGIN_SRC emacs-lisp
   ;; show line numbers
   (require 'linum)
   (global-linum-mode 1)
 
-  ;; highlight current linum
+  ;; highlight current line
   (global-hl-line-mode t)
+
+  (custom-set-faces
+   '(hl-line ((t (:background "gray29")))))
 #+END_SRC
 
 *** hlinum
@@ -148,14 +166,20 @@
   (hlinum-activate)
 #+END_SRC
 
+** iedit
+
+#+BEGIN_SRC emacs-lisp
+  ;; mark and edit all copies of the marked region simultaneously.
+  (use-package iedit
+    :ensure t)
+#+END_SRC
+
 ** Flycheck
 
 #+BEGIN_SRC emacs-lisp
   ;; linting
   (use-package flycheck
-    :ensure t
-    :init
-    (global-flycheck-mode t))
+    :ensure t)
 #+END_SRC
 
 ** Counsel/Swiper
@@ -163,6 +187,8 @@
 #+BEGIN_SRC emacs-lisp
   (use-package counsel
     :ensure t
+    :config
+    (setq counsel-ag-base-command "ag --nocolor --nogroup --path-to-ignore ~/.ignore %s")
     :bind
     (("M-y" . counsel-yank-pop)
      :map ivy-minibuffer-map
@@ -200,6 +226,87 @@
 *** REFERENCES
     Many of these packages are from the video series "Emacs as a C/C++ editor/IDE by user "b yuksel"
     on youtube. See: https://www.youtube.com/watch?v=HTUE03LnaXA
+
+** Ace Window
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ace-window
+    :ensure t
+    :init
+    (progn
+      (global-set-key [remap other-window] 'ace-window)
+      (custom-set-faces
+       '(aw-leading-char-face
+         ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+      ))
+#+END_SRC
+
+** Projectile
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure t
+    :config
+    (projectile-global-mode)
+    (setq projectile-completion-system 'ivy))
+
+  (use-package counsel-projectile
+    :ensure t
+    :config
+    (counsel-projectile-mode))
+
+  ;; https://github.com/bbatsov/projectile/issues/1183
+  (setq projectile-mode-line
+        '(:eval (format " Projectile[%s]"
+                        (projectile-project-name))))
+#+END_SRC
+
+** dumb jump
+
+#+BEGIN_SRC emacs-lisp
+  (use-package dumb-jump
+    :config
+    ;;(setq dumb-jump-selector 'ivy)
+    :init
+    (dumb-jump-mode)
+    :ensure t)
+#+END_SRC
+
+** Hydra
+
+#+BEGIN_SRC emacs-lisp
+  (use-package hydra
+    :ensure t)
+#+END_SRC
+
+** helm
+*** helm pages
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-pages
+    :ensure t
+    :config
+    (defhydra hydra-page-breaks (global-map "C-x")
+      "pages"
+      ("[" backward-page "backward")
+      ("]" forward-page "forward")
+      ("p" helm-pages "helm" :color blue)
+      ("RET" nil "quit")))
+#+END_SRC
+
+*** helm flycheck
+
+#+BEGIN_SRC emacs-lisp
+  (use-package helm-flycheck
+    :ensure t
+    :config
+    (defhydra flycheck-hydra (global-map "C-c !")
+       "errors"
+       ("n" flycheck-next-error "next")
+       ("p" flycheck-previous-error "previous")
+       ("h" helm-flycheck "helm" :color blue)
+       ("q" nil "quit")))
+#+END_SRC
 
 ** Misc. Packages
 *** column-marker
@@ -254,6 +361,7 @@
   (global-set-key (kbd "C-r") 'swiper)
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-c f") 'counsel-ag)
 
   ;; navigation
   (global-set-key (kbd "M-n") 'next10)
@@ -270,6 +378,9 @@
 
   ;; disable zap to char
   (global-set-key (kbd "C-z") nil)
+
+  ;; disable transpose
+  (global-set-key (kbd "C-t") nil)
 
   ;; iedit
   (global-set-key (kbd "C-c e") 'iedit-mode)
@@ -315,11 +426,20 @@
 ** Google C/C++ Style Guide
 
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package flycheck-google-cpplint
-  ;;   :ensure t
-  ;;   :config
-  ;;   (flycheck-add-next-checker 'c/c++-clang
-  ;;                              '(warning . c/c++-googlelint)))
+  (use-package flymake-google-cpplint
+    :ensure t
+    :config
+    (setq flymake-google-cpplint-command "/Users/kaiyang/anaconda2/bin/cpplint"))
+  (use-package flymake-cursor
+    :ensure t)
+
+  (defun my:flymake-google-init ()
+    (custom-set-variables
+     '(flymake-google-cpplint-command "/Users/kaiyang/anaconda2/bin/cpplint"))
+    (flymake-google-cpplint-load)
+    )
+  (add-hook 'c-mode-hook 'my:flymake-google-init)
+  (add-hook 'c++-mode-hook 'my:flymake-google-init)
 
   ;; additional linting
   (use-package google-c-style
@@ -335,58 +455,76 @@
 ** Irony Mode
 
 #+BEGIN_SRC emacs-lisp
-  ;; ;; irony mode (c/c++/obj-c autocompletion)
-  ;; ;; See: https://github.com/Sarcasm/irony-mode
-  ;; ;; FOR MAC: You need to first install llvm for libclang and cmake, which are
-  ;; ;;     used for irony-server. Use `brew install llvm --with-clang` and
-  ;; ;;     `brew install cmake`. When you first start irony-mode you need to build
-  ;; ;;     and install irony-server using {M-x irony-install-server RET}. It will
-  ;; ;;     give you a cmake command to execute. Before executing it, you need to
-  ;; ;;     provide the path llvm was installed in by adding the flags:
-  ;; ;;     -DCMAKE_PREFIX_PATH=/usr/local/opt/llvm -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=ON
-  ;; ;;     After compiling, you need to then set the runtime path for irony-server:
-  ;; ;;     `install_name_tool -change @rpath/libclang.dylib /usr/local/opt/llvm/lib/libclang.dylib ~/.emacs.d/irony/bin/irony-server`
-  ;; ;; See: https://github.com/Sarcasm/irony-mode/issues/167
-  ;; ;; FOR DEBIAN: Install libclang-3.4-dev
-  ;; (add-hook 'c++-mode-hook 'irony-mode)
-  ;; (add-hook 'c-mode-hook 'irony-mode)
-  ;; (add-hook 'objc-mode-hook 'irony-mode)
+  ;; irony mode (c/c++/obj-c autocompletion)
+  ;; See: https://github.com/Sarcasm/irony-mode
+  ;; FOR MAC: You need to first install llvm for libclang and cmake, which are
+  ;;     used for irony-server. Use `brew install llvm --with-clang` and
+  ;;     `brew install cmake`. When you first start irony-mode you need to build
+  ;;     and install irony-server using {M-x irony-install-server RET}.
+  ;; **** NOTE: Write a .clang_complete in project root directory with include
+  ;; compiler flags to reference other files.
+  (use-package irony
+    :ensure t
+    :config
+    ;; See: https://github.com/Sarcasm/irony-mode/issues/167
+    ;; FOR DEBIAN: Install libclang-3.4-dev
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'objc-mode-hook 'irony-mode)
+    (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
 
-  ;; ;; replace the `completion-at-point' and `complete-symbol' bindings in
-  ;; ;; irony-mode's buffers by irony-mode's function
-  ;; (defun my-irony-mode-hook ()
-  ;;   (define-key irony-mode-map [remap completion-at-point]
-  ;;     'irony-completion-at-point-async)
-  ;;   (define-key irony-mode-map [remap complete-symbol]
-  ;;     'irony-completion-at-point-async))
-  ;; (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-  ;; (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  (use-package company-irony
+    :ensure t
+    :config
+    (eval-after-load 'company
+      '(add-to-list 'company-backends 'company-irony)))
+#+END_SRC
 
-  ;; ;; Configure company-irony
-  ;; (eval-after-load 'company
-  ;;     '(add-to-list 'company-backends 'company-irony 'ein:company-backend))
-  ;; ;; **** NOTE: Write a .clang_complete in project root directory with include
-  ;; ;; compiler flags to reference other files.
+** ggtags
 
+#+BEGIN_SRC emacs-lisp
+  (use-package ggtags
+    :ensure t
+    :config
+    (add-hook 'c-mode-common-hook
+              (lambda ()
+                (when (derived-mode-p 'c-mode 'c++-mode)
+                  (ggtags-mode 1)))))
 #+END_SRC
 
 ** REFERENCES
    Some packages are from the "C/C++ Development Environment for Emacs" article
    See: http://tuhdo.github.io/c-ide.html#sec-2
 * Python
+** elpy
 
 #+BEGIN_SRC emacs-lisp
-  ;; (defun my/python-mode-hook ()
-  ;;   (add-to-list 'company-backends 'company-jedi))
+  (use-package elpy
+    :ensure t)
+  (elpy-enable)
+#+END_SRC
 
-  ;; (use-package company-jedi
-  ;;   :ensure t
-  ;;   :init
-  ;;   (add-hook 'python-mode-hook 'my/python-mode-hook))
+** jedi
 
-  ;; (require 'ein) ;; emacs ipython notebook
-  ;; (elpy-enable)
+#+BEGIN_SRC emacs-lisp
+  (defun my/python-mode-hook ()
+    (add-to-list 'company-backends 'company-jedi))
 
+  (use-package company-jedi
+    :ensure t
+    :init
+    (add-hook 'python-mode-hook 'my/python-mode-hook))
+#+END_SRC
+
+** ein
+   emacs ipython notebook
+
+#+BEGIN_SRC emacs-lisp
+  ;; Refer to: http://millejoh.github.io/emacs-ipython-notebook/
+  (use-package ein
+    :ensure t
+    :config
+    (setq ein:jupyter-default-server-command "/Users/kaiyang/anaconda2/bin/jupyter"))
 #+END_SRC
 
 * Org Mode
@@ -408,12 +546,20 @@
   ;; set up agenda files
   (if (eq system-type 'darwin)
       (setq org-agenda-files
-            (cons "/Users/kaiyang/Google Drive/org/stuff.org"
-                   (find-lisp-find-files
-                    (concat
-                     "/Users/kaiyang/Google Drive/logs/"
-                     (shell-command-to-string "echo -n $(date +%Y)"))
-                    "\.org$"))))
+            (append
+             (list
+              "/Users/kaiyang/Dropbox/org/projects.org"
+              "/Users/kaiyang/Dropbox/org/school.org"
+              "/Users/kaiyang/Dropbox/org/stuff.org"
+              "/Users/kaiyang/Dropbox/org/interests.org"
+              "/Users/kaiyang/Dropbox/org/refile.org")
+             (find-lisp-find-files
+              "/Users/kaiyang/Dropbox/org/journal"
+              "\.org$"))))
+
+  (setq org-agenda-dim-blocked-tasks t)
+
+  (setq org-agenda-tags-column -80)
 #+END_SRC
 
 ** Workflow
@@ -424,10 +570,30 @@
 
   ;; set workflows
   (setq org-todo-keywords
-        '((sequence "IDLE" "TODO" "|" "DONE")))
+        '((sequence "IDLE" "TODO(t!)" "|" "DONE(!)" "N/A(!)") ;; N/A = delegated or no longer applicable
+          (sequence "FIXME" "|" "FIXED(!)")))
+
+  (setq org-enforce-todo-dependencies t)
 #+END_SRC
 
 ** Capture
+
+#+BEGIN_SRC emacs-lisp
+  (defun find-journal-file ()
+    "Return filename for this month's journal"
+    (format-time-string "~/Dropbox/org/journal/%Y/%B.org"))
+
+  (setq org-capture-templates
+        '(("l" "Log" entry (file+olp+datetree find-journal-file)
+           "* %? :log:\n  %T")
+          ("n" "Note" entry (file+olp+datetree find-journal-file)
+           "* %?\n  %T")
+          ("b" "Bookmark" entry (file+headline "~/Dropbox/org/refile.org" "Bookmarks")
+           "* %^L%? %^G\n  %T" :prepend t)
+          ("t" "Task" entry (file+headline "~/Dropbox/org/refile.org" "Tasks")
+           "* IDLE %?" :prepend t)))
+  (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
+#+END_SRC
 
 ** Refile
 
@@ -447,7 +613,75 @@
 
 ** Archive
 
+#+BEGIN_SRC emacs-lisp
+  ;; ;; automatically archive when done
+  ;; (defun my:archive-when-done ()
+  ;;   (if (org-entry-is-done-p)
+  ;;       (when (not (find "ARCHIVE" `,(org-get-tags) :test #'equal))
+  ;;         (org-toggle-archive-tag))
+  ;;     (when (find "ARCHIVE" `,(org-get-tags) :test #'equal)
+  ;;       (org-toggle-archive-tag))
+  ;;     ))
+
+  ;; (add-hook 'org-after-todo-state-change-hook 'my:archive-when-done)
+
+  (setq org-agenda-text-search-extra-files
+        (find-lisp-find-files
+          "/Users/kaiyang/Dropbox/org/"
+          "\.org_archive$"))
+#+END_SRC
+
 ** Tags
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default org-tag-alist
+                '((:startgroup)
+                  ("mac")
+                  (:endgroup)
+
+                  (:startgroup)
+                  ("python")
+                  (:grouptags)
+                  ("flask")
+                  (:endgroup)
+
+                  (:startgroup)
+                  ("tech")
+                  (:grouptags)
+                  ("sw")
+                  (:endgroup)
+
+                  (:startgroup)
+                  ("emacs")
+                  (:grouptags)
+                  ("org")
+                  (:endgroup)
+
+                  (:startgroup)
+                  ("log")
+                  (:grouptags)
+                  ("read")
+                  ("food")
+                  (:endgroup)
+
+                  (:startgroup)
+                  ("food")
+                  (:grouptags)
+                  ("lunch")
+                  ("dinner")
+                  ("breakfast")
+                  (:endgroup)
+
+                  (:startgroup)
+                  ("js")
+                  (:endgroup)
+
+                  (:startgroup)
+                  ("fitness")
+                  (:grouptags)
+                  ("dance")
+                  (:endgroup)))
+#+END_SRC
 
 ** Key Bindings
 
@@ -455,6 +689,30 @@
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c t") 'org-todo)
   (global-set-key (kbd "C-c s") 'org-schedule)
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (global-set-key (kbd "C-c C-w") 'org-refile)
+
+  (global-set-key
+   (kbd "C-c v")
+   (defhydra hydra-org (:color red :hint nil)
+     "
+  Navigation^
+  ---------------------------------------------------------
+  _j_ next heading
+  _k_ prev heading
+  _h_ next heading (same level)
+  _l_ prev heading (same level)
+  _u_p higher heading
+  _<tab>_ cycle subtree
+  _g_o to
+  "
+     ("j" outline-next-visible-heading)
+     ("k" outline-previous-visible-heading)
+     ("h" org-forward-heading-same-level)
+     ("l" org-backward-heading-same-level)
+     ("u" outline-up-heading)
+     ("<tab>" org-cycle)
+     ("g" org-goto :exit t)))
 #+END_SRC
 
 * LaTeX
@@ -462,6 +720,7 @@
 #+BEGIN_SRC emacs-lisp
   ;; (require 'latex-pretty-symbols)
 #+END_SRC
+
 * Web Mode
 
 #+BEGIN_SRC emacs-lisp
@@ -546,3 +805,11 @@
 * Rust Mode
 
 * Matlab Mode
+
+* RJSX Mode
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rjsx-mode
+    :ensure t)
+  (setq js-indent-level 2)
+#+END_SRC
