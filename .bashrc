@@ -188,9 +188,9 @@ alias ..='cd ..'
 alias du='du -ch'
 
 # Text and editor commands
-alias emacs='emacs &'
-export EDITOR='emacs -nw'
-export VISUAL='emacs -nw'
+alias emacs='emacsclient -c --alternate-editor="" &'
+export EDITOR='emacsclient -t --alternate-editor=""'
+export VISUAL='emacsclient -c --alternate-editor=""'
 
 # grep options
 export GREP_OPTIONS='--color=auto'
@@ -199,6 +199,8 @@ export GREP_COLOR='1;31' # green for matches
 # misc.
 alias eternal='cat ~/.bash_eternal_history | cut -f6 | less'
 alias diff='git diff --no-index'
+alias ek="emacsclient -e '(kill-emacs)'"
+
 # git shortcuts
 alias gl='git log --oneline -n5'
 alias gs='git status'

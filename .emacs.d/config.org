@@ -15,9 +15,13 @@
   (load "defuns-config.el")
 
   ;; clean up interface
-  (menu-bar-mode -1) ;; turn off top menu bar (file, edit, etc)
-  (tool-bar-mode -1) ;; turn off tool bar
-  (toggle-scroll-bar -1) ;; turn off scroll bar
+  (defun clean-interface (&optional frame)
+    (menu-bar-mode -1) ;; turn off top menu bar (file, edit, etc)
+    (tool-bar-mode -1) ;; turn off tool bar
+    (scroll-bar-mode -1) ;; turn off scroll bar
+    )
+  (add-hook 'after-make-frame-functions 'clean-interface)
+  (clean-interface)
 
   ;; change yes/no to y/n
   (fset 'yes-or-no-p 'y-or-n-p)
