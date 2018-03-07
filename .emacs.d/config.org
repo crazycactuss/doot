@@ -402,6 +402,12 @@
   (global-set-key (kbd "M-h") 'backward-delete-word)
   ;; "C-?" fails. Sends ASCII 127?
   (global-set-key (kbd "C-x ?") 'help-command)
+
+  ;; window movement
+  (global-set-key (kbd "C-M-j") 'windmove-down)
+  (global-set-key (kbd "C-M-k") 'windmove-up)
+  (global-set-key (kbd "C-M-h") 'windmove-left)
+  (global-set-key (kbd "C-M-l") 'windmove-right)
 #+END_SRC
 
 ** Themes
@@ -564,6 +570,11 @@
   (setq org-agenda-dim-blocked-tasks t)
 
   (setq org-agenda-tags-column -80)
+
+  (setq org-agenda-custom-commands
+        '(("d" "List of all TODO entries" todo "TODO")
+          ))
+
 #+END_SRC
 
 ** Workflow
