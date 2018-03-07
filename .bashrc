@@ -232,3 +232,6 @@ fi
 
 # allow forward i-search in commands
 stty -ixon
+
+# install fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
