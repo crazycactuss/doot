@@ -211,6 +211,8 @@ alias eternal="tail -r ~/.bash_eternal_history | cut -f6 | cut -d ' ' -f5- | les
 alias diff='git diff --no-index'
 alias ek="emacsclient -e '(kill-emacs)'"
 alias cas='find . -name *~ | xargs rm'
+alias os='eval $(op signin team_tsiq)'
+alias dc='docker ps -qf status=exited | xargs docker rm'
 alias curl='curl -sv'
 alias js_curl='curl -sv -H "Content-Type: application/json"'
 
@@ -224,6 +226,13 @@ alias gb='git branch'
 ## -- cd bookmarks --
 ## ------------------
 shopt -s cdable_vars
+export pc=~/Projects/productcompiler/
+export pm=~/Projects/product-management-service/
+export pls=~/Projects/policy-lifecycle-service/
+export pi=~/Projects/product-info-service/
+export icp=~/Projects/icp
+export rating=~/Projects/rating-service/
+export pss=~/Projects/product-selection-service/
 
 # Git branch completion
 . ~/doot/.git-completion.bash
