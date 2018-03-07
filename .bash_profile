@@ -69,5 +69,5 @@ if [ "$platform" == "linux" ]; then
 fi
 
 if [ "$platform" == "mac" ]; then
-    export PATH="$PATH"
+    export PATH="$HOME/go/bin:$PATH"
 fi
