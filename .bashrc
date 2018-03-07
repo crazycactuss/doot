@@ -210,6 +210,9 @@ alias gb='git branch'
 ## ------------------
 shopt -s cdable_vars
 
+# Git branch completion
+. ~/doot/.git-completion.bash
+
 if [ "$platform" == "linux" ]; then
     # LINUX 2.5) sort options
     # Ensures cross-platform sorting behavior of GNU sort.
