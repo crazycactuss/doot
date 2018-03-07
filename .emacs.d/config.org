@@ -881,3 +881,12 @@
     (global-set-key (kbd "C-x g") 'magit-status)
     (global-set-key (kbd "C-x m") 'magit-blame))
 #+END_SRC
+
+* Ensime
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ensime
+    :ensure t
+    :config
+    (setq ensime-startup-notification nil))
+#+END_SRC
