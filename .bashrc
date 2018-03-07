@@ -205,6 +205,11 @@ alias gs='git status'
 alias gc='git checkout'
 alias gb='git branch'
 
+## ------------------
+## -- cd bookmarks --
+## ------------------
+shopt -s cdable_vars
+
 if [ "$platform" == "linux" ]; then
     # LINUX 2.5) sort options
     # Ensures cross-platform sorting behavior of GNU sort.
