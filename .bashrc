@@ -198,6 +198,12 @@ export GREP_COLOR='1;31' # green for matches
 
 # misc.
 alias eternal='cat ~/.bash_eternal_history | cut -f6 | less'
+alias diff='git diff --no-index'
+# git shortcuts
+alias gl='git log --oneline -n5'
+alias gs='git status'
+alias gc='git checkout'
+alias gb='git branch'
 
 if [ "$platform" == "linux" ]; then
     # LINUX 2.5) sort options
