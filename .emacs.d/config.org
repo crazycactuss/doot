@@ -588,14 +588,14 @@
     (format-time-string "~/Dropbox/org/journal/%Y/%B.org"))
 
   (setq org-capture-templates
-        '(("l" "Log" entry (file+olp+datetree find-journal-file)
+        '(("l" "Log" entry (file+datetree find-journal-file)
            "* %? :log:\n  %T")
-          ("n" "Note" entry (file+olp+datetree find-journal-file)
-           "* %?\n  %T")
+          ("n" "Note" entry (file+datetree find-journal-file)
+           "* %?\n  %U")
           ("b" "Bookmark" entry (file+headline "~/Dropbox/org/refile.org" "Bookmarks")
-           "* %^L%? %^G\n  %T" :prepend t)
+           "* %^L%?\n  %U" :prepend t)
           ("t" "Task" entry (file+headline "~/Dropbox/org/refile.org" "Tasks")
-           "* IDLE %?" :prepend t)))
+           "* IDLE %?\n  %U" :prepend t)))
   (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
 #+END_SRC
 
