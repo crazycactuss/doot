@@ -6,6 +6,7 @@ int main() {
   MyAdd add_obj;
   Helper habbadababa;
   add_obj.add(as, fd);
-  
+
+  int i;
   std::cout << "result:" << add_obj.add(1, 1) << std::endl;
 }
