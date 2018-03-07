@@ -256,3 +256,6 @@ powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 source /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+
+# added by travis gem
+[ -f /Users/kaiyang/.travis/travis.sh ] && source /Users/kaiyang/.travis/travis.sh
