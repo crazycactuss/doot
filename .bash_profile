@@ -88,7 +88,7 @@ if [ "$platform" == "mac" ]; then
     #. /Users/kaiyang/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
     # PHP 7.1
-    #export PATH="/usr/local/php5/bin:$PATH"
+    export PATH="/usr/local/php5/bin:$PATH"
 
     # added by Anaconda2 5.0.0 installer
     export PATH="/Users/kaiyang/anaconda2/bin:$PATH"
