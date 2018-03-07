@@ -69,27 +69,5 @@ if [ "$platform" == "linux" ]; then
 fi
 
 if [ "$platform" == "mac" ]; then
-    # MySQL
-    #export PATH="/usr/local/mysql/bin:$PATH"
-
-    # pebble 2.9 stuff
-    #export PATH="$HOME/Projects/lahacks_2015/pebble/PebbleSDK-2.9/bin:$PATH"
-
-    # matlab
-    export PATH="/Applications/MATLAB_R2016a.app/bin:$PATH"
-
-    # add MAMP bin to path
-    #export PATH="$PATH:/Applications/MAMP/Library/bin/mysql"
-
-    # julia
-    #export PATH="/Applications/Julia-0.3.7.app/Contents/Resources/julia/bin:$PATH"
-
-    # OPAM (octave pkg manager) configuration
-    #. /Users/kaiyang/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-
-    # PHP 7.1
-    export PATH="/usr/local/php5/bin:$PATH"
-
-    # Anaconda3
-    export PATH="$PATH:/Users/kaiyang/anaconda3/bin"
+    export PATH="$PATH"
 fi
