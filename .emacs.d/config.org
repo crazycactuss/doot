@@ -832,3 +832,12 @@
     :ensure t)
   (setq js-indent-level 2)
 #+END_SRC
+
+* Magit
+
+#+BEGIN_SRC emacs-lisp
+  (use-package magit
+    :ensure t
+    :config
+    (global-set-key (kbd "C-x g") 'magit-status))
+#+END_SRC
