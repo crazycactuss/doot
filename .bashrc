@@ -48,9 +48,9 @@ elif [ "`uname`" == "Darwin" ]; then # Mac OS
     platform='mac'
 fi
 
-# -----------------------------------
-# -- 1.1) Set up umask permissions --
-# -----------------------------------
+# ------------------------------
+# -- Set up umask permissions --
+# ------------------------------
 #  The following incantation allows easy group modification of files.
 #  See: http://en.wikipedia.org/wiki/Umask
 #
@@ -82,9 +82,9 @@ else
     umask 022
 fi
 
-# ---------------------------------------------------------
-# -- 1.2) Set up bash prompt and ~/.bash_eternal_history --
-# ---------------------------------------------------------
+# ----------------------------------------------------
+# -- Set up bash prompt and ~/.bash_eternal_history --
+# ----------------------------------------------------
 #  Set various bash parameters based on whether the shell is 'interactive'
 #  or not.  An interactive shell is one you type commands into, a
 #  non-interactive one is the bash environment used in scripts.
@@ -168,17 +168,17 @@ shopt -s histappend
 # See: http://www.cyberciti.biz/faq/bash-shell-change-the-color-of-my-shell-prompt-under-linux-or-unix/
 PS1="\[\033[0;34m\][\u@\h:\w]\[\033[0m\]\n\[\e[1;32m\]$\[\e[0m\]"
 
-## -----------------------
-## -- 2) Set up aliases --
-## -----------------------
+# ------------------------------
+# -- Set up aliases + exports --
+# ------------------------------
 
-# 2.1) Safety
+# Safety
 alias rm="rm -i"
 alias mv="mv -i"
 alias cp="cp -i"
 set -o noclobber
 
-# 2.2) Listing, directories, and motion
+# Listing, directories, and motion
 if [ "$platform" == "linux" ]; then
     alias ll="ls -alhF --color"
 elif [ "$platform" == "mac" ]; then
@@ -187,15 +187,16 @@ fi
 alias ..='cd ..'
 alias du='du -ch'
 
-# 2.3) Text and editor commands
+# Text and editor commands
 alias emacs='emacs &'
 export EDITOR='emacs -nw'
 export VISUAL='emacs -nw'
 
-# 2.4) grep options
+# grep options
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;31' # green for matches
 
+# misc.
 alias eternal='cat ~/.bash_eternal_history | cut -f6 | less'
 
 if [ "$platform" == "linux" ]; then
