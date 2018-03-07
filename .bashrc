@@ -269,3 +269,6 @@ source /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.
 
 # added by travis gem
 [ -f /Users/kaiyang/.travis/travis.sh ] && source /Users/kaiyang/.travis/travis.sh
+
+# Pin JDK version
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/
