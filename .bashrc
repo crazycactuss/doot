@@ -188,7 +188,7 @@ alias ..='cd ..'
 alias du='du -ch'
 
 # 2.3) Text and editor commands
-alias emacs='emacs -nw'     # No X11 windows
+alias emacs='emacs &'
 export EDITOR='emacs -nw'
 export VISUAL='emacs -nw'
 
