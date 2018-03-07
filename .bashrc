@@ -231,8 +231,9 @@ export pm=~/Projects/product-management-service/
 export pls=~/Projects/policy-lifecycle-service/
 export pi=~/Projects/product-info-service/
 export icp=~/Projects/icp
-export rating=~/Projects/rating-service/
 export pss=~/Projects/product-selection-service/
+export api=~/Projects/tsiq-api/
+export prod=~/Projects/iqos-products/
 
 # Git branch completion
 . ~/doot/.git-completion.bash
