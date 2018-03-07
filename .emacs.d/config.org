@@ -575,7 +575,7 @@
   ;; set workflows
   (setq org-todo-keywords
         '((sequence "IDLE" "TODO(t!)" "|" "DONE(!)" "N/A(!)") ;; N/A = delegated or no longer applicable
-          (sequence "FIXME" "|" "FIXED(!)")))
+          ))
 
   (setq org-enforce-todo-dependencies t)
 #+END_SRC
