@@ -31,6 +31,6 @@ http://www.emacswiki.org/emacs/BackwardDeleteWord
     (progn
       (message "column 120 marker ON")
       (column-marker-1 120)))
-  (setq show-eighty-column-marker (not show-eighty-column-marker)))
+  (setq show-column-marker (not show-column-marker)))
 
 (fset 'align-equals "\C-[xalign-regex\C-m=\C-m")
