@@ -572,9 +572,10 @@
   (setq org-agenda-tags-column -80)
 
   (setq org-agenda-custom-commands
-        '(("d" "List of all TODO entries" todo "TODO")
-          ))
-
+        '(("n" "Agenda and TODOs"
+           ((agenda "" ((org-agenda-span 'day)))
+            (todo "TODO" nil))
+           nil)))
 #+END_SRC
 
 ** Workflow
