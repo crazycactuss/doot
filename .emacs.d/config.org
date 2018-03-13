@@ -576,6 +576,9 @@
            ((agenda "" ((org-agenda-span 'day)))
             (todo "TODO" nil))
            nil)))
+
+  (setq org-agenda-block-separator
+        "================================================================================")
 #+END_SRC
 
 ** Workflow
