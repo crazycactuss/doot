@@ -71,3 +71,7 @@ fi
 if [ "$platform" == "mac" ]; then
     export PATH="$HOME/go/bin:$PATH"
 fi
+
+if [ -f ~/bazel-complete.bash ]; then
+    source ~/bazel-complete.bash
+fi
