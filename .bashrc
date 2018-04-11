@@ -196,6 +196,9 @@ export VISUAL='emacsclient -c --alternate-editor='
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;31' # green for matches
 
+# fzf config
+export FZF_DEFAULT_COMMAND='fd --type f'
+
 # misc.
 alias eternal='cat ~/.bash_eternal_history | cut -f6 | less'
 alias diff='git diff --no-index'
