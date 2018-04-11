@@ -213,6 +213,7 @@ alias ek="emacsclient -e '(kill-emacs)'"
 alias cas='find . -name *~ | xargs rm'
 alias os='eval $(op signin team_tsiq)'
 alias dc='docker ps -qf status=exited | xargs docker rm'
+alias dci='docker images -qf dangling=true | xargs docker rmi'
 alias curl='curl -sv'
 alias js_curl='curl -sv -H "Content-Type: application/json"'
 
