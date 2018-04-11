@@ -434,6 +434,27 @@
     :config (load-theme 'zenburn t))
 #+END_SRC
 
+** Graphical Face Configuration
+
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'mode-line nil :box nil)
+  (set-face-attribute 'mode-line-inactive nil :box nil)
+  (set-face-attribute 'mode-line-highlight nil :box nil)
+  ;; To do this, you must first install patched fonts from: https://github.com/powerline/fonts
+  ;; Then, you need to rename inconsolata-g since emacs doesn't allow hypens in fonts
+  ;;   Refer to: https://emacs.stackexchange.com/questions/16818/cocoa-emacs-24-5-font-issues-inconsolata-dz/29397#29397
+  (add-to-list 'default-frame-alist
+               '(font . "InconsolataG for Powerline-12"))
+#+END_SRC
+
+** Powerline
+
+#+BEGIN_SRC emacs-lisp
+  (use-package powerline
+    :ensure t
+    :config (powerline-default-theme))
+  (setq powerline-image-apple-rgb t)
+#+END_SRC
 * C/C++
 ** Basic Settings
 
