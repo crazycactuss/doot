@@ -188,9 +188,9 @@ alias ..='cd ..'
 alias du='du -ch'
 
 # Text and editor commands
-alias emacs='emacsclient -c --alternate-editor="" &'
-export EDITOR='emacsclient -t --alternate-editor=""'
-export VISUAL='emacsclient -c --alternate-editor=""'
+alias emacs='emacsclient -t --alternate-editor='
+export EDITOR='emacsclient -t --alternate-editor='
+export VISUAL='emacsclient -c --alternate-editor='
 
 # grep options
 export GREP_OPTIONS='--color=auto'
