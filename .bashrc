@@ -200,7 +200,7 @@ export GREP_COLOR='1;31' # green for matches
 export FZF_DEFAULT_COMMAND='fd --type f'
 
 # misc.
-alias eternal='cat ~/.bash_eternal_history | cut -f6 | less'
+alias eternal="cat ~/.bash_eternal_history | cut -f5-6 | fzf --preview=\"rg -m1 -C4 {} ~/.bash_eternal_history\" --preview-window=down:10:hidden --bind ?:toggle-preview | cut -f2 | awk '{\$1=\$2=\"\";print}' | xargs echo -n | pbcopy"
 alias diff='git diff --no-index'
 alias ek="emacsclient -e '(kill-emacs)'"
 
