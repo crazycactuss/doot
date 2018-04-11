@@ -476,13 +476,13 @@
   (use-package flymake-google-cpplint
     :ensure t
     :config
-    (setq flymake-google-cpplint-command "/Users/kaiyang/anaconda2/bin/cpplint"))
+    (setq flymake-google-cpplint-command "/Users/kaiyang/anaconda3/bin/cpplint"))
   (use-package flymake-cursor
     :ensure t)
 
   (defun my:flymake-google-init ()
     (custom-set-variables
-     '(flymake-google-cpplint-command "/Users/kaiyang/anaconda2/bin/cpplint"))
+     '(flymake-google-cpplint-command "/Users/kaiyang/anaconda3/bin/cpplint"))
     (flymake-google-cpplint-load)
     )
   (add-hook 'c-mode-hook 'my:flymake-google-init)
@@ -571,7 +571,7 @@
   (use-package ein
     :ensure t
     :config
-    (setq ein:jupyter-default-server-command "/Users/kaiyang/anaconda2/bin/jupyter"))
+    (setq ein:jupyter-default-server-command "/Users/kaiyang/anaconda3/bin/jupyter"))
 #+END_SRC
 
 * Org Mode

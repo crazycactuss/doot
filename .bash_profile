@@ -90,6 +90,6 @@ if [ "$platform" == "mac" ]; then
     # PHP 7.1
     export PATH="/usr/local/php5/bin:$PATH"
 
-    # added by Anaconda2 5.0.0 installer
-    export PATH="/Users/kaiyang/anaconda2/bin:$PATH"
+    # Anaconda3
+    export PATH="$PATH:/Users/kaiyang/anaconda3/bin"
 fi
