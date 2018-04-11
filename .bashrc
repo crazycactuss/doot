@@ -206,7 +206,7 @@ alias ek="emacsclient -e '(kill-emacs)'"
 
 # git shortcuts
 alias gl='git log --oneline -n5'
-alias gs='git status'
+alias gs='echo -e "\033[0;31mSTATUS\033[0m" && git status && echo -e "\033[0;31mBRANCHES\033[0m" && gb | grep -v merged | grep -v na && echo -e "\033[0;31mLOG\033[0m" && gl'
 alias gc='git checkout'
 alias gb='git branch'
 
