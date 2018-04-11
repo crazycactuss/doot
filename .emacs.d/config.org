@@ -449,10 +449,13 @@
 ** Powerline
 
 #+BEGIN_SRC emacs-lisp
-  (use-package powerline
+  ;; (use-package powerline
+  ;;   :ensure t
+  ;;   :config (powerline-default-theme))
+  ;; (setq powerline-image-apple-rgb t)
+  (use-package smart-mode-line
     :ensure t
-    :config (powerline-default-theme))
-  (setq powerline-image-apple-rgb t)
+    :config (sml/setup))
 #+END_SRC
 * C/C++
 ** Basic Settings
