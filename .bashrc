@@ -235,6 +235,7 @@ export icp=~/Projects/icp
 export pss=~/Projects/product-selection-service/
 export api=~/Projects/tsiq-api/
 export prod=~/Projects/iqos-products/
+export int=~/Projects/pas-integration-test
 
 # Git branch completion
 . ~/doot/.git-completion.bash
