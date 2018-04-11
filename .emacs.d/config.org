@@ -406,6 +406,8 @@
   ;; "C-?" fails. Sends ASCII 127?
   (global-set-key (kbd "C-x ?") 'help-command)
 
+  ;; M-k to kill current buffer as opposed to S-k
+  (global-set-key (kbd "M-k") 'kill-this-buffer)
 #+END_SRC
 
 ** Themes
