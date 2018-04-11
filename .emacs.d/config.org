@@ -320,8 +320,7 @@
 
 #+BEGIN_SRC emacs-lisp
   ;; Highlight a certain column.
-  (use-package column-marker
-    :ensure t)
+  (require 'column-enforce-mode)
 
   ;; Use "C-=" to mark a region that expands each time you activate it.
   (use-package expand-region
@@ -381,7 +380,7 @@
   (global-set-key (kbd "C-c w") 'whitespace-mode)
 
   ;; column marker
-  (global-set-key (kbd "C-c o") 'column-mark-toggle)
+  (global-set-key (kbd "C-c o") '100-column-rule)
 
   ;; disable zap to char
   (global-set-key (kbd "C-z") nil)
