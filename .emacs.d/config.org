@@ -649,7 +649,9 @@
           ("b" "Bookmark" entry (file+headline "~/Dropbox/org/refile.org" "Bookmarks")
            "* %^L%?\n  %U" :prepend t)
           ("t" "Task" entry (file+headline "~/Dropbox/org/refile.org" "Tasks")
-           "* IDLE %?\n  %U" :prepend t)))
+           "* IDLE %?\n  %U" :prepend t)
+          ("f" "Food" entry (file+datetree find-journal-file)
+           "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :WITH:\n  :END:\n  %T")))
   (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
 #+END_SRC
 
