@@ -737,6 +737,14 @@
                   (:endgroup)
 
                   (:startgroup)
+                  ("rust")
+                  (:endgroup)
+
+                  (:startgroup)
+                  ("aws")
+                  (:endgroup)
+
+                  (:startgroup)
                   ("fitness")
                   (:grouptags)
                   ("dance")
