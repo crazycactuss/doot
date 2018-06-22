@@ -230,11 +230,13 @@ shopt -s cdable_vars
 export pc=~/Projects/productcompiler/
 export pm=~/Projects/product-management-service/
 export pls=~/Projects/policy-lifecycle-service/
+export paf=~/Projects/policy-admin-forms/
 export pi=~/Projects/product-info-service/
 export icp=~/Projects/icp
 export pss=~/Projects/product-selection-service/
 export api=~/Projects/tsiq-api/
 export prod=~/Projects/iqos-products/
+export bb=~/Projects/iqos-products-blackboard/
 export int=~/Projects/pas-integration-test
 
 # Git branch completion
