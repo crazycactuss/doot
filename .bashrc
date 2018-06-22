@@ -275,4 +275,4 @@ source /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.
 [ -f /Users/kaiyang/.travis/travis.sh ] && source /Users/kaiyang/.travis/travis.sh
 
 # Pin JDK version
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/
