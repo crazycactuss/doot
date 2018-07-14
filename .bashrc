@@ -198,6 +198,8 @@ export GREP_COLOR='1;31' # green for matches
 
 # fzf config
 export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+bind -x '"\C-x\C-f": fzf-file-widget'
 
 # misc.
 alias eternal="cat ~/.bash_eternal_history | cut -f5-6 | fzf --preview=\"rg -m1 -C4 {} ~/.bash_eternal_history\" --preview-window=down:10:hidden --bind ?:toggle-preview | cut -f2 | awk '{\$1=\$2=\"\";print}' | xargs echo -n | pbcopy"
