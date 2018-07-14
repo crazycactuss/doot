@@ -205,6 +205,8 @@ bind -x '"\C-x\C-f": fzf-file-widget'
 alias eternal="cat ~/.bash_eternal_history | cut -f5-6 | fzf --preview=\"rg -m1 -C4 {} ~/.bash_eternal_history\" --preview-window=down:10:hidden --bind ?:toggle-preview | cut -f2 | awk '{\$1=\$2=\"\";print}' | xargs echo -n | pbcopy"
 alias diff='git diff --no-index'
 alias ek="emacsclient -e '(kill-emacs)'"
+alias curl='curl -sv'
+alias js_curl='curl -sv -H "Content-Type: application/json"'
 
 # git shortcuts
 alias gl='git log --oneline -n5'
