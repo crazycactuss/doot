@@ -216,6 +216,8 @@ alias dc='docker ps -qf status=exited | xargs docker rm'
 alias dci='docker images -qf dangling=true | xargs docker rmi'
 alias curl='curl -sv'
 alias js_curl='curl -sv -H "Content-Type: application/json"'
+alias lintc='mvn com.coveo:fmt-maven-plugin:check -Dverbose=true'
+alias lintf='mvn com.coveo:fmt-maven-plugin:format -Dverbose=true'
 
 # git shortcuts
 alias gl='git log --oneline -n5'
