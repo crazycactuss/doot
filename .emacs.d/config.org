@@ -633,7 +633,7 @@
     (format-time-string "~/Dropbox/org/journal/%Y/%B.org"))
 
   (setq org-capture-templates
-        '(("l" "Log" entry (file+datetree find-journal-file)
+        '(("l" "Log" entry (file+olp+datetree find-journal-file)
            "* %? :log:\n  %T")
           ("n" "Note" entry (file+datetree find-journal-file)
            "* %?\n  %U")
