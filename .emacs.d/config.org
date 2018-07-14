@@ -251,21 +251,10 @@
 ** Projectile
 
 #+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :ensure t
-    :config
-    (projectile-global-mode)
-    (setq projectile-completion-system 'ivy))
-
   (use-package counsel-projectile
     :ensure t
     :config
     (counsel-projectile-mode))
-
-  ;; https://github.com/bbatsov/projectile/issues/1183
-  (setq projectile-mode-line
-        '(:eval (format " Projectile[%s]"
-                        (projectile-project-name))))
 #+END_SRC
 
 ** dumb jump
