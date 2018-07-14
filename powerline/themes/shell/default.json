@@ -36,6 +36,9 @@
 		  }
 		],
 		"right": [
+          {
+            "function": "powerline.segments.common.vcs.branch"
+          },
 		  {
 			"function": "powerline.segments.shell.last_status",
 			"priority": 10
