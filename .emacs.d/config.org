@@ -607,6 +607,8 @@
 
   (setq org-agenda-block-separator
         "================================================================================")
+
+  (setq org-refile-use-outline-path 'file)
 #+END_SRC
 
 ** Workflow
