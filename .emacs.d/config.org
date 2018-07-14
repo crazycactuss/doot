@@ -94,7 +94,7 @@
   (setq-default fill-column 100)
 
   ;; window split threshold
-  (setq split-width-threshold 100)
+  (setq split-width-threshold 200)
   (setq split-height-threshold 200)
 #+END_SRC
 
