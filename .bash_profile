@@ -71,6 +71,7 @@ fi
 if [ "$platform" == "mac" ]; then
     export PATH="$HOME/go/bin:$PATH"
     export PATH="$PATH:/Users/kaiyang/anaconda3/bin"
+    export PATH="$PATH:/Users/kaiyang/Library/Python/3.6/bin"
 fi
 
 if [ -f ~/bazel-complete.bash ]; then
