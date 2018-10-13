@@ -240,6 +240,7 @@ export api=~/Projects/tsiq-api/
 export prod=~/Projects/iqos-products/
 export bb=~/Projects/iqos-products-blackboard/
 export int=~/Projects/pas-integration-test
+export be=~/Projects/buildenv
 
 # Git branch completion
 . ~/doot/.git-completion.bash
@@ -277,4 +278,4 @@ source /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.
 [ -f /Users/kaiyang/.travis/travis.sh ] && source /Users/kaiyang/.travis/travis.sh
 
 # Pin JDK version
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/
