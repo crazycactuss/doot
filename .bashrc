@@ -173,19 +173,24 @@ PS1="\[\033[0;34m\][\u@\h:\w]\[\033[0m\]\n\[\e[1;32m\]$\[\e[0m\]"
 # ------------------------------
 
 # Safety
-alias rm="rm -i"
-alias mv="mv -i"
-alias cp="cp -i"
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
 set -o noclobber
 
 # Listing, directories, and motion
 if [ "$platform" == "linux" ]; then
-    alias ll="ls -alhF --color"
+    alias ll='ls -alhF --color'
 elif [ "$platform" == "mac" ]; then
-    alias ll="ls -alhGF"
+    alias ll='CLICOLOR_FORCE= ls -alhGF'
 fi
+alias less='less -R'
+alias jq='jq -C'
 alias ..='cd ..'
 alias du='du -ch'
+alias ud='pushd'
+alias pd='popd'
+alias rg='rg -S'
 
 # Text and editor commands
 alias emacs='emacsclient -t --alternate-editor='
@@ -205,6 +210,7 @@ bind -x '"\C-x\C-f": fzf-file-widget'
 alias eternal="cat ~/.bash_eternal_history | cut -f5-6 | fzf --preview=\"rg -m1 -C4 {} ~/.bash_eternal_history\" --preview-window=down:10:hidden --bind ?:toggle-preview | cut -f2 | awk '{\$1=\$2=\"\";print}' | xargs echo -n | pbcopy"
 alias diff='git diff --no-index'
 alias ek="emacsclient -e '(kill-emacs)'"
+alias cas='find . -name *~ | xargs rm'
 alias curl='curl -sv'
 alias js_curl='curl -sv -H "Content-Type: application/json"'
 

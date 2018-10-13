@@ -420,6 +420,9 @@
   (use-package zenburn-theme
     :ensure t
     :config (load-theme 'zenburn t))
+  ;; (use-package atom-one-dark-theme
+  ;;   :ensure t
+  ;;   :config (load-theme 'atom-one-dark t))
 #+END_SRC
 
 ** Graphical Face Configuration
@@ -444,7 +447,7 @@
   ;; (setq powerline-image-apple-rgb t)
   (use-package smart-mode-line
     :ensure t
-    :config (sml/setup))
+    :config (add-hook 'after-init-hook 'sml/setup))
 #+END_SRC
 * C/C++
 ** Basic Settings
@@ -607,8 +610,6 @@
 
   (setq org-agenda-block-separator
         "================================================================================")
-
-  (setq org-refile-use-outline-path 'file)
 #+END_SRC
 
 ** Workflow
@@ -637,7 +638,7 @@
            "* %? :log:\n  %T")
           ("n" "Note" entry (file+datetree find-journal-file)
            "* %?\n  %U")
-          ("b" "Bookmark" entry (file+headline "~/Dropbox/org/refile.org" "Bookmarks")
+          ("b" "Bookmark" entry (file+olp+datetree find-journal-file)
            "* %^L%?\n  %U" :prepend t)
           ("t" "Task" entry (file+headline "~/Dropbox/org/refile.org" "Tasks")
            "* IDLE %?\n  %U" :prepend t)
@@ -656,7 +657,7 @@
   ;; Refile in a single go
   (setq org-outline-path-complete-in-steps nil)
   ;; Show full paths for refiling
-  (setq org-refile-use-outline-path t)
+  (setq org-refile-use-outline-path 'file)
 
   ;; allow creation of parent nodes
   (setq org-refile-allow-creating-parent-nodes 'confirm)
