@@ -809,74 +809,74 @@
 * Markdown Mode
 
 #+BEGIN_SRC emacs-lisp
-  ;; Two ways of previewing markdown
-  ;; (1) (PREFERRED) markdown-preview-mode (load upon saves). Start via "M-x m-pr-m RET"
-  ;; (2) impatient-mode (live preview). Toggle via "C-c C-c i"
+  ;; ;; Two ways of previewing markdown
+  ;; ;; (1) (PREFERRED) markdown-preview-mode (load upon saves). Start via "M-x m-pr-m RET"
+  ;; ;; (2) impatient-mode (live preview). Toggle via "C-c C-c i"
 
-  (use-package markdown-mode
-    :ensure t
-    :commands (markdown-mode gfm-mode)
-    :mode (("README\\.md\\'" . gfm-mode)
-           ("\\.md\\'" . gfm-mode)
-           ("\\.markdown\\'" . markdown-mode))
-    :init
-    (setq markdown-command "/usr/local/bin/multimarkdown")
-    (setq markdown-split-window-direction 'horizontal))
+  ;; (use-package markdown-mode
+  ;;   :ensure t
+  ;;   :commands (markdown-mode gfm-mode)
+  ;;   :mode (("README\\.md\\'" . gfm-mode)
+  ;;          ("\\.md\\'" . gfm-mode)
+  ;;          ("\\.markdown\\'" . markdown-mode))
+  ;;   :init
+  ;;   (setq markdown-command "/usr/local/bin/multimarkdown")
+  ;;   (setq markdown-split-window-direction 'horizontal))
 
-  (add-hook 'markdown-mode-hook 'md-hook)
-  (defun md-hook ()
-    (define-key markdown-mode-map (kbd "M-p") #'prev5)
-    (define-key markdown-mode-map (kbd "M-n") #'next5))
+  ;; (add-hook 'markdown-mode-hook 'md-hook)
+  ;; (defun md-hook ()
+  ;;   (define-key markdown-mode-map (kbd "M-p") #'prev5)
+  ;;   (define-key markdown-mode-map (kbd "M-n") #'next5))
 
-  ;; (setq markdown-preview-stylesheets
-  ;;       (list "http://strapdownjs.com/v/0.2/themes/united.min.css"
-  ;;       "http://strapdownjs.com/v/0.2/strapdown.css"
-  ;;       "http://strapdownjs.com/v/0.2/themes/bootstrap-responsive.min.css"))
+  ;; ;; (setq markdown-preview-stylesheets
+  ;; ;;       (list "http://strapdownjs.com/v/0.2/themes/united.min.css"
+  ;; ;;       "http://strapdownjs.com/v/0.2/strapdown.css"
+  ;; ;;       "http://strapdownjs.com/v/0.2/themes/bootstrap-responsive.min.css"))
 
-  ;; (use-package markdown-preview-mode
-  ;;   :ensure t)
+  ;; ;; (use-package markdown-preview-mode
+  ;; ;;   :ensure t)
 
-  ;; (add-hook 'markdown-preview-mode-hook
-  ;;           (lambda ()
-  ;;             (set-process-query-on-exit-flag
-  ;;       (get-buffer-process (current-buffer)) nil)))
+  ;; ;; (add-hook 'markdown-preview-mode-hook
+  ;; ;;           (lambda ()
+  ;; ;;             (set-process-query-on-exit-flag
+  ;; ;;       (get-buffer-process (current-buffer)) nil)))
 
-  ;; IMPATIENT MODE
+  ;; ;; IMPATIENT MODE
 
-  ;; (defun markdown-html (buffer)
-  ;;   (princ (with-current-buffer buffer
-  ;;            (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
-  ;;          (current-buffer)))
+  ;; ;; (defun markdown-html (buffer)
+  ;; ;;   (princ (with-current-buffer buffer
+  ;; ;;            (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+  ;; ;;          (current-buffer)))
 
-  ;; (defun start-imp-markdown ()
-  ;;   "Start the impatient mode for markdown and opens the rendering
-  ;; in the user's default web browser. Note that if the web browser
-  ;; wasn't running, Emacs starts it - you may want to close the
-  ;; browser before Emacs in this case (Emacs will complain at quit
-  ;; time otherwise)"
-  ;;   (httpd-start)
-  ;;   (impatient-mode 1)
-  ;;   (imp-set-user-filter #'markdown-html))
+  ;; ;; (defun start-imp-markdown ()
+  ;; ;;   "Start the impatient mode for markdown and opens the rendering
+  ;; ;; in the user's default web browser. Note that if the web browser
+  ;; ;; wasn't running, Emacs starts it - you may want to close the
+  ;; ;; browser before Emacs in this case (Emacs will complain at quit
+  ;; ;; time otherwise)"
+  ;; ;;   (httpd-start)
+  ;; ;;   (impatient-mode 1)
+  ;; ;;   (imp-set-user-filter #'markdown-html))
 
-  ;; (defun stop-imp-markdown ()
-  ;;   "Stop the impatient mode for markdown"
-  ;;   (impatient-mode 0)
-  ;;   (httpd-stop))
+  ;; ;; (defun stop-imp-markdown ()
+  ;; ;;   "Stop the impatient mode for markdown"
+  ;; ;;   (impatient-mode 0)
+  ;; ;;   (httpd-stop))
 
-  ;; (setq majoranaa-impatient-markdown 'nil)
-  ;; (defun imp-markdown-toggle ()
-  ;;   "Toggle impatient markdown mode"
-  ;;   (interactive)
-  ;;   (if majoranaa-impatient-markdown
-  ;;       (progn
-  ;;         (message "Stopping impatient markdown mode")
-  ;;         (stop-imp-markdown))
-  ;;     (progn
-  ;;       (message "Starting impatient markdown mode")
-  ;;       (start-imp-markdown)))
-  ;;   (setq majoranaa-impatient-markdown (not majoranaa-impatient-markdown)))
+  ;; ;; (setq majoranaa-impatient-markdown 'nil)
+  ;; ;; (defun imp-markdown-toggle ()
+  ;; ;;   "Toggle impatient markdown mode"
+  ;; ;;   (interactive)
+  ;; ;;   (if majoranaa-impatient-markdown
+  ;; ;;       (progn
+  ;; ;;         (message "Stopping impatient markdown mode")
+  ;; ;;         (stop-imp-markdown))
+  ;; ;;     (progn
+  ;; ;;       (message "Starting impatient markdown mode")
+  ;; ;;       (start-imp-markdown)))
+  ;; ;;   (setq majoranaa-impatient-markdown (not majoranaa-impatient-markdown)))
 
-  ;; (global-set-key (kbd "C-c C-c i") 'imp-markdown-toggle))
+  ;; ;; (global-set-key (kbd "C-c C-c i") 'imp-markdown-toggle))
 #+END_SRC
 
 * Rust Mode
