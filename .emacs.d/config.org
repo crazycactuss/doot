@@ -882,7 +882,8 @@
     :config
     (global-set-key (kbd "C-x g") 'magit-status)
     (global-set-key (kbd "C-x m") 'magit-blame)
-    (global-set-key (kbd "C-x C-M-f") 'magit-find-file))
+    (global-set-key (kbd "C-x C-M-f") 'magit-find-file)
+    (setq magit-display-file-buffer-function 'magit-display-file-buffer-other-window))
 #+END_SRC
 
 * Ensime
