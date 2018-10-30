@@ -577,6 +577,8 @@
 
   ;; don't truncate lines
   (setq org-startup-truncated nil)
+
+  (require 'org-habit)
 #+END_SRC
 
 ** Agenda
