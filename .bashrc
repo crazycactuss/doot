@@ -224,6 +224,7 @@ alias gb='git branch'
 ## -- cd bookmarks --
 ## ------------------
 shopt -s cdable_vars
+export bpdi=~/Projects/bpdi
 
 # Git branch completion
 . ~/doot/.git-completion.bash
