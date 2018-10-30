@@ -26,6 +26,8 @@ ln -sb doot/.bash_profile .
 ln -sb doot/.bashrc .
 ln -sb doot/.bash_logout .
 ln -sb doot/.tmux.conf .
+# Assuming you have Hammerspoon installed
+ln -sb doot/.hammerspoon/init.lua .hammerspoon/init.lua
 mv .emacs.d .emacs.d~
 ln -s doot/.emacs.d .
 ```
