@@ -880,7 +880,8 @@
     :ensure t
     :config
     (global-set-key (kbd "C-x g") 'magit-status)
-    (global-set-key (kbd "C-x m") 'magit-blame))
+    (global-set-key (kbd "C-x m") 'magit-blame)
+    (global-set-key (kbd "C-x C-M-f") 'magit-find-file))
 #+END_SRC
 
 * Ensime
