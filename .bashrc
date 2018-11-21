@@ -207,7 +207,7 @@ export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat 
 bind -x '"\C-x\C-f": fzf-file-widget'
 
 # misc.
-alias eternal="cat ~/.bash_eternal_history | cut -f5-6 | fzf --preview=\"rg -m1 -C4 {} ~/.bash_eternal_history\" --preview-window=down:10:hidden --bind ?:toggle-preview | cut -f2 | awk '{\$1=\$2=\"\";print}' | xargs echo -n | pbcopy"
+alias eternal="tail -r ~/.bash_eternal_history | cut -f6 | cut -d ' ' -f5- | less"
 alias diff='git diff --no-index'
 alias ek="emacsclient -e '(kill-emacs)'"
 alias cas='find . -name *~ | xargs rm'
