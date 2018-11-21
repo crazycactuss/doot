@@ -241,6 +241,7 @@ export prod=~/Projects/iqos-products/
 export bb=~/Projects/iqos-products-blackboard/
 export int=~/Projects/pas-integration-test
 export be=~/Projects/buildenv
+export pp=~/Projects/product-platform/
 
 # Git branch completion
 . ~/doot/.git-completion.bash
