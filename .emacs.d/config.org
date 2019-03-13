@@ -440,16 +440,20 @@
   (setq org-agenda-tags-column -95)
 
   (setq org-agenda-custom-commands
-	'(("n" "Agenda and TODOs"
+	'(("n" "TSIQ Agenda and TODOs"
 	   ((agenda "" ((org-agenda-span 'day)))
 	    (todo "TODO"
 		  ((org-agenda-overriding-header "Unscheduled TODOs")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
 	    (todo "TODO"
 		  ((org-agenda-overriding-header "Inbox")
-		   (org-agenda-files '("/Users/kaiyang/Dropbox/org/inbox.org")))))
-	   nil)
-	  ("i" "Backlog" todo "IDLE")))
+		   (org-agenda-files '("/Users/kaiyang/org/inbox.org")))))
+	   ((org-agenda-files
+	     '("/Users/kaiyang/org/inbox.org"
+	       "/Users/kaiyang/org/stuff.org"
+	       "/Users/kaiyang/org/journal.org"))))
+	  ("i" "Backlog" todo "IDLE")
+	  ))
 
   (setq org-agenda-block-separator
 	"================================================================================")
