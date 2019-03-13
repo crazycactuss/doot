@@ -16,24 +16,3 @@
 (defun tmux-direction (direction)
   (upcase
     (substring direction 0 1)))
-
-(global-set-key
-            (kbd "C-M-h")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "left")))
-(global-set-key
-            (kbd "C-M-j")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "down")))
-(global-set-key
-            (kbd "C-M-k")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "up")))
-(global-set-key
-            (kbd "C-M-l")
-            (lambda ()
-              (interactive)
-              (tmux-navigate "right")))
