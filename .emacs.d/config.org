@@ -412,6 +412,8 @@
 	 "/Users/kaiyang/Dropbox/org/interests.org"
 	 "/Users/kaiyang/Dropbox/org/inbox.org"
 	 "/Users/kaiyang/Dropbox/org/stuff.org"
+	 "/Users/kaiyang/org/stuff.org"
+	 "/Users/kaiyang/org/journal.org"
 	 ))
 
   (setq org-agenda-dim-blocked-tasks t)
@@ -456,11 +458,11 @@
 
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
-	'(("l" "Log" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "* %?\n  %T")
-	  ("n" "Note" entry (file+headline "~/Dropbox/org/inbox.org" "Notes")
+	'(("l" "Log" entry (file+olp+datetree "~/org/journal.org")
+	   "* %? \n  %T")
+	  ("n" "Note" entry (file+headline "~/org/inbox.org" "Notes")
 	   "* %?\n  %U")
-	  ("t" "Task" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
+	  ("t" "Task" entry (file+headline "~/org/inbox.org" "Tasks")
 	   "* TODO %?\n  %U" :prepend t)
 	  ("f" "Food" entry (file+olp+datetree "~/Dropbox/org/journal.org")
 	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %T")))
