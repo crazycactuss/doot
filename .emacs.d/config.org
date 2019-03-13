@@ -507,8 +507,6 @@
 #+BEGIN_SRC emacs-lisp
   (setq-default org-tag-alist
 		'((:startgroup)
-		  ("tech")
-		  (:grouptags)
 		  ("sw")
 		  (:endgroup)
 
