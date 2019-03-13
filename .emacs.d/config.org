@@ -488,7 +488,9 @@
 	  ("t" "Task" entry (file+headline "~/org/inbox.org" "Tasks")
 	   "* TODO %?\n  %U" :prepend t)
 	  ("f" "Food" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %T")))
+	  ("p" "Personal Log" entry (file+olp+datetree "~/Dropbox/org/journal.org")
+	   "* %? :log:\n  %T")))
+>>>>>>> a840003... Add personal log capture template
   (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
 #+END_SRC
 
