@@ -401,6 +401,13 @@
     :ensure t)
 #+END_SRC
 
+** Bazel
+
+#+BEGIN_SRC emacs-lisp
+  (use-package bazel-mode
+    :ensure t)
+#+END_SRC
+
 * Org Mode
 ** Basic Settings
 
