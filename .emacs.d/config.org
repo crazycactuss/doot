@@ -55,6 +55,7 @@
 
   ;; automatically revert buffers
   (global-auto-revert-mode t)
+
   ;; silent auto-revert
   (setq auto-revert-verbose nil)
 
@@ -185,8 +186,8 @@
 ** PATH
 
 #+BEGIN_SRC emacs-lisp
-  (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Library/TeX/texbin"))
-  (setq exec-path (append exec-path '("/usr/local/bin" "/Library/TeX/texbin")))
+  (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Library/TeX/texbin:/Users/kaiyang/anaconda3/bin"))
+  (setq exec-path (append exec-path '("/usr/local/bin" "/Library/TeX/texbin" "/Users/kaiyang/anaconda3/bin")))
 #+END_SRC
 
 ** Key Bindings
@@ -395,10 +396,10 @@
 
 #+BEGIN_SRC emacs-lisp
   (require 'org-habit)
-  (setq org-habit-graph-column 70)
+  (setq org-habit-graph-column 65)
 
   ;; don't truncate lines
-  (setq org-startup-truncated nil)
+  (setq org-startup-truncated t)
 #+END_SRC
 
 ** Agenda
@@ -409,25 +410,30 @@
 	 "/Users/kaiyang/Dropbox/org/fitness.org"
 	 "/Users/kaiyang/Dropbox/org/journal.org"
 	 "/Users/kaiyang/Dropbox/org/interests.org"
-	 "/Users/kaiyang/org/refile.org"
 	 "/Users/kaiyang/Dropbox/org/inbox.org"
 	 "/Users/kaiyang/Dropbox/org/stuff.org"
-	 "/Users/kaiyang/org/stuff.org"
-	 "/Users/kaiyang/org/journal.org"
 	 ))
 
   (setq org-agenda-dim-blocked-tasks t)
 
-  (setq org-agenda-tags-column -100)
+  (setq org-agenda-tags-column -95)
 
   (setq org-agenda-custom-commands
 	'(("n" "Agenda and TODOs"
 	   ((agenda "" ((org-agenda-span 'day)))
-	    (todo "TODO" nil))
-	   nil)))
+	    (todo "TODO"
+		  ((org-agenda-overriding-header "Unscheduled TODOs")
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+	    (todo "TODO"
+		  ((org-agenda-overriding-header "Inbox")
+		   (org-agenda-files '("/Users/kaiyang/Dropbox/org/inbox.org")))))
+	   nil)
+	  ("i" "Backlog" todo "IDLE")))
 
   (setq org-agenda-block-separator
 	"================================================================================")
+
+  (setq org-agenda-timegrid-use-ampm 1)
 #+END_SRC
 
 ** Workflow
@@ -438,8 +444,9 @@
 
   ;; set workflows
   (setq org-todo-keywords
-	'((sequence "IDLE" "TODO" "|" "DONE" "N/A") ;; N/A = delegated or no longer applicable
-	  (sequence "IDLE" "IN-PROGRESS" "|" "DONE" "N/A") ;; applicable to "projects"/"epics"
+	'((sequence "TODO" "|" "DONE" "N/A") ;; applicable to habits
+	  (sequence "IDLE" "TODO" "|" "DONE" "N/A") ;; N/A = delegated or no longer applicable
+	  (sequence "IDLE" "IN-PROGRESS" "|" "DONE" "N/A") ;; applicable to projects/epics
 	  ))
 
   (setq org-enforce-todo-dependencies t)
@@ -450,10 +457,10 @@
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
 	'(("l" "Log" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "* %? :log:\n  %T")
-	  ("n" "Note" entry (file+headline "~/Dropbox/org/refile.org" "Notes")
+	   "* %?\n  %T")
+	  ("n" "Note" entry (file+headline "~/Dropbox/org/inbox.org" "Notes")
 	   "* %?\n  %U")
-	  ("t" "Task" entry (file+headline "~/Dropbox/org/refile.org" "Tasks")
+	  ("t" "Task" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
 	   "* TODO %?\n  %U" :prepend t)
 	  ("f" "Food" entry (file+olp+datetree "~/Dropbox/org/journal.org")
 	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %T")))
@@ -492,6 +499,10 @@
 		  ("lunch")
 		  ("dinner")
 		  ("breakfast")
+		  (:endgroup)
+
+		  (:startgroup)
+		  ("read")
 		  (:endgroup)))
 #+END_SRC
 
