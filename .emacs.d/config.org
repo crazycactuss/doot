@@ -46,10 +46,12 @@
   (setq-default show-trailing-whitespace nil)
   (add-hook 'prog-mode-hook
 	    (lambda () (setq show-trailing-whitespace t)))
+  (add-hook 'ein:notebook-mode-hook
+	    (lambda () (setq show-trailing-whitespace nil)))
 
   ;; window split threshold
-  (setq split-width-threshold 200)
-  (setq split-height-threshold 200)
+  (setq split-width-threshold 140)
+  (setq split-height-threshold 1000)
 
   (server-start)
 
@@ -488,9 +490,22 @@
 #+BEGIN_SRC emacs-lisp
   (setq-default org-tag-alist
 		'((:startgroup)
-		  ("tech")
-		  (:grouptags)
 		  ("sw")
+		  (:grouptags)
+		  ("scala")
+		  ("emacs")
+		  (:endgroup)
+
+		  (:startgoup)
+		  ("ee")
+		  (:grouptags)
+		  ("iot")
+		  (:endgroup)
+
+		  (:startgroup)
+		  ("iot") ;; internet of things
+		  (:grouptags)
+		  ("emb") ;; embedded systems
 		  (:endgroup)
 
 		  (:startgroup)
@@ -503,6 +518,10 @@
 
 		  (:startgroup)
 		  ("read")
+		  (:endgroup)
+
+		  (:startgroup)
+		  ("finance")
 		  (:endgroup)))
 #+END_SRC
 
