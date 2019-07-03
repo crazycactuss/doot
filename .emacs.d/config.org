@@ -40,18 +40,25 @@
   (tooltip-mode 0)
 
   ;; show line numbers
-  (global-linum-mode 1)
+  (setq-default display-line-numbers `relative)
 
   ;; highlight whitespace at end of lines when point is not there
-  (setq-default show-trailing-whitespace t)
-  (add-hook 'org-agenda-mode-hook
-	    (lambda () (setq show-trailing-whitespace nil)))
-  (add-hook 'buffer-menu-mode-hook
-	    (lambda () (setq show-trailing-whitespace nil)))
+  (setq-default show-trailing-whitespace nil)
+  (add-hook 'prog-mode-hook
+	    (lambda () (setq show-trailing-whitespace t)))
 
   ;; window split threshold
   (setq split-width-threshold 200)
   (setq split-height-threshold 200)
+
+  (server-start)
+
+  ;; automatically revert buffers
+  (global-auto-revert-mode t)
+  ;; silent auto-revert
+  (setq auto-revert-verbose nil)
+
+  (setq-default require-final-newline 'visit-save)
 #+END_SRC
 
 ** Doom
@@ -121,10 +128,11 @@
 ** iedit
 
 #+BEGIN_SRC emacs-lisp
-  ;; mark and edit all copies of the marked region simultaneously.
-  (use-package iedit
-    :ensure t
-    :init (global-set-key (kbd "C-c e") 'iedit-mode))
+  ;; Don't use iedit, use lsp-mode
+  ;; ;; mark and edit all copies of the marked region simultaneously.
+  ;; (use-package iedit
+  ;;   :ensure t
+  ;;   :init (global-set-key (kbd "C-c e") 'iedit-mode))
 #+END_SRC
 
 ** Column Enforce
@@ -177,8 +185,8 @@
 ** PATH
 
 #+BEGIN_SRC emacs-lisp
-  (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
-  (setq exec-path (append exec-path '("/usr/local/bin")))
+  (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Library/TeX/texbin"))
+  (setq exec-path (append exec-path '("/usr/local/bin" "/Library/TeX/texbin")))
 #+END_SRC
 
 ** Key Bindings
@@ -202,8 +210,8 @@
   ;; If having problems,
   ;; See: http://www.emacswiki.org/emacs/BackspaceKey
   ;; See: https://www.gnu.org/software/emacs/manual/html_node/efaq/Backspace-invokes-help.html
-  (global-set-key (kbd "C-h") 'backward-delete-char)
-  (global-set-key (kbd "M-h") 'backward-delete-word)
+  (global-set-key (kbd "C-h") 'hungry-delete-backward)
+  (global-set-key (kbd "M-h") 'backward-kill-word)
   ;; "C-?" fails. Sends ASCII 127?
   (global-set-key (kbd "C-x ?") 'help-command)
 
@@ -266,6 +274,7 @@
     (counsel-mode)
     (setq ivy-use-virtual-buffers t)
     (setq ivy-initial-inputs-alist nil)
+    (global-set-key [remap org-set-tags-command] #'counsel-org-tag)
     :bind
     ("C-s" . swiper)
     ("C-r" . swiper))
@@ -284,11 +293,12 @@
 ** dumb jump
 
 #+BEGIN_SRC emacs-lisp
-  (use-package dumb-jump
-    :init
-    (dumb-jump-mode)
-    (setq dumb-jump-selector 'ivy)
-    :ensure t)
+  ;; Don't use dumb-jump, use lsp-mode
+  ;; (use-package dumb-jump
+  ;;   :init
+  ;;   (dumb-jump-mode)
+  ;;   (setq dumb-jump-selector 'ivy)
+  ;;   :ensure t)
 #+END_SRC
 
 ** Avy
@@ -297,7 +307,10 @@
   ;; jump to anywhere on the screen
   (use-package avy
     :ensure t
-    :bind ("C-c C-h" . avy-goto-char))
+    :bind ("C-c C-h" . avy-goto-char)
+    :config
+    (setq avy-background t)
+    (setq avy-keys (number-sequence ?a ?z)))
 #+END_SRC
 
 ** Magit
@@ -327,9 +340,14 @@
     :commands lsp
     :bind
     ("C-c f" . lsp-format-buffer)
+    ("C-M-g" . lsp-find-definition)
+    ("C-M-e" . lsp-find-references)
+    ("C-c e" . lsp-rename)
     :init
     (add-hook 'prog-mode-hook #'lsp)
-    (setq lsp-prefer-flymake nil))
+    (setq lsp-prefer-flymake nil)
+    (setq lsp-enable-indentation nil)
+    (setq lsp-enable-snippet nil))
 
   (use-package lsp-ui
     :ensure t
@@ -340,7 +358,8 @@
     (add-hook 'prog-mode-hook 'flycheck-mode)
     :config
     (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
+    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+    (global-set-key (kbd "C-x l") 'lsp-ui-mode))
 
   (use-package company-lsp
     :ensure t
@@ -377,6 +396,9 @@
 #+BEGIN_SRC emacs-lisp
   (require 'org-habit)
   (setq org-habit-graph-column 70)
+
+  ;; don't truncate lines
+  (setq org-startup-truncated nil)
 #+END_SRC
 
 ** Agenda
@@ -385,10 +407,13 @@
   (setq org-agenda-files
 	(list
 	 "/Users/kaiyang/Dropbox/org/fitness.org"
-	 "/Users/kaiyang/Dropbox/org/food.org"
 	 "/Users/kaiyang/Dropbox/org/journal.org"
 	 "/Users/kaiyang/Dropbox/org/interests.org"
-	 "/Users/kaiyang/Dropbox/org/refile.org"
+	 "/Users/kaiyang/org/refile.org"
+	 "/Users/kaiyang/Dropbox/org/inbox.org"
+	 "/Users/kaiyang/Dropbox/org/stuff.org"
+	 "/Users/kaiyang/org/stuff.org"
+	 "/Users/kaiyang/org/journal.org"
 	 ))
 
   (setq org-agenda-dim-blocked-tasks t)
@@ -414,6 +439,7 @@
   ;; set workflows
   (setq org-todo-keywords
 	'((sequence "IDLE" "TODO" "|" "DONE" "N/A") ;; N/A = delegated or no longer applicable
+	  (sequence "IDLE" "IN-PROGRESS" "|" "DONE" "N/A") ;; applicable to "projects"/"epics"
 	  ))
 
   (setq org-enforce-todo-dependencies t)
@@ -428,9 +454,9 @@
 	  ("n" "Note" entry (file+headline "~/Dropbox/org/refile.org" "Notes")
 	   "* %?\n  %U")
 	  ("t" "Task" entry (file+headline "~/Dropbox/org/refile.org" "Tasks")
-	   "* IDLE %?\n  %U" :prepend t)
+	   "* TODO %?\n  %U" :prepend t)
 	  ("f" "Food" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :WITH:\n  :END:\n  %T")))
+	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %T")))
   (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
 #+END_SRC
 
@@ -477,4 +503,5 @@
   (global-set-key (kbd "C-c s") 'org-schedule)
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c C-w") 'org-refile)
+  (global-set-key (kbd "C-x C-p") 'org-latex-export-to-pdf)
 #+END_SRC
