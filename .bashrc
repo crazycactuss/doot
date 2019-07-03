@@ -239,9 +239,12 @@ export pss=~/Projects/product-selection-service/
 export api=~/Projects/tsiq-api/
 export prod=~/Projects/iqos-products/
 export bb=~/Projects/iqos-products-blackboard/
+export go=~/Projects/iqos-products-golden/
+export views=~/Projects/iqos-products-views/
 export int=~/Projects/pas-integration-test
 export be=~/Projects/buildenv
 export pp=~/Projects/product-platform/
+export erc=~/Projects/erc-inspector/
 
 # Git branch completion
 . ~/doot/.git-completion.bash
@@ -280,3 +283,20 @@ source /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.
 
 # Pin JDK version
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/
+
+function na-branch() {
+    local branch="$(git rev-parse --abbrev-ref HEAD)"
+    git branch -m "${branch}" "na/${branch}"
+}
+function merged-branch() {
+    local branch="$(git rev-parse --abbrev-ref HEAD)"
+    git branch -m "${branch}" "merged/${branch}"
+}
+
+# Set up SBT credentials for bintray
+export SBT_CREDENTIALS="$HOME/.sbt/credentials"
+
+. ~/iqos_auth.bash
+
+export BINTRAY_BUILD_USER=kai.yang@twosigmaiq
+export BINTRAY_BUILD_SECRET=08dc770b41645bbe81b0fdfddb73751f0a052600
