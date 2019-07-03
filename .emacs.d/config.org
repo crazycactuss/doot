@@ -512,7 +512,7 @@
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
 	'(("l" "Log" entry (file+olp+datetree "~/org/journal.org")
-	   "* %? \n  %T")
+	   "* %?\n  %T")
 	  ("n" "Note" entry (file+headline "~/org/inbox.org" "Notes")
 	   "* %?\n  %U")
 	  ("t" "Task" entry (file+headline "~/org/inbox.org" "Tasks")
@@ -520,7 +520,7 @@
 	  ("f" "Food" entry (file+olp+datetree "~/Dropbox/org/journal.org")
 	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %T")
 	  ("p" "Personal Log" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "* %? :log:\n  %T")))
+	   "* %?\n  %T")))
   (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
 #+END_SRC
 
