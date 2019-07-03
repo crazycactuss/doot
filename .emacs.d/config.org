@@ -410,6 +410,28 @@
     (add-to-list 'auto-mode-alist '("BUILD" . bazel-mode)))
 #+END_SRC
 
+** Typescript
+
+#+BEGIN_SRC emacs-lisp
+  (use-package typescript-mode
+    :ensure t
+    :config
+    (setq typescript-indent-level 2))
+#+END_SRC
+
+** Javascript
+
+#+BEGIN_SRC emacs-lisp
+  (setq-default js-indent-level 2)
+#+END_SRC
+
+** Protobuf
+
+#+BEGIN_SRC emacs-lisp
+  (use-package protobuf-mode
+    :ensure t)
+#+END_SRC
+
 * Org Mode
 ** Basic Settings
 
@@ -431,8 +453,10 @@
 	 "/Users/kaiyang/Dropbox/org/interests.org"
 	 "/Users/kaiyang/Dropbox/org/inbox.org"
 	 "/Users/kaiyang/Dropbox/org/stuff.org"
+	 "/Users/kaiyang/org/inbox.org"
 	 "/Users/kaiyang/org/stuff.org"
 	 "/Users/kaiyang/org/journal.org"
+	 "/Users/kaiyang/org/tasks.org"
 	 ))
 
   (setq org-agenda-dim-blocked-tasks t)
@@ -451,9 +475,15 @@
 	   ((org-agenda-files
 	     '("/Users/kaiyang/org/inbox.org"
 	       "/Users/kaiyang/org/stuff.org"
-	       "/Users/kaiyang/org/journal.org"))))
-	  ("i" "Backlog" todo "IDLE")
-	  ))
+	       "/Users/kaiyang/org/journal.org"
+	       "/Users/kaiyang/org/tasks.org"))))
+	  ("i" "TSIQ Backlog" todo "IDLE"
+	   ((org-agenda-files
+	     '("/Users/kaiyang/org/inbox.org"
+	       "/Users/kaiyang/org/stuff.org"
+	       "/Users/kaiyang/org/journal.org"
+	       "/Users/kaiyang/org/tasks.org")))
+	   )))
 
   (setq org-agenda-block-separator
 	"================================================================================")
@@ -488,9 +518,9 @@
 	  ("t" "Task" entry (file+headline "~/org/inbox.org" "Tasks")
 	   "* TODO %?\n  %U" :prepend t)
 	  ("f" "Food" entry (file+olp+datetree "~/Dropbox/org/journal.org")
+	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %T")
 	  ("p" "Personal Log" entry (file+olp+datetree "~/Dropbox/org/journal.org")
 	   "* %? :log:\n  %T")))
->>>>>>> a840003... Add personal log capture template
   (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
 #+END_SRC
 
@@ -515,10 +545,6 @@
 #+BEGIN_SRC emacs-lisp
   (setq-default org-tag-alist
 		'((:startgroup)
-		  ("sw")
-		  (:endgroup)
-
-		  (:startgroup)
 		  ("food")
 		  (:grouptags)
 		  ("lunch")
@@ -528,7 +554,14 @@
 
 		  (:startgroup)
 		  ("read")
-		  (:endgroup)))
+		  (:endgroup)
+
+                  (:startgroup)
+                  ("insurance")
+                  (:grouptags)
+                  ("gl")
+                  (:endgroup)
+                  ))
 #+END_SRC
 
 ** Key Bindings
