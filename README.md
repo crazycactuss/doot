@@ -30,4 +30,7 @@ ln -sb doot/.tmux.conf .
 ln -sb doot/.hammerspoon/init.lua .hammerspoon/init.lua
 mv .emacs.d .emacs.d~
 ln -s doot/.emacs.d .
+# If on mac
+ln -sb doot/vscode/settings.json ~/Library/Application Support/Code/Userw
+ln -sb doot/vscode/keybindings.json ~/Library/Application Support/Code/Userw
 ```
