@@ -432,6 +432,13 @@
     :ensure t)
 #+END_SRC
 
+** Scala
+
+#+BEGIN_SRC emacs-lisp
+  (use-package ensime
+    :ensure t)
+#+END_SRC
+
 * Org Mode
 ** Basic Settings
 
@@ -453,6 +460,7 @@
 	 "/Users/kaiyang/Dropbox/org/interests.org"
 	 "/Users/kaiyang/Dropbox/org/inbox.org"
 	 "/Users/kaiyang/Dropbox/org/stuff.org"
+	 "/Users/kaiyang/Dropbox/org/notes.org"
 	 "/Users/kaiyang/org/inbox.org"
 	 "/Users/kaiyang/org/stuff.org"
 	 "/Users/kaiyang/org/journal.org"
@@ -482,8 +490,28 @@
 	     '("/Users/kaiyang/org/inbox.org"
 	       "/Users/kaiyang/org/stuff.org"
 	       "/Users/kaiyang/org/journal.org"
-	       "/Users/kaiyang/org/tasks.org")))
-	   )))
+	       "/Users/kaiyang/org/tasks.org"))))
+	  ("N" "Personal Agenda and TODOs"
+	   ((agenda "" ((org-agenda-span 'day)))
+	    (todo "TODO"
+		  ((org-agenda-overriding-header "Unscheduled TODOs")
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+	    (todo "TODO"
+		  ((org-agenda-overriding-header "Inbox")
+		   (org-agenda-files '("/Users/kaiyang/Dropbox/org/inbox.org")))))
+	   ((org-agenda-files
+	     '("/Users/kaiyang/Dropbox/org/fitness.org"
+	       "/Users/kaiyang/Dropbox/org/journal.org"
+	       "/Users/kaiyang/Dropbox/org/interests.org"
+	       "/Users/kaiyang/Dropbox/org/inbox.org"
+	       "/Users/kaiyang/Dropbox/org/stuff.org"))))
+	  ("I" "Personal Backlog" todo "IDLE"
+	   ((org-agenda-files
+	     '("/Users/kaiyang/Dropbox/org/fitness.org"
+	       "/Users/kaiyang/Dropbox/org/journal.org"
+	       "/Users/kaiyang/Dropbox/org/interests.org"
+	       "/Users/kaiyang/Dropbox/org/inbox.org"
+	       "/Users/kaiyang/Dropbox/org/stuff.org"))))))
 
   (setq org-agenda-block-separator
 	"================================================================================")

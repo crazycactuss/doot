@@ -281,9 +281,6 @@ source /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.
 # added by travis gem
 [ -f /Users/kaiyang/.travis/travis.sh ] && source /Users/kaiyang/.travis/travis.sh
 
-# Pin JDK version
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/
-
 function na-branch() {
     local branch="$(git rev-parse --abbrev-ref HEAD)"
     git branch -m "${branch}" "na/${branch}"
@@ -300,3 +297,9 @@ export SBT_CREDENTIALS="$HOME/.sbt/credentials"
 
 export BINTRAY_BUILD_USER=kai.yang@twosigmaiq
 export BINTRAY_BUILD_SECRET=08dc770b41645bbe81b0fdfddb73751f0a052600
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/kaiyang/google-cloud-sdk/path.bash.inc' ]; then . '/Users/kaiyang/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/kaiyang/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/kaiyang/google-cloud-sdk/completion.bash.inc'; fi

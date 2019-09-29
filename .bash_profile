@@ -71,6 +71,7 @@ fi
 if [ "$platform" == "mac" ]; then
     export PATH="$HOME/go/bin:$PATH"
     export PATH="$PATH:/Users/kaiyang/Projects/icp/bin"
+    export PATH="$HOME/.jenv/bin:$PATH"
 fi
 
 if [ -f ~/bazel-complete.bash ]; then
@@ -93,3 +94,4 @@ unset __conda_setup
 conda deactivate
 # <<< conda initialize <<<
 
+eval "$(jenv init -)"
