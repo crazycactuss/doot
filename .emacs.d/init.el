@@ -25,10 +25,10 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
    (quote
-    ("/Users/kaiyang/Dropbox/org/fitness.org" "/Users/kaiyang/Dropbox/org/journal.org" "/Users/kaiyang/Dropbox/org/interests.org" "/Users/kaiyang/Dropbox/org/stuff.org" "/Users/kaiyang/org/refile.org" "/Users/kaiyang/org/stuff.org" "/Users/kaiyang/org/journal.org" "/Users/kaiyang/org/tasks.org")))
+    ("/Users/kaiyang/Dropbox/org/fitness.org" "/Users/kaiyang/Dropbox/org/journal.org" "/Users/kaiyang/Dropbox/org/interests.org" "/Users/kaiyang/Dropbox/org/stuff.org" "/Users/kaiyang/org/stuff.org" "/Users/kaiyang/org/journal.org" "/Users/kaiyang/org/tasks.org")))
  '(package-selected-packages
    (quote
-    (protobuf-mode typescript-mode bazel-mode docker-compose-mode dockerfile-mode use-package company-lsp lsp-ui lsp-mode git-gutter doom-themes doom-modeline))))
+    (ensime protobuf-mode typescript-mode bazel-mode docker-compose-mode dockerfile-mode use-package company-lsp lsp-ui lsp-mode git-gutter doom-themes doom-modeline))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
