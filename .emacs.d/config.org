@@ -240,6 +240,8 @@
    (lambda ()
      (interactive)
      (tmux-navigate "right")))
+
+  (global-set-key (kbd "C-M-k") 'kill-whole-line)
 #+END_SRC
 
 * Tools
@@ -517,6 +519,9 @@
 	"================================================================================")
 
   (setq org-agenda-timegrid-use-ampm 1)
+
+  (add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+END_SRC
 
 ** Workflow
@@ -600,5 +605,5 @@
   (global-set-key (kbd "C-c s") 'org-schedule)
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c C-w") 'org-refile)
-  (global-set-key (kbd "C-x C-p") 'org-latex-export-to-pdf)
+  (global-set-key (kbd "C-x M-p") 'org-latex-export-to-pdf)
 #+END_SRC
