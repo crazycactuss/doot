@@ -257,3 +257,8 @@ powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 source /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh
+
+# Set breakpoint() in Python to call pudb
+export PYTHONBREAKPOINT="pudb.set_trace"
+
+alias tp='cd $(git rev-parse --show-toplevel)'

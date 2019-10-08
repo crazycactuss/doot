@@ -47,7 +47,9 @@
   (add-hook 'prog-mode-hook
 	    (lambda () (setq show-trailing-whitespace t)))
   (add-hook 'ein:notebook-mode-hook
-	    (lambda () (setq show-trailing-whitespace nil)))
+	    (lambda ()
+	      (setq show-trailing-whitespace nil)
+	      (global-set-key (kbd "M-_") 'undo-tree-redo)))
 
   ;; window split threshold
   (setq split-width-threshold 140)
@@ -62,6 +64,16 @@
   (setq auto-revert-verbose nil)
 
   (setq-default require-final-newline 'visit-save)
+
+  (use-package form-feed
+    :ensure t
+    :config
+    (add-hook 'help-mode-hook 'form-feed-mode))
+
+  (use-package exec-path-from-shell
+    :ensure t
+    :config
+    (exec-path-from-shell-initialize))
 #+END_SRC
 
 ** Doom
@@ -188,8 +200,8 @@
 ** PATH
 
 #+BEGIN_SRC emacs-lisp
-  (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Library/TeX/texbin:/Users/kaiyang/anaconda3/bin"))
-  (setq exec-path (append exec-path '("/usr/local/bin" "/Library/TeX/texbin" "/Users/kaiyang/anaconda3/bin")))
+  ;; (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/Library/TeX/texbin:/Users/kaiyang/anaconda3/bin"))
+  ;; (setq exec-path (append exec-path '("/usr/local/bin" "/Library/TeX/texbin" "/Users/kaiyang/anaconda3/bin")))
 #+END_SRC
 
 ** Key Bindings
@@ -203,6 +215,9 @@
 
   ;; disable transpose
   (global-set-key (kbd "C-t") nil)
+
+  ;; disable set-goal-column
+  (global-set-key (kbd "C-x C-n") nil)
 
   ;; revert buffer
   (global-set-key (kbd "C-c r") 'revert-buffer)
@@ -243,7 +258,7 @@
      (interactive)
      (tmux-navigate "right")))
 
-  (global-set-key (kbd "C-M-k") 'kill-whole-line)
+  (global-set-key (kbd "C-S-k") 'kill-whole-line)
 #+END_SRC
 
 * Tools
@@ -340,37 +355,38 @@
 ** LSP Mode
 
 #+BEGIN_SRC emacs-lisp
-  (use-package lsp-mode
-    :ensure t
-    :commands lsp
-    :bind
-    ("C-c f" . lsp-format-buffer)
-    ("C-M-g" . lsp-find-definition)
-    ("C-M-e" . lsp-find-references)
-    ("C-c e" . lsp-rename)
-    :init
-    (add-hook 'prog-mode-hook #'lsp)
-    (setq lsp-prefer-flymake nil)
-    (setq lsp-enable-indentation nil)
-    (setq lsp-enable-snippet nil))
+  ;; (use-package lsp-mode
+  ;;   :ensure t
+  ;;   :commands lsp
+  ;;   :bind
+  ;;   ("C-c f" . lsp-format-buffer)
+  ;;   ("C-M-g" . lsp-find-definition)
+  ;;   ("C-M-e" . lsp-find-references)
+  ;;   ("C-c e" . lsp-rename)
+  ;;   :init
+  ;;   (add-hook 'prog-mode-hook #'lsp)
+  ;;   (setq lsp-prefer-flymake nil)
+  ;;   (setq lsp-enable-indentation nil)
+  ;;   (setq lsp-enable-snippet nil))
 
-  (use-package lsp-ui
-    :ensure t
-    :commands lsp-ui-mode
-    :bind
-    ("C-c d" . lsp-ui-doc-show)
-    :init
-    (add-hook 'prog-mode-hook 'flycheck-mode)
-    :config
-    (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-    (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-    (global-set-key (kbd "C-x l") 'lsp-ui-mode))
+  ;; (use-package lsp-ui
+  ;;   :ensure t
+  ;;   :commands lsp-ui-mode
+  ;;   :bind
+  ;;   ("C-c d" . lsp-ui-doc-show)
+  ;;   :init
+  ;;   (add-hook 'prog-mode-hook 'flycheck-mode)
+  ;;   :config
+  ;;   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
+  ;;   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
+  ;;   (global-set-key (kbd "C-x l") 'lsp-ui-mode))
 
-  (use-package company-lsp
-    :ensure t
-    :commands company-lsp
-    :config
-    (define-key company-active-map (kbd "C-m") #'company-show-doc-buffer))
+  ;; (use-package company-lsp
+  ;;   :ensure t
+  ;;   :commands company-lsp
+  ;;   :config
+  ;;   (define-key company-active-map (kbd "C-m") #'company-show-doc-buffer)
+  ;;   (setq company-idle-delay 0.1))
 #+END_SRC
 
 * Languages
@@ -392,6 +408,44 @@
 #+BEGIN_SRC emacs-lisp
   ;; Refer to: http://millejoh.github.io/emacs-ipython-notebook/
   (use-package ein
+    :ensure t
+    :config
+    (define-key ein:notebook-mode-map (kbd "C-c C-h") 'avy-goto-char)
+    (define-key ein:notebook-mode-map (kbd "C-c C-d") 'ein:pytools-request-tooltip-or-help))
+#+END_SRC
+
+*** python
+
+#+BEGIN_SRC emacs-lisp
+  (use-package elpy
+    :ensure t
+    :init
+    (elpy-enable)
+    ;; https://emacs.stackexchange.com/questions/20092/using-conda-environments-in-emacs
+    (setenv "WORKON_HOME" "/Users/kaiyang/anaconda3/envs")
+    (define-key inferior-python-mode-map (kbd "C-M-l") nil)
+    (custom-set-faces
+     '(highlight-indentation-face ((t (:background "gray25")))))
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode)
+    (define-key elpy-mode-map (kbd "C-c f") 'elpy-format-code)
+    (setq python-shell-completion-native-enable nil)
+    (setq elpy-rpc-timeout 10))
+#+END_SRC
+
+** Lua
+
+#+BEGIN_SRC emacs-lisp
+  (use-package lua-mode
+    :ensure t
+    :config
+    (setq lua-indent-level 2))
+#+END_SRC
+
+** yaml
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
     :ensure t)
 #+END_SRC
 
@@ -404,6 +458,8 @@
 
   ;; don't truncate lines
   (setq org-startup-truncated t)
+
+  (setq org-list-description-max-indent 5)
 #+END_SRC
 
 ** Agenda
@@ -416,6 +472,7 @@
 	 "/Users/kaiyang/Dropbox/org/interests.org"
 	 "/Users/kaiyang/Dropbox/org/inbox.org"
 	 "/Users/kaiyang/Dropbox/org/stuff.org"
+	 "/Users/kaiyang/Dropbox/org/notes.org"
 	 ))
 
   (setq org-agenda-dim-blocked-tasks t)
@@ -438,9 +495,6 @@
 	"================================================================================")
 
   (setq org-agenda-timegrid-use-ampm 1)
-
-  (add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
-  (add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+END_SRC
 
 ** Workflow
@@ -539,4 +593,11 @@
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c C-w") 'org-refile)
   (global-set-key (kbd "C-x M-p") 'org-latex-export-to-pdf)
+#+END_SRC
+
+** Auto-fill Mode
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
+  (add-hook 'org-mode-hook 'turn-on-auto-fill)
 #+END_SRC
