@@ -262,3 +262,13 @@ source /usr/local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.
 export PYTHONBREAKPOINT="pudb.set_trace"
 
 alias tp='cd $(git rev-parse --show-toplevel)'
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/kaiyang/google-cloud-sdk/path.bash.inc' ]; then . '/Users/kaiyang/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/kaiyang/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/kaiyang/google-cloud-sdk/completion.bash.inc'; fi
+
+# lfs-server
+export AWS_ACCESS_KEY_ID=AKIAUU7IJW2JYEWEXMOH
+export AWS_SECRET_ACCESS_KEY=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

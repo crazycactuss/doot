@@ -553,6 +553,7 @@
 		  (:grouptags)
 		  ("scala")
 		  ("emacs")
+		  ("python")
 		  (:endgroup)
 
 		  (:startgoup)
@@ -581,6 +582,12 @@
 
 		  (:startgroup)
 		  ("finance")
+		  (:endgroup)
+
+		  (:startgroup)
+		  ("ml")
+		  (:grouptags)
+		  ("vi")
 		  (:endgroup)))
 #+END_SRC
 
