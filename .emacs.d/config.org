@@ -430,7 +430,8 @@
     (add-hook 'elpy-mode-hook 'flycheck-mode)
     (define-key elpy-mode-map (kbd "C-c f") 'elpy-format-code)
     (setq python-shell-completion-native-enable nil)
-    (setq elpy-rpc-timeout 10))
+    (setq elpy-rpc-timeout 10)
+    (setq elpy-rpc-virtualenv-path 'current))
 #+END_SRC
 
 ** Lua
