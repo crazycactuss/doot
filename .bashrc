@@ -303,3 +303,8 @@ if [ -f '/Users/kaiyang/google-cloud-sdk/path.bash.inc' ]; then . '/Users/kaiyan
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/kaiyang/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/kaiyang/google-cloud-sdk/completion.bash.inc'; fi
+
+# Set breakpoint() in Python to call pudb
+export PYTHONBREAKPOINT="pudb.set_trace"
+
+alias tp='cd $(git rev-parse --show-toplevel)'
