@@ -31,6 +31,8 @@ ln -sb doot/.hammerspoon/init.lua .hammerspoon/init.lua
 mv .emacs.d .emacs.d~
 ln -s doot/.emacs.d .
 # If on mac
-ln -sb doot/vscode/settings.json ~/Library/Application Support/Code/Userw
-ln -sb doot/vscode/keybindings.json ~/Library/Application Support/Code/Userw
+ln -sb doot/vscode/settings.json ~/Library/Application\ Support/Code/User/
+ln -sb doot/vscode/keybindings.json ~/Library/Application\ Support/Code/User/
+ln -sb doot/.config/flake8 ~/.config/flake8
+ln -sb doot/.config/yapf/style ~/.config/yapf/style
 ```
