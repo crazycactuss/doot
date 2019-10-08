@@ -409,7 +409,7 @@
   ;; Refer to: http://millejoh.github.io/emacs-ipython-notebook/
   (use-package ein
     :ensure t
-    :config
+    :init
     (define-key ein:notebook-mode-map (kbd "C-c C-h") 'avy-goto-char)
     (define-key ein:notebook-mode-map (kbd "C-c C-d") 'ein:pytools-request-tooltip-or-help))
 #+END_SRC
