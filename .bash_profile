@@ -48,6 +48,12 @@ elif [ "`uname`" == "Darwin" ]; then # Mac OS
     platform='mac'
 fi
 
+# Reset PATH if on mac
+if [ -x /usr/libexec/path_helper ]; then
+    PATH=""
+    eval `/usr/libexec/path_helper -s`
+fi
+
 ## -----------------------
 ## -- 1) Import .bashrc --
 ## -----------------------
@@ -71,7 +77,10 @@ fi
 if [ "$platform" == "mac" ]; then
     export PATH="$HOME/go/bin:$PATH"
     export PATH="$PATH:/Users/kaiyang/Projects/icp/bin"
+
+    # jenv
     export PATH="$HOME/.jenv/bin:$PATH"
+    eval "$(jenv init -)"
 fi
 
 if [ -f ~/bazel-complete.bash ]; then
@@ -92,5 +101,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
-eval "$(jenv init -)"

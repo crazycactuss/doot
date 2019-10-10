@@ -298,13 +298,17 @@ export SBT_CREDENTIALS="$HOME/.sbt/credentials"
 export BINTRAY_BUILD_USER=kai.yang@twosigmaiq
 export BINTRAY_BUILD_SECRET=08dc770b41645bbe81b0fdfddb73751f0a052600
 
+# Set breakpoint() in Python to call pudb
+export PYTHONBREAKPOINT="pudb.set_trace"
+
+alias tp='cd $(git rev-parse --show-toplevel)'
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/kaiyang/google-cloud-sdk/path.bash.inc' ]; then . '/Users/kaiyang/google-cloud-sdk/path.bash.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/kaiyang/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/kaiyang/google-cloud-sdk/completion.bash.inc'; fi
 
-# Set breakpoint() in Python to call pudb
-export PYTHONBREAKPOINT="pudb.set_trace"
+# lfs-server
+if [ -f '/Users/kaiyang/doot/aws_credentials.sh' ]; then . '/Users/kaiyang/doot/aws_credentials.sh'; fi
 
-alias tp='cd $(git rev-parse --show-toplevel)'
