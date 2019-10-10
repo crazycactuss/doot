@@ -48,6 +48,12 @@ elif [ "`uname`" == "Darwin" ]; then # Mac OS
     platform='mac'
 fi
 
+# Reset PATH if on mac
+if [ -x /usr/libexec/path_helper ]; then
+    PATH=""
+    eval `/usr/libexec/path_helper -s`
+fi
+
 ## -----------------------
 ## -- 1) Import .bashrc --
 ## -----------------------
@@ -90,9 +96,6 @@ if [ "$platform" == "mac" ]; then
     # PHP 7.1
     export PATH="/usr/local/php5/bin:$PATH"
 
-    # Anaconda3
-    export PATH="$PATH:/Users/kaiyang/anaconda3/bin"
-
     # jenv
     export PATH="$HOME/.jenv/bin:$PATH"
     eval "$(jenv init -)"
@@ -112,4 +115,3 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
