@@ -305,7 +305,7 @@
         "when": "editorTextFocus && config.gitlens.keymap == 'chorded' && gitlens:activeFileStatus =~ /blameable/"
     },
     {
-        "key": "ctrl+alt+k",
+        "key": "ctrl+shift+k",
         "command": "editor.action.deleteLines",
         "when": "textInputFocus && !editorReadonly"
     },
