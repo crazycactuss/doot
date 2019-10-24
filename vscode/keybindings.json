@@ -6,7 +6,7 @@
     },
     {
         "key": "ctrl+x o",
-        "command": "-workbench.action.navigateEditorGroups"
+        "command": "workbench.action.navigateEditorGroups"
     },
     {
         "key": "ctrl+alt+f",
@@ -159,11 +159,6 @@
         "when": "editorTextFocus && !editorReadonly"
     },
     {
-        "key": "cmd+;",
-        "command": "editor.action.blockComment",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
         "key": "alt+;",
         "command": "-editor.action.blockComment",
         "when": "editorTextFocus && !editorReadonly"
@@ -313,5 +308,141 @@
         "key": "shift+cmd+k",
         "command": "-editor.action.deleteLines",
         "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+c f",
+        "command": "editor.action.formatDocument",
+        "when": "editorHasDocumentFormattingProvider && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "shift+alt+f",
+        "command": "-editor.action.formatDocument",
+        "when": "editorHasDocumentFormattingProvider && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+c f",
+        "command": "editor.action.formatDocument.none",
+        "when": "editorTextFocus && !editorHasDocumentFormattingProvider && !editorHasDocumentFormattingProvider && !editorReadonly"
+    },
+    {
+        "key": "shift+alt+f",
+        "command": "-editor.action.formatDocument.none",
+        "when": "editorTextFocus && !editorHasDocumentFormattingProvider && !editorHasDocumentFormattingProvider && !editorReadonly"
+    },
+    {
+        "key": "ctrl+x ctrl+d",
+        "command": "workbench.action.debug.start",
+        "when": "!inDebugMode"
+    },
+    {
+        "key": "f5",
+        "command": "-workbench.action.debug.start",
+        "when": "!inDebugMode"
+    },
+    {
+        "key": "cmd+;",
+        "command": "workbench.action.debug.stepInto",
+        "when": "inDebugMode"
+    },
+    {
+        "key": "f11",
+        "command": "-workbench.action.debug.stepInto",
+        "when": "inDebugMode"
+    },
+    {
+        "key": "shift+cmd+;",
+        "command": "-breadcrumbs.focus",
+        "when": "breadcrumbsPossible"
+    },
+    {
+        "key": "shift+cmd+;",
+        "command": "workbench.action.debug.stepOut",
+        "when": "debugState == 'stopped'"
+    },
+    {
+        "key": "shift+f11",
+        "command": "-workbench.action.debug.stepOut",
+        "when": "debugState == 'stopped'"
+    },
+    {
+        "key": "cmd+'",
+        "command": "workbench.action.debug.stepOver",
+        "when": "debugState == 'stopped'"
+    },
+    {
+        "key": "f10",
+        "command": "-workbench.action.debug.stepOver",
+        "when": "debugState == 'stopped'"
+    },
+    {
+        "key": "cmd+\\",
+        "command": "workbench.action.debug.continue",
+        "when": "inDebugMode"
+    },
+    {
+        "key": "f5",
+        "command": "-workbench.action.debug.continue",
+        "when": "inDebugMode"
+    },
+    {
+        "key": "alt+enter",
+        "command": "-python.datascience.runcurrentcellandaddbelow",
+        "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
+    },
+    {
+        "key": "alt+enter",
+        "command": "python.datascience.runcurrentcelladvance",
+        "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
+    },
+    {
+        "key": "shift+enter",
+        "command": "-python.datascience.runcurrentcelladvance",
+        "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
+    },
+    {
+        "key": "ctrl+c ctrl+c",
+        "command": "python.datascience.runcurrentcell",
+        "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-python.datascience.runcurrentcell",
+        "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-python.datascience.runcurrentcell",
+        "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-python.datascience.runcurrentcell",
+        "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
+    },
+    {
+        "key": "ctrl+c ctrl+d",
+        "command": "python.datascience.debugcurrentcell.palette"
+    },
+    {
+        "key": "cmd+\\",
+        "command": "-workbench.action.splitEditor"
+    },
+    {
+        "key": "ctrl+c ctrl+b",
+        "command": "editor.debug.action.toggleBreakpoint",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "f9",
+        "command": "-editor.debug.action.toggleBreakpoint",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+c ctrl+r",
+        "command": "python.execInTerminal"
+    },
+    {
+        "key": "ctrl+x ctrl+t",
+        "command": "workbench.action.terminal.focus"
     }
 ]

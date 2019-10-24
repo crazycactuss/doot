@@ -99,6 +99,9 @@ if [ "$platform" == "mac" ]; then
     # jenv
     export PATH="$HOME/.jenv/bin:$PATH"
     eval "$(jenv init -)"
+
+    # Add Visual Studio Code (code)
+    export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 fi
 
 # >>> conda initialize >>>
