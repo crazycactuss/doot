@@ -442,7 +442,15 @@
         "command": "python.execInTerminal"
     },
     {
-        "key": "ctrl+x ctrl+t",
+        "key": "ctrl+x ctrl+r",
         "command": "workbench.action.terminal.focus"
+    },
+    {
+        "key": "ctrl+x ctrl+t",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "cmd+b",
+        "command": "-workbench.action.toggleSidebarVisibility"
     }
 ]
