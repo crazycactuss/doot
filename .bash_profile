@@ -104,3 +104,5 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
