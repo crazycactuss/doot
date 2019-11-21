@@ -312,3 +312,6 @@ if [ -f '/Users/kaiyang/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/
 # lfs-server
 if [ -f '/Users/kaiyang/doot/aws_credentials.sh' ]; then . '/Users/kaiyang/doot/aws_credentials.sh'; fi
 
+function get-tenant() {
+    export TENANT=$(curl -s -X POST https://lambdas-internal-integ.iqos-np.twosigmaiq.com/tenants/917/headers | jq -r '.headers["X-TSIQ-Tenant-Encoded"]')
+}
