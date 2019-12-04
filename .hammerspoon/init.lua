@@ -2,7 +2,12 @@ hs.hotkey.bind({"cmd", "ctrl"}, "t", function()
   hs.application.launchOrFocus("Terminal")
 end)
 hs.hotkey.bind({"cmd", "ctrl"}, "e", function()
-  hs.application.launchOrFocus("Emacs")
+    em = hs.application.get("Emacs")
+    if em == nil then
+      hs.application.launchOrFocus("Emacs")
+    else
+      em:activate()
+    end
 end)
 hs.hotkey.bind({"cmd", "ctrl"}, "g", function()
   hs.application.launchOrFocus("Google Chrome")
