@@ -141,7 +141,9 @@ fi
 # have a fix for that which doesn't slow the command down, please submit
 # a patch or pull request.
 
-PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo -e $$\\t$USER\\t$HOSTNAME\\tscreen $WINDOW\\t`date +%D%t%T%t%Y%t%s`\\t$PWD"$(history 1)" >> ~/.bash_eternal_history'
+if [[ -z $TMUX ]]; then
+    export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'history -a; history -n; '
+fi
 
 # Turn on checkwinsize (checks LINES and COLUMNS every prompt)
 shopt -s checkwinsize
@@ -161,6 +163,8 @@ shopt -s checkwinsize
 # See: http://stackoverflow.com/questions/19454837/bash-histsize-vs-histfilesize
 # See: http://www.tldp.org/LDP/abs/html/histcommands.html
 shopt -s histappend
+export HISTSIZE=-1
+export HISTFILESIZE=-1
 
 # Make prompt informative. For reference,
 # See: http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html

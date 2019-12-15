@@ -519,13 +519,13 @@
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
 	'(("l" "Log" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "* %?\n  %T")
+	   "* %?\n  %^T")
 	  ("n" "Note" entry (file+headline "~/Dropbox/org/inbox.org" "Notes")
 	   "* %?\n  %U")
 	  ("t" "Task" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
 	   "* TODO %?\n  %U" :prepend t)
 	  ("f" "Food" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %T")))
+	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %^T")))
   (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
 #+END_SRC
 
