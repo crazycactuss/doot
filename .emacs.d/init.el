@@ -18,3 +18,18 @@
 ;; --------------------
 ;; load configuration from config.org
 (org-babel-load-file "~/.emacs.d/config.org")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   (quote
+    ("/Users/kaiyang/Dropbox/org/fitness.org" "/Users/kaiyang/Dropbox/org/journal.org" "/Users/kaiyang/Dropbox/org/interests.org" "/Users/kaiyang/Dropbox/org/inbox.org" "/Users/kaiyang/Dropbox/org/stuff.org" "/Users/kaiyang/Dropbox/org/notes.org" "/Users/kaiyang/org/inbox.org" "/Users/kaiyang/org/stuff.org" "/Users/kaiyang/org/journal.org" "/Users/kaiyang/org/tasks.org"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0))))
+ '(highlight-indentation-face ((t (:background "gray25")))))

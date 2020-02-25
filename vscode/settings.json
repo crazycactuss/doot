@@ -7,5 +7,7 @@
     "extensions.ignoreRecommendations": true,
     "terminal.integrated.fontFamily": "InconsolataG for Powerline",
     "python.dataScience.sendSelectionToInteractiveWindow": true,
-    "python.dataScience.askForKernelRestart": false
+    "python.dataScience.askForKernelRestart": false,
+    "editor.minimap.enabled": false,
+    "breadcrumbs.enabled": true
 }

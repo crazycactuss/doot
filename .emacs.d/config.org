@@ -535,6 +535,9 @@
   (setq org-agenda-custom-commands
 	'(("n" "TSIQ Agenda and TODOs"
 	   ((agenda "" ((org-agenda-span 'day)))
+	    (todo "IN-PROGRESS"
+		  ((org-agenda-overriding-header "Items in Progress")
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
 	    (todo "TODO"
 		  ((org-agenda-overriding-header "Unscheduled TODOs")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
@@ -588,9 +591,8 @@
 
   ;; set workflows
   (setq org-todo-keywords
-	'((sequence "TODO" "|" "DONE" "N/A") ;; applicable to habits
-	  (sequence "IDLE" "TODO" "|" "DONE" "N/A") ;; N/A = delegated or no longer applicable
-	  (sequence "IDLE" "IN-PROGRESS" "|" "DONE" "N/A") ;; applicable to projects/epics
+	'((sequence "TODO" "|" "DONE" "N/A") ;; small tasks
+	  (sequence "IDLE" "TODO" "IN-PROGRESS" "|" "DONE" "N/A") ;; most of the time
 	  ))
 
   (setq org-enforce-todo-dependencies t)
