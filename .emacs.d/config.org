@@ -466,36 +466,36 @@
 ** Agenda
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files
-	(list
-	 "/Users/kaiyang/Dropbox/org/fitness.org"
-	 "/Users/kaiyang/Dropbox/org/journal.org"
-	 "/Users/kaiyang/Dropbox/org/interests.org"
-	 "/Users/kaiyang/Dropbox/org/inbox.org"
-	 "/Users/kaiyang/Dropbox/org/stuff.org"
-	 "/Users/kaiyang/Dropbox/org/notes.org"
-	 ))
+    (setq org-agenda-files
+	  (list
+	   "/Users/kaiyang/Dropbox/org/fitness.org"
+	   "/Users/kaiyang/Dropbox/org/journal.org"
+	   "/Users/kaiyang/Dropbox/org/interests.org"
+	   "/Users/kaiyang/Dropbox/org/inbox.org"
+	   "/Users/kaiyang/Dropbox/org/stuff.org"
+	   "/Users/kaiyang/Dropbox/org/notes.org"
+	   ))
 
-  (setq org-agenda-dim-blocked-tasks t)
+    (setq org-agenda-dim-blocked-tasks t)
 
-  (setq org-agenda-tags-column -95)
+    (setq org-agenda-tags-column -95)
 
-  (setq org-agenda-custom-commands
-	'(("n" "Agenda and TODOs"
-	   ((agenda "" ((org-agenda-span 'day)))
-	    (todo "TODO"
-		  ((org-agenda-overriding-header "Unscheduled TODOs")
-		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
-	    (todo "TODO"
-		  ((org-agenda-overriding-header "Inbox")
-		   (org-agenda-files '("/Users/kaiyang/Dropbox/org/inbox.org")))))
-	   nil)
-	  ("i" "Backlog" todo "IDLE")))
+    (setq org-agenda-custom-commands
+	  '(("n" "Agenda and TODOs"
+	     ((agenda "" ((org-agenda-span 'day)))
+	      (todo "TODO"
+		    ((org-agenda-overriding-header "Unscheduled TODOs")
+		     (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+	      (todo "TODO"
+		    ((org-agenda-overriding-header "Inbox")
+		     (org-agenda-files '("/Users/kaiyang/Dropbox/org/inbox.org")))))
+	     nil)
+	    ("i" "Backlog" todo "IDLE")))
 
-  (setq org-agenda-block-separator
-	"================================================================================")
+    (setq org-agenda-block-separator
+	  "================================================================================")
 
-  (setq org-agenda-timegrid-use-ampm 1)
+    (setq org-agenda-timegrid-use-ampm 1)
 #+END_SRC
 
 ** Workflow
@@ -506,9 +506,8 @@
 
   ;; set workflows
   (setq org-todo-keywords
-	'((sequence "TODO" "|" "DONE" "N/A") ;; applicable to habits
-	  (sequence "IDLE" "TODO" "|" "DONE" "N/A") ;; N/A = delegated or no longer applicable
-	  (sequence "IDLE" "IN-PROGRESS" "|" "DONE" "N/A") ;; applicable to projects/epics
+	'((sequence "TODO" "|" "DONE" "N/A") ;; small tasks
+	  (sequence "IDLE" "TODO" "IN-PROGRESS" "|" "DONE" "N/A") ;; most of the time
 	  ))
 
   (setq org-enforce-todo-dependencies t)
