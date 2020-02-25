@@ -248,6 +248,7 @@ export views=~/Projects/iqos-products-views/
 export int=~/Projects/pas-integration-test
 export be=~/Projects/buildenv
 export pp=~/Projects/product-platform/
+export prot=~/Projects/iqpl-protective
 export erc=~/Projects/erc-inspector/
 
 # Git branch completion
@@ -317,5 +318,7 @@ if [ -f '/Users/kaiyang/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/
 if [ -f '/Users/kaiyang/doot/aws_credentials.sh' ]; then . '/Users/kaiyang/doot/aws_credentials.sh'; fi
 
 function get-tenant() {
-    export TENANT=$(curl -s -X POST https://lambdas-internal-integ.iqos-np.twosigmaiq.com/tenants/917/headers | jq -r '.headers["X-TSIQ-Tenant-Encoded"]')
+    export TENANT="$(curl -s -X POST https://lambdas-internal-integ.iqos-np.twosigmaiq.com/tenants/${1:-917}/headers | jq -r '.headers["X-TSIQ-Tenant-Encoded"]')"
 }
+
+alias awsop='eval $(roles assume prod ServiceOp --vars)'
