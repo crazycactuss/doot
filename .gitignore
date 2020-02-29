@@ -24,3 +24,4 @@ url
 .lsp-session*
 transient
 aws_credentials.sh
+org-journal.cache

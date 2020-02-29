@@ -461,41 +461,63 @@
   (setq org-startup-truncated t)
 
   (setq org-list-description-max-indent 5)
+
+  (setq org-agenda-start-with-log-mode t)
+
+  (setq org-return-follows-link t)
+
+  (setq org-special-ctrl-a/e t)
+  (setq org-special-ctrl-k t)
+  (setq org-yank-adjusted-subtrees t)
+
+  (setq org-read-date-prefer-future nil)
+
+  (setq org-agenda-persistent-filter t)
 #+END_SRC
 
 ** Agenda
 
 #+BEGIN_SRC emacs-lisp
-    (setq org-agenda-files
-	  (list
-	   "/Users/kaiyang/Dropbox/org/fitness.org"
-	   "/Users/kaiyang/Dropbox/org/journal.org"
-	   "/Users/kaiyang/Dropbox/org/interests.org"
-	   "/Users/kaiyang/Dropbox/org/inbox.org"
-	   "/Users/kaiyang/Dropbox/org/stuff.org"
-	   "/Users/kaiyang/Dropbox/org/notes.org"
-	   ))
+  (setq org-agenda-files
+	(list
+	 "/Users/kaiyang/Dropbox/org"
+	 "/Users/kaiyang/Dropbox/org2/agenda"
+	 "/Users/kaiyang/Dropbox/org2/journal"
+	 ))
 
-    (setq org-agenda-dim-blocked-tasks t)
+  (setq org-agenda-dim-blocked-tasks t)
 
-    (setq org-agenda-tags-column -95)
+  (setq org-agenda-tags-column -95)
 
-    (setq org-agenda-custom-commands
-	  '(("n" "Agenda and TODOs"
-	     ((agenda "" ((org-agenda-span 'day)))
-	      (todo "TODO"
-		    ((org-agenda-overriding-header "Unscheduled TODOs")
-		     (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
-	      (todo "TODO"
-		    ((org-agenda-overriding-header "Inbox")
-		     (org-agenda-files '("/Users/kaiyang/Dropbox/org/inbox.org")))))
-	     nil)
-	    ("i" "Backlog" todo "IDLE")))
+  (setq org-agenda-custom-commands
+	'(("n" "Personal Agenda and TODOs"
+	   ((agenda "" ((org-agenda-span 'day)))
+	    (todo "IN-PROGRESS"
+		  ((org-agenda-overriding-header "Items in Progress")))
+	    (tags "CATEGORY=\"inbox\""
+		  ((org-agenda-overriding-header "Inbox")
+		   (org-agenda-files '("/Users/kaiyang/Dropbox/org/inbox.org"
+				       "/Users/kaiyang/Dropbox/org2/agenda/inbox.org"))))
+	    (todo "NEXT"
+		  ((org-agenda-overriding-header "Unscheduled Next Items")
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+	    (todo "TODO"
+		  ((org-agenda-overriding-header "Unscheduled TODOs")
+		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+	    )
+	   ((org-agenda-files
+	     '("/Users/kaiyang/Dropbox/org"
+	       "/Users/kaiyang/Dropbox/org2/agenda"
+	       "/Users/kaiyang/Dropbox/org2/journal"))))
+	  ("i" "Personal Backlog" todo "IDLE|ON-HOLD"
+	   ((org-agenda-files
+	     '("/Users/kaiyang/Dropbox/org"
+	       "/Users/kaiyang/Dropbox/org2/agenda"))))))
 
-    (setq org-agenda-block-separator
-	  "================================================================================")
+  (setq org-agenda-block-separator
+	"================================================================================")
 
-    (setq org-agenda-timegrid-use-ampm 1)
+  (setq org-agenda-timegrid-use-ampm 1)
 #+END_SRC
 
 ** Workflow
@@ -506,25 +528,35 @@
 
   ;; set workflows
   (setq org-todo-keywords
-	'((sequence "TODO" "|" "DONE" "N/A") ;; small tasks
-	  (sequence "IDLE" "TODO" "IN-PROGRESS" "|" "DONE" "N/A") ;; most of the time
+	'((sequence "TODO(t)" "|" "DONE(d)" "N/A(a)") ;; small tasks
+	  (sequence "IDLE(l)" "NEXT(n)" "IN-PROGRESS(i!)" "ON-HOLD(h!)" "|")
 	  ))
 
   (setq org-enforce-todo-dependencies t)
+
+  (setq org-log-into-drawer t)
 #+END_SRC
 
 ** Capture
 
 #+BEGIN_SRC emacs-lisp
+  (defun org-journal-find-location ()
+    ;; Open today's journal, but specify a non-nil prefix argument in order to
+    ;; inhibit inserting the heading; org-capture will insert the heading.
+    (org-journal-new-entry t)
+    ;; Position point on the journal's top-level heading so that org-capture
+    ;; will add the new entry as a child entry (the 2nd line)
+    (goto-line 2))
+
   (setq org-capture-templates
-	'(("l" "Log" entry (file+olp+datetree "~/Dropbox/org/journal.org")
-	   "* %?\n  %^T")
-	  ("n" "Note" entry (file+headline "~/Dropbox/org/inbox.org" "Notes")
+	'(("n" "Note" entry (file "~/Dropbox/org2/agenda/inbox.org")
 	   "* %?\n  %U")
-	  ("t" "Task" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
-	   "* TODO %?\n  %U" :prepend t)
-	  ("f" "Food" entry (file+olp+datetree "~/Dropbox/org/journal.org")
+	  ("t" "Task" entry (file "~/Dropbox/org2/agenda/inbox.org")
+	   "* TODO %?\n  %U")
+	  ("j" "Journal" entry (function org-journal-find-location) "* %?\n  %T")
+	  ("f" "Food" entry (function org-journal-find-location)
 	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %^T")))
+
   (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
 #+END_SRC
 
@@ -542,6 +574,14 @@
 
   ;; allow creation of parent nodes
   (setq org-refile-allow-creating-parent-nodes 'confirm)
+
+  ;;;; Refile settings
+  ; Exclude DONE state tasks from refile targets
+  (defun ky/verify-refile-target ()
+    "Exclude todo keywords with a done state from refile targets"
+    (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+  (setq org-refile-target-verify-function 'ky/verify-refile-target)
 #+END_SRC
 
 ** Tags
@@ -549,26 +589,6 @@
 #+BEGIN_SRC emacs-lisp
   (setq-default org-tag-alist
 		'((:startgroup)
-		  ("sw")
-		  (:grouptags)
-		  ("scala")
-		  ("emacs")
-		  ("python")
-		  (:endgroup)
-
-		  (:startgoup)
-		  ("ee")
-		  (:grouptags)
-		  ("iot")
-		  (:endgroup)
-
-		  (:startgroup)
-		  ("iot") ;; internet of things
-		  (:grouptags)
-		  ("emb") ;; embedded systems
-		  (:endgroup)
-
-		  (:startgroup)
 		  ("food")
 		  (:grouptags)
 		  ("lunch")
@@ -578,16 +598,6 @@
 
 		  (:startgroup)
 		  ("read")
-		  (:endgroup)
-
-		  (:startgroup)
-		  ("finance")
-		  (:endgroup)
-
-		  (:startgroup)
-		  ("ml")
-		  (:grouptags)
-		  ("vi")
 		  (:endgroup)))
 #+END_SRC
 
@@ -600,6 +610,7 @@
   (global-set-key (kbd "C-c c") 'org-capture)
   (global-set-key (kbd "C-c C-w") 'org-refile)
   (global-set-key (kbd "C-x M-p") 'org-latex-export-to-pdf)
+  (global-set-key (kbd "C-c l") 'org-store-link)
 #+END_SRC
 
 ** Auto-fill Mode
@@ -607,4 +618,41 @@
 #+BEGIN_SRC emacs-lisp
   (add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
   (add-hook 'org-mode-hook 'turn-on-auto-fill)
+#+END_SRC
+
+** Packages
+
+#+BEGIN_SRC emacs-lisp
+  (defun org-journal-today ()
+    (interactive)
+    (org-journal-new-entry t))
+
+  (use-package org-journal
+    :ensure t
+    :custom
+    (org-journal-dir "/Users/kaiyang/Dropbox/org2/journal")
+    (org-extend-today-until 3)
+    (org-journal-carryover-items nil)
+    (org-journal-file-format "%Y-%m-%d.org")
+    (org-journal-time-format "<%Y-%m-%d %H:%M>")
+    (org-journal-file-header "#+CATEGORY: journal\n")
+    :bind
+    ("C-c j" . org-journal-today))
+
+  (use-package deft
+    :ensure t
+    :config
+    (setq deft-directory "/Users/kaiyang/Dropbox/org2/notes"
+	  deft-extensions '("org")
+	  deft-default-extension "org"
+	  deft-use-filter-string-for-filename t)
+    (global-set-key (kbd "C-c d") 'deft))
+
+  (defun deft-current-window-width ()
+    "Patch deft-current-window-width"
+    (let* ((window (get-buffer-window deft-buffer))
+	   (fringe-right (ceiling (or (cadr (window-fringes)) 0)))
+	   (offset 5))
+      (when window
+	(- (window-text-width window) offset))))
 #+END_SRC
