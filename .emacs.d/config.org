@@ -496,8 +496,8 @@
 		  ((org-agenda-overriding-header "Items in Progress")))
 	    (tags "CATEGORY=\"inbox\""
 		  ((org-agenda-overriding-header "Inbox")
-		   (org-agenda-files '("/Users/kaiyang/Dropbox/org/inbox.org"
-				       "/Users/kaiyang/Dropbox/org2/agenda/inbox.org"))))
+		   (org-agenda-files '("/Users/kaiyang/Dropbox/org2/agenda/inbox.org"
+				       "/Users/kaiyang/Dropbox/org2/agenda/inbox_beorg.org"))))
 	    (todo "NEXT"
 		  ((org-agenda-overriding-header "Unscheduled Next Items")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
@@ -611,6 +611,8 @@
   (global-set-key (kbd "C-c C-w") 'org-refile)
   (global-set-key (kbd "C-x M-p") 'org-latex-export-to-pdf)
   (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c e") 'calendar)
 #+END_SRC
 
 ** Auto-fill Mode
