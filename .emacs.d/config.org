@@ -490,9 +490,9 @@
   (setq org-agenda-tags-column -95)
 
   (setq org-agenda-custom-commands
-	'(("n" "Personal Agenda and TODOs"
+	'(("n" "Agenda and TODOs"
 	   ((agenda "" ((org-agenda-span 'day)))
-	    (todo "IN-PROGRESS"
+	    (tags-todo "TODO=\"IN-PROGRESS\"-initiative"
 		  ((org-agenda-overriding-header "Items in Progress")))
 	    (tags "CATEGORY=\"inbox\""
 		  ((org-agenda-overriding-header "Inbox")
@@ -501,6 +501,8 @@
 	    (todo "NEXT"
 		  ((org-agenda-overriding-header "Unscheduled Next Items")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+	    (tags-todo "TODO=\"IN-PROGRESS\"+initiative"
+		    ((org-agenda-overriding-header "Initiatives This Month")))
 	    (todo "TODO"
 		  ((org-agenda-overriding-header "Unscheduled TODOs")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
