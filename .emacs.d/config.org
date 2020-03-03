@@ -530,6 +530,7 @@
 	(list
 	 "/Users/kaiyang/Dropbox/org"
 	 "/Users/kaiyang/org"
+	 "/Users/kaiyang/org2/agenda"
 	 "/Users/kaiyang/Dropbox/org2/agenda"
 	 "/Users/kaiyang/Dropbox/org2/journal"
 	 ))
@@ -560,11 +561,10 @@
 	  ("i" "TSIQ Backlog" todo "IDLE"
 	   ((org-agenda-files
 	     '("/Users/kaiyang/org"
-	       "/Users/kaiyang/org2/agenda"
-	       "/Users/kaiyang/Dropbox/org2/journal"))))
+	       "/Users/kaiyang/org2/agenda"))))
 	  ("N" "Personal Agenda and TODOs"
 	   ((agenda "" ((org-agenda-span 'day)))
-	    (todo "IN-PROGRESS"
+	    (tags-todo "TODO=\"IN-PROGRESS\"-initiative"
 		  ((org-agenda-overriding-header "Items in Progress")))
 	    (tags "CATEGORY=\"inbox\""
 		  ((org-agenda-overriding-header "Inbox")
@@ -573,6 +573,8 @@
 	    (todo "NEXT"
 		  ((org-agenda-overriding-header "Unscheduled Next Items")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
+	    (tags-todo "TODO=\"IN-PROGRESS\"+initiative"
+		    ((org-agenda-overriding-header "Initiatives This Month")))
 	    (todo "TODO"
 		  ((org-agenda-overriding-header "Unscheduled TODOs")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
