@@ -74,6 +74,8 @@
     :ensure t
     :config
     (exec-path-from-shell-initialize))
+
+  (put 'downcase-region 'disabled nil)
 #+END_SRC
 
 ** Doom
@@ -565,7 +567,7 @@
 	  ("N" "Personal Agenda and TODOs"
 	   ((agenda "" ((org-agenda-span 'day)))
 	    (tags-todo "TODO=\"IN-PROGRESS\"-initiative"
-		  ((org-agenda-overriding-header "Items in Progress")))
+		       ((org-agenda-overriding-header "Items in Progress")))
 	    (tags "CATEGORY=\"inbox\""
 		  ((org-agenda-overriding-header "Inbox")
 		   (org-agenda-files '("/Users/kaiyang/Dropbox/org2/agenda/inbox.org"
@@ -574,7 +576,7 @@
 		  ((org-agenda-overriding-header "Unscheduled Next Items")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
 	    (tags-todo "TODO=\"IN-PROGRESS\"+initiative"
-		    ((org-agenda-overriding-header "Initiatives This Month")))
+		       ((org-agenda-overriding-header "Initiatives This Month")))
 	    (todo "TODO"
 		  ((org-agenda-overriding-header "Unscheduled TODOs")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
@@ -633,7 +635,9 @@
 	   "* TODO %?\n  %U")
 	  ("j" "Journal" entry (function org-journal-find-location) "* %?\n  %T")
 	  ("f" "Food" entry (function org-journal-find-location)
-	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %^T")))
+	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %^T")
+	  ("r" "Review" entry (function org-journal-find-location)
+	   "* review :review:\n  %t\n  - completed%?\n  - postponed\n  - productivity score (0-5): ")))
 
   (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
 #+END_SRC
@@ -691,6 +695,8 @@
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c e") 'calendar)
+  (global-set-key (kbd "M-p") 'org-move-subtree-up)
+  (global-set-key (kbd "M-n") 'org-move-subtree-down)
 #+END_SRC
 
 ** Auto-fill Mode
