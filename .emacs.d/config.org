@@ -76,6 +76,8 @@
     (exec-path-from-shell-initialize))
 
   (put 'downcase-region 'disabled nil)
+
+  (setq-default indent-tabs-mode nil)
 #+END_SRC
 
 ** Doom
@@ -344,7 +346,9 @@
     (global-set-key (kbd "C-x g") 'magit-status)
     (global-set-key (kbd "C-x m") 'magit-blame)
     (global-set-key (kbd "C-x C-M-f") 'magit-find-file)
-    (setq magit-display-file-buffer-function 'magit-display-file-buffer-other-window))
+    (setq magit-display-file-buffer-function 'magit-display-file-buffer-other-window)
+    (define-key magit-hunk-section-map [return] 'magit-diff-visit-file-other-window)
+    (define-key magit-file-section-map [return] 'magit-diff-visit-file-other-window))
 #+END_SRC
 
 ** Flycheck
@@ -475,6 +479,8 @@
   (setq org-read-date-prefer-future nil)
 
   (setq org-agenda-persistent-filter t)
+
+  (setq org-clock-into-drawer "CLOCK")
 #+END_SRC
 
 ** Agenda

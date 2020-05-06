@@ -8,7 +8,15 @@
     "terminal.integrated.fontFamily": "InconsolataG for Powerline",
     "python.dataScience.sendSelectionToInteractiveWindow": true,
     "python.dataScience.askForKernelRestart": false,
-    "python.terminal.activateEnvironment": false
+    "python.terminal.activateEnvironment": false,
     "editor.minimap.enabled": false,
-    "breadcrumbs.enabled": true
+    "breadcrumbs.enabled": true,
+    "terminal.integrated.allowChords": false,
+    "terminal.integrated.macOptionIsMeta": true,
+    "terminal.integrated.commandsToSkipShell": [
+        "workbench.action.navigateEditorGroups"
+    ],
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "git.untrackedChanges": "separate"
 }
