@@ -52,7 +52,7 @@
 	      (global-set-key (kbd "M-_") 'undo-tree-redo)))
 
   ;; window split threshold
-  (setq split-width-threshold 140)
+  (setq split-width-threshold 200)
   (setq split-height-threshold 1000)
 
   (server-start)
@@ -528,6 +528,8 @@
 	"================================================================================")
 
   (setq org-agenda-timegrid-use-ampm 1)
+
+  (setq org-agenda-window-setup 'current-window)
 #+END_SRC
 
 ** Workflow
@@ -551,9 +553,10 @@
 
 #+BEGIN_SRC emacs-lisp
   (defun org-journal-find-location ()
+    (setq capture-journal-timestamp (org-read-date t t))
     ;; Open today's journal, but specify a non-nil prefix argument in order to
     ;; inhibit inserting the heading; org-capture will insert the heading.
-    (org-journal-new-entry t)
+    (org-journal-new-entry t capture-journal-timestamp)
     ;; Position point on the journal's top-level heading so that org-capture
     ;; will add the new entry as a child entry (the 2nd line)
     (goto-line 2))
@@ -563,13 +566,23 @@
 	   "* %?\n  %U")
 	  ("t" "Task" entry (file "~/Dropbox/org2/agenda/inbox.org")
 	   "* TODO %?\n  %U")
-	  ("j" "Journal" entry (function org-journal-find-location) "* %?\n  %T")
+	  ("j" "Journal" entry (function org-journal-find-location)
+	   "* %?\n  %(org-insert-time-stamp capture-journal-timestamp t)")
 	  ("f" "Food" entry (function org-journal-find-location)
-	   "* %? %^G\n  :PROPERTIES:\n  :AT:\n  :END:\n  %^T")
+	   "* %? %^G\n%^{AT}p  %(org-insert-time-stamp capture-journal-timestamp t)")
 	  ("r" "Review" entry (function org-journal-find-location)
-	   "* review :review:\n  %t\n  - completed%?\n  - postponed\n  - productivity score (0-5): ")))
+	   "* review :review:\n  %(org-insert-time-stamp capture-journal-timestamp)\n  - completed%?\n  - postponed\n  - productivity score (0-5): ")))
 
-  (add-hook 'org-capture-before-finalize-hook 'org-align-all-tags)
+  (add-hook 'org-capture-prepare-finalize-hook 'org-align-all-tags)
+
+  (defun org-journal-sort-entries ()
+    (goto-line 2)
+    (org-sort-entries nil ?t)
+    (save-buffer))
+
+  (add-hook 'org-capture-before-finalize-hook 'org-journal-sort-entries)
+
+  (add-hook 'org-capture-after-finalize-hook '(lambda () (org-agenda-redo-all 4)))
 #+END_SRC
 
 ** Refile
@@ -610,12 +623,21 @@
 
 		  (:startgroup)
 		  ("read")
+		  (:endgroup)
+
+		  (:startgroup)
+		  ("initiative")
+		  (:endgroup)
+
+		  (:startgroup)
+		  ("todoist")
 		  (:endgroup)))
 #+END_SRC
 
 ** Key Bindings
 
 #+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c n") '(lambda () (interactive) (org-agenda nil "n")))
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c t") 'org-todo)
   (global-set-key (kbd "C-c s") 'org-schedule)
@@ -652,6 +674,7 @@
     (org-journal-file-format "%Y-%m-%d.org")
     (org-journal-time-format "<%Y-%m-%d %H:%M>")
     (org-journal-file-header "#+CATEGORY: journal\n")
+    (setq org-journal-find-file #'find-file)
     :bind
     ("C-c j" . org-journal-today))
 
