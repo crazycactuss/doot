@@ -367,11 +367,14 @@
     (global-set-key (kbd "C-x g") 'magit-status)
     (global-set-key (kbd "C-x m") 'magit-blame)
     (global-set-key (kbd "C-x C-M-f") 'magit-find-file)
+    (add-hook 'magit-refresh-buffer-hook '(lambda () (kill-local-variable 'header-line-format)))
     :custom
     (magit-display-buffer-function 'magit-display-buffer-other-window)
     :config
     (define-key magit-hunk-section-map [return] 'magit-diff-visit-file-other-window)
-    (define-key magit-file-section-map [return] 'magit-diff-visit-file-other-window))
+    (define-key magit-file-section-map [return] 'magit-diff-visit-file-other-window)
+    (define-key magit-status-mode-map [C-tab] nil)
+    (define-key magit-diff-mode-map [C-tab] nil))
 #+END_SRC
 
 ** Flycheck
@@ -416,6 +419,82 @@
   ;;   :config
   ;;   (define-key company-active-map (kbd "C-m") #'company-show-doc-buffer)
   ;;   (setq company-idle-delay 0.1))
+#+END_SRC
+
+** Centaur Tabs
+
+#+BEGIN_SRC emacs-lisp
+  (defun ky/centaur-tabs-hide-tab (x)
+    (let ((name (format "%s" x)))
+      (or
+       ;; Current window is not dedicated window.
+       (window-dedicated-p (selected-window))
+
+       ;; Buffer name not match below blacklist.
+       (string-prefix-p "*epc" name)
+       (string-prefix-p "*helm" name)
+       (string-prefix-p "*Compile-Log*" name)
+       (string-prefix-p "*lsp" name)
+       (string-prefix-p "*company" name)
+       (string-prefix-p "*Flycheck" name)
+       (string-prefix-p "*tramp" name)
+       (string-prefix-p " *Mini" name)
+       (string-prefix-p "*help" name)
+       (string-prefix-p "*straight" name)
+       (string-prefix-p " *temp" name)
+       (string-prefix-p "*Calendar" name)
+       (string-prefix-p "*Org Select" name)
+       (string-prefix-p "*Org Src" name)
+       )))
+
+  (defun ky/centaur-tabs-buffer-groups ()
+    (if (and
+         (buffer-base-buffer)
+         (not (boundp 'ky/centaur-tabs-recompute-ibuf-group))
+         )
+        (kill-local-variable 'centaur-tabs-projectile-buffer-group-calc))
+    (let ((result (if centaur-tabs-projectile-buffer-group-calc
+                      (symbol-value 'centaur-tabs-projectile-buffer-group-calc)
+                    (set (make-local-variable 'centaur-tabs-projectile-buffer-group-calc)
+                         (cond
+                          ((string-prefix-p "*Help" (buffer-name)) '("Emacs"))
+                          ((condition-case _err
+                               (projectile-project-root)
+                             (error nil)) (list (projectile-project-name)))
+                          ((or
+                            (memq major-mode '(org-agenda-mode))
+                            (string-prefix-p "scratch" (buffer-name))
+                            (string-prefix-p (format-time-string "%Y-%m-%d.org") (buffer-name))
+                            (and
+                             (buffer-base-buffer)
+                             (memq major-mode '(org-mode)))
+                            ) '("Home"))
+                          ((memq major-mode '(org-mode org-agenda-mode org-journal-mode)) '("Org"))
+                          ((memq major-mode '(dired-mode)) '("Dir"))
+                          (t '("Emacs"))))
+                    (symbol-value 'centaur-tabs-projectile-buffer-group-calc))))
+      (if (buffer-base-buffer) (set (make-local-variable 'ky/centaur-tabs-recompute-ibuf-group) t))
+      result
+      ))
+
+  (use-package centaur-tabs
+    :ensure t
+    :config
+    (centaur-tabs-mode t)
+    (global-set-key [C-tab] 'centaur-tabs-forward)
+    (global-set-key [C-S-tab] 'centaur-tabs-backward)
+    (global-set-key (kbd "C-c b") 'centaur-tabs-counsel-switch-group)
+    (global-set-key (kbd "C-c 0") 'centaur-tabs-select-beg-tab)
+    (global-set-key (kbd "C-c h") '(lambda () (interactive) (centaur-tabs-switch-group "Home")))
+    (centaur-tabs-enable-buffer-reordering)
+    :custom
+    (centaur-tabs-hide-tab-function 'ky/centaur-tabs-hide-tab)
+    (centaur-tabs-buffer-groups-function 'ky/centaur-tabs-buffer-groups)
+    (centaur-tabs-set-bar 'left)
+    (centaur-tabs-set-close-button nil)
+    (centaur-tabs-set-modified-marker t)
+    (centaur-tabs-modified-marker "●")
+    (centaur-tabs-adjust-buffer-order 'left))
 #+END_SRC
 
 * Languages
@@ -504,6 +583,8 @@
   (setq org-agenda-persistent-filter t)
 
   (setq org-clock-into-drawer "CLOCK")
+
+  (setq org-indirect-buffer-display 'current-window)
 #+END_SRC
 
 ** Agenda
@@ -677,6 +758,10 @@
   (global-set-key (kbd "C-c e") 'calendar)
   (global-set-key (kbd "M-p") 'org-move-subtree-up)
   (global-set-key (kbd "M-n") 'org-move-subtree-down)
+  (define-key org-mode-map (kbd "C-c C-x b")
+    '(lambda () (interactive)
+       (org-tree-to-indirect-buffer 4)))
+  (define-key org-mode-map [C-tab] nil)
 #+END_SRC
 
 ** Auto-fill Mode
