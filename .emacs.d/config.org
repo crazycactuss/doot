@@ -349,12 +349,26 @@
 ** Magit
 
 #+BEGIN_SRC emacs-lisp
+  (defun magit-display-buffer-other-window (buffer)
+    (display-buffer
+     buffer (if (and (derived-mode-p 'magit-mode)
+                     (memq (with-current-buffer buffer major-mode)
+                           '(magit-process-mode
+                             magit-revision-mode
+                             magit-diff-mode
+                             magit-stash-mode
+                             magit-status-mode)))
+                nil
+              '(display-buffer-same-window))))
+
   (use-package magit
     :ensure t
     :init
     (global-set-key (kbd "C-x g") 'magit-status)
     (global-set-key (kbd "C-x m") 'magit-blame)
     (global-set-key (kbd "C-x C-M-f") 'magit-find-file)
+    :custom
+    (magit-display-buffer-function 'magit-display-buffer-other-window)
     :config
     (define-key magit-hunk-section-map [return] 'magit-diff-visit-file-other-window)
     (define-key magit-file-section-map [return] 'magit-diff-visit-file-other-window))
@@ -762,9 +776,8 @@
     (org-extend-today-until 3)
     (org-journal-carryover-items nil)
     (org-journal-file-format "%Y-%m-%d.org")
-    (org-journal-time-format "<%Y-%m-%d %H:%M>")
     (org-journal-file-header "#+CATEGORY: journal\n")
-    (setq org-journal-find-file #'find-file)
+    (org-journal-find-file #'find-file)
     :bind
     ("C-c j" . org-journal-today))
 
