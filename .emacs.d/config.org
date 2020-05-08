@@ -355,7 +355,7 @@
     (global-set-key (kbd "C-x g") 'magit-status)
     (global-set-key (kbd "C-x m") 'magit-blame)
     (global-set-key (kbd "C-x C-M-f") 'magit-find-file)
-    (setq magit-display-file-buffer-function 'magit-display-file-buffer-other-window)
+    :config
     (define-key magit-hunk-section-map [return] 'magit-diff-visit-file-other-window)
     (define-key magit-file-section-map [return] 'magit-diff-visit-file-other-window))
 #+END_SRC
@@ -424,7 +424,7 @@
   ;; Refer to: http://millejoh.github.io/emacs-ipython-notebook/
   (use-package ein
     :ensure t
-    :init
+    :config
     (define-key ein:notebook-mode-map (kbd "C-c C-h") 'avy-goto-char)
     (define-key ein:notebook-mode-map (kbd "C-c C-d") 'ein:pytools-request-tooltip-or-help))
 #+END_SRC
@@ -585,9 +585,14 @@
   (add-hook 'org-capture-prepare-finalize-hook 'org-align-all-tags)
 
   (defun org-journal-sort-entries ()
-    (goto-line 2)
-    (org-sort-entries nil ?t)
-    (save-buffer))
+    (let ((key (plist-get org-capture-plist :key)))
+      (if (member key '("j" "f" "r"))
+          (progn
+            (message "asdf")
+            (goto-line 2)
+            (org-sort-entries nil ?t)
+            (save-buffer)))
+      ))
 
   (add-hook 'org-capture-before-finalize-hook 'org-journal-sort-entries)
 
