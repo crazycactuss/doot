@@ -45,11 +45,11 @@
   ;; highlight whitespace at end of lines when point is not there
   (setq-default show-trailing-whitespace nil)
   (add-hook 'prog-mode-hook
-	    (lambda () (setq show-trailing-whitespace t)))
-  (add-hook 'ein:notebook-mode-hook
-	    (lambda ()
-	      (setq show-trailing-whitespace nil)
-	      (global-set-key (kbd "M-_") 'undo-tree-redo)))
+            (lambda () (setq show-trailing-whitespace t)))
+  ;; (add-hook 'ein:notebook-mode-hook
+  ;; 	  (lambda ()
+  ;; 	    (setq show-trailing-whitespace nil)
+  ;; 	    (global-set-key (kbd "M-_") 'undo-tree-redo)))
 
   ;; window split threshold
   (setq split-width-threshold 200)
@@ -514,12 +514,12 @@
     emacs ipython notebook
 
 #+BEGIN_SRC emacs-lisp
-  ;; Refer to: http://millejoh.github.io/emacs-ipython-notebook/
-  (use-package ein
-    :ensure t
-    :config
-    (define-key ein:notebook-mode-map (kbd "C-c C-h") 'avy-goto-char)
-    (define-key ein:notebook-mode-map (kbd "C-c C-d") 'ein:pytools-request-tooltip-or-help))
+  ;; ;; Refer to: http://millejoh.github.io/emacs-ipython-notebook/
+  ;; (use-package ein
+  ;;   :ensure t
+  ;;   :config
+  ;;   (define-key ein:notebook-mode-map (kbd "C-c C-h") 'avy-goto-char)
+  ;;   (define-key ein:notebook-mode-map (kbd "C-c C-d") 'ein:pytools-request-tooltip-or-help))
 #+END_SRC
 
 *** python
