@@ -633,6 +633,11 @@
   (setq org-clock-into-drawer "CLOCK")
 
   (setq org-indirect-buffer-display 'current-window)
+
+  (require 'ox-md)
+
+  (setq org-clock-rounding-minutes nil)
+  (setq org-time-stamp-rounding-minutes '(15 15))
 #+END_SRC
 
 ** Agenda
@@ -676,7 +681,7 @@
 	       "/Users/kaiyang/org2/agenda"))))
 	  ("N" "Personal Agenda and TODOs"
 	   ((agenda "" ((org-agenda-span 'day)))
-	    (tags-todo "TODO=\"IN-PROGRESS\"-initiative"
+	    (tags-todo "TODO=\"IN-PROGRESS\"-initiative+LEVEL=1"
 		       ((org-agenda-overriding-header "Items in Progress")))
 	    (tags "CATEGORY=\"inbox\""
 		  ((org-agenda-overriding-header "Inbox")
@@ -716,11 +721,12 @@
 
   ;; set workflows
   (setq org-todo-keywords
-	'((sequence "TODO(t)" "|" "DONE(d)" "N/A(a)") ;; small tasks
-	  (sequence "IDLE(l)" "NEXT(n)" "IN-PROGRESS(i!)" "ON-HOLD(h!)" "|")
-	  ))
+        '((sequence "TODO(t)" "|" "DONE(d)" "N/A(a)") ;; small tasks
+          (sequence "IDLE(l)" "NEXT(n)" "IN-PROGRESS(i!)" "ON-HOLD(h!)" "|")
+          ))
 
   (setq org-enforce-todo-dependencies t)
+  (setq org-agenda-dim-blocked-tasks nil)
 
   (setq org-log-into-drawer t)
 #+END_SRC
@@ -838,6 +844,7 @@
     '(lambda () (interactive)
        (org-tree-to-indirect-buffer 4)))
   (define-key org-mode-map [C-tab] nil)
+  (define-key org-mode-map (kbd "C-c C-t") '(lambda () (interactive) (org-todo 'right)))
 #+END_SRC
 
 ** Auto-fill Mode
