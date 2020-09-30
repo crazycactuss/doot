@@ -690,9 +690,7 @@
 	    (todo "NEXT"
 		  ((org-agenda-overriding-header "Unscheduled Next Items")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
-	    (tags-todo "TODO=\"IN-PROGRESS\"+initiative"
-		       ((org-agenda-overriding-header "Initiatives This Month")))
-	    (todo "TODO"
+	    (tags-todo "TODO=\"TODO\"-CATEGORY=\"inbox\""
 		  ((org-agenda-overriding-header "Unscheduled TODOs")
 		   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
 	    )
@@ -865,7 +863,6 @@
     :ensure t
     :custom
     (org-journal-dir "/Users/kaiyang/Dropbox/org2/journal")
-    (org-extend-today-until 3)
     (org-journal-carryover-items nil)
     (org-journal-file-format "%Y-%m-%d.org")
     (org-journal-file-header "#+CATEGORY: journal\n")
@@ -877,16 +874,16 @@
     :ensure t
     :config
     (setq deft-directory "/Users/kaiyang/Dropbox/org2/notes"
-	  deft-extensions '("org")
-	  deft-default-extension "org"
-	  deft-use-filter-string-for-filename t)
+          deft-extensions '("org")
+          deft-default-extension "org"
+          deft-use-filter-string-for-filename t)
     (global-set-key (kbd "C-c d") 'deft))
 
   (defun deft-current-window-width ()
     "Patch deft-current-window-width"
     (let* ((window (get-buffer-window deft-buffer))
-	   (fringe-right (ceiling (or (cadr (window-fringes)) 0)))
-	   (offset 5))
+           (fringe-right (ceiling (or (cadr (window-fringes)) 0)))
+           (offset 5))
       (when window
-	(- (window-text-width window) offset))))
+        (- (window-text-width window) offset))))
 #+END_SRC
