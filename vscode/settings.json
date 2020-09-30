@@ -8,7 +8,6 @@
     "terminal.integrated.fontFamily": "InconsolataG for Powerline",
     "python.dataScience.sendSelectionToInteractiveWindow": true,
     "python.dataScience.askForKernelRestart": false,
-    "python.terminal.activateEnvironment": false,
     "editor.minimap.enabled": false,
     "breadcrumbs.enabled": true,
     "terminal.integrated.allowChords": false,
@@ -18,5 +17,9 @@
     ],
     "workbench.editor.enablePreview": false,
     "workbench.editor.enablePreviewFromQuickOpen": false,
-    "git.untrackedChanges": "separate"
+    "git.untrackedChanges": "separate",
+    "python.formatting.provider": "yapf",
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true,
 }

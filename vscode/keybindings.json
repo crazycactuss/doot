@@ -410,16 +410,6 @@
     "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
   },
   {
-    "key": "ctrl+enter",
-    "command": "-python.datascience.runcurrentcell",
-    "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
-  },
-  {
-    "key": "ctrl+enter",
-    "command": "-python.datascience.runcurrentcell",
-    "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
-  },
-  {
     "key": "ctrl+c ctrl+d",
     "command": "python.datascience.debugcurrentcell.palette"
   },
