@@ -670,16 +670,16 @@
     (goto-line 2))
 
   (setq org-capture-templates
-	'(("n" "Note" entry (file "~/Dropbox/org2/agenda/inbox.org")
-	   "* %?\n  %U")
-	  ("t" "Task" entry (file "~/Dropbox/org2/agenda/inbox.org")
-	   "* TODO %?\n  %U")
-	  ("j" "Journal" entry (function org-journal-find-location)
-	   "* %?\n  %(org-insert-time-stamp capture-journal-timestamp t)")
-	  ("f" "Food" entry (function org-journal-find-location)
-	   "* %? %^G\n%^{AT}p  %(org-insert-time-stamp capture-journal-timestamp t)")
-	  ("r" "Review" entry (function org-journal-find-location)
-	   "* review :review:\n  %(org-insert-time-stamp capture-journal-timestamp)\n  - completed%?\n  - postponed\n  - productivity score (0-5): ")))
+        '(("n" "Note" entry (file "~/Dropbox/org2/agenda/inbox.org")
+           "* %?\n  %U")
+          ("t" "Task" entry (file "~/Dropbox/org2/agenda/inbox.org")
+           "* TODO %?\n  %U")
+          ("j" "Journal" entry (function org-journal-find-location)
+           "* %?\n  %(org-insert-time-stamp capture-journal-timestamp t)")
+          ("f" "Food" entry (function org-journal-find-location)
+           "* %? %^G\n%^{AT}p  %(org-insert-time-stamp capture-journal-timestamp t)")
+          ("r" "Review" entry (function org-journal-find-location)
+           "* review :review:\n  %(org-insert-time-stamp capture-journal-timestamp)\n  - completed%?\n  - postponed\n  - pomodoros: \n  - productivity score (0-5): ")))
 
   (add-hook 'org-capture-prepare-finalize-hook 'org-align-all-tags)
 
@@ -767,6 +767,12 @@
        (org-tree-to-indirect-buffer 4)))
   (define-key org-mode-map [C-tab] nil)
   (define-key org-mode-map (kbd "C-c C-t") '(lambda () (interactive) (org-todo 'right)))
+  (define-key org-mode-map (kbd "C-c M-n") '(lambda () (interactive)
+                                              (org-next-visible-heading 1)
+                                              (while (org-entry-is-done-p) (org-next-visible-heading 1))))
+  (define-key org-mode-map (kbd "C-c M-p") '(lambda () (interactive)
+                                              (org-previous-visible-heading 1)
+                                              (while (org-entry-is-done-p) (org-previous-visible-heading 1))))
 #+END_SRC
 
 ** Auto-fill Mode
