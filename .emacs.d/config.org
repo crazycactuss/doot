@@ -80,6 +80,8 @@
   (setq-default indent-tabs-mode nil)
 
   (setq help-window-select t)
+
+  (setq-default tab-width 4)
 #+END_SRC
 
 ** Winner
@@ -544,12 +546,12 @@
 
 ** Lua
 
-#+BEGIN_SRC emacs-lisp
-  (use-package lua-mode
-    :ensure t
-    :config
-    (setq lua-indent-level 2))
-#+END_SRC
+# #+BEGIN_SRC emacs-lisp
+#   (use-package lua-mode
+#     :ensure t
+#     :config
+#     (setq lua-indent-level 2))
+# #+END_SRC
 
 ** yaml
 
@@ -606,6 +608,20 @@
     :ensure t)
 #+END_SRC
 
+** Go
+
+#+BEGIN_SRC emacs-lisp
+  (use-package go-mode
+    :ensure t)
+#+END_SRC
+
+** Terraform
+
+#+BEGIN_SRC emacs-lisp
+  (use-package terraform-mode
+    :ensure t)
+#+END_SRC
+
 * Org Mode
 ** Basic Settings
 
@@ -659,7 +675,7 @@
   (setq org-agenda-custom-commands
 	'(("n" "TSIQ Agenda and TODOs"
 	   ((agenda "" ((org-agenda-span 'day)))
-	    (todo "IN-PROGRESS"
+	    (tags-todo "TODO=\"IN-PROGRESS\"+LEVEL=1"
 		  ((org-agenda-overriding-header "Items in Progress")))
 	    (tags "CATEGORY=\"inbox\""
 		    ((org-agenda-overriding-header "Inbox")
@@ -719,8 +735,8 @@
 
   ;; set workflows
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "|" "DONE(d)" "N/A(a)") ;; small tasks
-          (sequence "IDLE(l)" "NEXT(n)" "IN-PROGRESS(i!)" "ON-HOLD(h!)" "|")
+        '((sequence "TODO(t)" "|" "DONE(d)") ;; small tasks
+          (sequence "ON-HOLD(h!)" "IDLE(l)" "NEXT(n)" "TODO(t)" "IN-PROGRESS(i!)" "|" "DONE(d)" "N/A(a)")
           ))
 
   (setq org-enforce-todo-dependencies t)

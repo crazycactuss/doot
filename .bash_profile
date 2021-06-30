@@ -76,7 +76,7 @@ fi
 
 if [ "$platform" == "mac" ]; then
     export PATH="$HOME/go/bin:$PATH"
-    export PATH="$PATH:/Users/kaiyang/Projects/icp/bin"
+    # export PATH="$PATH:/Users/kaiyang/Projects/icp/bin"
 
     # jenv
     export PATH="$HOME/.jenv/bin:$PATH"
