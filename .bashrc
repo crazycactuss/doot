@@ -208,7 +208,9 @@ export GREP_COLOR='1;31' # green for matches
 # fzf config
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
-bind -x '"\C-x\C-f": fzf-file-widget'
+if [ -t 0 ]; then
+    bind -x '"\C-x\C-f": fzf-file-widget'
+fi
 
 # misc.
 alias eternal="tail -r ~/.bash_eternal_history | cut -f6 | cut -d ' ' -f5- | less"
@@ -251,7 +253,9 @@ if [ "$platform" == "mac" ]; then
 fi
 
 # allow forward i-search in commands
-stty -ixon
+if [ -t 0 ]; then
+    stty -ixon
+fi
 
 # install fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
@@ -273,5 +277,4 @@ if [ -f '/Users/kaiyang/google-cloud-sdk/path.bash.inc' ]; then . '/Users/kaiyan
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/kaiyang/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/kaiyang/google-cloud-sdk/completion.bash.inc'; fi
 
-# lfs-server
-if [ -f '/Users/kaiyang/doot/aws_credentials.sh' ]; then . '/Users/kaiyang/doot/aws_credentials.sh'; fi
+. "$HOME/.cargo/env"
