@@ -2,6 +2,7 @@
 ;; -- MELPA Settings --
 ;; --------------------
 ;; specify MELPA repo
+(require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
 
@@ -19,7 +20,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(package-selected-packages
+   '(yaml-mode which-key websocket use-package undo-tree todoist test-simple smooth-scrolling rustic request polymode php-mode org-journal ob-ipython neotree magit lua-mode lsp-ui loc-changes load-relative hungry-delete hlinum gnu-elpa-keyring-update form-feed flycheck find-file-in-project expand-region exec-path-from-shell elpy doom-themes doom-modeline deft deferred counsel-projectile column-enforce-mode centaur-tabs auto-package-update anaphora ace-window)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
