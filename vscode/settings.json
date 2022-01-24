@@ -5,8 +5,6 @@
     "files.trimFinalNewlines": true,
     "extensions.ignoreRecommendations": true,
     "terminal.integrated.fontFamily": "InconsolataG for Powerline",
-    "python.dataScience.sendSelectionToInteractiveWindow": true,
-    "python.dataScience.askForKernelRestart": false,
     "editor.minimap.enabled": false,
     "breadcrumbs.enabled": true,
     "terminal.integrated.allowChords": false,
@@ -21,5 +19,13 @@
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
-    "python.dataScience.alwaysTrustNotebooks": true,
+    "jupyter.sendSelectionToInteractiveWindow": true,
+    "jupyter.askForKernelRestart": false,
+    "jupyter.alwaysTrustNotebooks": true,
+    "jupyter.interactiveWindowMode": "perFile",
+    "python.languageServer": "Pylance",
+    "python.analysis.typeCheckingMode": "basic",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
 }

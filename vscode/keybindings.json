@@ -1,4 +1,3 @@
-// Place your key bindings in this file to override the defaultsauto[]
 [
   {
     "key": "alt+o",
@@ -385,35 +384,6 @@
     "when": "inDebugMode"
   },
   {
-    "key": "alt+enter",
-    "command": "-python.datascience.runcurrentcellandaddbelow",
-    "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
-  },
-  {
-    "key": "alt+enter",
-    "command": "python.datascience.runcurrentcelladvance",
-    "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
-  },
-  {
-    "key": "shift+enter",
-    "command": "-python.datascience.runcurrentcelladvance",
-    "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
-  },
-  {
-    "key": "ctrl+c ctrl+c",
-    "command": "python.datascience.runcurrentcell",
-    "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
-  },
-  {
-    "key": "ctrl+enter",
-    "command": "-python.datascience.runcurrentcell",
-    "when": "editorTextFocus && python.datascience.featureenabled && python.datascience.hascodecells && !editorHasSelection"
-  },
-  {
-    "key": "ctrl+c ctrl+d",
-    "command": "python.datascience.debugcurrentcell.palette"
-  },
-  {
     "key": "cmd+\\",
     "command": "-workbench.action.splitEditor"
   },
@@ -478,5 +448,49 @@
     "key": "ctrl+shift+r",
     "command": "-workbench.action.quickOpenNavigatePreviousInRecentFilesPicker",
     "when": "inQuickOpen && inRecentFilesPicker"
+  },
+  {
+    "key": "ctrl+c ctrl+c",
+    "command": "jupyter.runcurrentcell",
+    "when": "editorTextFocus && jupyter.hascodecells && !editorHasSelection && !notebookEditorFocused"
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "-jupyter.runcurrentcell",
+    "when": "editorTextFocus && jupyter.hascodecells && !editorHasSelection && !notebookEditorFocused"
+  },
+  {
+    "key": "alt+enter",
+    "command": "jupyter.runcurrentcelladvance",
+    "when": "editorTextFocus && jupyter.hascodecells && !editorHasSelection && !notebookEditorFocused"
+  },
+  {
+    "key": "shift+enter",
+    "command": "-jupyter.runcurrentcelladvance",
+    "when": "editorTextFocus && jupyter.hascodecells && !editorHasSelection && !notebookEditorFocused"
+  },
+  {
+    "key": "ctrl+c ctrl+d",
+    "command": "jupyter.debugFileInteractive"
+  },
+  {
+    "key": "ctrl+c ctrl+n",
+    "command": "jupyter.gotoNextCellInFile",
+    "when": "editorTextFocus && jupyter.hascodecells && !notebookEditorFocused"
+  },
+  {
+    "key": "ctrl+alt+]",
+    "command": "-jupyter.gotoNextCellInFile",
+    "when": "editorTextFocus && jupyter.hascodecells && !notebookEditorFocused"
+  },
+  {
+    "key": "ctrl+c ctrl+p",
+    "command": "jupyter.gotoPrevCellInFile",
+    "when": "editorTextFocus && jupyter.hascodecells && !notebookEditorFocused"
+  },
+  {
+    "key": "ctrl+alt+[",
+    "command": "-jupyter.gotoPrevCellInFile",
+    "when": "editorTextFocus && jupyter.hascodecells && !notebookEditorFocused"
   }
 ]
