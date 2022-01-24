@@ -25,3 +25,4 @@ url
 transient
 aws_credentials.sh
 org-journal.cache
+.last-package-update-day
