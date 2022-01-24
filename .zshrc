@@ -127,7 +127,7 @@ alias pd='popd'
 alias less='less -R'
 alias jq='jq -C'
 alias rg='rg -S'
-alias diff='git diff --no-index'
+alias diff='git diff --no-index --color'
 alias curl='curl -sv'
 alias js_curl='curl -sv -H "Content-Type: application/json"'
 
