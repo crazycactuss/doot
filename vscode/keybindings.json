@@ -4,10 +4,6 @@
     "command": "workbench.action.navigateEditorGroups"
   },
   {
-    "key": "ctrl+x o",
-    "command": "workbench.action.navigateEditorGroups"
-  },
-  {
     "key": "ctrl+alt+f",
     "command": "editor.action.jumpToBracket",
     "when": "editorTextFocus"
@@ -19,15 +15,11 @@
   },
   {
     "key": "ctrl+c ctrl+h",
-    "command": "extension.aceJump"
+    "command": "metaGo.gotoSmart"
   },
   {
     "key": "ctrl+x n",
     "command": "workbench.action.showNextWindowTab"
-  },
-  {
-    "key": "ctrl+x ctrl+n",
-    "command": "editor.action.marker.next"
   },
   {
     "key": "alt+g n",
@@ -35,37 +27,17 @@
   },
   {
     "key": "ctrl+x ctrl+n",
+    "command": "-workbench.action.newWindow"
+  },
+  {
+    "key": "ctrl+x ctrl+n",
     "command": "editor.action.marker.next",
-    "when": "editorTextFocus && !editorReadonly"
+    "when": "editorFocus"
   },
   {
     "key": "alt+f8",
     "command": "-editor.action.marker.next",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  {
-    "key": "ctrl+x ctrl+n",
-    "command": "editor.action.marker.nextInFiles",
-    "when": "editorFocus && !editorReadonly"
-  },
-  {
-    "key": "f8",
-    "command": "-editor.action.marker.nextInFiles",
-    "when": "editorFocus && !editorReadonly"
-  },
-  {
-    "key": "ctrl+x ctrl+p",
-    "command": "editor.action.marker.prev",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  {
-    "key": "shift+alt+f8",
-    "command": "-editor.action.marker.prev",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  {
-    "key": "ctrl+x ctrl+p",
-    "command": "editor.action.marker.prev"
+    "when": "editorFocus"
   },
   {
     "key": "alt+g p",
@@ -73,17 +45,13 @@
   },
   {
     "key": "ctrl+x ctrl+p",
-    "command": "editor.action.marker.prevInFiles",
-    "when": "editorFocus && !editorReadonly"
+    "command": "editor.action.marker.prev",
+    "when": "editorFocus"
   },
   {
-    "key": "shift+f8",
-    "command": "-editor.action.marker.prevInFiles",
-    "when": "editorFocus && !editorReadonly"
-  },
-  {
-    "key": "ctrl+x ctrl+n",
-    "command": "-workbench.action.newWindow"
+    "key": "shift+alt+f8",
+    "command": "-editor.action.marker.prev",
+    "when": "editorFocus"
   },
   {
     "key": "alt+d",
@@ -116,7 +84,7 @@
     "when": "textInputFocus && !editorReadonly"
   },
   {
-    "key": "ctrl+c ctrl+alt+g",
+    "key": "ctrl+alt+g",
     "command": "editor.action.peekDefinition",
     "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
   },
@@ -126,26 +94,13 @@
     "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
   },
   {
-    "key": "ctrl+x ctrl+alt+g",
-    "command": "editor.action.peekTypeDefinition"
-  },
-  {
     "key": "alt+k",
     "command": "workbench.action.closeWindow",
     "when": "!editorIsOpen"
   },
   {
-    "key": "ctrl+x k",
-    "command": "-workbench.action.closeWindow",
-    "when": "!editorIsOpen"
-  },
-  {
     "key": "alt+k",
     "command": "workbench.action.closeActiveEditor"
-  },
-  {
-    "key": "ctrl+x k",
-    "command": "-workbench.action.closeActiveEditor"
   },
   {
     "key": "alt+;",

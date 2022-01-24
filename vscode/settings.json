@@ -1,12 +1,11 @@
 {
-    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Default Dark+",
+    "security.workspace.trust.untrustedFiles": "open",
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "extensions.ignoreRecommendations": true,
-    "terminal.integrated.fontFamily": "InconsolataG for Powerline",
     "editor.minimap.enabled": false,
-    "breadcrumbs.enabled": true,
     "terminal.integrated.allowChords": false,
     "terminal.integrated.macOptionIsMeta": true,
     "terminal.integrated.commandsToSkipShell": [
@@ -21,12 +20,16 @@
     "python.linting.enabled": true,
     "jupyter.sendSelectionToInteractiveWindow": true,
     "jupyter.askForKernelRestart": false,
-    "jupyter.alwaysTrustNotebooks": true,
     "jupyter.interactiveWindowMode": "perFile",
     "python.languageServer": "Pylance",
     "python.analysis.typeCheckingMode": "basic",
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter.notebook.ipynb"
     },
-    "workbench.editor.showTabs": false
+    "workbench.editor.showTabs": false,
+    "terminal.integrated.inheritEnv": false,
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/buildkite/pipeline-schema/master/schema.json": "*pipeline.yml"
+    },
+    "redhat.telemetry.enabled": false
 }
