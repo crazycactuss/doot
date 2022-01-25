@@ -44,9 +44,8 @@
      ;; show line numbers relative to cursor
      (setq-default display-line-numbers `relative)
 
-     ;; highlight whitespace at end of lines when point is not there only
-     ;; applies to programming modes. other modes (e.g.: help or deft) have
-     ;; trailing whitespace that i cannot control
+     ;; highlight whitespace at end of lines when point is not there. should only apply to programming
+     ;; modes. other modes (e.g.: help or deft) have trailing whitespace that i cannot control
      (setq-default show-trailing-whitespace nil)
      (add-hook 'prog-mode-hook
                (lambda () (setq show-trailing-whitespace t)))
@@ -71,14 +70,13 @@
      ;; workaround weird SSL bug: https://emacs.stackexchange.com/a/62321
      (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
-     ;; for these commands, emacs would warn if the user actually wants to
-     ;; perform them. these settings disable that warning
+     ;; for these commands, emacs would warn if the user actually wants to perform them. these settings
+     ;; disable that warning
      (put 'dired-find-alternate-file 'disabled nil)
      (put 'upcase-region 'disabled nil)
      (put 'downcase-region 'disabled nil)
 
-     ;; insert multiple spaces instead of tab characters when the TAB key
-     ;; is pressed
+     ;; insert multiple spaces instead of tab characters when the TAB key is pressed
      (setq-default indent-tabs-mode nil)
 
      ;; when the help window is opened, move focus to the new window
@@ -160,7 +158,7 @@
      (winner-mode 1)
    #+end_src
 
-** hlinum
+** Hlinum
 
    #+begin_src emacs-lisp
      (use-package hlinum
@@ -236,9 +234,9 @@
      ;; MELPA
      (global-set-key (kbd "C-x p") 'package-list-packages)
 
-     ;; If having problems,
-     ;; See: http://www.emacswiki.org/emacs/BackspaceKey
-     ;; See: https://www.gnu.org/software/emacs/manual/html_node/efaq/Backspace-invokes-help.html
+     ;; if having problems, refer to:
+     ;;   http://www.emacswiki.org/emacs/BackspaceKey
+     ;;   https://www.gnu.org/software/emacs/manual/html_node/efaq/Backspace-invokes-help.html
      (global-set-key (kbd "C-h") 'hungry-delete-backward)
      (global-set-key (kbd "M-h") 'backward-kill-word)
      ;; "C-?" fails. Sends ASCII 127?
@@ -308,10 +306,10 @@
        (defun centaur-tabs-hide-tab (x)
          (let ((name (format "%s" x)))
            (or
-            ;; Current window is not dedicated window.
+            ;; current window is not dedicated window.
             (window-dedicated-p (selected-window))
 
-            ;; Buffer name not match below blacklist.
+            ;; buffer name not match below blacklist.
             (string-prefix-p "*epc" name)
             (string-prefix-p "*helm" name)
             (string-prefix-p "*Compile-Log*" name)
@@ -377,7 +375,7 @@
 * Tools
   These are tools that may be lazily loaded (e.g.: via :hook or :bind).
 
-** Coumn Enforce
+** Column Enforce
    Highlight a certain column.
 
    #+begin_src emacs-lisp
@@ -412,9 +410,7 @@
    #+begin_src emacs-lisp
      (use-package ace-window
        :bind
-       ([remap other-window] . ace-window)
-       :custom-face
-       (aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+       ([remap other-window] . ace-window))
    #+end_src
 
 ** Projectile
@@ -492,7 +488,7 @@
      ;;   ;; (setq lsp-enable-indentation nil)
      ;;   ;; (setq lsp-enable-snippet nil)
      ;;   :custom
-     ;;   ;; what to use when checking on-save. "check" is default, I prefer clippy
+     ;;   ;; what to use when checking on-save. "check" is default, i prefer clippy
      ;;   (lsp-rust-analyzer-cargo-watch-command "clippy")
      ;;   ;; (lsp-eldoc-render-all t)
      ;;   ;; (lsp-idle-delay 0.6)
@@ -550,7 +546,7 @@
    #+end_src
 
 ** Python
-   TODO: clean this up (or remove entirely)
+   TODO: clean this up (or remove entirely because i'd use VS Code)
 
    #+begin_src emacs-lisp
      ;; (use-package elpy
@@ -578,7 +574,7 @@
        (lua-indent-level 2))
    #+end_src
 
-** yaml
+** YAML
 
    #+begin_src emacs-lisp
      (use-package yaml-mode
@@ -635,93 +631,112 @@
 ** Basic Settings
 
    #+begin_src emacs-lisp
-     (require 'org-habit)
-     (setq org-habit-graph-column 65)
-
      ;; don't truncate lines
      (setq org-startup-truncated t)
 
+     ;; make description list indentation consistent
+     ;; refer to: https://emacs.stackexchange.com/questions/48962/indentation-of-description-lists
      (setq org-list-description-max-indent 5)
 
-     (setq org-agenda-start-with-log-mode t)
-
+     ;; press <enter> to open links
      (setq org-return-follows-link t)
 
+     ;; treat headlines specially for navigation + kill/yank
      (setq org-special-ctrl-a/e t)
      (setq org-special-ctrl-k t)
      (setq org-yank-adjusted-subtrees t)
 
+     ;; prefer incomplete dates to refer to the future
      (setq org-read-date-prefer-future nil)
 
-     (setq org-agenda-persistent-filter t)
-
-     (setq org-clock-into-drawer "CLOCK")
-
+     ;; when creating indirect buffers, stay in the current window
      (setq org-indirect-buffer-display 'current-window)
 
+     ;; export org to markdown
      (require 'ox-md)
 
-     (setq org-clock-rounding-minutes nil)
-     (setq org-time-stamp-rounding-minutes '(15 15))
-
+     ;; hide leading stars
      (setq org-hide-leading-starts t)
+
+     ;; hide stars, etc. when bolding/italicizing/etc
      (setq org-hide-emphasis-markers t)
 
      ;; re-enable easy templates: https://emacs.stackexchange.com/a/46992
      (require 'org-tempo)
+
+     ;; auto fill mode breaks lines at spaces when it becomes too wide (past fill-column chars)
+     (add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
+     (add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+     ;; wider line spacing
+     (add-hook 'org-mode-hook '(lambda () (setq line-spacing 0.5)))
    #+end_src
 
 ** Agenda
 
    #+begin_src emacs-lisp
-     (setq org-agenda-files
-           (list
-            "/Users/kaiyang/Dropbox/org"
-            "/Users/kaiyang/Dropbox/org2/agenda"
-            "/Users/kaiyang/Dropbox/org2/journal"
-            ))
+     ;; show org habit graph in agenda
+     (require 'org-habit)
+     (setq org-habit-graph-column 65)
 
+     ;; show all agenda log items at startup
+     (setq org-agenda-start-with-log-mode t)
+
+     ;; keep filters (e.g.: tag filters) when changing agenda views
+     (setq org-agenda-persistent-filter t)
+
+     ;; gray out blocked tasks
      (setq org-agenda-dim-blocked-tasks t)
 
+     ;; fixed column for tags in agenda view
      (setq org-agenda-tags-column -95)
 
-     (setq org-agenda-custom-commands
-           '(("n" "Agenda and TODOs"
-              ((agenda "" ((org-agenda-span 'day)))
-               (tags-todo "TODO=\"IN-PROGRESS\"-initiative"
-                          ((org-agenda-overriding-header "Items in Progress")))
-               (tags "CATEGORY=\"inbox\""
-                     ((org-agenda-overriding-header "Inbox")
-                      (org-agenda-files '("/Users/kaiyang/Dropbox/org2/agenda/inbox.org"
-                                          "/Users/kaiyang/Dropbox/org2/agenda/inbox_beorg.org"))))
-               (todo "NEXT"
-                     ((org-agenda-overriding-header "Unscheduled Next Items")
-                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
-               (tags-todo "TODO=\"TODO\"-CATEGORY=\"inbox\""
-                     ((org-agenda-overriding-header "Unscheduled TODOs")
-                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))
-               )
-              ((org-agenda-files
-                '("/Users/kaiyang/Dropbox/org"
-                  "/Users/kaiyang/Dropbox/org2/agenda"
-                  "/Users/kaiyang/Dropbox/org2/journal"))))
-             ("i" "Personal Backlog" todo "IDLE|ON-HOLD"
-              ((org-agenda-files
-                '("/Users/kaiyang/Dropbox/org"
-                  "/Users/kaiyang/Dropbox/org2/agenda"))))))
-
+     ;; customize block separator in custom agenda views
      (setq org-agenda-block-separator
            "================================================================================")
 
+     ;; use AM/PM timestamps in agenda as opposed to 25-hr timestamps
      (setq org-agenda-timegrid-use-ampm 1)
 
+     ;; show agenda in the current window
      (setq org-agenda-window-setup 'current-window)
-   #+end_src
 
-** Workflow
+     ;; wider line spacing
+     (add-hook 'org-agenda-mode-hook '(lambda () (setq line-spacing 0.5)))
+
+     (setq org-agenda-files
+           '("/Users/kaiyang/Dropbox/org/agenda"))
+
+     ;; refer to: https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
+     (setq org-agenda-custom-commands
+           '(("n" "Agenda and TODOs"
+              ((agenda "" ((org-agenda-span 'day)))
+               (tags-todo "TODO=\"IN-PROGRESS\""
+                          ((org-agenda-overriding-header "Items in Progress")))
+               (tags "CATEGORY=\"inbox\""
+                     ((org-agenda-overriding-header "Inbox")
+                      (org-agenda-files '("/Users/kaiyang/Dropbox/org/agenda/inbox.org"
+                                          "/Users/kaiyang/Dropbox/org/agenda/inbox_beorg.org"))))
+               (todo "NEXT"
+                     ((org-agenda-overriding-header "Unscheduled Next Items")
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
+               (tags-todo "TODO=\"TODO\"-CATEGORY=\"inbox\""
+                          ((org-agenda-overriding-header "Unscheduled TODOs")
+                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
+               )
+              ;; ((org-agenda-files
+              ;;   '("/Users/kaiyang/Dropbox/org/agenda")))
+              )
+             ("i" "Personal Backlog" todo "IDLE|ON-HOLD"
+              ;; ((org-agenda-files
+              ;;   '("/Users/kaiyang/Dropbox/org/agenda")))
+              )))
+    #+end_src
+
+** Workflow & Clocking
 
    #+begin_src emacs-lisp
-     ;; add timestamp to DONE
+     ;; add timestamp to when transitioning to DONE
      (setq org-log-done 'time)
 
      ;; set workflows
@@ -730,28 +745,38 @@
              (sequence "IDLE(l)" "NEXT(n)" "IN-PROGRESS(i!)" "ON-HOLD(h!)" "|")
              ))
 
+     ;; TODO entries prevent parent task from being marked as DONE
      (setq org-enforce-todo-dependencies t)
-     (setq org-agenda-dim-blocked-tasks nil)
 
+     ;; log state change notes and time stamps into the LOGBOOK drawer
      (setq org-log-into-drawer t)
+
+     ;; record clock timestamps into the CLOCK drawer
+     (setq org-clock-into-drawer "CLOCK")
+
+     ;; use org-time-stamp-rounding-minutes for rounding clock timestamps
+     (setq org-clock-rounding-minutes nil)
+     ;; round timestamps to the nearest 15-min
+     (setq org-time-stamp-rounding-minutes '(15 15))
    #+end_src
 
 ** Capture
 
    #+begin_src emacs-lisp
+     ;; use org capture to log org-journal entries
      (defun org-journal-find-location ()
        (setq capture-journal-timestamp (org-read-date t t))
-       ;; Open today's journal, but specify a non-nil prefix argument in order to
-       ;; inhibit inserting the heading; org-capture will insert the heading.
+       ;; open today's journal, but specify a non-nil prefix argument in order to inhibit inserting the
+       ;; heading; org-capture will insert the heading.
        (org-journal-new-entry t capture-journal-timestamp)
-       ;; Position point on the journal's top-level heading so that org-capture
-       ;; will add the new entry as a child entry (the 2nd line)
+       ;; position point on the journal's top-level heading so that org-capture will add the new entry as
+       ;; a child entry (the 2nd line)
        (goto-line 2))
 
      (setq org-capture-templates
-           '(("n" "Note" entry (file "~/Dropbox/org2/agenda/inbox.org")
+           '(("n" "Note" entry (file "~/Dropbox/org/agenda/inbox.org")
               "* %?\n  %U")
-             ("t" "Task" entry (file "~/Dropbox/org2/agenda/inbox.org")
+             ("t" "Task" entry (file "~/Dropbox/org/agenda/inbox.org")
               "* TODO %?\n  %U")
              ("j" "Journal" entry (function org-journal-find-location)
               "* %?\n  %(org-insert-time-stamp capture-journal-timestamp t)")
@@ -760,20 +785,21 @@
              ("r" "Review" entry (function org-journal-find-location)
               "* review :review:\n  %(org-insert-time-stamp capture-journal-timestamp)\n  - completed%?\n  - postponed\n  - pomodoros: \n  - productivity score (0-5): ")))
 
+     ;; align tags after capture
      (add-hook 'org-capture-prepare-finalize-hook 'org-align-all-tags)
 
+     ;; sort org-journal entries by timestamp after capture
      (defun org-journal-sort-entries ()
        (let ((key (plist-get org-capture-plist :key)))
          (if (member key '("j" "f" "r"))
              (progn
-               (message "asdf")
                (goto-line 2)
                (org-sort-entries nil ?t)
                (save-buffer)))
          ))
-
      (add-hook 'org-capture-before-finalize-hook 'org-journal-sort-entries)
 
+     ;; rebuild all agenda views after capture
      (add-hook 'org-capture-after-finalize-hook '(lambda () (org-agenda-redo-all 4)))
    #+end_src
 
@@ -784,21 +810,20 @@
      (setq org-refile-targets '((nil :maxlevel . 9)
                                 (org-agenda-files :maxlevel . 9)))
 
-     ;; Refile in a single go
+     ;; path completion in a single go for refiling
      (setq org-outline-path-complete-in-steps nil)
-     ;; Show full paths for refiling
+
+     ;; show full paths for refiling
      (setq org-refile-use-outline-path 'file)
 
-     ;; allow creation of parent nodes
+     ;; allow creation of new parent nodes
      (setq org-refile-allow-creating-parent-nodes 'confirm)
 
-     ;;;; Refile settings
-     ; Exclude DONE state tasks from refile targets
-     (defun ky/verify-refile-target ()
+     ;; exclude DONE state tasks from refile targets
+     (defun verify-refile-target ()
        "Exclude todo keywords with a done state from refile targets"
        (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-
-     (setq org-refile-target-verify-function 'ky/verify-refile-target)
+     (setq org-refile-target-verify-function 'verify-refile-target)
    #+end_src
 
 ** Key Bindings
@@ -817,29 +842,21 @@
      (global-set-key (kbd "M-p") 'org-move-subtree-up)
      (global-set-key (kbd "M-n") 'org-move-subtree-down)
      (define-key org-mode-map (kbd "C-c C-x b")
-       '(lambda () (interactive)
-          (org-tree-to-indirect-buffer 4)))
+       '(lambda () (interactive) (org-tree-to-indirect-buffer 4)))
      (define-key org-mode-map [C-tab] nil)
-     (define-key org-mode-map (kbd "C-c C-t") '(lambda () (interactive) (org-todo 'right)))
-     (define-key org-mode-map (kbd "C-c M-n") '(lambda () (interactive)
-                                                 (org-next-visible-heading 1)
-                                                 (while (org-entry-is-done-p) (org-next-visible-heading 1))))
-     (define-key org-mode-map (kbd "C-c M-p") '(lambda () (interactive)
-                                                 (org-previous-visible-heading 1)
-                                                 (while (org-entry-is-done-p) (org-previous-visible-heading 1))))
+     (define-key org-mode-map (kbd "C-c C-t")
+       '(lambda () (interactive) (org-todo 'right)))
+     (define-key org-mode-map (kbd "C-c M-n")
+       '(lambda () (interactive)
+          (org-next-visible-heading 1)
+          (while (org-entry-is-done-p) (org-next-visible-heading 1))))
+     (define-key org-mode-map (kbd "C-c M-p")
+       '(lambda () (interactive)
+          (org-previous-visible-heading 1)
+          (while (org-entry-is-done-p) (org-previous-visible-heading 1))))
    #+end_src
 
-** Auto-fill Mode
-
-   #+begin_src emacs-lisp
-     (add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
-     (add-hook 'org-mode-hook 'turn-on-auto-fill)
-     (add-hook 'org-mode-hook '(lambda () (setq line-spacing 0.5)))
-     (add-hook 'org-agenda-mode-hook '(lambda () (setq line-spacing 0.5)))
-     (add-hook 'deft-mode-hook '(lambda () (setq line-spacing 0.5)))
-   #+end_src
-
-** Packages
+** Org-Journal
 
    #+begin_src emacs-lisp
      (defun org-journal-today ()
@@ -848,17 +865,22 @@
 
      (use-package org-journal
        :custom
-       (org-journal-dir "/Users/kaiyang/Dropbox/org2/journal")
+       (org-journal-dir "/Users/kaiyang/Dropbox/org/journal")
        (org-journal-carryover-items nil)
        (org-journal-file-format "%Y-%m-%d.org")
        (org-journal-file-header "#+CATEGORY: journal\n")
        (org-journal-find-file #'find-file)
+       (org-journal-enable-agenda-integration t)
        :bind
        ("C-c j" . org-journal-today))
+   #+end_src
 
+** Deft
+
+   #+begin_src emacs-lisp
      (use-package deft
        :custom
-       (deft-directory "/Users/kaiyang/Dropbox/org2/notes")
+       (deft-directory "/Users/kaiyang/Dropbox/org/notes")
        (deft-extensions '("org"))
        (deft-default-extension "org")
        (deft-use-filter-string-for-filename t)
@@ -866,10 +888,11 @@
        ("C-c d" . deft)
        :config
        (defun deft-current-window-width ()
-       "Patch deft-current-window-width"
-       (let* ((window (get-buffer-window deft-buffer))
-              (fringe-right (ceiling (or (cadr (window-fringes)) 0)))
-              (offset 5))
-         (when window
-           (- (window-text-width window) offset)))))
+         "Patch deft-current-window-width"
+         (let* ((window (get-buffer-window deft-buffer))
+                (fringe-right (ceiling (or (cadr (window-fringes)) 0)))
+                (offset 5))
+           (when window
+             (- (window-text-width window) offset))))
+       (add-hook 'deft-mode-hook '(lambda () (setq line-spacing 0.5))))
    #+end_src
