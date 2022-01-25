@@ -28,4 +28,5 @@
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter.notebook.ipynb"
     },
+    "workbench.editor.showTabs": false
 }
