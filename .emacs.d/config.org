@@ -302,7 +302,16 @@
 
    #+begin_src emacs-lisp
      (use-package centaur-tabs
-       :init
+       :demand
+       :bind
+       (([C-tab] . centaur-tabs-forward)
+        ([C-S-tab] . centaur-tabs-backward)
+        ("C-c b" . centaur-tabs-counsel-switch-group)
+        ("C-c 0" . centaur-tabs-select-beg-tab)
+        ("C-c h" . (lambda () (interactive) (centaur-tabs-switch-group "Home"))))
+       :config
+       (centaur-tabs-mode 1)
+       (centaur-tabs-enable-buffer-reordering)
        (defun centaur-tabs-hide-tab (x)
          (let ((name (format "%s" x)))
            (or
@@ -311,19 +320,18 @@
 
             ;; buffer name not match below blacklist.
             (string-prefix-p "*epc" name)
-            (string-prefix-p "*helm" name)
             (string-prefix-p "*Compile-Log*" name)
             (string-prefix-p "*lsp" name)
             (string-prefix-p "*company" name)
             (string-prefix-p "*Flycheck" name)
             (string-prefix-p "*tramp" name)
             (string-prefix-p " *Mini" name)
-            (string-prefix-p "*help" name)
-            (string-prefix-p "*straight" name)
+            (string-prefix-p "*Help" name)
             (string-prefix-p " *temp" name)
             (string-prefix-p "*Calendar" name)
             (string-prefix-p "*Org Select" name)
             (string-prefix-p "*Org Src" name)
+            (string-prefix-p " *Org todo" name)
             )))
        (defun centaur-tabs-buffer-groups ()
          (if (and
@@ -354,22 +362,13 @@
            (if (buffer-base-buffer) (set (make-local-variable 'ky/centaur-tabs-recompute-ibuf-group) t))
            result
            ))
-       :demand
-       :bind
-       (([C-tab] . centaur-tabs-forward)
-        ([C-S-tab] . centaur-tabs-backward)
-        ("C-c b" . centaur-tabs-counsel-switch-group)
-        ("C-c 0" . centaur-tabs-select-beg-tab)
-        ("C-c h" . (lambda () (interactive) (centaur-tabs-switch-group "Home"))))
-       :config
-       (centaur-tabs-mode t)
-       (centaur-tabs-enable-buffer-reordering)
        :custom
        (centaur-tabs-set-bar 'left)
        (centaur-tabs-set-close-button nil)
        (centaur-tabs-set-modified-marker t)
        (centaur-tabs-modified-marker "●")
-       (centaur-tabs-adjust-buffer-order 'left))
+       (centaur-tabs-adjust-buffer-order 'left)
+       (centaur-tabs-show-count t))
    #+end_src
 
 * Tools
@@ -884,6 +883,11 @@
        (deft-extensions '("org"))
        (deft-default-extension "org")
        (deft-use-filter-string-for-filename t)
+       (deft-file-naming-rules
+         '((noslash . "_")
+           (nospace . "_")
+           (case-fn . downcase)))
+       (deft-org-mode-title-prefix t)
        :bind
        ("C-c d" . deft)
        :config
