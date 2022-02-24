@@ -552,7 +552,7 @@
      ;;   :config
      ;;   (elpy-enable)
      ;;   ;; https://emacs.stackexchange.com/questions/20092/using-conda-environments-in-emacs
-     ;;   (setenv "WORKON_HOME" "/Users/kaiyang/miniconda3/envs")
+     ;;   (setenv "WORKON_HOME" "/home/kaiyang/miniconda3/envs")
      ;;   (define-key inferior-python-mode-map (kbd "C-M-l") nil)
      ;;   (custom-set-faces
      ;;    '(highlight-indentation-face ((t (:background "gray25")))))
@@ -704,7 +704,7 @@
      (add-hook 'org-agenda-mode-hook '(lambda () (setq line-spacing 0.5)))
 
      (setq org-agenda-files
-           '("/Users/kyang/org/agenda"))
+           '("/home/kyang/org/agenda"))
 
      ;; refer to: https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
      (setq org-agenda-custom-commands
@@ -714,7 +714,7 @@
                           ((org-agenda-overriding-header "Items in Progress")))
                (tags "CATEGORY=\"inbox\""
                      ((org-agenda-overriding-header "Inbox")
-                      (org-agenda-files '("/Users/kyang/org/agenda/inbox.org"))))
+                      (org-agenda-files '("/home/kyang/org/agenda/inbox.org"))))
                (todo "NEXT"
                      ((org-agenda-overriding-header "Unscheduled Next Items")
                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
@@ -726,11 +726,11 @@
                            (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
                )
               ;; ((org-agenda-files
-              ;;   '("/Users/kyang/org/agenda")))
+              ;;   '("/home/kyang/org/agenda")))
               )
              ("i" "Personal Backlog" todo "IDLE|ON-HOLD"
               ;; ((org-agenda-files
-              ;;   '("/Users/kyang/org/agenda")))
+              ;;   '("/home/kyang/org/agenda")))
               )))
     #+end_src
 
@@ -862,7 +862,7 @@
 
      (use-package org-journal
        :custom
-       (org-journal-dir "/Users/kyang/org/journal")
+       (org-journal-dir "/home/kyang/org/journal")
        (org-journal-carryover-items nil)
        (org-journal-file-format "%Y-%m-%d.org")
        (org-journal-file-header "#+CATEGORY: journal\n")
@@ -877,7 +877,7 @@
    #+begin_src emacs-lisp
      (use-package deft
        :custom
-       (deft-directory "/Users/kyang/org/notes")
+       (deft-directory "/home/kyang/org/notes")
        (deft-extensions '("org"))
        (deft-default-extension "org")
        (deft-use-filter-string-for-filename t)

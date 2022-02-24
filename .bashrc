@@ -201,10 +201,6 @@ alias emacs='emacsclient -t --alternate-editor='
 export EDITOR='emacsclient -t --alternate-editor='
 export VISUAL='emacsclient -c --alternate-editor='
 
-# grep options
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;31' # green for matches
-
 # fzf config
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"

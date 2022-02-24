@@ -12,7 +12,7 @@ fi
 # -------------------------------
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/kyang/.oh-my-zsh"
+export ZSH="/home/kyang/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -131,9 +131,6 @@ alias diff='git diff --no-index --color'
 alias curl='curl -sv'
 alias js_curl='curl -sv -H "Content-Type: application/json"'
 
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;31' # green for matches
-
 ##### Editor settings #####
 alias emacs='emacsclient -c --alternate-editor='
 export EDITOR='emacsclient -t --alternate-editor='
@@ -149,11 +146,12 @@ alias gb='git branch'
 # -- Tools setup scripts --
 # -------------------------
 
-##### z jump #####
-. /opt/homebrew/etc/profile.d/z.sh
+# ##### z jump #####
+. /home/kyang/z.sh
 
 ##### fzf #####
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 ##### powerlevel10k #####
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
