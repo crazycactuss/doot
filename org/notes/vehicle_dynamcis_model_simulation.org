@@ -1,0 +1,6 @@
+#+TITLE: Vehicle Dynamics Model Simulation
+https://docs.google.com/presentation/d/1jkDQot1cGZRDgWp1hxB3FZxKGhsqtGcxm1lCwfnESno/edit#slide=id.g5fb38ad3d3_1_442
+
+- Found from [[https://docs.google.com/document/d/1Y_FPjTFfPWV0ZFyI59HAnjnhBRLgtF3NKET6q_mIa_4/edit][DVM vs TRIVIAL]] which came from [[https://docs.google.com/document/d/15JRqDiWJEjhKUiCp707q_LaQh_BSPYikpdH0WBl1_v8/edit][2021 Sim Credibility at Nuro]]
+- to properly simulate actuator controls (i.e.: DBW), need to model vehicle dynamics. o/w can assume
+  ideal controls where vehicle follows planner path exactly

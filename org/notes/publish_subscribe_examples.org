@@ -1,0 +1,14 @@
+#+TITLE: Publish/Subscribe Examples
+
+- pub/sub vs synchronous communication
+  - pub/sub is async (don't need to wait for "response" before continuing work)
+  - therefore, components are decoupled
+    - dynamically: if a component goes down, won't affect the publishing component
+    - statically: components also do not depend on each others' identities. messages are
+      "broadcasted". producers/consumers can basically be anonymous
+- pub/sub communicates via message broker
+- applications
+  - seed/update distributed cache proactively rather than poll
+  - broadcast logs to multiple destinations
+  - broadcast events
+    - e.g.: distribute feature flag change events to clients

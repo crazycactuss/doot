@@ -1,0 +1,5 @@
+#+TITLE: Logging Best Practices
+https://confluence.nuro.team/display/INFRA/Logging+Best+Practices
+- Logs go through LogDNA daemon
+- GLOG has 4 levels
+- INFO is not uploaded to LogDNA, but are persisted in on-machine raw logs

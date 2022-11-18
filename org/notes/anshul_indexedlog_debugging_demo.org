@@ -1,0 +1,27 @@
+#+TITLE: Anshul IndexedLog Debugging Demo
+
+https://drive.google.com/file/d/1f8iHDL-dgmW5Hm3WJ1Rz1ecbyppIwdPF/view
+
+* how to find indexedlog for a specific scene in a specific simtest
+  1. go to simtest results page. click directory link. go to the directory for the scene. open
+     index.cmd to see the index_one_log command used to generate the log. look at the output
+     path. note that these paths should be mounted on the WS
+  2. go to indexed log finder. enter simtest + scene details. get google storage path for indexedlog NDF
+
+* how to inspect index NDF
+  - use tool/index_tools/indexed_log/scripts:inspect_index
+    - --index_path <NDF path>
+    - --output_path <arbitrary text file>
+    - --partitions <world state partition of interest, e.g.: ml_planner_trajectory_object_distances
+    - unwieldy. large text file that's not easily processed
+
+* inspect NDF by re-running indexing locally via log statements
+  - modify an indexer CPP file
+  - bazel build -c opt --config=cuda tool/index_tools/indexing/scripts:index_one_log
+  - LOG(INFO) << "...";
+  - remove other indexers in scene_sim.pbxt
+  - bazel-bin/tool/index_tools/indexing/scripts/index_one_log --config_file <path to scene_sim.pbxt>
+    --input_blob /<path to dir from simtext result>/<category_variant>/<scene name>/<scene_name>.ndf
+    --output_ndf_path /tmp/<arbitrary path>
+
+* he used Benchmark20k_Scope1_v2020105 category w/ 15mph-srp-ignore-uz variant

@@ -1,0 +1,7 @@
+#+TITLE: GCP References
+
+- guide to kubernetes :: https://confluence.nuro.team/display/INFRA/Guide+to+Kubernetes
+- how to authenticate to GCP API :: n/gcp-auth
+- iam :: n/iam
+- terraform repo :: [[https://gitent.corp.nuro.team/Nuro-ai/terraform-gcp-deployments][Nuro-ai/terraform-gcp-deployments: Terraform deployments for Nuro's Google Cloud environment]]
+- terraform confluence :: https://confluence.nuro.team/pages/viewpage.action?spaceKey=INFRA&title=Terraform+at+Nuro

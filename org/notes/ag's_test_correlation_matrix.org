@@ -1,0 +1,6 @@
+#+TITLE: AG’s Test Correlation Matrix
+- overview: https://docs.google.com/document/d/1860huyj3BPi1D8ZbpLNC_ZRJ2ttUDNKMjJJJ14_Ksnc/edit#heading=h.der9dwixy65k 
+- LS mpcd reports: https://docs.google.com/document/d/1kHuvrblNew7TAllMoxAxSLWIAqzezISdqlWpnSzIe98/edit#heading=h.ok0i8k8d0kse 
+- example correlation matrix: https://docs.google.com/spreadsheets/d/1rattXX03xuyFsf7TvyLD6DmbDzrtQ8IcUFOdjkLuW80/edit#gid=694262400 
+- ag’s correlation matrix: https://docs.google.com/spreadsheets/d/1Zvy3GTMraaLrHiXxFacUQJ7LtNgYx7U2-Q2Zuebw0-Y/edit#gid=0 
+- behavior events reference: https://docs.google.com/spreadsheets/d/1ETnBS90UxdoET05WkwVhPvPjZUErIxt-aUslS_m0tbs/edit#gid=2038583083 

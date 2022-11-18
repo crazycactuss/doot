@@ -1,0 +1,27 @@
+#+TITLE: Nuro Debugging References
+
+* [[https://stackoverflow.com/c/nuro/questions/1927/utilities-for-querying-ndfs-topics][Utilities for querying .ndfs / topics - Stack Overflow - Nuro]]
+  - see metadata of blob (e.g.: which modules are enabled?)
+    #+begin_src text
+      //base:blob_info
+    #+end_src
+  - inspect messages for topic
+    #+begin_src text
+      //base/file:blob_topic_echo
+      //base/file:blob_printer
+      blob_dump_message # from kun's question to #help-nufs
+      topic_cat.py
+      blob_dump_topic.py
+    #+end_src
+    - can also try:
+      #+begin_src text
+        //onboard/comms/cmd:nurotopic
+      #+end_src
+    - [[https://stackoverflow.com/c/nuro/questions/267/how-can-i-inspect-the-first-few-messages-from-one-topic-of-a-blob][How can I inspect the first few messages from one topic of a blob? - Stack Overflow - Nuro]]
+  - visualize topic
+    #+begin_src text
+      //utils/visualization:comms_plotter
+    #+end_src
+
+* [[https://docs.google.com/document/d/1KWIQZke9WWu6tBYLVJwOXJ4YCSQXTq-Eu_VM7R11u88/edit?pli=1#heading=h.hpuofhcx64ek][Debugging Indexing OOM - Google Docs]]
+  - valgrind, gperftools, heaptrack, google cloud console, top

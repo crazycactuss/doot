@@ -1,0 +1,16 @@
+#+TITLE: Kai/Anshul
+#+TAGS: :pin:
+
+* 3/23/2022
+  - [X] what's the difference between nightly-rlp-oracle and nightly-base-rlp-oracle?
+    - no longer relevant
+
+* 1/27/2022
+  - [X] go over behavior eval questions
+    - no longer relevant
+
+* 10/13/2021
+  - [X] What is this? http://indexing.corp.nuro.team/ (from oracle developer workflow doc)
+    - obsolete
+  - [X] Why interviewing externally and not internally?
+    - doing both

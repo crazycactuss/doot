@@ -1,0 +1,33 @@
+#+TITLE: entity-component systems
+
+entity-component is a design pattern that composes entities with behavior-specific "components" as
+opposed to deep and wide inheritance trees
+
+- most common in game development
+- embodies composition over inheritance
+  - different aspects of an entity are split out into composed "components" as opposed to inherited from parent
+    classes.
+  - e.g.: a character could have a "PhysicsComponent" and a "RenderComponent"
+- different types of components are aggregated by different "systems" (e.g.: "PhysicsSystems") which
+  can iterate across all instances of a type of component.
+- serves well for "data-oriented design" since it's important for all instances of the same type of
+  component to be co-located as opposed to placed next to other components of the same entity
+* article: How to make a simple entity-component-system in C++
+  - https://www.david-colson.com/2020/02/09/making-a-simple-ecs.html
+  - components are data-only
+    - unclear whether these are static. seems like they are dynamic (e.g.: the position member),
+      which is different from the shanee article that claims systems keep their own dynamic data
+      that correspond to static components
+  - describes implementation where components of the same type are stored contiguously in a
+    statically-allocated memory pool. entities are just indices into a component pool, and each
+    entity has a bitmask describing which components it has
+  - to delete entities, don't need to shuffle around the component pool nor resize. just bookkeep a
+    "freeEntities" list and maintain a version number to ensure accessors are not retrieving an
+    older version of an entity
+* other articles
+  - https://en.wikipedia.org/wiki/Entity_component_system
+    - 1st paragraph gives overview
+  - https://shanee.io/blog/2014/12/27/misconceptions-of-component-based-entity-systems/
+    - how i discovered ECS, but not very well-written
+    - components contain static data (e.g.: PhysicsComponent has mass), and systems contain dynamic
+      runtime data (e.g.: PhysicsSystem has a corresponding PhysicsObject that has position, which varies)

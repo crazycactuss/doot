@@ -1,0 +1,11 @@
+#+TITLE: Ubuntu Upgrading Packages
+
+https://www.quora.com/Should-you-always-install-all-Ubuntu-updates
+
+#+begin_src shell
+  sudo apt update
+  sudo apt upgrade
+  sudo apt install -f
+  sudo apt autoremove
+  sudo apt autoclean
+#+end_src

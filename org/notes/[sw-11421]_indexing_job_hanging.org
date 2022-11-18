@@ -1,0 +1,72 @@
+#+TITLE: [SW-11421] indexing job hanging
+
+- doc:
+  https://docs.google.com/document/d/1HxUDzJfZZhEUAEnOOPdK-fzujX1cXUaGzox08yaRWj4/edit?disco=AAAAPMk8pr4
+- indexing command:
+  #+begin_src shell
+    bazel run tool/index_tools/indexing/scripts:index_one_log -- --config_file /home/kyang/nuro/tool/index_tools/indexing/configs/large_scale.pbtxt --input_blob gs://nuro-ls-20210917_172440/adhoc-15mph_srp/20210623_132030_00048/20210623_132030_00048.912.29.927.29/20210623_132030_00048.912.29.927.29.ndf --output_ndf_path /home/kyang/nuro/debug_ls.ndf --context_map_staging_dir /nuro_map_path/download_staging/context_map --show_progress_bar
+  #+end_src
+- found overlapping lane IDs (refer to screenshot in *Projects* folder and branch *na/kyang/debug-ls*)
+  #+begin_src text
+    [>                           ] Process time: 0.50/14.11 (3.54%), remaining: 00h:02m:22s.I0922 14:28:53.570901 2890478 ego_context_view.cc:1123] 0 150473480841
+    I0922 14:28:53.570925 2890478 ego_context_view.cc:1123] 1 161713117793
+    I0922 14:28:53.571650 2890478 ego_context_view.cc:1123] 2 161290867048
+    I0922 14:28:53.572321 2890478 ego_context_view.cc:1129] THIS
+    I0922 14:28:53.572329 2890478 ego_context_view.cc:1176] not empty
+    [=>                          ] Process time: 0.60/14.11 (4.25%), remaining: 00h:01m:58s.I0922 14:28:53.579308 2890478 ego_context_view.cc:1123] 0 150473480841
+    I0922 14:28:53.579327 2890478 ego_context_view.cc:1123] 1 161713117793
+    I0922 14:28:53.580035 2890478 ego_context_view.cc:1123] 2 161290867048
+    I0922 14:28:53.580601 2890478 ego_context_view.cc:1129] THIS
+    I0922 14:28:53.580608 2890478 ego_context_view.cc:1176] not empty
+    [=>                          ] Process time: 0.70/14.11 (4.96%), remaining: 00h:01m:40s.I0922 14:28:53.590026 2890478 ego_context_view.cc:1123] 0 150473480841
+    I0922 14:28:53.590046 2890478 ego_context_view.cc:1123] 1 161713117793
+    I0922 14:28:53.590685 2890478 ego_context_view.cc:1123] 2 161290867048
+    I0922 14:28:53.591207 2890478 ego_context_view.cc:1129] THIS
+    I0922 14:28:53.591213 2890478 ego_context_view.cc:1176] not empty
+    [=>                          ] Process time: 0.80/14.11 (5.67%), remaining: 00h:01m:27s.I0922 14:28:53.605010 2890478 ego_context_view.cc:1123] 0 150473480841
+    I0922 14:28:53.605031 2890478 ego_context_view.cc:1123] 1 161713117793
+    I0922 14:28:53.605832 2890478 ego_context_view.cc:1123] 2 161290867048
+    I0922 14:28:53.606485 2890478 ego_context_view.cc:1129] THIS
+    I0922 14:28:53.606492 2890478 ego_context_view.cc:1176] not empty
+    [=>                          ] Process time: 0.90/14.11 (6.38%), remaining: 00h:01m:17s.I0922 14:28:53.616065 2890478 ego_context_view.cc:1123] 0 150473480841
+    I0922 14:28:53.616083 2890478 ego_context_view.cc:1123] 1 161713117793
+    I0922 14:28:53.616765 2890478 ego_context_view.cc:1123] 2 161290867048
+    I0922 14:28:53.617323 2890478 ego_context_view.cc:1129] THIS
+    I0922 14:28:53.617331 2890478 ego_context_view.cc:1176] not empty
+    [=>                          ] Process time: 1.00/14.11 (7.09%), remaining: 00h:01m:09s.I0922 14:28:53.623282 2890478 ego_context_view.cc:1123] 0 150473480841
+    I0922 14:28:53.623301 2890478 ego_context_view.cc:1123] 1 161713117793
+    I0922 14:28:53.623906 2890478 ego_context_view.cc:1123] 2 161290867048
+    I0922 14:28:53.624413 2890478 ego_context_view.cc:1129] THIS
+    I0922 14:28:53.624419 2890478 ego_context_view.cc:1176] not empty
+    [==>                         ] Process time: 1.10/14.11 (7.80%), remaining: 00h:01m:02s.I0922 14:28:53.635496 2890478 ego_context_view.cc:1123] 0 150473480841
+    I0922 14:28:53.635519 2890478 ego_context_view.cc:1123] 1 161713117793
+    I0922 14:28:53.636211 2890478 ego_context_view.cc:1123] 2 161738188549
+  #+end_src
+  - 161738188549 161713117793
+  - in ego_context_view, a routine traverses laterally left from the vehicle to determine if the
+    current road is one-way or two-way. the context map had overlapping lane IDs, which caused a
+    cycle when calling *constraint_query_view_->AdjacentLane*
+- later LS log disappeared from GCS. tried onroad log instead
+  #+begin_src shell
+    # no time bounds
+    bazel run tool/index_tools/indexing/scripts:index_one_log -- --config_file /home/kyang/nuro/tool/index_tools/indexing/configs/large_scale.pbtxt --input_blob nufs:logs2/2021/06/23/132030_00048/20210623_132030_00048.ndf --output_ndf_path /home/kyang/nuro/debug_ls.ndf --context_map_staging_dir /nuro_map_path/download_staging/context_map --show_progress_bar
+    # with time bounds
+    bazel run tool/index_tools/indexing/scripts:index_one_log -- --config_file /home/kyang/nuro/tool/index_tools/indexing/configs/large_scale.pbtxt --input_blob nufs:logs2/2021/06/23/132030_00048/20210623_132030_00048.ndf --output_ndf_path /home/kyang/nuro/debug_ls.ndf --context_map_staging_dir /nuro_map_path/download_staging/context_map --show_progress_bar --start_ts 912.29 --end_ts 927.29
+  #+end_src
+  - both succeed, but seems that michal replicated the infinite loop for the onroad log
+- is there a way to avoid the cycle in the first place?
+  - constraint_query_view.cc uses ConstraintQueryManager (manager.cc) to get a ConstraintQuery
+    (query.cc) for a lane ID.
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/tool/index_tools/indexing/views/constraint_query_view.cc#L168
+  - calls ConstraintQuery::GetLateralConstraintPoints, which calls
+    ConstraintQuery::GetLateralSegmentHelper
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/onboard/constraint_query/query.cc#L595
+    - GetLateralSegmentHelper returns a ConstraintSegment which contains the ID of the adjacent lane
+  - CONCLUSION
+    - no longer have access to the original sim. too complicated to reason about without an
+      example. however, the issue is likely due to an ordered ConstraintSet (constraint_segments),
+      and finding the "next" segment doesn't exclude the current position, allowing overlapping
+      lanes to point to each other
+      - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/onboard/constraint_query/query.cc#L606
+* CONCLUSION
+  - just add a cycle check that safely errors

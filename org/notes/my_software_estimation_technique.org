@@ -1,0 +1,32 @@
+#+TITLE: My Software Estimation Technique
+
+https://jacobian.org/2021/may/25/my-estimation-technique/
+
+* capture time + uncertainty
+  - author suggests giving a range. i believe this means giving an expected and worst case
+    estimate. plan according to the worst case to understand that deadlines may be at risk otherwise
+
+* categories for expected estimate
+  - small = 1 day
+  - medium = 3 days (i.e.: half week)
+  - large = 1 week (5 days)
+  - x-large = 2 weeks (10 days)
+  - this is basically how i already think. nothing should be larger than x-large
+  - use wall-clock time (not just story points)
+    - also implies realizing programmers don't have idealized 8-hour work days. e.g.: 1-day task
+      probably takes 4 hrs
+  - note that there's not much value in estimating "best-case" scenario. the lower bound should be
+    the "expected" estimate
+
+* estimate uncertainty w/ multipliers
+  - low = 1.1
+  - moderate = 1.5
+  - high = 2.0
+  - extreme = 5.0
+  - note that extreme uncertainty will generally blow worst-case estimates out of proportion
+  - can invest *time-boxed* spikes to try to break down large tasks and/or reduce uncertainty by doing
+    research. note that the spikes must be time-boxed since adding another task with high
+    uncertainty is counter-productive
+
+* reflect on estimates
+  - compare expected vs actual times. be sure to record it so you can learn from them in the future

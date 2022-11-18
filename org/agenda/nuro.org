@@ -1,0 +1,2438 @@
+* Personal
+  :PROPERTIES:
+  :CATEGORY: personal
+  :END:
+** DONE ask anshul about home internet reimbursement
+   CLOSED: [2021-10-05 Tue 10:30] SCHEDULED: <2021-10-04 Mon 10:00>
+   [2021-10-03 Sun 21:45]
+** DONE security training
+   CLOSED: [2021-10-05 Tue 22:00] SCHEDULED: <2021-10-04 Mon>
+   [2021-10-03 Sun 22:00]
+** DONE fill out anshul's goals doc
+   CLOSED: [2021-10-06 Wed 15:45] SCHEDULED: <2021-10-05 Tue>
+   [2021-10-04 Mon 07:15]
+** DONE read RSUs FAQ
+   CLOSED: [2021-10-07 Thu 13:30] DEADLINE: <2021-10-08 Fri>
+   [2021-10-04 Mon 07:15]
+** TODO read about scope 1 + chaseless zone doc                       :learn:
+   DEADLINE: <2022-11-18 Fri>
+   [2021-10-04 Mon 07:30]
+   - https://docs.google.com/document/d/18awGnZu3wFWRWiLD6cPl8icBBtVWag-gq6tDBIYUQSg/edit
+** DONE read about nuro mentorship
+   CLOSED: [2021-10-08 Fri 10:30] DEADLINE: <2021-10-08 Fri>
+   [2021-10-04 Mon 07:30]
+** DONE [[https://news.ycombinator.com/item?id=28674027][laboratory notebook skills]]
+   CLOSED: [2021-10-07 Thu 16:30] DEADLINE: <2021-10-08 Fri>
+   [2021-10-04 Mon 07:30]
+   - how do i want to incorporate this process into my own "research" processes?
+   - try to summarize
+** DONE review anshul's PRs
+   CLOSED: [2021-10-13 Wed 17:15] DEADLINE: <2021-10-08 Fri>
+   :CLOCK:
+   CLOCK: [2021-10-13 Wed 16:00]--[2021-10-13 Wed 17:15] =>  1:15
+   :END:
+   [2021-10-06 Wed 10:45]
+   - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/90972
+     - why "exclude first lane in the traversal from this rule"? in other words, if the track is
+       right up against a different intersection, it's okay to consider it possibly cross-traffic?
+   - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/91662
+     - does lead vehicle have to be same lane? what about parallel adjacent lane?
+   - "double-counting could lead to impossible values of exposure to different agent types"
+     - a vehicle can't be both lead and cross-traffic. but if it was, what does "impossible" mean
+       here?
+   - unit tests?
+** TODO read about people management                                  :learn:
+   [2021-10-08 Fri 10:30]
+   - https://sites.google.com/nuro.ai/navigating-nuro/hr-support/people-programs/nuronetwork-mentorship-program
+   - several resources found after reading about mentorship program
+   - i want to explore avenues towards people management, how to be a manager/leader, and how to plan
+     my own upwards career growth (as a manager or an IC)
+** DONE https://shanee.io/blog/2014/12/27/misconceptions-of-component-based-entity-systems/
+   CLOSED: [2021-10-08 Fri 11:00]
+   [2021-10-06 Wed 11:15]
+** TODO [[https://news.ycombinator.com/item?id=28643848][end-to-end testing]]                                            :learn:
+   [2021-10-06 Wed 11:15]
+   - https://www.guru99.com/end-to-end-testing.html
+   - https://www.guru99.com/system-testing.html
+** TODO read about pr's                                               :learn:
+   [2021-10-10 Sun 23:30]
+   - [ ] https://confluence.nuro.team/pages/viewpage.action?spaceKey=INFRA&title=How+to+Construct+and+Merge+a+Pull+Request
+   - [ ] https://docs.google.com/document/d/1RA2UKO9go0-SAGq_-yD3vNN7Rb2U9NOhyGqJqOCxmyo/edit
+   - [ ] starter kit
+   - [ ] tutorial
+   - [ ] how to write release notes - https://docs.google.com/document/d/1RA2UKO9go0-SAGq_-yD3vNN7Rb2U9NOhyGqJqOCxmyo/edit#heading=h.cd5kvrh4apd5
+   - [X] premerge checks reference - https://docs.google.com/document/d/1Aba6HyXUQ0ToCYii7kFHouE8Tym-Enap2jIP1BfE15k/edit
+   - [ ] [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/testing/jenkins/README.md][nuro-ci documentation]]
+** NEXT set up vscode for C++ and python
+   [2021-10-10 Sun 23:45]
+   - set up:
+     - include paths/dependency resolution
+     - linting + formatting
+     - remote debugging
+   - [ ] search glean for "visual studio code"
+   - [ ] get pylint working (the same rules that run pre-merge)
+     https://stackoverflow.com/c/nuro/questions/860/does-anyone-know-how-to-get-nuro-tools-lint-run-lint-linter-pylint-to-work-in
+   - [ ] https://code.visualstudio.com/docs/editor/debugging
+   - [ ] google: vscode large workspace folder monorepo
+     - [ ] https://medium.com/rewrite-tech/visual-studio-code-tips-for-monorepo-development-with-multi-root-workspaces-and-extension-6b69420ecd12
+   - [ ] vscode raises warning about buildifier
+     - can't get vscode to get buildifier on its PATH??
+   - [ ] address warning from screenshot on desktop
+   - [ ] vscode number of files to watch when viewing nuro repo?
+     https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+   - [ ] https://stackoverflow.com/questions/56734812/debugging-with-bazel-in-visual-studio-code-with-ubuntu
+   - [ ] https://shanee.io/blog/2019/05/28/bazel-with-visual-studio-code/
+   - [ ] https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+   - [ ] issue with python dep resolution (e.g. look at
+     *tool/distribution_sceneset/scripts/sample_scenes.py* for the
+     *lib.discrete_distribution_condition_selectable* function) (generated protobuf classes)
+     - [ ] google: vscode python bazel unknown import symbol
+** TODO [#C] evaluate if i should set up GPG signature for github
+   [2021-10-10 Sun 23:45]
+   - does anyone else do it? how do i know?
+   - https://docs.github.com/en/authentication/managing-commit-signature-verification
+** TODO review vscode keybindings + config. compare w/ ts branch
+   [2021-10-10 Sun 23:45]
+** TODO review emacs config file. compare w/ ts branch
+   [2021-10-10 Sun 23:45]
+** TODO ubuntu tiling manager?
+   [2021-10-10 Sun 23:45]
+** TODO try zsh triggers https://97amarnathk.github.io/2020/08/01/my-macos-terminal-setup.html
+   [2021-10-10 Sun 23:45]
+** TODO learn about SLAM                                              :learn:
+   [2021-10-11 Mon 00:15]
+   - https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping
+   - what field is this related to? used by the mapping team
+   - is it related to ICP? (iterative closest point)
+     - https://cs.gmu.edu/~kosecka/cs685/cs685-icp.pdf
+     - ICP seems to improve SLAM performance? from "Localization & Mapping EOS2 2021 Recap" email
+** TODO browse nuro intranet                                          :learn:
+   [2021-10-11 Mon 00:30]
+** TODO browse perkspot                                               :learn:
+   [2021-10-11 Mon 00:30]
+** DONE read about sequoia benefits                                   :learn:
+   CLOSED: [2021-11-17 Wed 22:45]
+   [2021-10-11 Mon 00:30]
+   - https://px.sequoia.com/benefits/pir/p/Overview
+** DONE https://ably.com/blog/pub-sub-pattern-examples                :learn:
+   CLOSED: [2021-10-12 Tue 13:45] DEADLINE: <2021-10-11 Mon>
+   :CLOCK:
+   CLOCK: [2021-10-12 Tue 13:15]--[2021-10-12 Tue 13:45] =>  0:30
+   :END:
+   [2021-10-06 Wed 11:15]
+** TODO set up dropbox org files
+   [2021-10-11 Mon 01:00]
+** TODO read about wayve AI                                           :learn:
+   [2021-11-01 Mon 11:15]
+** DONE write notes on https://jacobian.org/2021/may/25/my-estimation-technique/
+   CLOSED: [2022-01-31 Mon 12:45] SCHEDULED: <2022-01-28 Fri>
+   :CLOCK:
+   CLOCK: [2022-01-31 Mon 12:15]--[2022-01-31 Mon 12:45] =>  0:30
+   :END:
+   [2021-12-08 Wed 01:45]
+** TODO read about c++ condition variable + multithreading            :learn:
+   [2022-01-24 Mon 11:30]
+   - https://thispointer.com/c11-multithreading-part-7-condition-variables-explained/
+** DONE re-organize stuff.org
+   CLOSED: [2022-01-31 Mon 13:30] SCHEDULED: <2022-01-28 Fri>
+   :CLOCK:
+   CLOCK: [2022-01-31 Mon 12:45]--[2022-01-31 Mon 13:30] =>  0:45
+   :END:
+   [2022-01-25 Tue 13:00]
+   - [ ] also clean desktop files
+** IN-PROGRESS read EOY reviews in gmail inbox
+   DEADLINE: <2022-11-18 Fri>
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-09-30 Fri 19:11]
+   :END:
+   [2022-01-25 Tue 16:00]
+** TODO check emails + typing test warmup
+   SCHEDULED: <2022-11-17 Thu 10:00 .+1d>
+   :PROPERTIES:
+   :STYLE:    habit
+   :LAST_REPEAT: [2022-11-16 Wed 12:27]
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2022-11-16 Wed 12:27]
+   - State "DONE"       from "TODO"       [2022-11-09 Wed 09:00]
+   - State "DONE"       from "TODO"       [2022-11-02 Wed 18:24]
+   - State "DONE"       from "TODO"       [2022-11-01 Tue 17:46]
+   - State "DONE"       from "TODO"       [2022-10-27 Thu 14:34]
+   - State "DONE"       from "TODO"       [2022-10-26 Wed 13:44]
+   - State "DONE"       from "TODO"       [2022-10-18 Tue 23:01]
+   - State "DONE"       from "TODO"       [2022-10-14 Fri 10:26]
+   - State "DONE"       from "TODO"       [2022-10-13 Thu 17:36]
+   - State "DONE"       from "TODO"       [2022-10-11 Tue 11:43]
+   - State "DONE"       from "TODO"       [2022-10-10 Mon 10:50]
+   - State "DONE"       from "TODO"       [2022-10-04 Tue 10:58]
+   - State "DONE"       from "TODO"       [2022-09-30 Fri 09:13]
+   - State "DONE"       from "TODO"       [2022-09-27 Tue 10:13]
+   - State "DONE"       from "TODO"       [2022-09-16 Fri 16:07]
+   - State "DONE"       from "TODO"       [2022-09-14 Wed 13:49]
+   - State "DONE"       from "TODO"       [2022-09-02 Fri 19:04]
+   - State "DONE"       from "TODO"       [2022-08-15 Mon 17:50]
+   - State "DONE"       from "TODO"       [2022-08-12 Fri 12:49]
+   - State "DONE"       from "TODO"       [2022-08-10 Wed 10:12]
+   - State "DONE"       from "TODO"       [2022-08-09 Tue 11:14]
+   - State "DONE"       from "TODO"       [2022-07-24 Sun 09:58]
+   - State "DONE"       from "TODO"       [2022-07-22 Fri 14:32]
+   - State "DONE"       from "TODO"       [2022-07-20 Wed 11:30]
+   - State "DONE"       from "TODO"       [2022-07-19 Tue 12:13]
+   - State "DONE"       from "TODO"       [2022-07-18 Mon 11:07]
+   - State "DONE"       from "TODO"       [2022-07-15 Fri 15:10]
+   - State "DONE"       from "TODO"       [2022-07-06 Wed 13:45]
+   - State "DONE"       from "TODO"       [2022-06-15 Wed 10:15]
+   - State "DONE"       from "TODO"       [2022-06-14 Tue 13:15]
+   - State "DONE"       from "TODO"       [2022-06-13 Mon 10:00]
+   - State "DONE"       from "TODO"       [2022-06-09 Thu 14:45]
+   - State "DONE"       from "TODO"       [2022-05-18 Wed 11:45]
+   - State "DONE"       from "TODO"       [2022-05-11 Wed 10:30]
+   - State "DONE"       from "TODO"       [2022-05-10 Tue 10:45]
+   - State "DONE"       from "TODO"       [2022-05-09 Mon 12:00]
+   - State "DONE"       from "TODO"       [2022-04-19 Tue 16:45]
+   - State "DONE"       from "TODO"       [2022-04-13 Wed 10:30]
+   - State "DONE"       from "TODO"       [2022-04-05 Tue 09:45]
+   - State "DONE"       from "TODO"       [2022-04-04 Mon 10:30]
+   - State "DONE"       from "TODO"       [2022-04-01 Fri 15:30]
+   - State "DONE"       from "TODO"       [2022-03-30 Wed 09:15]
+   - State "DONE"       from "TODO"       [2022-03-21 Mon 09:30]
+   - State "DONE"       from "TODO"       [2022-03-17 Thu 11:15]
+   - State "DONE"       from "TODO"       [2022-03-16 Wed 14:45]
+   - State "DONE"       from "TODO"       [2022-03-14 Mon 10:15]
+   - State "DONE"       from "TODO"       [2022-03-09 Wed 10:30]
+   - State "DONE"       from "TODO"       [2022-03-08 Tue 10:45]
+   - State "DONE"       from "TODO"       [2022-03-06 Sun 23:15]
+   - State "DONE"       from "TODO"       [2022-03-02 Wed 12:15]
+   :END:
+   [2022-03-02 Wed 12:15]
+** DONE send email to workplace@nuro.ai
+   CLOSED: [2022-03-14 Mon 10:15] SCHEDULED: <2022-03-14 Mon 08:50>
+   [2022-03-10 Thu 22:15]
+   - how to get a badge?
+   - is there parking at SF + MTV offices? do i need parking pass?
+** DONE book robin desks
+   CLOSED: [2022-03-22 Tue 01:15] SCHEDULED: <2022-03-22 Tue 09:00>
+   [2022-03-21 Mon 20:45]
+** TODO [[https://docs.google.com/presentation/d/17X522K0MwJ1OVccFGzNjti-bCYNEIvPA9W2PVUUQaFI/edit#slide=id.g12b479158e1_1_59][autonomy overview]]                                             :learn:
+   [2022-06-08 Wed 12:45]
+   - https://drive.google.com/file/d/1FHSVTH9sLnmHhLTfKkbCQjJVjn0UdRsk/edit
+** DONE watch equity education
+   CLOSED: [2022-06-21 Tue 12:15] SCHEDULED: <2022-06-21 Tue 11:00>
+   [2022-06-21 Tue 11:00]
+** TODO how to improve git performance
+   [2022-09-15 Thu 10:16]
+   - google: improving git for monorepo
+     - https://shekhargulati.com/2022/07/03/improve-git-monorepo-performance/
+     - https://dropbox.tech/application/speeding-up-a-git-monorepo-at-dropbox-with--200-lines-of-code
+* IDLE TAB (transferability backtesting)
+  :PROPERTIES:
+  :CATEGORY: tab
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2021-10-06 Wed 12:30]
+  :END:
+  [2021-10-06 Wed 12:30]
+  - [[file:~/org/notes/\[sw-10105\]_automated_backtesting_workflow.org][link to notes]]
+** DONE fill out jiras
+   CLOSED: [2021-10-15 Fri 11:15] SCHEDULED: <2021-10-13 Wed>
+   [2021-10-13 Wed 18:45]
+** DONE Read [[https://docs.google.com/document/d/15JRqDiWJEjhKUiCp707q_LaQh_BSPYikpdH0WBl1_v8/edit][2021 sim credibility]]
+   CLOSED: [2021-10-19 Tue 22:30]
+   :CLOCK:
+   CLOCK: [2021-10-19 Tue 22:00]--[2021-10-19 Tue 22:30] =>  0:30
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2021-10-19 Tue 21:45]
+   :END:
+   - from test representativeness
+** DONE re-read test representativness
+   CLOSED: [2021-10-19 Tue 22:45]
+   :CLOCK:
+   CLOCK: [2021-10-19 Tue 22:30]--[2021-10-19 Tue 22:45] =>  0:15
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2021-10-19 Tue 22:30]
+   :END:
+   - https://docs.google.com/document/d/1yjDgxC66L2COt7rfLygggJ0H49rSy4Pt5R5wB-xwphM/edit#
+** DONE re-read design doc
+   CLOSED: [2021-10-19 Tue 23:45]
+   :CLOCK:
+   CLOCK: [2021-10-19 Tue 22:45]--[2021-10-19 Tue 23:45] =>  1:00
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2021-10-19 Tue 22:45]
+   :END:
+   - https://docs.google.com/document/d/1roenLtSoADD4DD0NEluxM3qjpZO6grPhoU9KzGleeIo/edit#
+** DONE invoke simtests
+   CLOSED: [2021-11-09 Tue 08:45]
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2021-11-04 Thu 18:30]
+   :END:
+   - [X] print out params
+   - [X] split commit string
+   - [X] buildkite CLI wrapper in codebase?
+** DONE try successful simtest w/ behaviorregression
+   CLOSED: [2021-11-10 Wed 09:30]
+   :CLOCK:
+   CLOCK: [2021-11-09 Tue 08:30]--[2021-11-09 Tue 09:15] =>  0:45
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2021-11-09 Tue 09:15]
+   :END:
+** DONE write BQ integration
+   CLOSED: [2021-11-09 Tue 10:15]
+   :CLOCK:
+   CLOCK: [2021-11-09 Tue 09:15]--[2021-11-09 Tue 10:15] =>  1:00
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2021-11-09 Tue 09:15]
+   :END:
+   - CONLCUSION: don't need to use BQ. can use cardiff API
+** DONE save metadata to parent pipeline. validate connections
+   CLOSED: [2021-11-10 Wed 10:30]
+** DONE write cardiff integration
+   CLOSED: [2021-11-16 Tue 11:45]
+   :CLOCK:
+   CLOCK: [2021-11-09 Tue 10:15]--[2021-11-09 Tue 10:45] =>  0:30
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2021-11-09 Tue 10:15]
+   :END:
+** DONE re-read org tasks
+   CLOSED: [2022-02-09 Wed 02:15]
+** DONE re-read design doc
+   CLOSED: [2022-02-09 Wed 02:30]
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-01-25 Tue 11:00]
+   :END:
+** DONE read nuro buildkite docs
+   CLOSED: [2022-02-09 Wed 11:45]
+   :CLOCK:
+   CLOCK: [2022-02-09 Wed 11:00]--[2022-02-09 Wed 11:45] =>  0:45
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-01-25 Tue 11:00]
+   :END:
+   - [X] https://confluence.nuro.team/pages/viewpage.action?spaceKey=DH&title=Buildkite+Documentation
+   - [X] https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/tool/buildkite/README.md
+** DONE think about documentation conventions
+   CLOSED: [2022-02-09 Wed 02:30]
+   - comments vs README vs confluence vs design doc
+   - [[file:~/org/notes/\[sw-10105\]_automated_backtesting_workflow.org::*Thoughts on documentation][Thoughts on documentation]]
+** DONE read jeremy's workflow automation docs
+   CLOSED: [2022-03-02 Wed 14:00]
+   :CLOCK:
+   CLOCK: [2022-03-02 Wed 12:30]--[2022-03-02 Wed 14:00] =>  1:30
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-02-09 Wed 09:30]
+   :END:
+   - [X] async eval - https://docs.google.com/document/d/1RAkrnmLSnsFujYMPyy1yoS85Iv0VSFydisz2vEs2bqM/edit
+   - [X] PRD - https://docs.google.com/document/d/1-EHa5paqsgRLQIMeyKw5OaqtOgrXgt7urF9Cqy98mls/edit#
+   - [X] workflow tool selection matrix - https://docs.google.com/document/d/1MfZYTZCx22Ag0RWWYri_uZaaFPOenpna8URTEtZfpWs/edit
+** DONE read about log metadata from data platform team
+   CLOSED: [2022-03-02 Wed 23:15]
+   :CLOCK:
+   CLOCK: [2022-03-02 Wed 22:15]--[2022-03-02 Wed 23:15] =>  1:00
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-02-09 Wed 10:00]
+   - State "IN-PROGRESS" from "TODO"       [2021-10-20 Wed 11:00]
+   :END:
+   - jeremy referenced in a comment on the design doc
+   - [X] sim metadata design: https://docs.google.com/document/d/1NW2_5AUxAUbqcL6op6AHCjPvRq1RRNCz8VollulcUVI/edit#
+     - skimmed, need to revisit later
+   - [X] n/metadata-design: https://docs.google.com/document/d/1a4LK4LkGUyao2eQtgOdsBoBZSk43IYluVrRXW0VCLcs/edit#
+     - skimmed, need to revisit later
+   - [X] eval tracker design - https://docs.google.com/document/d/1Z_-mmdL4MNFNK_W6CICIwhoFuSgOeyNmxOuOhAZjmL4/edit#
+     - referenced from async eval design doc
+     - need to revisit details later
+** DONE think about workflow orchestration vs choreography
+   CLOSED: [2022-03-03 Thu 00:15] SCHEDULED: <2022-03-02 Wed 23:15>
+   :CLOCK:
+   CLOCK: [2022-03-02 Wed 23:15]--[2022-03-03 Thu 00:15] =>  1:00
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-02-09 Wed 10:00]
+   :END:
+** DONE read about airflow vs buildkite vs luigi vs prefect
+   CLOSED: [2022-03-03 Thu 02:00] SCHEDULED: <2022-03-03 Thu 01:00>
+   :CLOCK:
+   CLOCK: [2022-03-03 Thu 00:15]--[2022-03-03 Thu 02:00] =>  1:45
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "IN-PROGRESS" [2022-03-03 Thu 00:15]
+   :END:
+   - [X] airflow tutorial
+   - [X] https://medium.com/the-prefect-blog/why-not-airflow-4cfa423299c4
+** DONE recover MVP files
+   CLOSED: [2022-03-03 Thu 02:30] SCHEDULED: <2022-03-03 Thu 02:00>
+   :CLOCK:
+   CLOCK: [2022-03-03 Thu 02:00]--[2022-03-03 Thu 02:30] =>  0:30
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-03-02 Wed 23:15]
+   :END:
+** DONE create scaffold
+   CLOSED: [2022-03-03 Thu 10:00]
+   :CLOCK:
+   CLOCK: [2022-03-03 Thu 09:00]--[2022-03-03 Thu 10:00] =>  1:00
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-03-03 Thu 03:30]
+   :END:
+   - [X] follow BK readme
+   - [X] should all pipeline snippets be in the same directory?
+     - YES. explicitly directy main.py to use initial pipeline in centralized directory
+   - [X] what is args.json for?
+     - outdated and no longer used. just templating. no need to use
+** DONE write protobuf definitions
+   CLOSED: [2022-03-03 Thu 12:00]
+** DONE write CLI
+   CLOSED: [2022-03-09 Wed 17:30] SCHEDULED: <2022-03-09 Wed>
+   :CLOCK:
+   CLOCK: [2022-03-08 Tue 16:45]--[2022-03-08 Tue 18:00] =>  1:15
+   CLOCK: [2022-03-08 Tue 10:45]--[2022-03-08 Tue 11:45] =>  1:00
+   CLOCK: [2022-03-07 Mon 09:45]--[2022-03-07 Mon 13:45] =>  4:00
+   :END:
+   - [X] may have annoyances w/ BK API credentials. maybe want k8s middleman? if use middleman use
+     openapi vs grpc?
+     - no middleman for now. force user to create and provide a token
+   - [X] read BK docs on CLI invocation https://buildkite.com/docs/apis/rest-api
+     - [X] how to serialize proto to BK? pbtxt or base64?
+       - do text for now but could change later if necessary
+   - [X] think about code organization
+   - [X] tests to write?
+     - load config to string
+** DONE de-serialize proto + define model class
+   CLOSED: [2022-03-14 Mon 12:00] SCHEDULED: <2022-03-14 Mon>
+   :CLOCK:
+   CLOCK: [2022-03-08 Tue 20:30]--[2022-03-08 Tue 23:00] =>  2:30
+   :END:
+   - [X] address PR comments
+     - [X] move agent target to same folder
+     - [X] line length 100 chars
+     - [X] comment sentence format
+     - [X] field comments
+     - [X] next id annotation
+   - [X] de-serialize config proto from meta-data
+   - [X] define dataclass
+   - [X] write tests for parsing
+   - [X] how do tests tie in to CI?
+     - they seem to be automatically detected by CI (and included in test coverage report)
+** DONE ingest UI into model class
+   CLOSED: [2022-03-21 Mon 19:45] SCHEDULED: <2022-03-21 Mon>
+   :CLOCK:
+   CLOCK: [2022-03-21 Mon 12:00]--[2022-03-21 Mon 12:30] =>  0:30
+   CLOCK: [2022-03-09 Wed 13:00]--[2022-03-09 Wed 15:00] =>  2:00
+   CLOCK: [2022-03-09 Wed 10:45]--[2022-03-09 Wed 12:00] =>  1:15
+   CLOCK: [2022-03-08 Tue 23:00]--[2022-03-09 Wed 00:00] =>  1:00
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-03-08 Tue 23:45]
+   :END:
+   - [X] write test
+   - [X] try on BK w/ CLI and UI
+** DONE make deep dive presentation
+   CLOSED: [2022-03-23 Wed 14:15] SCHEDULED: <2022-03-23 Wed 11:00>
+   - mention that the discussion is informal
+   - overview: diagrams + definiton of metric w/ examples
+   - demo
+   - architecture (different deployments)
+   - future plans
+** DONE ask team about how to serve html results
+   CLOSED: [2022-03-22 Tue 10:30] SCHEDULED: <2022-03-22 Tue 09:00>
+** REVIEWING validate config + construct simtest launchers
+   :CLOCK:
+   CLOCK: [2022-05-11 Wed 10:15]--[2022-05-11 Wed 11:00] =>  0:45
+   CLOCK: [2022-04-01 Fri 19:00]--[2022-04-01 Fri 19:15] =>  0:15
+   CLOCK: [2022-04-01 Fri 15:15]--[2022-04-01 Fri 16:00] =>  0:45
+   CLOCK: [2022-03-23 Wed 14:15]--[2022-03-23 Wed 14:30] =>  0:15
+   CLOCK: [2022-03-16 Wed 14:45]--[2022-03-16 Wed 15:00] =>  0:15
+   CLOCK: [2022-03-16 Wed 11:30]--[2022-03-16 Wed 13:45] =>  2:15
+   CLOCK: [2022-03-16 Wed 07:45]--[2022-03-16 Wed 11:15] =>  3:30
+   CLOCK: [2022-03-16 Wed 00:30]--[2022-03-16 Wed 01:30] =>  1:00
+   CLOCK: [2022-03-15 Tue 21:00]--[2022-03-15 Tue 23:30] =>  2:30
+   CLOCK: [2022-03-15 Tue 15:00]--[2022-03-15 Tue 18:15] =>  3:15
+   CLOCK: [2022-03-15 Tue 13:15]--[2022-03-15 Tue 14:00] =>  0:45
+   CLOCK: [2022-03-15 Tue 10:45]--[2022-03-15 Tue 12:00] =>  1:15
+   CLOCK: [2022-03-14 Mon 17:30]--[2022-03-14 Mon 18:00] =>  0:30
+   CLOCK: [2022-03-14 Mon 16:45]--[2022-03-14 Mon 17:00] =>  0:15
+   CLOCK: [2022-03-14 Mon 14:45]--[2022-03-14 Mon 16:30] =>  1:45
+   CLOCK: [2022-03-14 Mon 12:00]--[2022-03-14 Mon 13:30] =>  1:30
+   CLOCK: [2022-03-10 Thu 12:30]--[2022-03-10 Thu 14:45] =>  2:15
+   CLOCK: [2022-03-10 Thu 10:30]--[2022-03-10 Thu 11:30] =>  1:00
+   CLOCK: [2022-03-09 Wed 22:00]--[2022-03-10 Thu 00:30] =>  2:30
+   CLOCK: [2022-03-09 Wed 19:00]--[2022-03-09 Wed 20:00] =>  1:00
+   CLOCK: [2022-03-09 Wed 17:00]--[2022-03-09 Wed 18:45] =>  1:45
+   CLOCK: [2022-03-09 Wed 15:15]--[2022-03-09 Wed 16:30] =>  1:15
+   :END:
+   :LOGBOOK:
+   - State "REVIEWING"  from "IN-PROGRESS" [2022-03-21 Mon 19:45]
+   - State "IN-PROGRESS" from "TODO"       [2022-03-09 Wed 15:15]
+   :END:
+   - [X] review how eval-simtest trigger works and grok changes
+   - [X] extra_job + job_metadata consistency
+   - [X] test protocol consistency (at least one protocol)
+   - note that i have to know all of the stages for each branch (i.e.: must be able to specify
+     eval-oracle at the same time as eval-simtest). this is because i need to be able to join them
+     all with a wait step before i compute transferability
+   - multiple test protocols may correspond to the same "job" (e.g.: simtest)
+     #+begin_src text
+       BehaviorRegression sim_report A
+       BehaviorRegression sim_report B
+       BehaviorRegression other_report C
+       localization localization_eval A
+
+       BehaviorRegression third_report D
+       Benchmark20k sim_report A
+
+       BehaviorRegression [sim_report, other_report, third_report]
+       localization [localization_eval]
+       Benchmark20k [sim_report]
+     #+end_src
+   - https://github.com/lidatong/dataclasses-json
+   - [X] review circular dependencies
+   - [X] narrower type for get_opt
+   - [X] implement pipelines
+   - [X] separate agent for simtest/oracle launch/polling
+   - [X] print final state in transferability
+   - [X] suppress linter error for model.py
+   - [X] read about circular imports
+   - [ ] read about dry for unit testing
+     - https://www.google.com/search?q=should+i+be+dry+unit+testing+stack+overflow&rlz=1C5GCEM_enUS968US968&ei=u35EYuXWHuefkPIP1JW_2Ag&ved=0ahUKEwiloKK2mu72AhXnD0QIHdTKD4sQ4dUDCA4&uact=5&oq=should+i+be+dry+unit+testing+stack+overflow&gs_lcp=Cgdnd3Mtd2l6EAMyBQghEKABMgUIIRCgAToHCAAQRxCwAzoECAAQQzoFCAAQkQI6CAgAEIAEELEDOgsIABCABBCxAxCDAToFCAAQgAQ6CAgAELEDEIMBOgcIABDJAxBDOhEILhCABBCxAxCDARDHARDRAzoKCC4QxwEQ0QMQQzoLCC4QsQMQxwEQowI6DgguEIAEELEDEMcBEKMCOg4ILhCABBCxAxDHARDRAzoLCC4QgAQQsQMQgwE6DgguEIAEELEDEIMBENQCOggIABCABBDJAzoFCC4QgAQ6BggAEBYQHjoICCEQFhAdEB46BQghEKsCSgQIQRgASgQIRhgAUKENWNt5YJd6aBBwAXgAgAGCAYgBliiSAQU0MS4xNJgBAKABAcgBCMABAQ&sclient=gws-wiz
+     - https://www.eviltester.com/2017/12/resource-files-for-tests-java-maven.html
+   - [ ] rename utils to common
+   - [ ] private member + constants naming
+   - [ ] import modules not functions + classes
+   - [ ] initial_pipeline "Optional" formatting
+   - [ ] make oracle commit optional
+** REVIEWING launch oracle
+   :LOGBOOK:
+   - State "REVIEWING"  from "IN-PROGRESS" [2022-03-21 Mon 19:45]
+   - State "IN-PROGRESS" from "TODO"       [2022-03-09 Wed 22:15]
+   :END:
+** REVIEWING compute transferability
+   :CLOCK:
+   CLOCK: [2022-03-21 Mon 10:45]--[2022-03-21 Mon 11:15] =>  0:30
+   CLOCK: [2022-03-17 Thu 22:45]--[2022-03-18 Fri 04:15] =>  5:30
+   CLOCK: [2022-03-17 Thu 21:00]--[2022-03-17 Thu 22:30] =>  1:30
+   CLOCK: [2022-03-17 Thu 18:30]--[2022-03-17 Thu 18:45] =>  0:15
+   CLOCK: [2022-03-17 Thu 16:00]--[2022-03-17 Thu 18:00] =>  2:00
+   CLOCK: [2022-03-17 Thu 11:15]--[2022-03-17 Thu 13:00] =>  1:45
+   CLOCK: [2022-03-16 Wed 14:45]--[2022-03-16 Wed 16:00] =>  1:15
+   :END:
+   :LOGBOOK:
+   - State "REVIEWING"  from "IN-PROGRESS" [2022-03-21 Mon 19:45]
+   - State "IN-PROGRESS" from "TODO"       [2022-03-10 Thu 10:30]
+   :END:
+   - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/tool/cardiff/backend/query_generator.py?L10
+   - [X] validate issue predictor columns are in metric names
+   - [X] how to mock requests?
+     - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/simulation/framework/utils/simtests_utils_test.py?L163:11
+   - [X] how to mock grpc?
+     - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/pipeline/utils/cardiff_utils_test.py?L52
+   - [X] double-check:
+     - docstrings/comments
+     - double-check generics + types
+     - private methods/functions
+     - constants
+     - logging
+     - organization (classes, functions)
+     - tests
+     - assert BK context
+     - bazel test size small
+** REVIEWING send email
+   :CLOCK:
+   CLOCK: [2022-03-21 Mon 09:30]--[2022-03-21 Mon 10:30] =>  1:00
+   CLOCK: [2022-03-18 Fri 13:45]--[2022-03-18 Fri 14:45] =>  1:00
+   CLOCK: [2022-03-18 Fri 09:30]--[2022-03-18 Fri 13:30] =>  4:00
+   :END:
+   :LOGBOOK:
+   - State "REVIEWING"  from "IN-PROGRESS" [2022-03-21 Mon 19:45]
+   - State "IN-PROGRESS" from "TODO"       [2022-03-17 Thu 11:15]
+   :END:
+   - https://sg.corp.nuro.team/search?q=email+lang:python+&patternType=literal
+   - show metrics breakdown through email
+   - [X] HTML templating engine (jinja? beautifulsoup?)
+     - templating
+       - jinja
+       - django
+     - programmatic
+       - dominate - used in perception. nicer API
+       - python xml.dom.minidom or xml.etree.ElementTree
+         (https://docs.python.org/3/library/xml.html) - not as nice of an API
+       - beautifulsoup - made for parsing/extracting data. can be used to create new docs, but not
+         what it's designed for. used only once in nuro codebase
+     - CONCLUSION: use either dominate or jinja
+       - went with dominate in the end
+** DONE first experiment
+   CLOSED: [2022-05-05 Thu 11:00]
+   :CLOCK:
+   CLOCK: [2022-04-04 Mon 11:15]--[2022-04-04 Mon 12:30] =>  1:15
+   CLOCK: [2022-03-28 Mon 12:00]--[2022-03-28 Mon 12:30] =>  0:30
+   CLOCK: [2022-03-22 Tue 09:00]--[2022-03-22 Tue 10:15] =>  1:15
+   CLOCK: [2022-03-18 Fri 14:45]--[2022-03-18 Fri 18:00] =>  3:15
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-03-18 Fri 14:45]
+   :END:
+   - [X] look for recurring jobs for BehaviorRegression/Benchmark20k
+     - search for BehaviorRegression on simtest dashboard: http://sim-test.corp.nuro.team/status?filter_categories=BehaviorRegression
+       - see recurring jobs for 'nightly-rlp-oracle' and 'nightly-base-oracle'
+     - searched for Benchmark20k and don't really see any recurring jobs
+     - what is green/simtests based off of?
+       - can see
+         https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/simulation/testing/continuous_testing.py?L268
+         that green/simtests is updated whenever jobs of 'continuous-sim-testing-...' pass
+         - what categories are run? comment says that empty categories causes release blocking to
+           run. where are release-blocking categories defined?
+           - followed to https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/simulation/framework/batch_simulation/data_server/data_server.py?L727
+           - then followed to https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/servers/borg/batch_simulation.py?L80
+           - in tool/release/common/release_sim_test_categories
+     - CONCLUSION: can go with nightly-rlp-oracle commits. maybe do critical and
+       BehaviorRegression
+   - [X] try choosing commits from continuous simtests
+     - https://docs.google.com/document/d/1OJNGPwKNXXPJ_qZWr8lFw49-YGB1cmXX9EOWOZ-OIxM/edit#heading=h.sqf2k47bfozf
+     - 10 green continuous-sim-testing commits each day. check #sim-tests-continuous:
+     - commits too close to each other
+     - [X] check on critical vs critical_full
+     - [X] maybe rekick off critical vs critical_full if oracle failed
+     - [X] kick off behavior regression vs BM20k (sim_report, systems_verification)
+     - [X] put results so far into google doc
+   - [X] re-run regression vs BM20k with new commits (prod releases, week apart)
+     - https://release.corp.nuro.team/#prod
+     - simtests failed due to
+       https://app.slack.com/client/T1YFMB7M3/CLLHXATGA/thread/CLLHXATGA-1647450655.869679
+     - https://jira.nuro.team/browse/TII-1613
+     - need to cherry-pick or use commits after march 7
+   - [X] read
+     https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/planning/planner_eval/README.md
+   - [X] re-run regression vs BM20k from completed oracle jobs
+     - just looked at oracle results page
+     - results in planner tech talk slides
+       https://docs.google.com/presentation/d/15bd-wMZ38I6vJ5VXisuw88qsBzC43PqjBQ3drZhOgo4/edit#slide=id.g1253d29f756_0_607
+   - [X] run critical vs critical_high_Scope1_v202202_full from completed oracle jobs
+     - results in planner tech talk slides
+       https://docs.google.com/presentation/d/15bd-wMZ38I6vJ5VXisuw88qsBzC43PqjBQ3drZhOgo4/edit#slide=id.g1253d29f756_0_607
+** REVIEWING rename extra job to extra job dict
+   :LOGBOOK:
+   - State "REVIEWING"  from "IN-PROGRESS" [2022-03-21 Mon 19:45]
+   - State "IN-PROGRESS" from "TODO"       [2022-03-21 Mon 12:30]
+   :END:
+** REVIEWING use proto ParseFromString and SerializeToString for cli config
+   :LOGBOOK:
+   - State "REVIEWING"  from "IN-PROGRESS" [2022-03-21 Mon 19:45]
+   - State "IN-PROGRESS" from "TODO"       [2022-03-21 Mon 12:30]
+   :END:
+   - https://developers.google.com/protocol-buffers/docs/pythontutorial
+** IDLE print config at beginning of email
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-03-21 Mon 19:45]
+   :END:
+** IDLE take into account directionality for percentage differences
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-03-23 Wed 14:30]
+   :END:
+** IDLE fix races in setting metadata
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-03-23 Wed 14:30]
+   :END:
+** IDLE read about releases                                           :learn:
+   - https://docs.google.com/document/d/1tlk1OhgtJ5w_VVRCIMgZ916aGTYD0z5Nv0NcG0xm-mk/edit#heading=h.slzw4y2b64nu
+   - https://release.corp.nuro.team/#prod
+   - https://docs.google.com/document/d/1ftIZktaFyiIfmQWH9LCGC8PGl-1Do9nHdCM1ekC36e8/edit#
+   - https://docs.google.com/spreadsheets/d/1lUYsh-ScYX2MEBLFBcTgUVExBJJ6hGXpc-_SaZ5-PcY/edit#gid=0
+   - https://docs.google.com/document/d/11kq8zVsebgdhGskmfKL3nystg3h2MTTx4At_6ITEY4o/edit#
+** IDLE do all pairs of commits? not just consecutive?
+** IDLE create GCS bucket and upload reports
+   - https://gitent.corp.nuro.team/Nuro-ai/terraform-gcp-deployments/pull/1126
+   - better way to expose results other than email?
+   - eventually want something better backed by retool. could be interactive as well
+   - maybe export to google docs? simple http server backed by GCP? write to nufs and browse
+     https://app.glean.com/knowledge/answers/6? write to purebox?
+   - https://confluence.nuro.team/display/INFRA/Nuro+Storage+Systems
+   - generate jupyter notebook?
+** IDLE make it easier to analyze transferability ad-hoc in jupyter
+   - upload to BQ?
+   - generate notebook?
+   - https://autonomy-tools.corp.nuro.team/blog/jupyterhub
+   - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/tool/jupyterhub/README.md
+   - https://jupyterhub.corp.nuro.team/hub/user/kyang/lab?
+** IDLE think about if simtest incompletes are a problem
+** IDLE contemplate better UI (retool?)
+** IDLE issue predictor column wildcard
+   - // If omitted, all columns will be included.
+   - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro@ecd02c2cb866beaac187cc58dc415542683903b0/-/blob/oracle/comparison/utils/comparison_utils.py?L142
+     - how to omit default columns
+   - [ ] test multiple categories in UI
+** IDLE retry logic for network calls (cardiff)
+   - https://findwork.dev/blog/advanced-usage-python-requests-timeouts-retries-hooks/#retry-on-failure
+   - https://pypi.org/project/retrying/
+** IDLE validate simtest + oracle job metadata if user-defined
+   - check simtest category/variant/extra_job_dict match
+   - check oracle job corresponds to correct oracle configs
+** IDLE job title/message (copy from BK message) for email
+** IDLE oracle job discovery
+   - be able to support empty oracle job ID for defined simtest ID
+** IDLE validate oracle commit
+** IDLE try w/o environment hook change
+** IDLE write documentation: README in pipeline directory + tab directory
+   - how to deploy?
+   - how to launch CLI?
+   - description of directory structure
+** IDLE write documentation: confluence page
+   - justification of percentage change transferability
+     - [ ] re-read design doc appendix (discussions w/ afsoon + jack)
+     - similar to human workflow
+     - possible for different metrics to "work together" to have their changes correlate to the
+       output metric
+** IDLE write technical plan for BK (after merging MVP + designing rest of branches)
+   - design simtest triage + LS + onroad
+   - write links about workflow framework comparison
+   - list BK stages and which nodes are dynamic
+   - commit discovery
+   - simtest + oracle discovery
+   - UI vs CLI
+   - where to store configs (ad-hoc vs in code-base)
+   - mention separate GKE deployments for launching/polling tests + receiving new jobs
+   - using eval-simtest or eval-oracle vs own stages
+     - don't like how BK moves data around. API is finnicky (artifacts or flat meta-data), and
+       coordinating deployments of updates is risky with multiple consumers
+     - modularity promoted through code, not deployments
+** IDLE integrate with BQ simtest triage table
+   :CLOCK:
+   CLOCK: [2022-04-01 Fri 19:15]--[2022-04-01 Fri 19:30] =>  0:15
+   CLOCK: [2022-03-30 Wed 16:00]--[2022-03-30 Wed 16:30] =>  0:30
+   CLOCK: [2022-03-30 Wed 09:30]--[2022-03-30 Wed 11:00] =>  1:30
+   CLOCK: [2022-03-28 Mon 12:15]--[2022-03-28 Mon 13:30] =>  1:15
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-03-21 Mon 11:45]
+   :END:
+     #+begin_src text
+       SELECT
+         *
+       FROM
+         `jira-168618.sim_triage.GT_mpdtriage_alltasks_m`
+       WHERE
+         simtest_jobid = '0f580mqb'
+         and be_behavior is NULL
+         LIMIT 5
+     #+end_src
+   - https://console.cloud.google.com/bigquery?project=jira-168618&organizationId=593139165896&d=sim_triage&p=jira-168618&t=simtriage_rawresults_m&page=table&ws=!1m5!1m4!4m3!1sjira-168618!2ssim_triage!3ssimtriage_rawresults_m&pli=1
+   - [X] what is sqops? sqops vs swops?
+     - https://confluence.nuro.team/display/SO/SWOps
+   - [X] read tutorial sections about triage + LS + release
+   - [X] read about eval of eval
+   - [X] ask michal about bad nudge table
+   - [X] difference between DT (disengagmenet triage) and behavior events? are all behavior events
+     associated with DT?
+   - [X] watch
+     https://docs.google.com/presentation/d/1g966UGiv36fRnCa-OI8hfgflQrNkVZz-ozgB-x6jmLM/edit#slide=id.g8d9573b349_1_233
+     about consensus behavior labeling
+     - https://drive.google.com/drive/u/0/search?q=type:video%20sim%20triage
+   - [X] watch
+     https://docs.google.com/presentation/d/1c63dilAdlDdhIqY_w2Vbth78mxKxGSgHimDTUHAJWnU/edit#slide=id.g9a8796a078_12_296
+     about consensus behavior labeling
+     - https://drive.google.com/drive/u/0/search?q=behavior%20eval%20system
+   - [X] watch https://drive.google.com/drive/u/0/search?q=type:video%20scope about scope 0*
+   - [X] read https://docs.google.com/document/d/1x2IoNk5NJNxFeIxpSyZNBPJ6mQHHyw022ErhKtjACRA/edit#
+     labeling guidelines
+     - michal suggested it to understand consensus labeling
+   - [X] read https://docs.google.com/document/d/1TgIZK_UBng-y0R5V_9gczDZ-QShTotsB_6BObtgyPjQ/edit#
+     10k readiness gates
+   - [X] read
+     https://docs.google.com/spreadsheets/d/17ND__vrCdjsMKULRwGvVOGvSgGC4xv2t_MGXwbiT2p0/edit#gid=737240865
+     bot behavior framework
+     - describes different behavior event types
+   - [X] read https://docs.google.com/document/d/1rkAgLwL0cc_WM3ZpKwCTb5DzKbat9nXGbpUEafM15l8/edit
+     - from searching on glean for "behavior labeling"
+     - seems a little too outdated and controversial
+   - [X] browse https://confluence.nuro.team/display/SQOP/Software+Quality+Operations
+     - from searching on glean for "triage"
+     - more of a hub for the sqops team. not much new
+     - https://confluence.nuro.team/display/SQOP/Critical+and+High+Triage
+       - explains L0,L1,L2,L3
+   - [ ] look at DT examples from tutorial
+   - [ ] read about releases again (which releases are consensus triaged?)
+   - [ ] browse looker dashboards
+   - [ ] look at deft note resources
+   - [ ] https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/tool/bigquery/sql_files/sim_consensus_odd.sql
+   - [ ] ask xiyue for overview of how looker data is populated
+   - [ ] ask nick moy about which table to look at for consensus behavior labels? what about for
+     normal DT triage?
+** IDLE factor out log_generation from evaluation_method?
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-03-21 Mon 20:15]
+   :END:
+   #+begin_src text
+     // Test protocols have two components:
+     //     1) Log generation method (e.g.: simtest, LS, onroad)
+     //     2) Evaluation method (e.g.: Oracle, triage)
+   #+end_src
+   - [ ] tasks test for different test protocol log generation methods in the same set
+** IDLE consensus labels experiment
+   - [ ] try to find simtests that aren't showing in the results page (retention table?)
+   - [ ] look at spreadsheet about sim_report and systems_verification
+     - try smaller sets of metrics
+     - try to reason about sensible metrics that transfer between each other
+   - [ ] what's the difference between nightly-rlp-oracle and nightly-base-rlp-oracle? what are
+     they?
+** IDLE LS MPCHD integration
+   - https://app.glean.com/search?q=mpchd+triage
+   - https://docs.google.com/document/d/181NDedJWC_9Bv_h2jgUNWcGPwdzYgbGtiRw0auoRqnY/edit?pli=1#heading=h.z6pd1xpgaa4z
+** IDLE zero intercept
+** IDLE one-pager on onroad test protocol design
+   - no "sceneset". only odds. tradeoffs? potential improvements?
+   - other criteria other than time range for commit discovery. min # of miles driven?
+** IDLE onroad triage integration
+   - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/tool/bigquery/sql_files/onroad_consensus_odd.sql
+** IDLE simtest job discovery
+   - how does BATES fit in?
+** IDLE commit discovery
+   - https://davidwalsh.name/search-git-dates
+   - https://stackoverflow.com/questions/23253420/cloning-reading-only-history-log-of-a-git-repository
+** IDLE onroad autoeval integration
+** IDLE metric + sceneset existence checks
+   - metric check can use oracle config registry
+     - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro@1fdbe20bfed1236e4bb693c37444ef1d4b207548/-/blob/oracle/pipeline/oracle_job.py?L1004
+   - sceneset check can use scenedb API
+     - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/simulation/scenes/dashboard/scene_dashboard.py?L170:14
+** IDLE populate BQ w/ transferability
+** IDLE k8s auto-scaling?
+** IDLE subset extension
+   - compute transferability on subsets of metrics
+** IDLE think about other transferability metrics
+   - potential problems with transferability?
+     - metric could be defined differently
+     - try different commits
+     - how to handle outliers?
+     - try different sets of metrics
+   - look more deeply into anshul's convos with afsoon and jack in the design doc to evaluate
+     possible shortcomings of the current metric
+** IDLE bazel python directory layout convention                      :learn:
+   - [ ] review personal laptop notes
+   - [ ] google: python project directory structure
+     - [ ] https://docs.python-guide.org/writing/structure/
+     - [ ] https://stackoverflow.com/questions/193161/what-is-the-best-project-structure-for-a-python-application
+   - [ ] google: python bazel tutorial
+     - [ ] https://testdriven.io/blog/bazel-builds/
+   - [ ] should i separate tests into their own folder? or distribute with main files? where should
+     test resources go? should they have their own resources folder?
+   - [ ] what is the appropriate name for directories containing test resources?
+     - resources? testdata? data? fixture?
+     - [ ] check django, flask, sklearn
+   - [ ] what's a more appropriate name for the "launch" stage?
+** IDLE read BK docs                                                  :learn:
+   - [ ] https://buildkite.com/docs/tutorials/getting-started
+   - [ ] what is agents queue tag?
+   - [ ] should i try multiple agents? useful to isolate deployments and avoid one job using up
+     all resources that another might need
+   - [ ] how do retries work? make sure steps are idempotent?
+** IDLE read about python frameworks                                  :learn:
+   - [ ] CLI (gflags? abseil? click? argparse?)
+     - built in version + help flags? subcommands?
+   - [ ] logging (glog? logging?)
+     - https://sg.corp.nuro.team/search?q=context:global+.debug+lang:python+file:%5Etool&patternType=literal
+     - how to set log file location?
+     - how to set severity at runtime?
+   - [ ] testing (abseil? unittest?)
+     - [ ] what is the convention for documenting tests? docstring? comments? or just a descriptive
+       method name?
+       - https://stackoverflow.com/questions/1726622/how-should-unit-tests-be-documented
+   - [ ] http client (requests? openapi?)
+   - [ ] process invocation (subprocess? sh?)
+** IDLE base.py vs abseil                                             :learn:
+** IDLE how python typing works?                                      :learn:
+   - is mypy the same as official python typing? do we use it?
+   - https://mypy.readthedocs.io/en/stable/protocols.html
+     - do we use protocols?
+   - https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html
+   - [X] string literal as type?
+     - it's a forward reference: https://www.python.org/dev/peps/pep-0484/#forward-references
+   - https://docs.python.org/3/library/typing.html
+   - [ ] how to actually run type check? how powerful is type inference? (branch narrowing. variables)
+   - google: bazel python type check
+** IDLE what is the "gke_agent" and queue=... for?                    :learn:
+   - look in the pipelines codebase
+** IDLE carbench integration?
+   - from a comment on design doc
+** IDLE sync w/ jeremy + afsoon about common functionality
+   - simtest get or create
+   - integration w/ cardiff to retrieve metrics
+   - query for commits that satisfy constraints related to onroad logs
+** IDLE revisit test representativeness after TAB
+   - https://docs.google.com/document/d/1yjDgxC66L2COt7rfLygggJ0H49rSy4Pt5R5wB-xwphM/edit#
+   - how can i take ownership of other action items? how can i fill them in more?
+** IDLE CLI improvements (only if necessary)
+   - [ ] if each user's BK API credentials is too annoying, then maybe want a k8s middleman
+   - [ ] if sending text to build creation is too big, then can change to base64 or use artifacts
+   - [ ] file for TAB configuration that includes BK token
+   - [ ] support file for TAB configuration that includes BK token
+   - [ ] improve user errors
+     - have separate exception class that separates user from system errors. print out user errors
+       in more readable format and print out usage message
+** IDLE revisit metadata DB and see how it can be leveraged           :learn:
+   - didn't fully understand from reading design docs
+   - [ ] talk to jeremy/hunter. ask for overview of previous system and how the new system solves issues
+   - [ ] can "LogSource" and "test protocol" be unified somehow?
+   - [ ] re-read sim metadata design: https://docs.google.com/document/d/1NW2_5AUxAUbqcL6op6AHCjPvRq1RRNCz8VollulcUVI/edit#
+   - [ ] re-read metadata design: https://docs.google.com/document/d/1a4LK4LkGUyao2eQtgOdsBoBZSk43IYluVrRXW0VCLcs/edit
+   - [ ] re-read eval tracker design: https://docs.google.com/document/d/1Z_-mmdL4MNFNK_W6CICIwhoFuSgOeyNmxOuOhAZjmL4/edit#
+** IDLE read about sim credibility                                    :learn:
+   - https://docs.google.com/document/d/1SOv9e0kR_YRsyHWiGmRRJztjic50gNnVmBJImBhfJ6Y/edit#
+   - https://docs.google.com/document/d/1GfapWxm1R9n14Nt3yma-gQ994SVp633yFOLQGy1Hqdc/edit#heading=h.fp3mq36zbia2
+   - https://docs.google.com/document/d/1dHBlC0m9Svzha1bBKz8MvVbiqnd7y27lwvLTycUG-Ys/edit#heading=h.fwgki26l4fk9
+   - https://docs.google.com/document/d/1Pa0oWk6ARTq54h6ZC3sXw_5BZCodTBdye-6sSrtAHs8/edit#heading=h.fwgki26l4fk9
+** IDLE read about BATES                                              :learn:
+   - [[https://docs.google.com/document/d/1vjF5QOCfZf6zKWvy1RTW0soHdI6gUd7BJuUdNyeKD5E/edit#heading=h.q5xzctaicoq5][Batch task execution system (BATES) - Google Docs]]
+   - how does it compare w/ airflow or BK?
+** IDLE read about AB failover                                        :learn:
+   - https://jira.nuro.team/browse/SW-11632
+   - jeremy mentioned to anshul (from Kai/Anshul 1:1 doc)
+** IDLE read about https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/93431 :learn:
+   [2021-11-01 Mon 15:15]
+   - from https://nuro-team.slack.com/archives/C029QEZHEDS/p1635177603009300
+** IDLE watch intern presentation on ethernet offloading              :learn:
+   - https://docs.google.com/presentation/d/15QIQIm3vjiXr7FXIm3u8PbmEuJmy8PkXMISLZUjtC8U/edit#slide=id.ge81c76c024_0_50
+   - from BK confluence
+** IDLE watch buildkite at ike presentation                           :learn:
+   - https://docs.google.com/presentation/d/18MHd-ya0o2ezoB2cC5IDZs2wBLdCWIBwD7HVs2HvuF4/edit#slide=id.p
+   - from BK confluence
+** IDLE read about async eval docs                                    :learn:
+   - https://confluence.nuro.team/display/DH/Async+Eval+User+Docs
+   - from BK confluence
+** IDLE read about openapi vs grpc                                    :learn:
+** IDLE read about apache beam                                        :learn:
+   - what's the difference with spark?
+     - https://blog.allegro.tech/2021/06/1-task-2-solutions-spark-or-beam.html
+
+* Indexing
+  :PROPERTIES:
+  :CATEGORY: indexing
+  :END:
+** DONE [bug] Wrong ego_to_agent_dtheta in relevance event
+   CLOSED: [2021-11-05 Fri 15:15] DEADLINE: <2021-11-05 Fri> SCHEDULED: <2021-10-22 Fri>
+   :CLOCK:
+   CLOCK: [2021-10-20 Wed 11:15]--[2021-10-20 Wed 11:45] =>  0:30
+   CLOCK: [2021-10-19 Tue 16:15]--[2021-10-19 Tue 19:30] =>  3:15
+   CLOCK: [2021-10-14 Thu 18:15]--[2021-10-14 Thu 22:30] =>  4:15
+   CLOCK: [2021-10-14 Thu 10:45]--[2021-10-14 Thu 11:30] =>  0:45
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2021-10-11 Mon 00:15]
+   :END:
+   [2021-10-08 Fri 10:45]
+   - https://jira.nuro.team/browse/SW-11248
+   - try to replicate
+     - indexed-log-finder: https://retool.corp.nuro.team/embedded/public/cee9d43b-e3a7-48e3-9de4-1880175b25da
+       - scene path:
+         gs://nuro-ls-20210914_165431/temporary/20210914_165431/2021/05/20/065818_00042/1678.00.planner_15mph_srp.ndf
+     - don't have access to original index_one_log command. also don't know the commit that was
+       run. ran on green/simtests (12ede4df1ab8c1a83cdc7fde7003e55302a93ced). based command off of
+       https://docs.google.com/document/d/1HxUDzJfZZhEUAEnOOPdK-fzujX1cXUaGzox08yaRWj4/edit?disco=AAAAPMk8pr4
+     #+begin_src shell
+       # without --context_map_staging_dir
+       bazel run tool/index_tools/indexing/scripts:index_one_log -- --config_file /home/kyang/nuro/tool/index_tools/indexing/configs/large_scale.pbtxt --input_blob gs://nuro-ls-20210914_165431/temporary/20210914_165431/2021/05/20/065818_00042/1678.00.planner_15mph_srp.ndf --output_ndf_path /home/kyang/nuro/debug_dtheta.ndf --show_progress_bar
+
+       # with --context_map_staging_dir
+       bazel run tool/index_tools/indexing/scripts:index_one_log -- --config_file /home/kyang/nuro/tool/index_tools/indexing/configs/large_scale.pbtxt --input_blob gs://nuro-ls-20210914_165431/temporary/20210914_165431/2021/05/20/065818_00042/1678.00.planner_15mph_srp.ndf --output_ndf_path /home/kyang/nuro/debug_dtheta_staging.ndf --context_map_staging_dir /nuro_map_path/download_staging/context_map --show_progress_bar
+     #+end_src
+     - i don't know what --context_map_staging_dir is. try w/o it for now
+     - calling inspect_index on the original and the newly generated indices match:
+       #+begin_src shell
+         # generated index
+         bazel run tool/index_tools/indexed_log/scripts:inspect_index -- --index_path ~/nuro/debug_dtheta.ndf --output_path /home/kyang/nuro/debug_dtheta.json --partitions track_id,track_ground_truth_events
+         # original
+         bazel run tool/index_tools/indexed_log/scripts:inspect_index -- --index_path gs://nuro-large-scale-indices/20210914_165431/2021/05/20/065818_00042/1678.00.planner_15mph_srp.index.ndf --output_path /home/kyang/nuro/debug_dtheta_orig.json --partitions track_id,track_ground_truth_events
+       #+end_src
+     - installed conda
+     - multiple instances of *ego_to_agent_dtheta*. after looking at query_util, i deduced that
+       ground_truth_track is the most relevant partition. after inspecting with inspect_index, i
+       found the numbers that helen had in the ticket
+       - only enable GroundTruthTrackIndexer for index_one_log
+   - relevant files:
+     - track_relevance_events_view.cc: UpdateInternalState calls
+     - relevance_events_view_util.cc: ComputeRelevanceEvents
+       - at timestamp 1683.1, the relevance events for track 1 (the cyclist) are backfilled through
+         all the world states. an example of a backfilled event:
+         #+begin_src js
+           {
+               "track_ts": 1679.51,
+               "ego_ts": 1678.11,
+               "ego_to_agent_dtheta": 3.1095018
+           }
+         #+end_src
+   - confirmed ego and agent thetas are offset by pi:
+     #+begin_src text
+       ...
+       I1014 21:39:13.242398 1953497 relevance_events_view_util.cc:100] [1678.31] ego_theta: -0.0293774 agent_theta: -3.13464
+       I1014 21:39:13.242403 1953497 relevance_events_view_util.cc:100] [1678.41] ego_theta: -0.0292481 agent_theta: -3.13184
+       I1014 21:39:13.242408 1953497 relevance_events_view_util.cc:100] [1678.51] ego_theta: -0.0292479 agent_theta: -3.12905
+       I1014 21:39:13.242413 1953497 relevance_events_view_util.cc:100] [1678.61] ego_theta: -0.0295568 agent_theta: -3.12625
+       I1014 21:39:13.242419 1953497 relevance_events_view_util.cc:100] [1678.71] ego_theta: -0.0302447 agent_theta: -3.12346
+       I1014 21:39:13.242424 1953497 relevance_events_view_util.cc:100] [1678.81] ego_theta: -0.0307305 agent_theta: -3.12066
+       I1014 21:39:13.242429 1953497 relevance_events_view_util.cc:100] [1678.91] ego_theta: -0.031205 agent_theta: -3.11786
+       I1014 21:39:13.242434 1953497 relevance_events_view_util.cc:100] [1679.01] ego_theta: -0.0314954 agent_theta: -3.11592
+       I1014 21:39:13.242439 1953497 relevance_events_view_util.cc:100] [1679.11] ego_theta: -0.0321546 agent_theta: -3.12163
+       I1014 21:39:13.242442 1953497 relevance_events_view_util.cc:100] [1679.21] ego_theta: -0.0326676 agent_theta: -3.12734
+       I1014 21:39:13.242446 1953497 relevance_events_view_util.cc:100] [1679.31] ego_theta: -0.0333781 agent_theta: -3.13306
+       I1014 21:39:13.242452 1953497 relevance_events_view_util.cc:100] [1679.41] ego_theta: -0.0340543 agent_theta: -3.13877
+       I1014 21:39:13.242457 1953497 relevance_events_view_util.cc:100] [1679.41] ego_theta: -0.0344759 agent_theta: -3.13877
+       I1014 21:39:13.242462 1953497 relevance_events_view_util.cc:100] [1679.51] ego_theta: -0.0349774 agent_theta: -3.14448
+       I1014 21:39:13.242467 1953497 relevance_events_view_util.cc:100] [1679.61] ego_theta: -0.0354641 agent_theta: -3.15019
+       I1014 21:39:13.242472 1953497 relevance_events_view_util.cc:100] [1679.71] ego_theta: -0.0359344 agent_theta: -3.1559
+       I1014 21:39:13.242487 1953497 relevance_events_view_util.cc:100] [1679.81] ego_theta: -0.0362981 agent_theta: -3.16162
+       I1014 21:39:13.242491 1953497 relevance_events_view_util.cc:100] [1679.91] ego_theta: -0.0366607 agent_theta: -3.16733
+       I1014 21:39:13.242496 1953497 relevance_events_view_util.cc:100] [1680.01] ego_theta: -0.0370191 agent_theta: -3.17235
+       ...
+     #+end_src
+   - SUMMARY:
+     - reproduced the index via index_one_log. inspected the
+       *track_world_state.track_ground_truth.track_ground_truth_events*. printed component ego and
+       agent angles and confirmed that they were offset 180deg (i.e.: pi radians) in the events
+     - went to confirm that the raw comms messages had the same angles
+       - in the video, NB is moving in the +x direction in smooth coordinates, so i assume its yaw
+         is correct
+       - track 12 has a correct orientation of -90deg in smooth
+       - track 96 has correct orientation of -90deg
+       - cyclist has incorrect orientation
+     - relevant files
+       - relevance_events_view_util.cc uses ego and track samplers supplied from
+         track_relevance_events_view.cc
+       - ego sampler from ego_pose_info_view.cc
+         - gets pose data from pose_view.cc#AllPoses. this is populated in
+           pose_view.cc#UpdateInternalState from the pose topic
+         - ego sampler interpolates between poses in ego_pose_sampler.cc#GetPoseXYT, which calls
+           pose_accessor.cc#GetInterpolatedTransform3
+         - transform3.h has a constructor of Transform3 that uses the pose pitch, roll, and yaw to
+           create a rotation matrix. uses Transform3::Interpolate to interpolate between them
+         - in onboard/comms/proto/pose.proto, see that the pitch, roll, and yaw are in smooth
+           coordinates
+       - track sampler from
+         - gets data from track.cc#QueryState and then track.cc#QueryStateOrShape, which
+           interpolates between Track::track_states_ via track_state.cc#Interpolate
+         - track_states_ is populated in the Track constructor using the TrackState constructor from
+           the raw DetectedObjectsMessage proto message from track_view.cc#UpdateInternalState
+         - nested in the DetectedObjectsMessage, as seen in onboard/comms/proto/track_state.proto,
+           see that the SplineStateProto orientation is in smooth coordinates
+     - perception team said that incorrectly reversed orientation is a known issue
+     - to more robustly address helen's issue, should introduce different field *ego_to_agent_dyaw*
+       that compares yaws (i.e.: direction of travel) instead of orientations (i.e.: direction
+       facing)
+** DONE ping helen about ego_to_agent_dtheta
+   CLOSED: [2021-10-27 Wed 08:15] SCHEDULED: <2021-10-25 Mon>
+   [2021-10-20 Wed 15:15]
+* TODO C++ protobuf arenas at nuro                                    :learn:
+  [2021-10-08 Fri 11:45]
+  - from 10/8/2021 SW weekly (rewatch segment)
+  - what does "comms" mean? what is the pub-sub architecture, and find an example of workflow
+  - find examples of arenas in code for a specific comms module
+* DONE review https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/92496   :learn:
+  CLOSED: [2021-10-13 Wed 18:45] DEADLINE: <2021-10-13 Wed>
+  :CLOCK:
+  CLOCK: [2021-10-13 Wed 18:15]--[2021-10-13 Wed 18:45] =>  0:30
+  :END:
+  [2021-10-08 Fri 12:45]
+  - saw on #index-tools slack https://nuro-team.slack.com/archives/CG3GP4N73/p1633478407086400
+  - want to learn more about indexing logic
+* TODO learn about C++ profiling                                      :learn:
+  [2021-10-08 Fri 12:45]
+  - [X] n/profiling
+  - [ ] ggprof (seen from arena segment of 10/8/2021 SW weekly talk)
+* TODO read about H2 OKRs                                             :learn:
+  DEADLINE: <2022-11-18 Fri>
+  [2021-10-08 Fri 13:30]
+  - https://docs.google.com/document/d/1NfYXc5_aJk-0gw4OtyIyHcygZX6ui_w3WNUWbp5pVKg/edit
+  - [ ] browse through JIRAs + gantt
+  - [ ] what is CLZ 10k deployment?
+* DONE read sprint 3 planning doc                                     :learn:
+  CLOSED: [2021-10-15 Fri 11:15] DEADLINE: <2021-10-15 Fri>
+  [2021-10-08 Fri 13:30]
+  https://docs.google.com/document/d/1ugGmUPVyS1jExc2e3sjS0tF9DOrENzI7NZ5KXVg86Oc/edit
+* DONE debug indexing job
+  CLOSED: [2021-10-13 Wed 11:45] SCHEDULED: <2021-10-11 Mon>
+  [2021-10-10 Sun 23:30]
+* DONE look at michal's tasks + PR's so far                           :learn:
+  CLOSED: [2021-10-19 Tue 15:00] DEADLINE: <2021-10-13 Wed>
+  :CLOCK:
+  CLOCK: [2021-10-19 Tue 14:45]--[2021-10-19 Tue 15:00] =>  0:15
+  CLOCK: [2021-10-19 Tue 11:00]--[2021-10-19 Tue 11:30] =>  0:30
+  CLOCK: [2021-10-18 Mon 11:00]--[2021-10-18 Mon 11:45] =>  0:45
+  CLOCK: [2021-10-14 Thu 09:15]--[2021-10-14 Thu 10:45] =>  1:30
+  CLOCK: [2021-10-13 Wed 23:00]--[2021-10-14 Thu 02:00] =>  3:00
+  CLOCK: [2021-10-13 Wed 18:45]--[2021-10-13 Wed 19:15] =>  0:30
+  :END:
+  [2021-10-10 Sun 23:30]
+  - filter out his JIRAs
+  - filter out his PRs
+  - look at slack messages
+  - [X] SF query
+  - [X] https://jira.nuro.team/browse/SW-8051
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/89185
+  - [X] indexed log docs
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/87430
+      - https://jira.nuro.team/browse/SW-9045
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/88465
+      - https://jira.nuro.team/browse/SW-9440
+  - [X] https://docs.google.com/document/d/11GOAxOTXDGP3NTL9YkfUoxRuTWUb_jKwPF2mpoCUPek/edit?pli=1#heading=h.1r1ja2om5n0s
+    - [X] https://jira.nuro.team/browse/SW-8027
+      - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/89711
+    - [X] https://jira.nuro.team/browse/SW-10824
+      - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/90131
+  - [X] https://jira.nuro.team/browse/SW-8179
+    - https://docs.google.com/document/d/1L6iZTRrcVZnUHF_vD3nHIzElEJCJKPmcrtL4mZRsnU0/edit#heading=h.1r1ja2om5n0s
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/88278
+  - [X] what is eval of eval?
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/oracle/eval_of_eval/README.md
+  - [X] BE doc
+    - https://docs.google.com/document/d/15otGQZMZUYCzGnVko_U9zWUPHfWWFtU5f1yIjcPzZUQ/edit?pli=1#heading=h.eqo80zbxzwva
+  - [X] not yielding
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/92797/files
+    - http://cardiff.corp.nuro.team/oracle?sourceType=SimTest&baseJobId=ayuk9mqv&baseVariant=15mph_srp_ignore_uz&branchJobId=ayuk9mqv&branchVariant=15mph_srp_ignore_uz&sceneSet=Benchmark20k_Scope1_v202105&ipSet=not_yielding_behavior_event_joint_ip_eval&baseOracleJobId=x6ous0&branchOracleJobId=x6ous0
+  - [X] bad nudge
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/92566/files
+    - https://docs.google.com/document/d/1_gDZalD9RS-TKOrXjCzJqYnFfzHVOTQMl1c0BchGSPI/edit?pli=1#
+* DONE [#A] read about kubernetes                                     :learn:
+  CLOSED: [2022-02-25 Fri 20:00]
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-02-25 Fri 12:15]
+  :END:
+  [2021-10-10 Sun 23:45]
+  - https://confluence.nuro.team/display/INFRA/Guide+to+Kubernetes
+* TODO what is ROI?                                                   :learn:
+  [2021-10-11 Mon 00:00]
+  - seen from https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/91662
+* NEXT watch intern presentation (dynamic object reconstruction)      :learn:
+  [2021-10-11 Mon 00:00]
+  - https://drive.google.com/file/d/1fwyTYdQT2Wf1_Rtb21Bm5zD0Q21Z8u6G/view
+* TODO [#A] watch intern presentation (constrained RL)                :learn:
+  [2021-10-11 Mon 00:00]
+  - https://drive.google.com/file/d/1F7zARkOpNSnKycJ5Kncwl6PH6Ydl8M4e/view
+  - refers to PID… for what application?
+* TODO [#A] watch routing for data collection                         :learn:
+  [2021-10-11 Mon 00:00]
+  - https://drive.google.com/file/d/1PorCvcecUTugOuybXpXOkw7deIHmVF44/view
+  - from SW weekly 8/26
+  - refers to integer programing
+* TODO [#A] watch intern presentation (predictive agents)             :learn:
+  [2021-10-11 Mon 00:15]
+  - https://drive.google.com/file/d/1EvPZE1RXl3qH7Hh5rx79gz9v29rVafLs/view
+* TODO [#C] read about nuro's logs                                    :learn:
+  [2021-10-11 Mon 00:15]
+  - https://docs.google.com/document/d/1N0k7WaEnzuFNYDaXNM80qn2vaJNwyNVIq7_io-BqTak/edit#heading=h.4afsdj17bni5
+  - https://docs.google.com/presentation/d/18eClexMcO3pLJR8OvQvFskd4wz7sCQAU9_NnTO0Meyo/edit#slide=id.g32fd47c711_1_15
+  - should be from the SW tutorial doc
+* TODO [#C] read on-call guide                                        :learn:
+  [2021-10-11 Mon 00:15]
+  - https://docs.google.com/spreadsheets/d/1OchBqWLHUf6jydXSJ8R4xbDHMF2bQdJmh8ObrPVv8vE/edit#gid=1961680948
+* TODO read nuro CLI docs                                             :learn:
+  [2021-10-11 Mon 00:15]
+  - https://docs.google.com/document/d/1-y-JsJ73Nvm3IL09_O89Ytq02QPn7P2g2KgUAwPOQDg/edit#heading=h.7gf5xfjze7ex
+* TODO [#A] read about eval stories                                   :learn:
+  [2021-10-11 Mon 00:15]
+  - https://docs.google.com/document/d/1EX2ERsI0eXkPwrdvbvZNwhGcM2ySgQnlW6LfGm4EVKs/edit
+  - [ ] Are there other parallel types of evaluation worth comparing to (e.g.: safety and systems)?
+    i.e.: what are the different types of IPs written? Examples of high-level like S&S or
+    module-level like us?
+* DONE read about distribution sceneset generator                     :learn:
+  CLOSED: [2021-11-11 Thu 15:45] DEADLINE: <2021-11-05 Fri>
+  :CLOCK:
+  CLOCK: [2021-11-11 Thu 14:45]--[2021-11-11 Thu 15:45] =>  1:00
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2021-11-11 Thu 14:45]
+  :END:
+  [2021-10-11 Mon 00:15]
+  - https://docs.google.com/document/d/1N_IAUJcif2sAt04RS5VPbrLHNSh4GSCgWpCujK5oipo/edit#heading=h.1r1ja2om5n0s
+* TODO [#A] interesting prediction issues                             :learn:
+  [2021-10-11 Mon 00:15]
+  - from manu on https://nuro-team.slack.com/archives/G01PM94F4KV/p1630351156020200
+  - https://docs.google.com/document/d/1qOINLsbfSK1CJbAPSn08hQFSeZY5F4OGDnq_7pR1P_A/edit
+* TODO [[https://docs.google.com/document/d/1OJNGPwKNXXPJ_qZWr8lFw49-YGB1cmXX9EOWOZ-OIxM/edit#heading=h.gu9duxxuyppw][intro to sim]]                                                   :learn:
+  [2021-10-11 Mon 00:15]
+* TODO [#A] watch ILP talk                                            :learn:
+  [2021-10-11 Mon 00:15]
+  - https://drive.google.com/file/d/1QRJZf9OsyASalJpTR6BJ5ICLEoj5Vaos/view
+* TODO [#C] try a local sim
+  [2021-10-11 Mon 00:15]
+  - like in tutorial
+* TODO learn more about mapping                                       :learn:
+  [2021-10-11 Mon 00:15]
+  - try to understand the mapping updates more - what does the mapping team do? how do we generate
+    our maps? how much is externally sourced vs generated in-house? how much is automatically
+    generated (e.g.: SLAM) v.s. manually labelled?
+    - from 9/20-9/27/2021: what is CLZ (chaseless zone)? what is MZ (manual zone)? what is DC?
+    - what are the components of a context map? how are they reconciled w/ perception?
+  - what is embedded scan matcher? https://jira.nuro.team/browse/RO-14396
+* TODO tutorial + starter kit second pass                             :learn:
+  DEADLINE: <2022-11-18 Fri>
+  [2021-10-11 Mon 00:15]
+  - what is the GCP virtual workstation? Is that different from my workstation?
+  - what is a category vs sceneset
+  - what are all the different gates?
+    - Local, simtest, continuous sim, nightly, weekly, car bench, large scale?
+* TODO index tools blog post second pass                              :learn:
+  DEADLINE: <2022-11-18 Fri>
+  [2021-10-11 Mon 00:30]
+  - https://autonomy-tools.corp.nuro.team/blog/introduction-to-index-tools
+  - [ ] what triggers indexing?
+    - cron? what does the schedule look like? how often and which logs?
+* TODO browse new onboarding resources                                :learn:
+  DEADLINE: <2022-11-18 Fri>
+  [2021-10-11 Mon 00:30]
+  - https://confluence.nuro.team/pages/viewpage.action?spaceKey=DH&title=Software+Technical+Onboarding+Guide
+  - https://drive.google.com/file/d/18mT4Kd9SrS-MEcm9HivXTwUsti_2umvv/view
+* TODO skim Q2 OKRs                                                   :learn:
+  DEADLINE: <2022-11-18 Fri>
+  [2021-10-11 Mon 00:30]
+  - https://docs.google.com/document/d/1XkmR3R5RhMY4DLi5X1EHaA4UE4Iyll5Ze7f51dCJfG4/edit?pli=1#heading=h.m5mgpuf285k0
+* TODO read about scopes (scope 0*)                                   :learn:
+  DEADLINE: <2022-11-18 Fri>
+  [2021-10-11 Mon 00:30]
+  - https://docs.google.com/presentation/d/12tYgrsxYanF0RS3KCD2e0DNTpzABTHu4ZT0gckVm1kY/edit#slide=id.gd9da50fe3d_1_33
+    (from sprint 3 planning doc)
+  - ramp doc: https://docs.google.com/spreadsheets/d/1xkYgYQ78X2XI5Vbk3SR8c0emqeRRKWUuC7JPEDn5iOg/edit
+  - scope 0* waffle selection: https://docs.google.com/presentation/d/10MCwvP-_I2teF-Hj8DGw5Jiweu9JCafrVaEjfx6Xpp8/edit
+  - https://confluence.nuro.team/pages/viewpage.action?spaceKey=AUT&title=Scope+0*+Deployment+Gates+Status
+* TODO read behavior tools team proposal                              :learn:
+  DEADLINE: <2022-11-18 Fri>
+  [2021-10-11 Mon 00:45]
+* TODO what test does #continuous-jenkins represent?                  :learn:
+  [2021-10-11 Mon 00:45]
+  - might know better after reading about PR's + premerge checks reference
+* TODO what do the SWOps + SQOps teams do?                            :learn:
+  [2021-10-11 Mon 00:45]
+* TODO understand nuro terms                                          :learn:
+  [2021-10-11 Mon 00:45]
+  - [ ] what is kickout? (seen from behavior all hands 8/27 in description of scope 0*)
+  - [ ] what is DBW? (drive by wire) (seen from behavior all hands 8/27)
+  - [ ] what is the definition of L1/2/3 criticals? (from 9/10 behavior all hands)
+* TODO autonomous insights initiative second pass
+  DEADLINE: <2022-11-18 Fri>
+  [2021-10-11 Mon 00:30]
+  - https://docs.google.com/presentation/d/1pFb1vbp0-AmyPQe5xmIK7CfdjIQYwncYWzpI1u_Myhk/edit#slide=id.gdaf6f6d324_0_1173
+  - [ ] what is GT?
+  - [ ] what is pre-merge evaluation/validation (e.g.: from initiatives presentation)? Examples?
+    When do they run? How frequent in practice? How long do they take? What is the technical
+    mechanism? (also seen in behavior eval bi-weekly agenda)
+  - [ ] understand the case studies
+* TODO how are behaviorregression and benchmark20k curated?           :learn:
+  [2021-10-11 Mon 00:45]
+  - Curated scenesets by Sarah for pre-merge validation. Find documentation
+* TODO what is the MH model?                                          :learn:
+  [2021-10-11 Mon 00:45]
+  - e.g.: https://jira.nuro.team/browse/SW-9372
+* TODO what is 10K deployment?                                        :learn:
+  DEADLINE: <2022-11-18 Fri>
+  [2021-10-11 Mon 00:45]
+  - https://jira.nuro.team/secure/StructureBoard.jspa?s=130
+  - also 420k? heard that in the behavior bi-weekly's
+* TODO inspect composition of BehaviorRegression sceneset             :learn:
+  [2021-10-11 Mon 00:45]
+  - https://docs.google.com/spreadsheets/d/1Bir6njOiaxZ9e3etxDbs_Jt-xBSc5b58rWugf-aNv0A/edit#gid=0
+  - anything worth noting or emphasizing? differences between scopes? (from behavior eval starter task doc)
+* TODO what is autoeval?                                              :learn:
+  [2021-10-11 Mon 00:45]
+  - mentioned in oracle developer workflow doc
+  - https://docs.google.com/presentation/d/1vxCj5_BI7v4h9tIZ3Ax-ZkCJ6i51fhC9JktzVA1Sfdg/edit#slide=id.g32fd47c711_1_43
+* TODO What is this spreadsheet? (from behavior eval starter task doc) :learn:
+  [2021-10-11 Mon 01:00]
+  - https://docs.google.com/spreadsheets/d/1ETnBS90UxdoET05WkwVhPvPjZUErIxt-aUslS_m0tbs/edit#gid=0
+  - should list issuepredictors
+  - also in [[file:~/org/notes/2021-10-11T0002.org::+TITLE: AG’s Test Correlation Matrix]]
+* TODO what is this spreadsheet? (from behavior eval starter task doc) :learn:
+  [2021-10-11 Mon 01:00]
+  - https://docs.google.com/spreadsheets/d/16AIjQtGUMYI1e_06kZPMHJlGG5qxdYdDdIkwBSc62bk/edit#gid=0
+  - first sheet lists green sims for each sceneset/commit. what are the other sheets?
+* TODO what does index_tools_build do? what images are involved? when to run it? (from kinematics IP) :learn:
+  [2021-10-11 Mon 01:00]
+  - what dashboards are there? http://oracle.corp.nuro.team/docs http://cardiff.corp.nuro.team/oracle https://index-tools.corp.nuro.team
+* TODO issuepredictor best practices                                  :learn:
+  [2021-10-11 Mon 01:00]
+  - https://docs.google.com/document/d/1D96MrECsJBdyACbd03qEzTRuom19HIQtc43iGi-5pn0/edit#
+* TODO read about perception panorama model                           :learn:
+  [2021-10-11 Mon 01:00]
+  - https://docs.google.com/document/d/16Mvl2CpfG9eVbhzcDDkvpMZroh7BfNSFh9cJJo-7XjA/edit#heading=h.bensvfipc2rd
+  - https://docs.google.com/document/d/1R3Iw_CqWXPBcu2L-1qX-wusEQIZYge343qoD0PjRh0k/edit#
+* DONE [#A] read about nuro coordinate systems                        :learn:
+  CLOSED: [2021-10-19 Tue 21:45]
+  [2021-10-11 Mon 01:00]
+  - https://docs.google.com/document/d/1mdMEQ9eZImczhUpWiUazPxRbVaUz5VBaThStB9vp718/edit?pli=1#heading=h.o8fd193n1w9z
+* TODO [#A] ask about https://stackoverflow.com/c/nuro/questions/1693 :learn:
+  [2021-10-11 Mon 01:00]
+  - fuzzing to determine decision boundaries (what is auto eval?)
+* DONE review https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/91454   :learn:
+  CLOSED: [2022-09-30 Fri 19:09] DEADLINE: <2022-09-30 Fri>
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-09-30 Fri 15:00]
+  :END:
+  [2021-10-11 Mon 01:00]
+  - from browsing anshul's open PRs
+* TODO learn more about comms                                         :learn:
+  [2021-10-12 Tue 13:30]
+  - https://docs.google.com/document/d/1er5ihBOqpFAyixMp59Tg9TWEmJ5M5Sda3YEytCZXJTc/edit#heading=h.5ocyc94e9iy
+  - some pub/sub system. what does the architecture look like?
+  - how are the messages organized in an ndf?
+* DONE indexed log documentation
+  CLOSED: [2021-10-20 Wed 13:30] SCHEDULED: <2021-10-22 Fri>
+  :CLOCK:
+  CLOCK: [2021-10-19 Tue 15:00]--[2021-10-19 Tue 16:15] =>  1:15
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2021-10-19 Tue 15:00]
+  :END:
+  [2021-10-13 Wed 18:45]
+* TODO create jira for rolling stops IP
+  [2021-10-14 Thu 00:15]
+* TODO what is "consensus" triage?                                    :learn:
+  [2021-10-14 Thu 02:00]
+  - seen in https://jira.nuro.team/browse/SW-9905 and
+    https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/oracle/eval_of_eval/README.md
+* TODO read about collision detection                                 :learn:
+  [2021-10-19 Tue 22:45]
+  - https://docs.google.com/document/d/1C3ugji1K7yibeCtpoDTz4TTnSl9rTOPsehe2LOEBKeM/edit
+  - https://docs.google.com/document/d/1ZZZhHD5R-s949sHQeSxOHKFUsaMA7dLjVfUtCXqCDlE/edit
+  - from: https://docs.google.com/document/d/15JRqDiWJEjhKUiCp707q_LaQh_BSPYikpdH0WBl1_v8/edit
+* TODO read about vehicle dynamics modeling                           :learn:
+  [2021-10-19 Tue 22:45]
+  - [[file:~/org/notes/2021-10-19T2227.org][Vehicle Dynamics Model Simulation]]
+  - https://docs.google.com/document/d/1Y_FPjTFfPWV0ZFyI59HAnjnhBRLgtF3NKET6q_mIa_4/edit#heading=h.1bwwrb167m7k
+    - from https://docs.google.com/document/d/15JRqDiWJEjhKUiCp707q_LaQh_BSPYikpdH0WBl1_v8/edit#
+* TODO read blended branching design doc                              :learn:
+  [2021-11-01 Mon 11:00]
+  - https://docs.google.com/document/d/1jPMgj5Ad2jDWzGpq0HNryQOORxyUYYTv3izk1wylcWs/edit
+  - https://docs.google.com/presentation/d/1VAbLyyYLiHvePQlMAwVYeY2yrO5tBXtu8JXYZSzoUs4/edit
+* TODO review https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/94857/files :learn:
+  [2021-11-01 Mon 15:15]
+  - from https://nuro-team.slack.com/archives/G01PM94F4KV/p1635553740044800
+* DONE debug duplicate shm block issue
+  CLOSED: [2022-08-15 Mon 12:58]
+  :CLOCK:
+  CLOCK: [2022-01-28 Fri 12:00]--[2022-01-28 Fri 13:30] =>  1:30
+  CLOCK: [2022-01-27 Thu 13:30]--[2022-01-27 Thu 13:45] =>  0:15
+  CLOCK: [2021-11-24 Wed 07:15]--[2021-11-24 Wed 11:45] =>  4:30
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "NEXT"       [2022-07-27 Wed 10:28]
+  - State "IN-PROGRESS" from "TODO"       [2021-11-24 Wed 07:45]
+  :END:
+  [2021-11-24 Wed 07:45]
+  - originally: https://jira.nuro.team/browse/SW-14759
+    - why error when duplicated block id's if know ring buffers can repeat?
+      - old messages are expected to be evicted from the cache first
+    - 7e778ce13b4ccee69f239e2a1a25d1ff0c17acc4 - latest commit w/ version 100 for mpd.pbtxt (any
+      commit with this version should work)
+    - ce29bf26a07 - version 101 (right before changed to 102)
+      #+begin_src text
+        [=>                          ] Process time: 45.00/1004.74 (4.48%), remaining: 00h:12m:57s.terminate called after throwing an instance of 'nuro::InternalStatusError'
+          what():  INTERNAL:Failed to allocate block 7840 for shm /pose_ring_placeholder since it is already currently allocated
+        tool/index_tools/indexing/shm_buffer_cache.cc:34: it.second
+          @ 0x562f64b805c1  tool::index_tools::indexing::ShmBufferCache::AllocateShmBlock()
+          @ 0x562f639fa872  std::thread::_State_impl<>::_M_run()
+          @ 0x7fd653d44d84  (unknown)
+
+        ,*** Aborted at 1639421817 (unix time) try "date -d @1639421817" if you are using GNU date ***
+        PC: @                0x0 (unknown)
+        ,*** SIGABRT (@0x70a106fb0010fdad) received by PID 1113517 (TID 0x7fd599447700) from PID 1113517; stack trace: ***
+            @     0x7fd653c553c0 (unknown)
+            @     0x7fd65391f18b gsignal
+            @     0x7fd6538fe859 abort
+            @     0x7fd653d0c951 (unknown)
+            @     0x7fd653d1847c (unknown)
+            @     0x7fd653d184e7 std::terminate()
+            @     0x7fd653d18799 __cxa_throw
+            @     0x562f65450ee8 nuro::Throw<>()
+            @     0x562f6545016e nuro::StatusError::Throw()
+            @     0x562f6544e824 nuro::internal::CheckStatusBuilder::~CheckStatusBuilder()
+            @     0x562f64b806e1 tool::index_tools::indexing::ShmBufferCache::AllocateShmBlock()
+            @     0x562f639fa872 std::thread::_State_impl<>::_M_run()
+            @     0x7fd653d44d84 (unknown)
+            @     0x7fd653c49609 start_thread
+            @     0x7fd6539fb293 clone
+            @                0x0 (unknown)
+      #+end_src
+    - 18eb5c3 - version 101 (right after turned 101)
+      #+begin_src text
+        [=>                          ] Process time: 43.20/1004.74 (4.30%), remaining: 00h:29m:10s.terminate called after throwing an instance of 'nuro::InternalStatusError'
+          what():  INTERNAL:Failed to allocate block 37 for shm perception_grid since it is already currently allocated
+        tool/index_tools/indexing/shm_buffer_cache.cc:34: it.second
+          @ 0x564d575cc971  tool::index_tools::indexing::ShmBufferCache::AllocateShmBlock()
+          @ 0x564d5644be95  std::thread::_State_impl<>::_M_run()
+          @ 0x7f788967dd84  (unknown)
+
+        ,*** Aborted at 1639422122 (unix time) try "date -d @1639422122" if you are using GNU date ***
+        PC: @                0x0 (unknown)
+        ,*** SIGABRT (@0x70a106fb00110ba4) received by PID 1117092 (TID 0x7f77d5c48700) from PID 1117092; stack trace: ***
+            @     0x7f788958e3c0 (unknown)
+            @     0x7f788925818b gsignal
+            @     0x7f7889237859 abort
+            @     0x7f7889645951 (unknown)
+            @     0x7f788965147c (unknown)
+            @     0x7f78896514e7 std::terminate()
+            @     0x7f7889651799 __cxa_throw
+            @     0x564d57e8b218 nuro::Throw<>()
+            @     0x564d57e8a49e nuro::StatusError::Throw()
+            @     0x564d57e88b54 nuro::internal::CheckStatusBuilder::~CheckStatusBuilder()
+            @     0x564d575cca91 tool::index_tools::indexing::ShmBufferCache::AllocateShmBlock()
+            @     0x564d5644be95 std::thread::_State_impl<>::_M_run()
+            @     0x7f788967dd84 (unknown)
+            @     0x7f7889582609 start_thread
+            @     0x7f7889334293 clone
+            @                0x0 (unknown)
+      #+end_src
+    - between ce29bf26a07 and 18eb5c3, something changed (even though the version is the same) to
+      change the problematic topic from perception_grid to pose_ring_placeholder. trying to bisect:
+      - line numbers based on:
+        #+begin_src shell
+          gl --color -n100000 --graph a82279dcfd5^..5af1c7c94d9 | less -N
+        #+end_src
+      - d8cdc54cf59
+        - perception_grid
+      - 12b7a76773d
+        - perception_grid
+      - 829c01324cc
+        - perception_grid
+      - 040318a52be
+        - perception_grid
+      - 5c00db19471
+        - perception_grid
+      - fe88c71ce8b
+        - perception_grid
+      - 77e00a31641
+        - pose_ring_placeholder
+      - 669b9ffc9e2
+        - perception_grid
+      - f2f135d87d7
+        - perception_grid
+      - fe88c71ce8b
+        - perception_grid
+      - 1bb3cadff7f
+        - pose_ring_placeholder
+      - 8d1e21b65dd
+        - pose_ring_placeholder
+      - f43a78d2ed8
+        - perception_grid
+      - 149b6f837c7
+        - pose_ring_placeholder
+      - 83745ce4d68
+        - pose_ring_placeholder
+      - this PR https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/97398/files caused things to
+        change. sanitizes topic name
+    - issue occurs at timestamp: 4159.78 for 20210707_090154_00022
+    - issue occurs at timestamp: 18330 for 20210919_193856_00049
+  - reported again: https://jira.nuro.team/browse/SW-19216
+  - reported again: https://jira.nuro.team/browse/TII-2322
+  - reported again: https://jira.nuro.team/browse/TII-2345
+  - CONCLUSION: 2 types of root causes
+    - actual duplicate block ID due to multiple writers to the same SHM topic
+    - published to frequently to SHM topic. IDs wrap around before old ones are evicted. should
+      adjust topic_buffer_duration
+    - on indexing side, only warn for duplicate block IDs. in principle, there shouldn't be a
+      problem
+    - lingering Q: why not matching "free" warnings for TII-2322?
+* TODO read [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/codestyle/cpp_guide.md][cpp style guide]]                                           :learn:
+  [2021-12-20 Mon 12:45]
+* DONE read through [[https://docs.google.com/document/d/1Y5TcayuuQUMg-GrMJ2gGlsoRbMvMx1sO93e-e022_v0/edit#][Behavior Eval: Ego Trajectory Test Protocols]]
+  CLOSED: [2022-01-25 Tue 12:45] SCHEDULED: <2022-01-25 Tue>
+  :CLOCK:
+  CLOCK: [2022-01-25 Tue 12:15]--[2022-01-25 Tue 12:45] =>  0:30
+  CLOCK: [2022-01-25 Tue 11:00]--[2022-01-25 Tue 11:45] =>  0:45
+  :END:
+  [2022-01-25 Tue 10:15]
+* DONE review PRs in inbox
+  CLOSED: [2022-01-27 Thu 13:30] SCHEDULED: <2022-01-25 Tue>
+  :CLOCK:
+  CLOCK: [2022-01-27 Thu 10:45]--[2022-01-27 Thu 13:30] =>  2:45
+  CLOCK: [2022-01-26 Wed 13:30]--[2022-01-26 Wed 15:30] =>  2:00
+  CLOCK: [2022-01-26 Wed 11:15]--[2022-01-26 Wed 12:00] =>  0:45
+  CLOCK: [2022-01-25 Tue 16:00]--[2022-01-25 Tue 16:30] =>  0:30
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-01-25 Tue 12:45]
+  :END:
+  [2022-01-25 Tue 10:15]
+* TODO read [[https://docs.google.com/document/d/1JgkoxLBjStN4qrYcRdfrQkhNzA1v02ko0PuZ2rzOWrM/edit#][Behavior Eval Narrative]]
+  [2022-01-25 Tue 11:15]
+* DONE read [[https://docs.google.com/document/d/1S478xUBJFEakj36WhXvsNrv2IoyjziWAgYiM4FssV8A/edit#][Behavior Eval: Test Protocol Identity]]
+  CLOSED: [2022-01-25 Tue 12:00] DEADLINE: <2022-01-28 Fri>
+  :CLOCK:
+  CLOCK: [2022-01-25 Tue 11:45]--[2022-01-25 Tue 12:00] =>  0:15
+  :END:
+  [2022-01-25 Tue 11:15]
+* TODO read [[https://docs.google.com/document/d/1uaGfCTYhc-DRdm6QTvNWBfV3g8jZN2Z3qIv6Zv7enyQ/edit#][Test Management System]]
+  [2022-01-25 Tue 12:15]
+* DONE read about michal's bad nudge
+  CLOSED: [2022-03-17 Thu 15:00] DEADLINE: <2022-03-16 Wed>
+  :CLOCK:
+  CLOCK: [2022-03-17 Thu 14:15]--[2022-03-17 Thu 15:00] =>  0:45
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-03-17 Thu 14:30]
+  :END:
+  [2022-01-27 Thu 13:30]
+  - https://docs.google.com/document/d/1_gDZalD9RS-TKOrXjCzJqYnFfzHVOTQMl1c0BchGSPI
+  - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/98108
+** questions about bad nudge
+   - see how filter affects scenarios w/ legitimate bad nudges? what is the frequency response of
+     legitimate bad nudges?
+   - to address startup artifacts, can we try extending the initial values of velocity? (is
+     butterworth FIR?)
+   - notebook with code that generated the graphs? how did he query for triage labels??
+   - how to know route curvature in map? is it in the world state?
+* DONE re-setup workstation
+  CLOSED: [2022-02-24 Thu 11:30] SCHEDULED: <2022-02-22 Tue>
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-02-18 Fri 08:45]
+  :END:
+  [2022-02-18 Fri 08:45]
+  - [X] look at notes
+  - [X] desktop setup file
+  - [X] install vscode + chrome + emacs
+  - [X] upload public key
+  - [X] github ssh key
+  - [X] download dotfiles
+  - [X] prevent super key from opening activities in ubuntu
+    - dconf-editor. change org.gnome.mutter overlay-key https://askubuntu.com/questions/105558/how-do-i-disable-the-super-key/1280308#1280308
+  - [X] set up terminal + zsh + z jump + fzf
+  - [X] clone nuro codebase
+  - [X] vscode remote-ssh
+    - https://confluence.nuro.team/display/MP/Remote+Onboard+Development+with+VS+Code
+  - [X] vscode extensions (mirror personal laptop)
+  - [X] nomachine installation doc
+  - [X] run setup script
+  - [X] use alt for meta in terminal (check if emacs in terminal works)
+    - meta already works for emacs in terminal. no need to change anything
+  - [X] read starter kit
+  - [X] read sw eng onboarding
+  - [X] nuro codebase readme
+  - [X] search gleam for ssh
+  - [X] git pull-green
+  - [X] check nvidia-smi
+  - [X] don't lock screen when idle
+  - [X] ipmi
+    - cannot reboot via ssh
+  - [X] python + conda
+    - [X] re-run setup script
+    - [X] WARNING: The scripts pip, pip3 and pip3.8 are installed in */home/kyang/.local/bin* which
+      is not on PATH. Consider adding this directory to PATH or, if you prefer to suppress this
+      warning, use --no-warn-script-location.
+      - the pip in this directory didn't work. resulted in *ImportError: cannot import name
+        'InvalidSchemeCombination' from 'pip._internal.exceptions'*
+      - https://stackoverflow.com/questions/67273590/pip-21-1-cant-import-invalidschemecombination
+        suggests that pip is corrupted
+      - not sure why the files in this folder are needed. nuro-cli also seems to work fine without
+        the .local/bin in my path. for now just don't include in PATH
+    - [X] test nuro-cli in path. Nuro-cli is not on your path, we need add /home/kyang/bin to your
+      $PATH. Do this automatically now (or you can do yourself later). (added to .bashrc)
+  - [X] update apt packages
+  - [X] have gnome start as login shell
+  - [X] remove PATH changes in *~/.profile*
+    - ubuntu seems to load this file upon login, regardless of which shell is actually later
+      used. zsh doesn't look at *~/.profile* itself
+* TODO nuro jira 101                                                  :learn:
+  [2022-03-02 Wed 11:00]
+* TODO read about https://jira.nuro.team/browse/SW-16004              :learn:
+  [2022-03-07 Mon 01:00]
+* DONE watch metadata talk                                            :learn:
+  CLOSED: [2022-03-08 Tue 16:45] SCHEDULED: <2022-03-08 Tue 12:00>
+  [2022-03-08 Tue 01:15]
+  - https://drive.google.com/file/d/1SrjCZhMFBkRu_FHTStXiBdDyjGt78MVs/view?pli=1
+* DONE [#A] reach out to lesley about TAB. austin about interviewing
+  CLOSED: [2022-03-22 Tue 10:30] SCHEDULED: <2022-03-22 Tue 09:00>
+  [2022-03-08 Tue 11:00]
+* DONE figure out tech talk
+  CLOSED: [2022-03-28 Mon 10:30] SCHEDULED: <2022-03-28 Mon 14:00>
+  [2022-03-24 Thu 12:15]
+* DONE try re-running apt update + swe_setup.sh
+CLOSED: [2022-05-18 Wed 12:30] SCHEDULED: <2022-05-23 Mon>
+:CLOCK:
+CLOCK: [2022-05-04 Wed 14:30]--[2022-05-04 Wed 15:00] =>  0:30
+:END:
+:LOGBOOK:
+- State "IN-PROGRESS" from "TODO"       [2022-05-04 Wed 14:45]
+:END:
+  [2022-04-28 Thu 12:30]
+  - https://jira.nuro.team/browse/IT-19541
+* TODO more principled FAQ confluence page?
+  [2022-06-09 Thu 14:00]
+  - rather than just a google doc https://docs.google.com/document/d/1YVYYKDGaDbSEnOJlMhk3TFsjAzBlDVFB8xRuHtulOfU/edit#
+* TODO what is cleanscen                                              :learn:
+  [2022-06-09 Thu 14:30]
+  - https://docs.google.com/document/d/1YbTizRZdloEmo2kQ-X9ZOOqa4L14jSIylPvlUn2DNSU/edit#heading=h.mt9wzhp4qqde
+  - https://docs.google.com/document/d/1VXVVP74kJbrExIIYtkgvF62Zq_7BbqZAP4r60jJKrms/edit#heading=h.ufhprujm6ktj
+* DONE scope 1 deep work eval stories
+  CLOSED: [2022-07-20 Wed 14:09]
+  :CLOCK:
+  CLOCK: [2022-07-20 Wed 13:50]--[2022-07-20 Wed 14:09] =>  0:19
+  CLOCK: [2022-06-13 Mon 12:45]--[2022-06-13 Mon 18:00] =>  5:15
+  CLOCK: [2022-06-13 Mon 11:00]--[2022-06-13 Mon 12:00] =>  1:00
+  CLOCK: [2022-06-10 Fri 10:30]--[2022-06-10 Fri 11:30] =>  1:00
+  CLOCK: [2022-06-09 Thu 14:45]--[2022-06-09 Thu 17:00] =>  2:15
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-06-09 Thu 14:45]
+  :END:
+  [2022-06-09 Thu 14:45]
+  - [X] look at deep work spreadsheet
+  - [X] look at deep work confluence
+  - [X] look at [[https://docs.google.com/document/d/1DxOcpQ1PlwNnbFt0zkk9zOO_oi6EOi1gqLZyOMhw12w/edit#][scope 1 eng triage]]
+  - [X] look at [[https://jira.nuro.team/secure/RapidBoard.jspa?rapidView=823&quickFilter=3762][kanban board]]
+  - [X] look at [[https://confluence.nuro.team/pages/viewpage.action?pageId=99847347][deep work eval setup]]
+    - [X] what is "MetricsJob" and "SyntheticJob"?
+      - refers to simtest job type. https://docs.google.com/document/d/1OJNGPwKNXXPJ_qZWr8lFw49-YGB1cmXX9EOWOZ-OIxM/edit#heading=h.kbnnwsggx1qq
+      - https://gitent.corp.nuro.team/Nuro-ai/Nuro/tree/develop/simulation/framework/batch_simulation/jobs
+  - [X] MPT signal (upstream signal)
+    - original MPT general initiative is now missing
+    - [X] scope 0* eval stories
+      - https://drive.google.com/drive/folders/1OBuC3zM9kYNU1qJPEQw32lFbqj3bj8vu
+      - [X] [[https://docs.google.com/document/d/18fVCqWORcHR2CmLAAoCBVsLE3M5fbPycmh7zPfY404s/edit#][unparking vehicles]]
+        - improvement scenesets
+          - prediction_eval_challenge
+          - ilp_2021_h2s3_driveway_unnecessary_yield
+          - ilp_2021_h2s3_driveway_should_yield
+          - driveway_exiters_800_v2
+        - regression scenesets
+          - critical_high_Scope1_v202202_full
+          - Benchmark20k_Scope1_Known_v202109
+        - metrics
+          - prediction_eval
+          - close_call_homotopy_mismatch
+      - [X] [[https://docs.google.com/document/d/1lUiyv1FuUfPae4_ugn4UPvZUQcdF-aL0x3dJuX3xS5s/edit#heading=h.m5mgpuf285k0][mpt]]
+        - improvement scenesets
+          - behavior_eval_mpt
+        - metrics
+          - behavior_proximity
+        - regression scenesets
+          - critical_high_Scope1_v202202_full
+          - Benchmark20k_Scope1_Known_v202109
+    - [X] read about [[https://confluence.nuro.team/pages/viewpage.action?spaceKey=AUT&title=Synthetic+Scene+Sets+from+Trustworthy+Scenes][synthetic scene sets]]
+      - describes how to use scenefinder on synthetic scenes
+    - [X] look at planner eval sets
+      - behavior_eval_mpt
+      - behavior_eval_mpt_fuzzed
+      - synthetic_mpt
+    - [X] how to see MPT signal in nuroviewer?
+      - can toggle
+    - [X] watch all DTs in NV
+    - [X] re-visit convo w/ jatin + wuming (maybe taiqi?)
+      - behavior_eval_mpt might not be high fidelity
+      - wuming making his own eval sceneset for ILP in response to MPT. wants IP like exiting_agents
+        but for MPT. using query https://index-tools.corp.nuro.team/scene_finder/details/67658
+      - jatin working on MPT signal. there are train/eval sets (also from [[http://scene-db.corp.nuro.team/scene_sets/_query_65593_results][jean's query]])
+      - should use index agg to compare track lifetime to mpt signal length
+      - jatin wants IP that measures MPT flickers
+    - [X] look at exiting_agents IP. adapt for MPT
+      - [X] understand close call
+      - [X] understand yield mismatch
+      - [X] understand homotopy mismatch
+      - [X] write mpt_agents
+      - [X] try out mpt_agents using index_agg_one_log on behavior_eval_mpt
+        - N/A
+      - [X] try out mpt_agents using index_agg_one_log on driveway exiter
+        - N/A
+      - [X] try out mpt_agents on behavior_eval_mpt on green/simtests
+        - [X] look at raw BQ sceneproperties
+          - N/A
+        - [X] validate using inspect_index
+          - N/A
+        - [X] inspect in NV
+          - N/A
+    - [X] reach back out to jatin + wuming + shashank
+      - N/A
+    - [X] write MPT flicker IP
+      - N/A
+    - [X] ask jatin about eval set from jean du's query. maybe makes sense to include training set
+      too since the metric is different
+      - N/A
+    - [X] read about synthetic scenes
+      - [X] from scope 0* - https://docs.google.com/spreadsheets/d/12WqKRqGzHbVlurbgfswt8tt-5clsqJx0dCed3xhephI/edit#gid=1755366953
+        - scope 0* synthetic scenes for eval
+      - [X] https://docs.google.com/document/d/1TU_tvvN-e_6VSKrzGZnxt0tw0ZCQSZZOeqh6DX_j_jw/edit#heading=h.91hv6cll1co0
+        - deep work how-to. n/sim is a better resource
+    - [X] look at https://retool.corp.nuro.team/embedded/public/743d8be4-8235-4e03-aa18-8c85a7394c3c#searchString=mpt
+      - N/A
+    - [X] look at scenes in behavior_eval_mpt. do they make sense?
+      - the logs don't play back correctly for some reason
+      - no SF query associated
+      - N/A - didn't do this task
+    - [X] also look at scenes in driveway scenesets
+      - N/A
+    - [X] look at [[https://index-tools.corp.nuro.team/scene_finder/details/67658][wuming's query]]
+      - N/A
+    - [X] look at [[http://scene-db.corp.nuro.team/scene_sets/_query_65593_results][jean's query]]
+      - N/A
+    - [X] look at sniyaz scenesets
+      - N/A
+    - [X] run index agg to compare track life w/ mpt signal length
+      - N/A
+    - [X] some DTs overlap with PVC and ILP/driveways (from confluence). look at those initiatives too
+      - N/A
+    - [X] there's a note in eng triage doc that says many driveway scenes are also MPT
+      - N/A
+    - [X] several DTs in confluence not in eng 1 triage doc. don't know where they came from
+      - N/A
+  - [X] search for sharp/wide turn oncoming scenesets
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/tree/develop/learning/behavior/data_dumping/scene_finder/queries
+      - narrow_oncoming
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/tree/develop/planning/planner_eval/eval_sets
+      - wide_turn_oncoming
+    - http://scene-db.corp.nuro.team/scene_sets/narrow_oncoming_flickering_behavior
+  - [X] make eval story docs
+    - https://drive.google.com/drive/folders/1na7HSLCWO5GUSnRWIZfZcmEwNBGgDBk6
+    - N/A - didn't do this task
+  - [X] what are default oracle configs? (from "defaults" in spreadsheet)
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/oracle/pipeline/utils/default_utils.py
+  - [X] [[https://docs.google.com/document/d/1-fAyjXHU7mAWiG1kSPffZ3JbGN-aggBVZYQdLA6W04s/edit#][internship MPT report]] (from mpt section in planner eval README)
+    - N/A. seems out of date
+* DONE onboard collision detection IP
+  CLOSED: [2022-07-15 Fri 17:11]
+  :CLOCK:
+  CLOCK: [2022-07-15 Fri 15:11]--[2022-07-15 Fri 17:11] =>  2:00
+  CLOCK: [2022-06-29 Wed 10:00]--[2022-06-29 Wed 10:45] =>  0:45
+  CLOCK: [2022-06-28 Tue 11:30]--[2022-06-28 Tue 12:15] =>  0:45
+  CLOCK: [2022-06-28 Tue 10:30]--[2022-06-28 Tue 11:15] =>  0:45
+  CLOCK: [2022-06-15 Wed 10:30]--[2022-06-15 Wed 12:00] =>  1:30
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-06-15 Wed 10:30]
+  :END:
+  [2022-06-15 Wed 10:30]
+  - [X] understand PR
+    - checklist vs topic vs watchdog
+      - topics are channels that messages are published to
+      - checklist same as watchdog
+    - what is kstop?
+      - reaction to checklist failure
+    - does indexing access checklist/watchdog?
+      - a little bit, but not a lot
+  - [X] write indexer
+    - [X] re-skim PR
+    - [X] open PR
+    - [X] read [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/tool/index_tools/indexing/README.md][Nuro/README.md at develop · Nuro-ai/Nuro]]
+    - [X] read indexing apple notes
+    - [X] read [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/tree/develop/tool/index_tools/index_aggregator][Nuro/tool/index_tools/index_aggregator at develop · Nuro-ai/Nuro]]
+    - [X] check deft notes
+  - [X] write IP
+  - [X] test w/ index_agg_one_log
+  - [X] write recall IP
+    - refer to collision_eval_recall config
+  - [X] re-run eval without early termination and changes to sim config
+    - met with jasper 6/27
+      - early termination of sim CDM was causing lack of metrics for some scenes
+      - shouldn't change sim config (i.e.: specify variant). the collision_eval sim job should by
+        default use the config originally used for each log, so i shouldn't change that by
+        specifying the variant (previously use 15mph_srp)
+        - however, technically the variant shouldn't really affect anything since collision_eval
+          doesn't resim behavior, but may cause some noisy signals w/ srp contours. srp also uses
+          the srp bot model in NV, which is confusing
+    - [[https://docs.google.com/document/d/1N-bOfWF4KK91fgqJeTUspky8VNkfuQFOPVrFvp4smZI/edit#heading=h.ufhprujm6ktj][Requesting BATES Jobs Documentation - Google Docs]]
+      - change pipeline_config to change simulate_to_end to true. this changes
+        [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/simulation/metric_modules/simulation_report_module.cc#L26][Nuro/simulation_report_module.cc at develop · Nuro-ai/Nuro]] early termination to false
+    - collision_eval_gating_scope1_por_clean.metrics_config.simulate_to_end=True,collision_eval_gating_scope1_por_clean.oracle_request_config.commit=d5be10f6e72097c4873047471e2c973f7a91bd89,collision_eval_gating_scope1_por_clean.oracle_request_config.config_names=[collision_eval,collision_eval_recall,onboard_collision_eval]
+    - simulatorArgs: simulation_report_early_termination=false
+      - from task object of [[http://bates.corp.nuro.team/tasks/simtest/wxbxqxb9/categories/_/subtasks][Bates]]
+    - job config: run_oracle=True
+  - [X] try to find if all required sensors are available (POR, follow up w/ aneesh) in index
+    - not in index
+  - [X] how to run oracle from bates dashboard??
+    - how to set run_oracle flag in SimTestConfig?
+    - CONCLUSION: add run_oracle=True in the job configs field (from slack message)
+  - [X] prepare PR
+    - [X] update_config_versions
+    - [X] index_tools_build generate docs + maybe generate_partition_files
+    - [X] profile
+      - can't find EgoStatusIndexer or OnboardCollisionView
+      - old total latency: 69.86s
+        - old ProcessLog latency: 33.44s
+      - new total latency: 70.09s
+        - new ProcessLog latency: 33.04s
+      - very comparable latency (magnitude <1% difference for total and <2% difference for ProcessLog)
+    - [X] index_tools_build re-deploy images
+      - chose to only re-deploy dashboard. i only want changes to the docs, so i want to minimize
+        other changes (like index agg workers). i think index agg worker images are updated anyways
+        with the dashboard, but ideally i don't want them to be eventually deployed. there were some
+        more indexing changes since mine and i don't want to accidentally break someone else's
+        oracle/indexagg job by breaking compatibility with old indices
+      - confirmed new field in world state docs
+    - [X] oracle_build re-deploy images
+      - new oracle config not showing up. found out it's because the image_tag is hardcoded in the
+        k8s yaml. don't want to deal with it right now
+  - [X] eval of eval
+    - [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/oracle/eval_of_eval/README.md][Nuro/README.md at develop · Nuro-ai/Nuro]]
+    - not relevant to this task. at most evaluating recall and expecting the scenesets to comprise
+      solely of scenes with a collision. there's no ground-truth flag denoting whether a scene
+      has/hasn't a collision
+    - [X] look at example that michal has previous run
+    - [X] [[https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/simulation/collision_detection/eval/scene_set_to_oracle_table.py?L33:15][scene_set_to_oracle_table.py - Nuro-ai/Nuro - Sourcegraph]]
+      - looking at this file b/c i'm interested in how ground truth tables are created
+      - creates ground truth tables from a pre-existing "master table"
+    - [X] look at jupyter notebook templates
+      - [X] generate_eval_of_eval_sim_sd_gt
+        - curates positive examples (scenes of with a DT of certain SD buckets) and negative
+          examples (other arbitrary scenes). uploads to scenedb and creates a GT table
+        - runs sim and checks pose divergence. if too great for a scene, filters that scene
+          out. creates another GT table for the sim
+        - launches eval of eval
+      - [X] generate_eval_of_eval_consensus_triage_gt
+        - just launches eval of eval
+        - how are consensus triage tables created in the first place?
+      - [X] pr_curve_ip
+        - retrieves metrics directly and plots precision/recall
+      - [X] debug_ip_with_eval_of_eval
+        - debugging an IP using eval of eval results. e.g.: see specific examples of FP/FN through
+          video or extract their data
+    - [X] look at michal's miss rate notebook
+      - normal oracle eval of eval doesn't support granularity finer than the scene-level. michal
+        needs it at the timestamp level so he computes confusion matrices in code
+  - notes
+    - dashboards
+      - [[http://oracle.corp.nuro.team/oracle?sourceType=SimTest&baseJobId=7ddep12g&baseVariant=15mph_srp&branchJobId=7ddep12g&branchVariant=15mph_srp&sceneSet=collision_eval_gating_scope1&branchOracleJobId=aphnwg&baseOracleJobId=aphnwg&ipSet=onboard_collision_eval][collision_eval_gating_scope1]]
+      - [[http://oracle.corp.nuro.team/oracle?branchJobId=1bmvrxnc&sourceType=SimTest&baseOracleJobId=q8i44s&branchOracleJobId=q8i44s&branchVariant=15mph_srp&baseVariant=15mph_srp&baseJobId=1bmvrxnc&sceneSet=collision_eval_gating_scope1_por&ipSet=onboard_collision_eval][collision_eval_gating_scope1_por]]
+    - [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/simulation/framework/batch_simulation/bates/jobs/collision_detection_eval_job.py][Nuro/collision_detection_eval_job.py at develop · Nuro-ai/Nuro]]
+      - enabled onboard CDM in general_eval since this job doesn't resim behavior (i.e.: post_ngm)
+    - [[https://docs.google.com/document/d/16f8cghQUuIoIuA1Re7_-mFcVME0lr8HSKIdxsbOj0iI/edit#][SimTest (Bates) Developer Guide Doc - Google Docs]]
+      - reference on writing sim job configs (including pipeline_config)
+* IN-PROGRESS joint eval
+  :CLOCK:
+  CLOCK: [2022-07-13 Wed 14:00]--[2022-07-13 Wed 14:26] =>  0:26
+  CLOCK: [2022-07-11 Mon 12:30]--[2022-07-11 Mon 13:30] =>  1:00
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-06-27 Mon 17:30]
+  :END:
+  [2022-06-27 Mon 17:30]
+** IN-PROGRESS background reading
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-09-15 Thu 16:07]
+   :END:
+   - [X] find docs about ndf structure
+     - [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/base/file/blob_v2/blob_v2.proto][Nuro/blob_v2.proto at develop · Nuro-ai/Nuro]]
+   - [ ] read about joint eval
+     - [ ] do my own search for related docs
+     - [ ] look at docs linked in original kickoff meeting that kun scheduled
+     - [ ] look at jasper's stuff about offline localization
+     - [ ] ask planner eval team about offline perception
+     - [ ] [[https://docs.google.com/document/d/1gddDQDd2mOWakXXk2E9czHEPVLDlk0CmVj9f2bAKze8/edit][Planner Sub-Module Eval Design Doc - Google Docs]]
+     - [ ] find label database
+     - [ ] [[https://docs.google.com/document/d/1lz7RRHnoPNJ7J5np0CCun5N0wQabuRC_5_eejVaDJGY/edit][Motion Validation Eval Design Doc - Google Docs]]
+   - [ ] find docs on BlobWriter. try it out
+     - [[https://confluence.nuro.team/pages/viewpage.action?spaceKey=DH&title=Blob+Writer+Documentation][Blob Writer Documentation - Documentation Hub - Confluence]]
+   - [-] read about prediction eval
+     - [X] check glean - https://app.glean.com/search?q=prediction+eval
+       - [[https://confluence.nuro.team/pages/viewpage.action?spaceKey=AUT&title=Eval][prediction eval confluence]]
+         - [[https://docs.google.com/presentation/d/1IbVoD1SnQR1mqiLpvtRhPFSDLIYKfXsKD3SiBdT1iCw/edit#slide=id.g1033b38c673_1_221][Prediction & Planning Contract - Google Slides]]
+         - [[https://docs.google.com/document/d/1dgQI2qzOlsTzG_dganBZ0_HwV3JttZI4OhAwGjccu14/edit#heading=h.8dqnazqpwmuh][Running Prediction-Eval2 - Google Docs]]
+           - nuro-ci usage -> [[https://docs.google.com/document/d/1j6OHfIBvcVIloN4BsQPmIUPzlyw29hHrE9D1GJv5lkk/edit#heading=h.h4nopv2dy2jo][Prediction Eval 3 - Google Docs]]
+         - [[https://docs.google.com/document/d/1PWlJApmRSfFQye2wInaPLxX1t64OnUaZ8fdg8txYmpU/edit#][Prediction Eval: Jupyter Frontend Guide - Google Docs]]
+           - [[https://docs.google.com/document/d/1lsvA8UypuZ-DrVDvLvoN3TXS7vPY1X3l0s-mmibLNEs/edit#heading=h.w4p7kcw0vtjz][New Prediction Eval2 Dashboard - Google Docs]]
+       - [[https://docs.google.com/document/d/1-VFYY8ouqR3urOO-BtuRYKIZbJ1mfPmOjy5vsFYrvEs/edit#heading=h.74s0obxfhlzo][How to Run Prediction Eval - Google Docs]]
+         - [[https://docs.google.com/document/d/1XFb1MQVh164MnlML6-KqOXGJDcksZp1L_2PUfOGjsrU/edit#heading=h.vgx68i68jxp8][Prediction Eval Pipeline - Google Docs]]
+       - [[https://docs.google.com/document/d/1Oefkcr9p4lwGQWoELyokZ54_9Ye0hso5yftdRf_VrRs/edit#heading=h.1r1ja2om5n0s][Prediction Eval in Indexing - Google Docs]]
+     - [X] check org notes
+       - [[https://docs.google.com/document/d/1TSTygZa3Utdjs49SGwbR3dtmdRoBJfc8XB1d4c8DZGM/edit#heading=h.8isg6yeku3ql][prediction_eval deep dive]] (from scope 0* unparking vehicles)
+       - [[https://docs.google.com/document/d/1A_BIkc_AqWPpbXt_JLYqpNzg0EhtQKZ_yIuNXkLWcog/edit][Prediction Eval Cross-Team Working Group Roadmap - Google Docs]]
+     - [ ] [[https://docs.google.com/document/d/1dgQI2qzOlsTzG_dganBZ0_HwV3JttZI4OhAwGjccu14/edit#heading=h.8dqnazqpwmuh][Running Prediction-Eval2 - Google Docs]]
+     - [ ] [[https://docs.google.com/document/d/1-VFYY8ouqR3urOO-BtuRYKIZbJ1mfPmOjy5vsFYrvEs/edit#heading=h.74s0obxfhlzo][How to Run Prediction Eval - Google Docs]]
+   - [ ] read about ground truth prediction - https://app.glean.com/search?q=ground+truth+prediction
+     - [ ] [[https://docs.google.com/document/d/1Oh_XephUhzpj0d6K7N4DfdcLUHIrNktQ9BYfSd3Rna8/edit#heading=h.m396la2z3a2e][Ground Truth Module Survey - Google Docs]] - mentions GroundTruthPredictorModule
+     - [ ] [[https://sg.corp.nuro.team/search?q=groundtruthpredictormodule][groundtruthpredictormodule - Sourcegraph]] - only mentioned in profiles
+     - [ ] [[https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/simulation/framework/batch_simulation/jobs/utils/category_utils_simtest_map.py?L93][category_utils_simtest_map.py - Nuro-ai/Nuro - Sourcegraph]]
+   - [ ] reach out to oracle team about viz
+   - [ ] reach out to ryan about ops
+   - [ ] do we need to support occupancy grid?
+   - [ ] review [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/122942][Transform perception cuboid labels to onboard messages by kzhang · Pull Request #122942 · Nuro-ai/Nuro]]
+   - [ ] review kun's track classifier PR
+** DONE integrate label conversion into BATES pipeline
+   CLOSED: [2022-09-16 Fri 17:01]
+   :CLOCK:
+   CLOCK: [2022-08-19 Fri 15:15]--[2022-08-19 Fri 16:23] =>  1:08
+   CLOCK: [2022-08-19 Fri 09:55]--[2022-08-19 Fri 10:20] =>  0:25
+   CLOCK: [2022-08-18 Thu 15:18]--[2022-08-18 Thu 17:00] =>  1:42
+   CLOCK: [2022-08-18 Thu 14:00]--[2022-08-18 Thu 15:00] =>  1:00
+   CLOCK: [2022-08-17 Wed 09:15]--[2022-08-17 Wed 14:15] =>  5:00
+   :END:
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-08-16 Tue 10:15]
+   :END:
+   - [X] try out label converter
+     - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/122942
+   - [X] try writing concurrent topic iterators in label converter
+     - are timestamps interleaved in blob in strictly increasing order? YES
+     - CONCLUSION: it works. diffed first 10k lines of DO topic echo for old and new. exactly the
+       same.
+     - DEPRECATED: found in first commit of na/kyang/gt_tracker_experimental_pose_accessor
+   - [X] try using PoseAccessor in label converter
+     - https://stackoverflow.com/c/nuro/questions/78/how-do-i-get-a-pose-lookup-from-a-blob
+     - https://stackoverflow.com/c/nuro/questions/1974/why-need-both-pub-sub-topic-and-shm-topic-for-pose
+     - when to use fromloggedsimpose vs fromloggedsimposering?
+     - when is sim_vehicle_pose used? there are two topics pose and sim_vehicle_pose with the Pose
+       message type.
+       - therefore, not correct to use has_pose to look for pose topic as done in the current label
+         converter
+       - https://stackoverflow.com/c/nuro/questions/790/how-does-simmed-vehicle-pose-work
+         - sim vehicle pose comes from SimulatedDbwModule (which runs in post_ngm)
+       - perception uses onroad pose
+     - [X] confirm that sim_vehicle_pose doesn't exist after pre_mhtc and appears after post_ngm
+       - look at random metrics job (critical category):
+         http://bates.corp.nuro.team/tasks/simtest/48m12rhn/_/subtasks
+       - CONCLUSION: confirmed that there was only pose after pre_mhtc. mhtc is the stage before
+         post_ngm. still no sim_vehicle_pose, but there were others (e.g.:
+         mh_prediction_output_sensor_pose). after post_ngm, sim_vehicle_pose finally appeared
+     - example of pose_accessor:
+       - [[https://sg.corp.nuro.team/search?q=context:global+pose%5B%5E%3D%5Cn%5D*accessor%5B%5E%5Cn%5D*begin&patternType=regexp][context:global pose[^=\n]*accessor[^\n]*begin - Sourcegraph]]
+         - [[https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/calibration/slam/slam_calibration.cc?L996:24][slam_calibration.cc - Nuro-ai/Nuro - Sourcegraph]]
+       - [[https://sg.corp.nuro.team/search?q=context:global+PoseAccessorFactory::CreateFromLogged+NOT+file:mapping+NOT+file:experimental+NOT+file:%5Epose&patternType=literal][context:global PoseAccessorFactory::CreateFromLogged NOT file:mapping NOT file:experimental NOT file:^pose - Sourcegraph]]
+         - [[https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/simulation/tools/sim_pose_divergence.cc?L83][sim_pose_divergence.cc - Nuro-ai/Nuro - Sourcegraph]]
+     - CONCLUSION: it works. exact same detected_objects messages despite interpolation
+     - DEPRECATED: found in second commit of na/kyang/gt_tracker_experimental_pose_accessor
+   - [X] write passthrough sim module using BlobAccessor + scheduler
+     - DEPRECATED: found in na/kyang/gt_tracker_sim_module
+     - get sim configuration from a random BATES job for pre_mhtc stage:
+   - [X] ask #help-sim about how to pub/sub to same topic
+     - answered by matthew li. he recommends writing a new binary using BlobWriter
+     - examples of binaries that modify ndf with blobwriter:
+       - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/17cb06486607b6398253c99fe27afad1024314b5/base/file/tools/blob_topic_shifter_main.cc
+       - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/17cb06486607b6398253c99fe27afad1024314b5/simulation/framework/batch_simulation/bates/jobs/perception_job.py#L320
+   - [X] research testing in BATES
+     - [X] ask #help-sim about pipeline development/testing
+       - answered by angel lim
+       - most pipeline code available through simtest commit, but pipeline config schema is
+         not. need to use local launcher
+       - refer to [[https://docs.google.com/document/d/19sINqgjAIqoTN5GA4vN-OAJyPVgZJ1PJsztwXzVo8gs/edit#][BATES Migration Guide - Google Docs]]
+     - [X] read [[https://docs.google.com/document/d/19sINqgjAIqoTN5GA4vN-OAJyPVgZJ1PJsztwXzVo8gs/edit#][BATES Migration Guide - Google Docs]]
+       - use TaskSignature for generic binaries
+       - define resource requirement for the new stage
+         - how to test locally: [[https://docs.google.com/document/d/18Pl8oSM0WlwZCfQRBprQJwTonotCuEz0_y0zKI0iO-k/edit#][BATES SimTest Testing Doc - Google Docs]]
+           - use //simulation/framework/batch_simulation/bates/launcher
+       - write unit test for the new stage
+       - launch locally with batch_simulation.py
+       - how to debug from BATES UI: [[https://docs.google.com/document/d/1f8YvtExXDfVqC1dgwrKD7jk1CiMWZx8eGT129QAFvvs/edit#heading=h.731biqag38di][Bates SimTest - An Intro - Google Docs]]
+     - [X] read [[https://docs.google.com/document/d/18Pl8oSM0WlwZCfQRBprQJwTonotCuEz0_y0zKI0iO-k/edit#][BATES SimTest Testing Doc - Google Docs]]
+       - updated version in [[https://docs.google.com/document/d/16f8cghQUuIoIuA1Re7_-mFcVME0lr8HSKIdxsbOj0iI/edit#][SimTest (Bates) Developer Guide Doc - Google Docs]]
+       - good summary of all testing methods
+       - can request simtest from local launcher (launcher is normally pinned to deployment commit)
+     - [X] read [[https://docs.google.com/document/d/16f8cghQUuIoIuA1Re7_-mFcVME0lr8HSKIdxsbOj0iI/edit#][SimTest (Bates) Developer Guide Doc - Google Docs]]
+       - also describes how to launch BATES jobs programmatically
+     - [X] read [[https://docs.google.com/document/d/1f8YvtExXDfVqC1dgwrKD7jk1CiMWZx8eGT129QAFvvs/edit#heading=h.731biqag38di][Bates SimTest - An Intro - Google Docs]]
+       - explains how to interpret BATES UI
+       - how to test locally (local worker that communicates with remote distributor):
+         //simulation/framework/bates/local
+     - [X] understand differences between local BATES testing methods
+       - //simulation/framework/bates/local
+         - asked angel about it, who directed me to ali abyaneh
+         - launches a normal prod BATES job, but uses local machine as executor for each task
+       - //servers/borg/batch_simulation
+         - just submits simtest requests. can connect to local launcher
+       - //simulation/framework/batch_simulation/bates/launcher
+         - top-level launcher for simtests, but still uses cloud executors
+   - [X] test sim module in BATES (perception_quick with metrics override)
+     - 39rwwlo5 - test on origin/green_simtests (via UI). should expect no GT stage
+     - muetgt3t - test w/o metrics_config change (via UI). GT stage is always enabled in
+       metrics_job, so it should appear
+     - z6kr9c0g - test with metrics_config change (via UI). should expect no GT stage
+     - o4267k5v - test with metrics_config change (via batch_simulation) but disable gt stage
+     - 139pofpt - test with metrics_config change (via batch_simulation) and enable gt stage
+     - [X] inspect results (compare before/after message timestamps + inspect in NV)
+       - N/A. also very confident that scheduled timestamps are inconsistent with original
+         timestamps
+   - [X] write + test passthrough blobwriter binary
+     - fields that still changed:
+       #+begin_src diff
+         diff --git a/test_patcher_pass_through_sim.txt b/test_patcher_pass_through.txt
+         index e71d21107166..6fdf31222ab7 100644
+         --- a/test_patcher_pass_through_sim.txt
+         +++ b/test_patcher_pass_through.txt
+         @@ -10,20 +10,11 @@ timestamp_seq: 0
+          timestamp_seq: 0
+          timestamp_seq: 0
+          timestamp_seq: 0
+         +timestamp_seq: 0
+          timestamp_seq: 1
+          shm_reference {
+            shm_offset: -1
+          }
+         -payload_decompressor_params {
+         -  type: ZSTD
+         -}
+         -decompressed_payload_size: 515707
+         -trace_timestamps {
+         -  fullstack_ts: 11929.075223472499
+         -  last_callback_ts: 11929.082453750059
+         -  sensor_ts: 11929.075223472499
+         -}
+         -publisher_id: "TrackerModule"
+
+          detected_objects {
+            timestamp: 11929.075223472499
+       #+end_src
+   - [X] integrate label conversion into blobwriter binary
+   - [X] write sim config for blobwriter binary based on perception_job blob_topic_shifter
+     - [[http://bates-staging.corp.nuro.team/tasks/simtest/fvkxlycu/categories/perception_quick/scenes/perception_quick-26728/gt_tracker/_/result/1/0][Bates]] - encountered GCS permissions error
+     - [X] figure out how to add listobjects permission
+       - [X] [[https://gitent.corp.nuro.team/Nuro-ai/terraform-gcp-deployments][Nuro-ai/terraform-gcp-deployments: Terraform deployments for Nuro's Google Cloud environment]]
+       - glean: storage.objects.list
+         - [[https://docs.google.com/document/d/1BMHh0NT1sc7y6m-75JtS4jw0OxaHlrdvaFxu5_o8_M8/edit#][Nuro Viewer Playbook - Google Docs]]
+           - mostly unrelated, but discovered the GCP policy [[https://console.cloud.google.com/iam-admin/troubleshooter;principal=simtest@nuro-dev-simtest.iam.gserviceaccount.com;resources=%2F%2Fstorage.googleapis.com%2Fprojects%2F_%2Fbuckets%2Fnuro-labeling-lidar-cuboid-table-storage;permissions=storage.objects.list/result?project=nuro-tools-prod][policy troubleshooter]]
+             - used policy troubleshooter for both staging
+               (simtest@nuro-staging-simtest.iam.gserviceaccount.com) and prod
+               (simtest@nuro-dev-simtest.iam.gserviceaccount.com) for the [storage.objects.list]
+               permission for resource
+               [//storage.googleapis.com/projects/_/buckets/nuro-labeling-lidar-cuboid-table-storage]
+             - somehow prod simtest already has permission to read from the table? makes sense
+               since perception_eval needs it, but where is it configured?
+         - [X] n/iam - found from a slack thread
+           - N/A - not necessary, but useful reference in the futureg
+         - found [[https://jira.nuro.team/browse/SW-31117][[SW-31117] GCS permissions issue for GCS labels - Nuro JIRA]]
+           - resolved by Rajeev Kinra with [[https://gitent.corp.nuro.team/Nuro-ai/terraform-gcp-deployments/pull/4471/files][Rkinra/sw 31117 by rkinra · Pull Request #4471 · Nuro-ai/terraform-gcp-deployments]]
+           - this issue is for TrafficSignalsLabelDB, which is a different bucket
+           - [[https://sg.corp.nuro.team/search?q=context:global+repo:%5Egitent%5C.corp%5C.nuro%5C.team/Nuro-ai/Nuro%24+file:%5Edb/sstable/schema+RunSegment&patternType=literal][context:global repo:^gitent\.corp\.nuro\.team/Nuro-ai/Nuro$ file:^db/sstable/schema RunSegment - Sourcegraph]]
+             - db/sstable/schema/labeling-lidar-cuboid.yaml reveals
+               nuro-labeling-lidar-cuboid-table-storage
+       - [X] Resulting PR: [[https://gitent.corp.nuro.team/Nuro-ai/terraform-gcp-deployments/pull/4903][Give simtests viewing permissions for cuboid labels by kyang · Pull Request #4903 · Nuro-ai/terraform-gcp-deployments]]
+     - [X] try local executor
+       - need to use local executor and local launcher at the same time. pretty sure i can just
+         copy the flags to connect to local launcher over from batch_simulation, but spoke to Ali
+         from sim infra team and he's never done it before. he recommended i make the terraform
+         change
+     - [X] try connecting to prod BATES
+       - doesn't work. i don't have permission to deploy prod job from local launcher
+   - [X] test gt track patcher in BATES (perception_quick with metrics override)
+     - http://bates-staging.corp.nuro.team/tasks/simtest/qys1qgrp/_/subtasks
+     - [X] inspect results (compare with local run and load in NV)
+       - CONCLUSION: gt_tracker NDF same contents as local run. confirmed that (1) labeled tracks
+         appear in NV and (2) are different from generated tracks in pre_mhtc NDF
+     - [X] inspect post_ngm results
+       - CONCLUSION: sim vehicle pose lags significantly behind comms pose. see that there are no
+         probabilities nor any TC labels when selecting tracks
+     - [X] inspect TC results (mhtc stage). compare with normal TC output
+       - mhtc NDF with gt_tracker:
+         /mnt/nuro-simtest-multi-region-output/simulation/testing/history/20220915-1704c285f8ea08d676e0beb59eb9c417273daa92-qys1qgrp/perception_quick/perception_quick-26728/perception_quick-26728.mhtc.ndf
+       - normal perception_quick job: http://bates.corp.nuro.team/tasks/simtest/6xoeg8yb/_/subtasks
+         - mhtc NDF w/o gt_tracker:
+           /mnt/nuro-simtest-multi-region-output/simulation/testing/history/20220913-e3894f11de08c8a8da7dac38c06ed58a2cbabaea-6xoeg8yb/perception_quick/perception_quick-26728/perception_quick-26728.mhtc.ndf
+       - what topics does TC output?
+         - checked track_classifier_module.cc => /track_classifier_output
+       - CONCLUSION: w/ gt_tracker, there are still TC messages but they're empty
+** DONE write unit test
+   CLOSED: [2022-09-21 Wed 11:37]
+   - golden task object - refer to BATES Migration Guide
+** IN-PROGRESS test perception_clz_100
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-09-16 Fri 16:36]
+   :END:
+   - http://bates-staging.corp.nuro.team/tasks/simtest/hi3q0e0c/_/subtask
+   - found bug when trying to get pose
+** IN-PROGRESS research message ordering/causality and timestamp_seq
+   :LOGBOOK:
+   - State "IN-PROGRESS" from "TODO"       [2022-09-16 Fri 17:06]
+   :END:
+   - initially raised by kevin chen in design doc
+   - [X] reach out to #help-nufs oncall about message ordering/causality and timestamp_seq
+     - linked to logs slides
+   - [ ] read [[https://docs.google.com/presentation/d/18eClexMcO3pLJR8OvQvFskd4wz7sCQAU9_NnTO0Meyo/edit#slide=id.g3bf40b792f_0_1][Lunch 2 - Nuro Logs - Google Slides]]
+   - [ ] read https://nuro-team.slack.com/archives/C01QS5ZNCEM/p1661466368334289
+** TODO how is GroundTruthPredictorModule triggered by a variant?
+   - can we do that instead of a pipeline config?
+   - https://sg.corp.nuro.team/search?q=GroundTruthPredictorModule
+** TODO label_track: cannot get tx_smooth
+** TODO which timestamp to use for new message?
+   - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/130574#discussion_r514253
+   - see if there's a difference
+** TODO how to configure BlobWriter to compress?
+   - [ ] glean: zstd_decompressor
+   - [ ] https://sg.corp.nuro.team/search?q=payload_decompressor_params
+     - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/simulation/simulator/simulator_comms_context.cc?L215:7
+** TODO what is TrackClassifierSimMhtcModule?
+   - from simulator_config_template.py
+   - how does it differ from TrackClassifierModule?
+** TODO expand sim config
+   - [ ] define resource requirement
+   - [ ] how to have a "reproduce" section for non-simulator tasks?
+     - remove "output_blob_path" from reproduce command
+     - how to ahve NDF playback link next to the stage in the subtasks page?
+** TODO explore changed fields for passthrough implementation
+   - [ ] look into decompression (one of changed fields for passthrough)
+   - [ ] look into trace_timestamps (one of changed fields for passthrough)
+   - [ ] look into publisher_id (one of changed fields for passthrough)
+     - https://sg.corp.nuro.team/search?q=context:global+set_publisher_id&patternType=literal
+       - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/simulation/simulator/sim_comms_interface.cc?L116:22
+** TODO explore sim latency
+   - [ ] read about sim latency
+   - [ ] reach out to matthew li about sim latency
+** TODO explore other DO message fields
+   - do we need to keep the rest of info in DO messages? are they still relevant with new tracks?
+   - [ ] read [[https://confluence.nuro.team/pages/viewpage.action?spaceKey=INFRA&title=Creating+a+New+Module][Creating a New Module - Infrastructure - Confluence]]
+     - [ ] read about example of defining a new message type
+     - [ ] read [[https://docs.google.com/document/d/1KjjNZgGTGpoGYORsNgwQXhVY9DMInTmU7Tjc8Pqr6Hk/edit#heading=h.ysgrugtakxdm][Testing Onboard Modules on Playback - Google Docs]] about testing module
+   - [ ] cross-reference
+     - tracker_module.h
+     - offline_localization_module.h
+     - ground_truth_predictor_module.cc
+     - onboard_collision_detection_module.h
+     - track_classifier_eval_module.h
+     - perception_eval_module.h
+     - ground_truth_converter_module.h
+   - [ ] read [[https://docs.google.com/document/d/1OJNGPwKNXXPJ_qZWr8lFw49-YGB1cmXX9EOWOZ-OIxM/edit#][Introduction to Simulation - Google Docs]] about running sim locally
+   - [ ] write unit tests
+   - [ ] write docs
+   - [ ] reference ground_truth_converter_module
+     - https://sg.corp.nuro.team/search?q=ground_truth_detected_objects
+     - ground_truth_detected_objects topic referenced in name_config.pbtxt (can dynamically re-map
+       to detected_objects?)
+   - [ ] find docs about simulator_main (i.e.: top-level sim binary) + how to config
+   - [ ] read about profiles
+     - glean: profile -> [[https://docs.google.com/presentation/d/1fBY-6iTBGyLUo9gDXBQ32AlEHTD7CcAX2QHRDzBCvYo/edit#slide=id.p][2020-08-10 Profiles and variants - Google Slides]]
+     - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/onboard/config/profiles/new_profiles/README.md
+       - from n/sim
+     - glean: new_profile
+       - [[https://confluence.nuro.team/pages/viewpage.action?spaceKey=CAL&title=Create+a+New+Profile][Create a New Profile - Calibration - Confluence]]
+       - [[https://docs.google.com/document/d/1fI0AdB2BGtcHplqPpzQPauPFFLRpwAsguldb1_dFzTw/edit#heading=h.xrtm7b5bige1][Making a New Profile - Google Docs]]
+   - [ ] what's the overlap between perceptionclz500 and behaviorregression?
+     - how to programmatically get scenes in a sceneset?
+   - [ ] how does synthetic work? at what stage do they mock? find wiki
+   - 8/19 - william linked to https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/105843/files
+* DONE michal's synthetic context map issue
+  CLOSED: [2022-07-20 Wed 12:18]
+  :CLOCK:
+  CLOCK: [2022-07-20 Wed 10:58]--[2022-07-20 Wed 12:18] =>  1:20
+  CLOCK: [2022-07-19 Tue 12:51]--[2022-07-19 Tue 13:31] =>  0:40
+  CLOCK: [2022-07-18 Mon 15:13]--[2022-07-18 Mon 16:56] =>  1:43
+  CLOCK: [2022-07-15 Fri 17:11]--[2022-07-15 Fri 17:58] =>  0:47
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-06-28 Tue 11:30]
+  :END:
+  [2022-06-28 Tue 11:30]
+  - [X] re-read context https://nuro-team.slack.com/archives/C03DXRE3E4T/p1654878529116269?thread_ts=1654010486.073549&cid=C03DXRE3E4T
+    - [X] read william's doc [[https://docs.google.com/document/d/1_xv7uyzCq5kuCy_OudJkh7XhKHHloRD0hIU4_SJ3p6w/edit?pli=1#heading=h.bltiimh94in][L&M in Simulation Notes - Google Docs]]
+    - the core issue is that router messages use the blob (i.e.: onroad) context map, but downstream
+      modules used a more recent context map version
+      - seems like there's one more adjacent issue that router messages might've been re-simmed with
+        a different CM version and cached. when re-simming on top of the cached router messages,
+        then the CM version is different again, which causes issues when LocalMapModule is resimmed
+        since it depends on router messages
+    - matthewli mentioned that in
+      https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/9a6e658eb9bc035ce869c45dbfdac36dd97e3b43/simulation/framework/batch_simulation/bates/sim_runner.py#L571-L581
+      the context map commit is determined, but this is an arg to the sim binary
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/simulation/framework/batch_simulation/bates/jobs/metrics_job.py#L497
+      - i suspect that since index_task is not the sim binary (i.e.: _simulator_task), there's no
+        sim config piped to indexing. william left a message in the thread that likely refers to
+        this
+    - william fixed the issue: https://jira.nuro.team/browse/SW-26448
+      - made PR to make indexing use the blob context map https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/119694/files
+      - made PR to use blob CM when re-simming on a cached job https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/119334
+  - [X] read michal's message https://nuro-team.slack.com/archives/C02BG5YUHDH/p1655846043473379
+  - [X] read about https://nuro-team.slack.com/archives/CDD6LUNFN/p1655944512605359
+    - not too much info. just introducing region-sliced context maps
+  - [X] how to find out context map version that a sim is running on?
+    - just look at log for normal metrics job sims
+    - synthetic doesn't show it in the log. also checked synthetic_job.py. don't know how to do it
+  - [X] read [[https://docs.google.com/document/d/1OJNGPwKNXXPJ_qZWr8lFw49-YGB1cmXX9EOWOZ-OIxM/edit?pli=1#heading=h.kmdq5jax4k71][Introduction to Simulation - Google Docs]]
+    - context map options:
+      - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/simulation/simulator/config.proto#L164
+      - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/mapping/context/context_map_source.h#L22
+  - [X] review [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/120303][Indexing: Process upcoming crosswalks based on the order they intersect with the first lane in our route by mguzek · Pull Request #120303 · Nuro-ai/Nuro]]
+    - the issue is that the missing feature is a lane (id = 156408927133 at ts 19.0), and when
+      ego_context_view tries to use local_map_view to access it, local_map_view returns nothing
+    - the context is that ego_context_view is trying to calculate along-route distance to implicit
+      ped path (IPP) features. Note that IPP features are not included in the context map. Instead
+      they are calculated in the local map (which has a smaller radius). ego_context_view is
+      iterating across all IPP features, which come from the local map, and it is able to retrieve
+      the intersecting lane as well, which intuitively should be the furthest lane from the bot
+      along the way to the IPP feature
+    - the problem occurs iterating across lanes along the route to the IPP feature to calculate
+      distance, so an intermediate lane is missing from the local map. a reasonable explanation is
+      the route turns back towards the bot so this intermediate lane falls outside the local map
+      radius. However, lane feature IDs originally come from a router message from the blob, so why
+      doesn't it appear in the local map? does the router module not use local map?
+    - the problematic lane feature actually does exist in the context map, but it's too far away and
+      out of the local map radius
+    - michal's fix is to just process IPP features in increasing order of along-route distance from
+      the nurobot. this will still ultimately ignore problematic IPP features, but will likely
+      ensure more features are processed
+    - LocalMapView uses LocalMapAccessor (which is used onboard). it injects into LocalMapAccessor
+      with the features of interest, computed in ComputeLocalMap. base features are retrieved from
+      ContextMapAccessor, but IPP features are computed using ImplicitPedPathsComputer
+      - where are IPP features calculated onboard? how are they used by the router?
+      - ImplicitPedPathsComputer used by ImplicitPedPathsCache, used in
+        onboard_context_map_utils.cc:ComputeOnboardContextMap
+      - ComputeOnboardContextMap used in onboard_context_map_utils.cc:GenerateOnboardContextMap,
+        which is used in intermediate_representation.cc:Compute, which is use din
+        intermediate_representation.cc:ComputeOnboardContextMap
+        - note that IR = intermediate representation and IF = inferred feature
+      - intermediate_representation.cc:ComputeOnboardContextMap used in
+        context_map_factory.cc:CreateContextMapProto, which is used in context_map_accessor.cc
+      - CONCLUSION: seems like accessing the context map onboard already gives access to all IPP
+        features. then what reason is there to use local map onboard? does router even use local
+        map?
+        - local map also contains lane relationships
+    - context_map_factory.cc:CreateContextMapProto also used in
+      context_map_factory.cc:CreateContextMapMemDb, which is used also used in LocalMapAccessor,
+      LocalMapModule, and localization
+    - LocalMapAccessor is used throughout onboard code, but NOT router
+      - [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/tree/develop/onboard/router][Nuro/onboard/router at develop · Nuro-ai/Nuro]] - router module README. router module is named
+        router2_module.cc
+      - no router code even subscribes to kLocalMapTopic
+    - glean: LocalMapAccessor -> found #local-map slack channel. "Original Design Doc" is linked,
+      but it's very old (last updated 2020)
+      - [[https://docs.google.com/document/d/11fCL9qKP9bbE7ii_UZGvEvaY-W9Gqn9X_TDXm1ucj6I/edit#heading=h.3dpw4xabhnka][Context/Local/Nearby Map Module - Google Docs]] - implies that router may not need to use
+        local map
+    - tried taking a look on NV at the problematic IPP and lane. the problematic lane seems to be at
+      the furthest point that the route reaches out and is roughly the same distance as the
+      IPP. seems believable that maybe there's a slight misconfiguration or precision issue with the
+      local map radius in indexing? could also be a slight synchronization issue with local map
+      messages onboard?
+    - CONCLUSION: michal's fix is workable for now. maybe indexing needs to revisit whether to use
+      LocalMapView or ContextMapView for lane features that come from router messages. might even be
+      a deeper onboard local map issue that needs to be raised with mapping team
+* TODO learn about variants/profiles                                  :learn:
+  [2022-06-30 Thu 13:45]
+* DONE [#A] review [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/121869][Indexing: Accommodate 10s horizons for ILP spline deviations by mguzek · Pull Request #121869 · Nuro-ai/Nuro]]
+  CLOSED: [2022-07-13 Wed 13:43] SCHEDULED: <2022-07-11 Mon>
+  :CLOCK:
+  CLOCK: [2022-07-13 Wed 13:19]--[2022-07-13 Wed 13:43] =>  0:24
+  CLOCK: [2022-07-11 Mon 15:00]--[2022-07-11 Mon 15:45] =>  0:45
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-07-11 Mon 15:00]
+  :END:
+  [2022-07-11 Mon 15:00]
+* DONE [#A] read about scene descriptor eval
+  CLOSED: [2022-07-13 Wed 13:04]
+  :CLOCK:
+  CLOCK: [2022-07-13 Wed 11:46]--[2022-07-13 Wed 13:04] =>  1:18
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-07-13 Wed 11:46]
+  :END:
+  [2022-07-13 Wed 11:45]
+  - [[https://drive.google.com/drive/folders/1Fhm1LYE7Yv_xhOFQC1DWMQgaL_rgoxuw][doc hub]]
+  - [X] [[https://docs.google.com/document/d/1836PmVoLu0wV9TaacC0vm3TYf23-aeTl6bx1He-JOCY/edit#][Proposal: Scene Descriptor Based Eval - Google Docs]]
+    - how do scene descriptors really help with building regression scenesets or gated scenesets?
+  - [X] [[https://docs.google.com/document/d/1p-060UPSy74gntyGB82_II6Lq7yt2mQ6Np8UEvkqPTU/edit#][One Pager: Scene Descriptors vs Scene Sets - Google Docs]]
+  - [X] [[https://docs.google.com/document/d/1YqiYNE_u5XTz3KD8hd3bg8hgzPpDHpBDlr1JHIESqYI/edit][Proposal: Scene Finder Query Registry - Google Docs]]
+  - [X] [[https://docs.google.com/document/d/10UUgahilfrns7dqAcRpdcxqNXf3NK0KDUQ7jo3AD3gM/edit#][Design: Scene Descriptor Registry - Google Docs]]
+  - [X] [[https://docs.google.com/document/d/1bFjfq6iw-xiolWFyYRDoJVNVALZJUSvxINpVLEziZDw/edit][Proposal: Scene Distribution Calculator - Google Docs]]
+  - [X] [[https://docs.google.com/document/d/1jQpdMux7oe1t7HsxzyZUTS5PPDxhJlz6IR4lo7DTx60/edit][Proposal: Scene Desriptor Iteration Pipeline - Google Docs]]
+  - [X] [[https://docs.google.com/document/d/10iW3SvAdTQQ3CAiEcXg0KB12K2Y37LODXVBowoB4_9g/edit][Scene Descriptor Based Eval H2 Roadmap - Google Docs]]
+* TODO read about fast LS                                             :learn:
+  [2022-07-20 Wed 14:08]
+  - what's are differing cases found between 230k full validation and 100k fast LS? (from spreadsheet)
+* TODO watch [[https://drive.google.com/file/d/1aJVJgCF5lCEo6af_7cqDoJX8TwI67iPL/view?usp=sharing][lidar talk]]                                               :learn:
+  [2022-08-02 Tue 14:37]
+* TODO read about [[https://confluence.nuro.team/pages/viewpage.action?spaceKey=AUT&title=Lane+Graph][lane graph]]                                          :learn:
+  [2022-08-02 Tue 14:38]
+* TODO look into writing SHM inspector
+  [2022-08-10 Wed 09:34]
+  - https://stackoverflow.com/c/nuro/questions/1927/utilities-for-querying-ndfs-topics
+* DONE [#A] debug route curvature issue
+  CLOSED: [2022-08-11 Thu 14:58]
+  :CLOCK:
+  CLOCK: [2022-08-11 Thu 14:44]--[2022-08-11 Thu 14:58] =>  0:14
+  CLOCK: [2022-08-10 Wed 16:38]--[2022-08-10 Wed 17:25] =>  0:47
+  CLOCK: [2022-08-10 Wed 10:12]--[2022-08-10 Wed 11:36] =>  1:24
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-08-10 Wed 10:01]
+  :END:
+  [2022-08-10 Wed 10:01]
+  - https://nuro-team.slack.com/archives/C01H7LABLRG/p1658946349505739
+  - https://jira.nuro.team/browse/TII-2357
+    - https://video-player.corp.nuro.team/view/8b69ff66-e1ec-4da1-b7de-b98f6e3c84f6
+      - /mnt/nuro-simtest-multi-region-output/simulation/testing/history/20220721-eae2040330451b1cb18f4bab20175c60a079ef4b-8zs46pxl/LS_Scope0_TrafficControl_Violations_7_21_22-15mph_srp/20210531_054009_00056.4253.42.4268.42/20210531_054009_00056.4253.42.4268.42.ndf
+    - simtest: http://bates.corp.nuro.team/tasks/simtest/8zs46pxl
+  - inspected onroad log
+    #+begin_src shell
+      bazel-bin/tool/index_tools/indexing/scripts/index_one_log --config_file tool/index_tools/indexing/configs/mpd.pbtxt --input_blob 20210531_054009_00056 --start_ts 4248.42 --end_ts 4268.42 --context_map_staging_dir /mnt/purebox/mapping/download_staging/context_map --output_ndf_path debug_curvature.ndf
+    #+end_src
+    - print out route polyline (in RouterView::RouteCurvature) and view in NV with vertical rulers
+      #+begin_src text
+        I20220810 10:35:25.958719 356965 router_indexer.cc:36] asdf: 4268.47
+        I20220810 10:35:25.958745 356965 router_view.cc:375] asdf: -54.7312 -828.549|-55.1385 -852.342|-55.4695 -921.559|-56.2226 -924.601|-57.2739 -926.521|-58.898 -927.96|-61.0949 -928.917|-212.788 -926.38|-243.254 -924.63|-245.779 -924.271|-247.753 -923.429|-249.176 -922.104|-250.047 -920.296|-250.367 -918.005|-248.907 -779.746|
+      #+end_src
+    - curvature getting correctly populated for onroad log. around -0.15. curvature unit is 1/m, so
+      that's about a 6m turn radius. measuring in NV it looks accurate
+  - resimmed the original job. id: 0hvua1es
+    - also indexed locally at the original job's commit: eae2040330451b1cb18f4bab20175c60a079ef4b
+  - went back to the original job's index (8zs46pxl) and noticed:
+    - onroad index was the only one missing route curvature, which is because the index version is
+      too old
+    - both the original simtest and resim indices have the correct route curvature. somehow i got
+      them mixed up
+  - CONLUSION: no actual issue
+* DONE [#A] debug noisy distance to intersection
+  CLOSED: [2022-08-11 Thu 14:40]
+  :CLOCK:
+  CLOCK: [2022-08-11 Thu 13:59]--[2022-08-11 Thu 14:40] =>  0:41
+  CLOCK: [2022-08-11 Thu 10:45]--[2022-08-11 Thu 11:03] =>  0:18
+  CLOCK: [2022-08-11 Thu 10:01]--[2022-08-11 Thu 10:15] =>  0:14
+  CLOCK: [2022-08-10 Wed 17:25]--[2022-08-10 Wed 18:07] =>  0:42
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-08-10 Wed 12:03]
+  :END:
+  [2022-08-10 Wed 12:03]
+  - https://jira.nuro.team/browse/TII-2362
+    - https://video-player.corp.nuro.team/view/71e73148-a29e-42f3-9c70-3572fc399ef0 (left side)
+      - --sim_test_job_id 0bwc5mzz --sim_test_category systems_ls_mine_20210627_175639
+        --sim_test_variant 15mph_srp --scene_name large_scale_20201208_122324_00023_14327.0
+        #+begin_src shell
+          bazel-bin/tool/index_tools/indexed_log/scripts/inspect_index --index_path gs://nuro-sim-test-indices/0bwc5mzz/systems_ls_mine_20210627_175639-15mph_srp/large_scale_20201208_122324_00023_14327.0/index.ndf --output_path ./debug_distance_intersection.txt --partitions ego_context
+        #+end_src
+      - noisy values for distance_to_intersection. in this example, values should be monotonically
+        decreasing since the bot is approaching the intersection. at 14339.1, jumps from
+        2.2368485927581787 to 3.1651389598846436 and back down to 2.1540098190307617
+    - also: simtest = 8zs46pxl, LS_Scope0_TrafficControl_Violations_7_21_22-15mph_srp,
+      scene=20200128_185712_00037.5869.94.5884.94
+      #+begin_src shell
+        bazel-bin/tool/index_tools/indexed_log/scripts/inspect_index --index_path gs://nuro-sim-test-indices/8zs46pxl/LS_Scope0_TrafficControl_Violations_7_21_22-15mph_srp/20200128_185712_00037.5869.94.5884.94/index.ndf --output_path ./debug_distance_intersection.txt --partitions ego_context
+      #+end_src
+      - near the end, values jitter
+        #+begin_src text
+          distance_to_intersection: 1.0093911
+          distance_to_intersection: 0.9419465
+          distance_to_intersection: 0.8688231
+          distance_to_intersection: 0.7899748
+          distance_to_intersection: 0.73070663
+          distance_to_intersection: 0.64057857
+          distance_to_intersection: 0.5447071
+          distance_to_intersection: 0.44375938
+          distance_to_intersection: 0.63596594
+          distance_to_intersection: 0.23037915
+          distance_to_intersection: 0.11840944
+          distance_to_intersection: 1.368297
+          distance_to_intersection: 2.0731435
+          distance_to_intersection: 2.7750494
+          distance_to_intersection: 0.5399555
+          distance_to_intersection: inf
+          distance_to_intersection: 1.126635
+          distance_to_intersection: inf
+        #+end_src
+    - resim 8zs46pxl because the logs were dropped. new job ID: 0hvua1es
+      - index at commit: eae2040330451b1cb18f4bab20175c60a079ef4b
+      - viewed in NV. noted SW failover in the middle of the intersection
+      - in EgoContextIndexer::Process, printed timestamp with EgoContextView::GetDistanceToIntersection
+        - when bot is in the intersection, distance to intersection should be 0. instead, showed a
+          lot of inf and some non-zero values (e.g.: at timestamp 5875.34 the distance is 1.12663)
+        - inf values come from EgoContextView::GetDistanceToIntersection failing because
+          ego_lane_id_ was empty
+      - in EgoContextView::GetDistanceToIntersection, printed the ID of the upcoming intersection
+        (intersection_id) and the ID of the lane in the intersection (next_lane_id). when they
+        match, it means the bot is in the intersection and the distance should be set to 0
+        (otherwise it would be the distance to the following intersection)
+        - the intersection_id is always correct
+        - for the non-zero value inside the intersection, the next_lane_id is incorrect. instead,
+          it's somehow set to the previous lane right before the intersection
+      - curious how ego_lane_id could be empty
+        - in EgoContextView::UpdateInternalState, logged result of
+          RouterView::GetRouteLaneAndPos. ego_lane_id is empty because latest router messages are
+          invalid.
+        - noted that the timestamp for the non-zero value has a successful router message, but the
+          previous timestamp has a failed router message.
+    - CONCLUSION: handed off to kun. open questions:
+      - why is next_lane_id incorrectly set in GetDistanceToIntersection? is it related to invalid
+        router messages? would investigate EgoContextView::GetNextIntersection
+      - why are some router messages invalid? does it have to do with sw failover? would investigate
+        how has_valid_router_ is set and the contents of the invalid router message
+      - noted that when indexing with a later commit, saw a lot of "Localization msg is not useable"
+        lines from LocalMapAccessor. related?
+* DONE [[https://jira.nuro.team/browse/TII-2567][indexing: failed map lookups]]
+  CLOSED: [2022-09-08 Thu 15:59] SCHEDULED: <2022-08-29 Mon>
+  :CLOCK:
+  CLOCK: [2022-08-29 Mon 13:19]--[2022-08-29 Mon 14:11] =>  0:52
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-08-29 Mon 13:05]
+  :END:
+  [2022-08-29 Mon 12:59]
+  - [X] failed map lookups
+    - can't reproduce. does it have to do with CM? there are no "Casar output" lines in local
+      log. what is --context_map_db_path_override? the CM commits match there. can't run with this
+      flag. says that it's missing
+      #+begin_src text
+        Creating View: ContextMapView
+        I20220902 18:50:35.979261 2579325 backfill.cc:12] Reading from ContextMapDB: /tmp/sliced_cm/sliced-context-map-a2f76e8a13eceecc56b886dd0a7deaf7c9133480-fd7005cb4a6c81b3750f8d419b01e247fe5387f1-mtv/features
+        terminate called after throwing an instance of 'nuro::InternalStatusError'
+          what():  INTERNAL:IO error: /tmp/sliced_cm/sliced-context-map-a2f76e8a13eceecc56b886dd0a7deaf7c9133480-fd7005cb4a6c81b3750f8d419b01e247fe5387f1-mtv/features/CURRENT: No such file or directory
+        tool/index_tools/indexing/views/context_map_view.cc:70:
+
+        ,*** Aborted at 1662169835 (unix time) try "date -d @1662169835" if you are using GNU date ***
+        PC: @                0x0 (unknown)
+        ,*** SIGABRT (@0x70a106fb00275b7d) received by PID 2579325 (TID 0x7fd7b361d000) from PID 2579325; stack trace: ***
+            @     0x7fd7bf124420 (unknown)
+            @     0x7fd7bedee00b gsignal
+            @     0x7fd7bedcd859 abort
+            @     0x555cad67cc21 simulation::RetryableErrorTerminateHandler()
+            @     0x7fd7bf1e947c (unknown)
+            @     0x7fd7bf1e94e7 std::terminate()
+            @     0x7fd7bf1e9799 __cxa_throw
+            @     0x555caf96a728 nuro::Throw<>()
+            @     0x555caf969bdb nuro::StatusError::Throw()
+            @     0x555cae05153f tool::index_tools::indexing::ContextMapView::ContextMapView()
+            @     0x555cae050beb tool::index_tools::indexing::NuroContextMapViewCreator::create()
+            @     0x555caee03ef1 tool::index_tools::indexing::EventProcessorFactory::CreateView()
+            @     0x555cad6931db tool::index_tools::indexing::LogIndexer::CreateAndInitEventProcessorIfNonExistent()
+            @     0x555cad697191 tool::index_tools::indexing::LogIndexer::AddEventProcessorDependency()
+            @     0x555cade8f651 tool::index_tools::indexing::ConstraintQueryView::RegisterViewDependency<>()
+            @     0x555cade8f55e tool::index_tools::indexing::ConstraintQueryView::Init()
+            @     0x555cad6931ec tool::index_tools::indexing::LogIndexer::CreateAndInitEventProcessorIfNonExistent()
+            @     0x555cad697191 tool::index_tools::indexing::LogIndexer::AddEventProcessorDependency()
+            @     0x555cad713998 tool::index_tools::indexing::EgoContextIndexer::RegisterViewDependency<>()
+            @     0x555cad71385e tool::index_tools::indexing::EgoContextIndexer::Init()
+            @     0x555cad69338f tool::index_tools::indexing::LogIndexer::CreateAndInitEventProcessorIfNonExistent()
+            @     0x555cad692ffe tool::index_tools::indexing::LogIndexer::InitEventProcessors()
+            @     0x555cad694964 tool::index_tools::indexing::LogIndexer::Init()
+            @     0x555cad67a191 RunIndexOneLog()
+            @     0x555cad67b8e2 main
+            @     0x7fd7bedcf083 __libc_start_main
+            @     0x555cad678eae _start
+            @                0x0 (unknown)
+      #+end_src
+  - [X] indexing OOM
+    - http://bates.corp.nuro.team/tasks/simtest/8xhn81ua/categories/perception_driveway_exiters/scenes/perception_driveway_exiters-877675/indexing/_/attempts/
+    - [[https://docs.google.com/document/d/1bV1WM8d-F8QkHc_sJ90M-oDErSnAQukRTHlSHs2yckE/edit#heading=h.frd12gaqh5nm][Troubleshoot OOM in Simtests - Google Docs]]
+    - they want to increase resource. why is memory higher for indexing + replaying for perception eval?
+    - https://retool.corp.nuro.team/embedded/public/9da4f99d-690d-4ebf-91a2-ade22a1a9630?job_id=8xhn81ua#category=ALL&exception=&severity=Retryable&stage=ALL
+      - can see indexing killed with signal 247 = OOM
+    - https://retool.corp.nuro.team/embedded/public/eab73305-70d1-4292-8e13-256d8c122b96?job_id=8xhn81ua#compare=mw3oi3wf
+      - indexing memory increased by a lot
+  - CONCLUSION: handed off to kun. can't reproduce failed map lookup and likely just need to
+    increase resources for OOM
+* IN-PROGRESS relevance events for flickering tracks
+  :CLOCK:
+  CLOCK: [2022-09-28 Wed 09:13]--[2022-09-28 Wed 10:00] =>  0:47
+  CLOCK: [2022-09-27 Tue 15:42]--[2022-09-27 Tue 16:49] =>  1:07
+  CLOCK: [2022-09-26 Mon 18:36]--[2022-09-26 Mon 19:00] =>  0:24
+  CLOCK: [2022-09-26 Mon 17:47]--[2022-09-26 Mon 18:09] =>  0:22
+  :END:
+  :LOGBOOK:
+  - State "IN-PROGRESS" from "TODO"       [2022-09-26 Mon 17:46]
+  :END:
+  [2022-09-26 Mon 13:17]
+  - https://jira.nuro.team/browse/SW-35614
+  - https://docs.google.com/document/d/1qVndLBe1fupypg5EkR3uPQnw3jDGa9o34N6C3yc5xiM/edit
+  - sim NDF example: /mnt/nuro-simtest-multi-region-output/simulation/testing/history/20220908-982402868c06f6b2257da6dbd31c88959e68c699-q97gl5pt/synthetic_full-15mph_srp/SS-7046-25965cbc061f37eb/SS-7046-25965cbc061f37eb.ndf
+  - [X] review [[https://confluence.nuro.team/pages/viewpage.action?spaceKey=AUT&title=Planner+Relevance+Events][Planner Relevance Events - Software - Confluence]]
+  - [X] which indexer/fields are relevance events in?
+    - relevance events appear multiple times throughout the world state for different combinations
+      of ego/track trajectories. most likely interested in either
+      track_world_state->...->track_ground_truth or
+      ground_truth_track_world_state->...->track_ground_truth
+    - both are populated in ground_truth_track_indexer
+  - [X] how are relevance events populated in ground_truth_track_indexer?
+    - refer to: [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/tool/index_tools/indexed_log/README.md][Nuro/README.md at develop · Nuro-ai/Nuro]]
+    - ground_truth_track_world_state->ground_truth_tracks only has newly completed tracks
+    - track_world_state->tracks->track_ground_truth has all events across all states of track existence
+  - [X] how does track_view work? (how are newly completed tracks determined?)
+    - track_buffer.h accumulates track state using track.h for history_length_ seconds
+  - [ ] confirm issue in the index example
+  - [ ] reproduce issue locally
+  - [ ] write one-pager w/ discussion, questions, and proposed solution
+* TODO follow up help-sim about scene_sink failures
+  SCHEDULED: <2022-10-31 Mon>
+  [2022-09-30 Fri 13:56]
+* DONE follow up PR review request from retro
+  CLOSED: [2022-11-14 Mon 11:54] SCHEDULED: <2022-11-10 Thu>
+  [2022-11-07 Mon 11:36]

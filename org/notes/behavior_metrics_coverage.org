@@ -1,0 +1,7 @@
+#+TITLE: Behavior Metrics Coverage
+
+https://docs.google.com/document/d/12Vd9SrIwcOGlQKNvwUj4tFIABKER2sIVtGcbEtlQs08/edit#
+- from a response from anshul to michal about meaning of "coverage" in precision/recall/coverage in
+  eval of eval
+- in the corresponding BQ table for eval of eval oracle, *_ncn* and *_ncp* correspond to cells C and F
+  in the doc

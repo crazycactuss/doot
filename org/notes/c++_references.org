@@ -1,0 +1,49 @@
+#+TITLE: C++ References
+
+* initializer lists
+  - [[https://ncona.com/2019/01/variable-initialization-in-cpp/][Variable initialization in C++ – ncona.com – Learning about computers]]
+    - can initialize variables with {} instead of ()
+  - [[https://stackoverflow.com/questions/18222926/what-are-the-advantages-of-list-initialization-using-curly-braces][c++ - What are the advantages of list initialization (using curly braces)? - Stack Overflow]]
+    - list initialization is preferred
+  - [[https://www.reddit.com/r/cpp_questions/comments/uyq8vb/do_curly_brackets_initialize_a_pointer_member/][Do {} curly brackets initialize a pointer member variable at declaration? : cpp_questions]]
+    - prefer initialization in constructor instead of member variable declaration
+
+* clang modernize-pass-by-value
+  - https://stackoverflow.com/c/nuro/questions/2192
+  - https://stackoverflow.com/questions/51705967/advantages-of-pass-by-value-and-stdmove-over-pass-by-reference
+  - seems better to pass by value and move rather than pass by const reference
+
+* exceptions
+  - https://docs.microsoft.com/en-us/cpp/cpp/how-to-design-for-exception-safety?view=msvc-170
+    - never throw exceptions from destructors
+  - https://docs.microsoft.com/en-us/cpp/cpp/errors-and-exception-handling-modern-cpp?view=msvc-170
+    - minimal performance impact
+
+* custom iterator
+  - https://www.internalpointers.com/post/writing-custom-iterators-modern-cpp
+
+* Access Control
+  - https://stackoverflow.com/questions/39144979/can-a-static-method-access-a-private-method-of-the-same-class
+    - static method can access private members + constructors of the same class
+
+* Opaque pointer / Cheshire Cat / PIMPL
+  - https://stackoverflow.com/questions/11162273/is-it-possible-to-call-a-private-constructor-from-a-static-method-defined-in-the
+  - https://en.wikipedia.org/wiki/Opaque_pointer#C++
+  - http://wiki.c2.com/?PimplIdiom
+  - https://en.cppreference.com/w/cpp/language/pimpl
+    - can serve the same purpose as a pure virtual interface
+  - forward declare a pointer to an "implementation class/struct" in a class's header file which
+    contains all private methods/members. this allows consumers of the library to not have to know
+    the size of the implementation struct and therefore not need to recompile when it changes
+
+* SFINAE
+  - google: c++ check if method exists
+    - [[https://gist.github.com/fenbf/d2cd670704b82e2ce7fd][C++ SFINAE example: how to detect if a class contains ToString method · GitHub]]
+    - [[https://www.reddit.com/r/cpp_questions/comments/pbh8zb/sfinae_detect_if_method_exists_cpp17/][SFINAE detect if method exists Cpp17 : cpp_questions]]
+    - [[https://stackoverflow.com/questions/257288/templated-check-for-the-existence-of-a-class-member-function][c++ - Templated check for the existence of a class member function? - Stack Overflow]]
+  - [[https://en.cppreference.com/w/cpp/language/sfinae][SFINAE - cppreference.com]]
+  - google: sfinae explained
+    - [[https://stackoverflow.com/questions/3407633/explain-c-sfinae-to-a-non-c-programmer][programming languages - Explain C++ SFINAE to a non-C++ programmer - Stack Overflow]]
+      - [[https://stackoverflow.com/questions/982808/c-sfinae-examples/989518#989518][templates - C++ SFINAE examples? - Stack Overflow]]
+  - google: c++ template resolution order
+    - [[https://stackoverflow.com/questions/5849415/could-somebody-explain-the-template-resolution-order-rules-to-me][c++ - Could somebody explain the template resolution order rules to me? - Stack Overflow]]

@@ -1,0 +1,43 @@
+#+TITLE: Anshul's Behavior Eval Docs
+
+- UPDATE <2022-07-24 Sun>: These seem like Anshul's brain dump about behavior eval. The Behavior
+  Eval narrative may be interesting to read, but the rest can seem outdated. Many abstractions/terms
+  seem like they were just in his head and are not widely adopted in any sense nor seem that
+  necessary.
+
+- [[https://docs.google.com/document/d/1Jqn5w3qu8BGryf2hk-aFuKxFatScE-cThY20adC54dw/edit#][Behavior Eval DocHub - Google Docs]]
+- [[https://docs.google.com/document/d/1S478xUBJFEakj36WhXvsNrv2IoyjziWAgYiM4FssV8A/edit#][Behavior Eval: Test Protocol Identity]]
+  - [[https://docs.google.com/spreadsheets/d/1r1ZHdG4yv76Kysud7EG37p3twjUNar5dT5NUTJPf8UQ/edit#gid=0][Behavior Eval Tool Tracker]] :: list of different types of eval (e.g.: LS MPCD, sim behavior
+    coverage, etc)
+    - [ ] challenge vs representative?
+    - [ ] difference between prediction vs planner eval? meaning of open-loop?
+      - open loop sim means planner doesn't control car. still follows log pose
+      - [ ] read more about william's planner/predictor joint eval initiative
+    - different types of module eval
+      - prediction eval is comparing predicted trajectory of agents with logged behavior
+      - planner eval is comparing planned trajectory with "expert" human trajectories
+      - motion validation evaluates and accepts/rejects planned trajectories. MV eval is comparing
+        with human validation
+  - [ ] what is critical proxy? (refer to behavior eval narrative)
+  - [ ] i don't really understand the "generic infrastructure" for different types of test protocols
+    (what is generic across LS, simtest, etc?). i also don't understand the work items listed
+    - [ ] what does "upstream" mean here? what is "upstream GT"?
+  - [ ] read about [[https://docs.google.com/document/d/1A_BIkc_AqWPpbXt_JLYqpNzg0EhtQKZ_yIuNXkLWcog/edit#][Prediction Eval Cross-Team Working Group Roadmap]]
+  - "ego trajectory" submodule eval should mostly refer to planner eval
+  - [ ] read about [[https://docs.google.com/document/d/1PY4U2TBuo2WNlDGc4yGlhCqP9_MX3SMV0Dd6VtyrKYY/edit][Decision Making Test Protocol Roadmap]]
+  - [ ] what is "CleanSCEN"?
+- [[https://docs.google.com/document/d/1Y5TcayuuQUMg-GrMJ2gGlsoRbMvMx1sO93e-e022_v0/edit#][Behavior Eval: Ego Trajectory Test Protocols]]
+  - [ ] what does "interface" mean here?
+  - [ ] submodule vs component?
+  - [ ] what does "frozen" mean here?
+  - [ ] what is "miss rate"?
+    - [ ] read https://waymo.com/open/challenges/2021/motion-prediction/
+  - [ ] coverage vs challenge scenesets?
+  - [ ] what does "filter" mean for each test protocol?
+  - [ ] what is "GT track input"?
+  - [ ] read william's doc [[https://docs.google.com/document/d/1Oh_XephUhzpj0d6K7N4DfdcLUHIrNktQ9BYfSd3Rna8/edit#heading=h.m396la2z3a2e][Ground Truth Modules Survey]]
+  - [ ] what is offline perception/tracking? (from anshul/william's thread)
+  - [ ] i still don't understand the various metrics. what are distance/dynamics metrics?
+  - [ ] look at examples of eval of eval
+- [[https://docs.google.com/document/d/1IC8ydn6802xJ-x9e1FENJ2X_s6xTi5oNqhI5w2uToPE/edit#][Behavior Eval: Test Protocol Ecosystem]]
+- [[https://docs.google.com/document/d/14LyEBaO708ZrHwuQZ7L3NRDxqSeBEDE6TXytOxdQjM4/edit#heading=h.g8tnj4avan59][Test Protocol Ecosystem Vision - Google Docs]]

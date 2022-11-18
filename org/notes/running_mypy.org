@@ -1,0 +1,8 @@
+#+TITLE: Running mypy
+
+#+begin_src shell
+  # not as ideal. runs on all files or need to specify specific files
+  tools/lint/run_lint --linter=mypy
+
+  bazel build $(bazel query 'kind(py_*, //tool/transferability_backtesting/...)') --aspects //tools/python/mypy:mypy.bzl%mypy_aspect --output_groups=mypy
+#+end_src

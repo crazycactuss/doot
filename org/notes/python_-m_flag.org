@@ -1,0 +1,13 @@
+#+TITLE: Python -m Flag
+
+keywords: module,  absolute import,  relative import, project root
+
+- https://stackoverflow.com/questions/7610001/what-is-the-purpose-of-the-m-switch
+  - -m flag adds current working directory to sys.path instead of the directory containing the file
+    being run
+    - confirmed this myself. if you have a file a.py and b/c.py, where c imports a as *import a*, you
+      can't execute c.py as *python b/c.py*. you must call it as *python -m b.c*
+  - -m flag allows relative imports from the script run
+    - confirmed this myself. in the previous example, you can only import a as *import ..a* from c if
+      you call it as *python -m b.c*
+  - CONCLUSION: -m flag seems better in every way

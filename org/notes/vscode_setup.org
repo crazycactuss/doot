@@ -1,0 +1,12 @@
+#+TITLE: VSCode Setup
+
+* Python paths
+
+** external dependencies
+   - https://github.com/microsoft/pylance-release/issues/973
+     #+begin_src shell
+       fd -d 1 pypi__ ~/nuro/bazel-nuro/external | jq --raw-input --slurp 'split("\n") | .[0:-1]'
+     #+end_src
+
+** generated
+   - add bazel-bin to path

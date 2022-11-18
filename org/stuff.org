@@ -1,0 +1,977 @@
+* simon's work
+  - https://gitent.corp.nuro.team/gist/skuang/47f98708e275cce551e5c14dd913a597
+  - https://gitent.corp.nuro.team/skuang/skuang-internship-2022
+  - https://docs.google.com/document/d/1vOhP4DbPKN3krwNCiZqNlVYBFmdE1iWiOHTuzHsin54/edit#heading=h.if17z8p83iqh
+  - https://gitent.corp.nuro.team/Nuro-ai/Nuro/tree/skuang/inference-notebook-only/experimental/skuang
+** william notes
+   - brainstorm user stories
+   - ask for direction on incorporating multiple issue predictors
+   - understand model assumptions and document
+   - align on how scene properties correlate with scene difficulty
+   - how does it relate with project calibrate
+* today
+  - [-] indexing config for RL training
+    - [X] cover IPs listed in doc
+      - SP - sim_collision (sim_report_detail)
+        - sim_report_subprocessor - EventIndexer
+      - SP - combined_tailgater_and_nontailgater_classifier_realism_predictor (sim_report)
+        - derived from:
+          - tailgater_collision_realistic
+            - source: COLLISION_CLASSIFICATION. apparently already supported by original rl_training config
+          - tailgater_collision
+            - source: COLLISION_CLASSIFICATION. apparently already supported by original rl_training config
+          - ml_model_scene_collision_imerit_probability
+            - source: ML_MODEL which is derived from blob
+          - ml_model_scene_collision_triage_probability
+            - source: ML_MODEL which is derived from blob
+      - SP - should_yield_for_intersecting_or_merging (unprotected_int_eval)
+        - protected_intersection_subprocessor
+          - EgoStatusIndexer
+          - TrackAttributesIndexer
+          - TrackIndexer
+          - GroundTruthTrackIndexer
+          - SimStateIndexer
+          - EgoLocationIndexer
+          - PlannerLogIndexer
+          - PlannerTrajectoriesIndexer
+          - PlannerReactionIndexer
+      - any_failover (sim_report_detail)
+        - failover (time_until_failover)
+          - ego_status_subprocessor
+            - PredictorOutputIndexer
+            - EgoStatusIndexer
+        - sw_failover (time_until_sw_failover)
+          - ego_status_subprocessor
+      - ML Stuck Total (@manual) (sim_report)
+        - model-based
+      - ML Bad_Nudge Total (@manual) (sim_report)
+        - model-based
+      - ML Brake_Jab Total (@manual) (sim_report)
+        - model-based
+      - Brake Jab Count (Healthy) (sim_report)
+        - based on both ML and systems
+        - unwarranted_brake_event_subprocessor (only checked used_partitions. didn't trace all code)
+          - EgoStatusIndexer
+          - EgoContextIndexer
+          - EgoAttributesIndexer
+          - PlannerParamsIndexer
+          - TrackAttributesIndexer
+          - TrackRelationIndexer
+          - TrackContextIndexer
+    - [ ] cover SPs that joyce listed
+      - sim_failover + sim_degraded_slow + sim_degraded_pullover + sim_degraded_stop
+        - sim_report_subprocessor
+      - sim_collision_vehicle + sim_collision_pedestrian + sim_collision_vehicle_rear_end +
+        sim_collision_unset + sim_collision_other
+        - sim_report_subprocessor
+      - unnecessary_yield_for_agent
+        - protected_intersection_subprocessor
+      - ml_model_collision_imerit_probability + ml_model_collision_triage_probability +
+        ml_model_scene_collision_imerit_probability + ml_model_scene_collision_triage_probability
+        - model-based
+    - [X] profile index_one_log
+      - /mnt/nuro-simtest-multi-region-output/simulation/testing/history/20220908-08ca715f358c53643f054b2fd89cce130cc97cda-pc012qkn/critical_high_Scope1_v202202_full-15mph_srp_ignore_uz/20180502_141406_00020_1508.0_1523.0/20180502_141406_00020_1508.0_1523.0.ndf
+      - [X] original rl_training
+        1. 43.701
+        2. 43.579
+        3. 42.793
+        4. avg: 43.4s
+      - [X] modified rl_training
+        1. 51.449
+        2. 51.451
+        3. 52.043
+        4. avg: 51.6
+      - [X] scene_sim
+        1. 1:18
+        2. 1:16
+        3. 1:15
+        4. avg: 76.3s
+    - [X] what fields does collision classification need?
+      - refer to: simulation/collision_classification/py/index_reader.py (USED_INDEX_PARTITIONS)
+    - [X] what does run_local_index_aggregator do?
+      - runs indexing + runs relevant subprocessors + collision classification + relevant MLIPs
+    - [-] test run_local_index_aggregator locally
+      - [X] scene_sim times
+        - 89.20
+        - 77.05
+        - 75.02
+        - 73.63
+      - [X] modified rl_training times
+        - 51.39
+        - 57.11
+        - 50.14
+      - [X] original rl_training times
+        - 43.70
+        - 42.54
+        - 42.57
+        - 42.46
+      - [ ] compare output
+        - 
+    - [ ] profile
+      - is there a way to speed up context map loading?
+    - [ ] follow up w/ joyce on "brake_jab" and "Realistic (unrealistic) collision from follower"
+    - [ ] follow up w/ joyce - single config okay?
+    - [ ] follow up w/ joyce: "metrics we are supporting now" means using scene_sim config?
+    - [ ] follow up w/ joyce about subprocessors are run (for testing) and how model-based SPs are supported
+    - [ ] follow up w/ joyce: how has rl_training been working? e.g.: no synthetic tracks
+    - [ ] how to test that all fields are correct for subprocessor?
+    - [ ] maybe walk through unwarranted_brake_event_subprocessor lines to ensure all fields are found
+    - [ ] does used_partitions have to be accurate? (ask #help-oracle)
+  - [ ] relevance events
+  - [ ] go through #help-indexing
+  - [ ] debug siva's issue
+  - [ ] michal's corridor-width PR
+  - [ ] emails
+  - [ ] eval vision kickoff
+  - [X] make subsets
+    - 20 scenes (for infra validation)
+      - http://scene-db.corp.nuro.team/scene_sets/behavior_perception_dt_20
+    - 100 scenes
+      - most behavior events
+        - http://scene-db.corp.nuro.team/scene_sets/behavior_perception_dt_100
+          - 95 onroad dt resim
+          - 5 prod eval
+      - most diverse events
+        - http://scene-db.corp.nuro.team/scene_sets/behavior_perception_dt_100_diverse
+          - 100 onroad dt resim
+    - full set
+      - http://scene-db.corp.nuro.team/scene_sets/behavior_perception_dt_full
+        - 4555 total scenes (duplicates removed)
+          - 4354 onroad dt resim
+          - 201 prod eval
+    - [X] what proportion between onroad vs prod eval?
+  - [X] check for overlapping scenes in scenesets
+    - some duplicates, but no overlaps
+  - [X] try patcher on test scene
+    - tried locally on
+      http://bates.corp.nuro.team/tasks/simtest/zgrsqgr2/categories/behavior_perception_dt_20/scenes/20200821_153027_00056_1344.0_1369.0/pre_mhtc/_/result/1/1
+      #+begin_src shell
+        bazel run //tool/labeled_perception:ground_truth_track_patcher_main -- --input_blob_path /mnt/nuro-simtest-multi-region-output/simulation/testing/history/20221017-c4699eb839cdee2d47feb0984bce72ec6c488b0b-zgrsqgr2/behavior_perception_dt_20/20200821_153027_00056_1344.0_1369.0/20200821_153027_00056_1344.0_1369.0.pre_mhtc.ndf --output_blob_path $PWD/eval_gt_tracker.ndf --run_id 20200821_153027_00056 --scene_start_time 1339.0
+      #+end_src
+      - because of 5s warm-up time for metrics job, the blob starts at 1339, right when perception
+        labels are available
+  - [X] run sim on behavior_perception_dt_20
+    #+begin_src shell
+      behavior_perception_dt_20.metrics_config.behavior_gt_upstream=True
+    #+end_src
+    - jqh7xqqb
+      - commit: 4308e0a2
+      - no GT tracker
+    - ztz227qm
+      - commit: 4308e0a2
+      - w/ GT tracker
+    - [X] inspect a scene that succeeded both w/ and w/o gt tracker
+      - look at the onroad log
+        - which release was it using?
+        - what behavior does it exhibit?
+      - watch the triage task.
+        - status of DT ticket?
+        - task ID?
+        - when was commit that the blob ran with (check jira-168618.sim_triage.MPD_Calibration_by_task_v3_m)?
+        - how is the behavior different in the sim?
+        - which perception SDs associated?
+        - any scene error?
+        - onroad DT resim or prod eval?
+      - watch the sim w/o gt tracker w/ a recent green/simtests.
+        - is the behavior different from triage?
+      - watch sim w/ gt tracker
+        - is the behavior different from w/o gt tracker?
+      - 20191204_205337_00050_815.0_840.0
+        - picked oldest run ID from behavior_perception_dt_20 (success both w/ and w/o gt tracker)
+        - onroad
+          - from 12/4/2019
+          - rainy road. false positive from rain. bad nudge from a false track
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-3904366
+            - status: reported to SW
+          - https://triage-dashboard.nuro.team/replay/f9a1d833-8978-49f0-b00c-f735b0755cda
+          - commit: 00c547445841fc778374ab508191af073f91352d (5/15/2020)
+            - from 4/30/2020 LS run
+          - bad nudge at 812, but unclear what the false track is
+          - scene ends due to pose divergence (scene_error non-empty)
+          - SDs
+            - SD-6389: Geometric Detection: False Positive: DLO: Weather Related (deprecated)
+          - prod eval
+        - green/simtests sim
+          - no problem at all. the triaged sim might be too old
+        - green/simtests w/ gt tracker
+          - no problem as well
+        - CONCLUSION: problem is fixed by now, even though DT is still "reported to SW". is the
+          triaged commit too old? should look at most recently triaged commits first
+    - [X] inspect most recent run IDs
+      - 20220516_170312_00057_2907.0_2932.0
+        - sorted scenes from the sim in reverse order by ID (i.e.: most recent run ID). ideally should
+          focus on most recently triaged tasks first
+        - onroad
+          - from 5/16/2022
+          - bird flies in front of bot. bot brake jabs and op takes over
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-12537837
+            - reported to SW
+          - task: 4eaec067-494f-4978-a1aa-dea7f37dbec3
+          - commit: 65c6c490fcab10884b509e94f1b386258f03d22c (5/26/2022). same as from onroad
+          - bot stops completely after bird already flew away
+          - no scene error
+          - SDs
+            - SD-5609: Category: Flying Animals
+          - onroad dt resim
+        - green/simtests sim
+          - no problem. slows down before the bird and doesn't brake jab
+        - green/simtests w/ gt tracker
+          - also no problem
+        - CONCLUSION: same as previous scene. problem fixed now (after 5 months)
+      - 20220225_171936_00046_2721.0_2746.0
+        - next most recent run ID
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-10073586
+            - reported to SW
+          - task: cb570e93-4689-4c6f-9853-3081bdd63215
+          - commit: 2/24/2022. same as onroad. 8 months ago
+          - tracker hallucinates. parked car bounding boxes jiggling. bot stops
+          - collides with false track at 2733
+          - scene error: unrealistic collision
+          - SDs
+            - SD-1248: TopDown: False Positives
+            - SD-15084: Geometric Detection: Obstacles: False Positive: Height, Scan, and Beam
+            - SD-14310: Geometric Detection: False Positive: DLO: Short Range Lidar
+              - DLO - driveable laser obstacles
+          - onroad dt resim
+        - green/simtests sim - failed
+          - early sim collision
+          - inspect simulation_report topic, which is generated in general_eval stage
+            #+begin_src shell
+              bazel run //base/file:blob_printer -- --blob /mnt/nuro-simtest-multi-region-output/simulation/testing/history/20221018-4308e0a2f945044024def3dedeb9d57706257b4b-jqh7xqqb/behavior_perception_dt_20/20220225_171936_00046_2721.0_2746.0/20220225_171936_00046_2721.0_2746.0.ndf --topics simulation_report --limit 5 --to_json | jq -M . >| $PWD/sim_collision.json
+            #+end_src
+            - inspected with sim_collision.py
+          - 7 collisions with the same obstacle all at time 2723.6900950575
+            - 2 at source_timestamp: 2723.2006271060854
+              - 1 with S_PLANNER source and 1 with S_PBS
+            - 2 at source_timestamp: 2723.303593132824
+              - 1 with S_PLANNER source and 1 with S_PBS
+            - 2 at source_timestamp: 2723.402346238676
+              - 1 with S_PLANNER source and 1 with S_PBS
+            - 1 at 2723.660000000167 w/ S_SIM_POSE source
+        - green/simtests sim w/ gt tracker - failed
+          - early sim collision
+          - exact same collisions
+        - CONCLUSION: collision with hallucinated obstacle
+    - [X] inspect scenes where either failed
+      - 20210803_062028_00054_3479.0_3504.0
+        - failed w/o gt tracker. succeeded w/ gt tracker
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-9364848
+            - reported to SW
+          - task: c073b5f2-e62e-448b-8ac7-ff81ed056fea
+          - commit: 12/14/2021. 10 months ago
+          - bot collides with cross-traffic vehicle at 3486
+          - sim no longer exists
+          - scene error: pose divergence. unrealistic collision
+          - SDs
+            - multiple SDs. seems more of pose divergence and unrealistic sim artifact
+            - SD-886: Tracker: ID Switch (due to tracker error not occlusion)
+          - prod eval
+      - green/simtests - failed
+        - doesn't have original collision
+        - sim vehicle eventually overtakes comms vehicle by a lot
+        - collides with unconfident false positive track in the middle of the road at 3501.9167672691874
+          - geometric measurements
+          - "x": 122.96004116074974
+          - "y": 140.30154721609674
+      - green/simtests w/ gt tracker - success
+        - same behavior but no collisions
+      - CONCLUSION: this is a decent example, but behavior events are more ideal since they're subtler
+    - 20210619_145640_00048_1783.0_1808.0
+      - failed both w/ and w/o gt tracker
+      - triaged sim
+        - https://jira.nuro.team/browse/DT-4964788
+          - reported to SW
+        - task: 2f011d8d-e42b-4dfd-a63f-1f56bc091fb7
+        - commit: 6/10/2021. more than a year ago
+        - bot approaches oncoming car in narrow path that wants to turn onto driveway. bot should go
+          but gets stuck at 1799
+        - scene error: unrealistic oncoming agent
+        - SDs
+          - SD-5569: Perception: Tracker: Accuracy
+          - SD-9054: Perception: Category: Overhang
+          - SD-14555: Perception: Geometric Detection: Clustering: Bad Segmentation
+        - onroad dt resim
+      - green/simtests - failed due to failover
+        - inspected topic watchdog_status. some errors, but root cause unclear. just going to check
+          if it's different from w/ gt_tracker
+      - green/simtests - also failed due to failover
+        - diffed watchdog_status from w/o gt_tracker. exact same failed checklists items, just
+          slightly different timestamps
+      - CONCLUSION: not much to learn from this scene
+    - 20210126_123315_00064_6910.0_6935.0
+      - succeeded w/o gt_tracker. failed w/ gt_tracker
+      - triaged sim
+        - https://jira.nuro.team/browse/DT-4094917
+          - reported to SW
+        - task: 5689a0e7-c3d5-4990-a54d-c761c90a7aff
+        - commit: 1/25/2021. 1.5 yrs ago
+        - perception of large trucks/trailers is jittery. bot brake jabs and unnecessarily yields
+        - scene error: unrealistic sim (but unclear how it's unrealistic)
+        - SDs
+          - SD-3644: Perception: Tracker: Accuracy: Vehicles with trailers (deprecated)
+          - SD-886: Perception: Tracker: ID Switch
+          - SD-2923: Perception: Panorama: Accuracy
+        - onroad dt resim
+      - green/simtests
+        - no problem. bounding boxes for trailer are stable
+      - green/simtests w/ gt_tracker
+        - missing many labels. collides with obstacles where the label for a truck should be
+        - enters failover at 6929 due to intervention by PAS
+        - collision at 6930 with obstacle
+      - CONCLUSION: example of scene with bad labels
+  - [X] sim on new behavior_perception_dt_20 with recently triaged tasks (or most recent run IDs)
+    and no scene errors
+    - oraf3tnz
+      - commit: 4308e0a2
+      - no GT tracker
+    - xr9jz8wf
+      - commit: 4308e0a2
+      - w/ GT tracker
+    - [X] inspect scenes where either failed
+      - 20220104_064359_00036_3006.0_3031.0
+        - succeeded w/o gt_tracker. failed w/ gt_tracker
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-9408171
+            - reported to SW
+          - task: b637561c-06ee-4cae-ad48-f5b4a1a72e8d
+          - commit: 1/4/2022. almost a year ago
+          - bad nudge at 3022 due to false positive track
+          - scene error: none
+          - SDs
+            - SD-14512: Perception: Geometric Detection: Obstacles: False Positive: Point Segmentation
+            - SD-15084: Perception: Geometric Detection: Obstacles: False Positive: Height, Scan, and Beam
+            - SD-5572: Perception: Tracker: False Positive
+          - onroad dt resim
+        - green/simtests
+          - same behavior as triaged sim. bad nudge. still a false positive track in the road
+        - green/simtests w/ gt_tracker
+          - false positive track no longer there. no bad nudge, but collides with obstacle at
+            3021.4617944225
+        - CONCLUSION: even though the false positive track is gone, the obstacle is still
+          there. without fixing DetectedObstacles, likely cannot fix false positive track SDs with GT
+          tracker
+      - 20220104_105304_00036_16887.0_16912.0
+        - failed w/o gt_tracker. succeeded w/ gt_tracker
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-9407433
+            - reported to SW
+          - task: 06a1851f-a61d-45db-9fdf-5c3cc1cf8f14
+          - commit: 1/4/2022
+          - bad nudge at 16903 due to false positive track (probably the exact same spot on the
+            route as the previous scene)
+          - scene error: none
+          - SDs
+            - SD-14512: Perception: Geometric Detection: Obstacles: False Positive: Point Segmentation
+            - SD-15084: Perception: Geometric Detection: Obstacles: False Positive: Height, Scan, and Beam
+            - SD-5572: Perception: Tracker: False Positive
+          - onroad dt resim
+        - green/simtests
+          - collision with hallucinated obstacle + track
+          - both obstacle and object collisions at 16899.5
+        - green/simtests w/ gt_tracker
+          - sim bot goes a lot faster than comms bot. large pose divergence. hallucinated obstacle
+            probably didn't appear yet
+          - no collision with neither obstacle nor track
+        - CONCLUSION: another example of an avoided collision. still ideally want behavior events
+          that were fixed
+      - 20220818_134001_00030_8106.0_8131.0
+        - failed w/ and w/o gt_tracker
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-14415087
+            - reported to SW
+          - task: 136c7090-f37b-4f6d-ba61-634bddf2a461
+          - commit: 8/16/2022
+          - false positive tracks caused brake jab at 8123
+          - scene error: none
+          - SDs
+            - SD-2923: Perception: Panorama: Accuracy
+          - onroad dt resim
+        - green/simtests
+          - bot slows down for unknown reason. collides with agent from behind
+          - watchdog seems healthy up until the collision
+        - green/simtests w/ gt_tracker
+          - gets further, but watchdog degrades. bot stops and collides with agent from behind
+          - TC exceeds number of tracks
+        - CONCLUSION: still surpassing max tracks that TC can accept
+    - [X] inspect most recently triaged scenes
+      - 20220106_075349_00047_4641.0_4666.0
+        - both succeeded
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-9434688
+            - reported to SW
+          - task: f5889606-6ea6-4f84-8437-bae2dad581c6
+          - commit: 1/4/2022
+          - brake jabs to bird false positive at 4655
+            - from jira: NB misclassifies and inaccurately tracks birds in road, and NB does not
+              create a track for FOD (roadkill). Overlap with FOD in sim will likely result in a
+              High severity
+          - scene error: none
+          - SDs
+            - SD-5576: Perception: Geometric Detection: False Negative
+            - SD-14545: Perception: Tracker: Misclassification
+            - SD-5569: Perception: Tracker: Accuracy
+            - SD-9050: Perception: Category: FOD
+            - SD-14555: Perception: Geometric Detection: Clustering: Bad Segmentation
+            - SD-9051: Perception: Category: Animals
+            - SD-2510: Perception: Tracker: False Negative
+          - onroad dt resim
+        - green/simtests
+          - no problem. bot nudges around birds just fine. sim bot also goes a lot faster than comms bot
+        - w/ gt_tracker
+          - birds and FOD have high-fidelity labels. bot gets stuck. what is the red box that
+            appears around the birds?
+        - CONCLUSION: example that implies false negative that would degrade behavior if fixed
+      - 20220106_083332_00055_5020.0_5045.0
+        - both succeeded
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-9431752
+            - reported to SW
+          - task: a1d3b4cb-8364-453e-8af9-c165486f354f
+          - commit: 1/4/22
+          - bot gets stuck at 5034 because expecting ped to cross
+          - scene error: none
+          - SDs
+            - SD-6189: Perception: TopDown: Misclassification
+            - SD-707: Perception: Track Classifier: Object Type: Misclassification
+          - onroad dt resim
+        - w/o gt_tracker
+          - no problem now. bot slows down but keeps going next to ped
+        - w/ gt_tracker
+          - now misclassified as garbage bin
+        - CONCLUSION: example where TC integration degraded?
+      - 20220105_082838_00040_3918.0_3943.0
+        - both succeeded
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-9433196
+            - reported to SW
+          - task: de6d829e-a8e9-4f63-877e-75cd222f2a0e
+          - commit: 1/4/2022
+          - person mowing grass nearby. brake jab at 3936
+          - scene error: none
+          - SDs
+            - SD-6190: Perception: Panorama: Misclassification
+            - SD-14536: Perception: Fisheye: Misclassification
+            - SD-6189: Perception: TopDown: Misclassification
+            - SD-14563: Perception: Category: Pedestrian
+          - onroad dt resim
+        - w/o gt_tracker
+          - no problem. bot slows down but keeps going
+        - w/ gt_tracker
+          - bot stops next to the peds for a second
+        - CONCLUSION: not sure which is the correct behavior. could be interesting scene for TC eval
+          to validate TC integration w/ GT tracker
+      - 20220325_092831_00049_8096.0_8121.0
+        - both succeeded
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-15041654
+            - reported to SW
+          - task: d8016cbb-11c1-4a2b-bd92-71442f27ef64
+          - commit: 9/15/2022
+          - bot brake jabs 8111
+          - scene error: none
+          - SDs
+            - SD-5572: Perception: Tracker: False Positive
+            - SD-13240: Perception: Thermal Detection: False Positive
+          - prod eval
+        - w/o gt_tracker
+          - false positive track appears coming towards bot at 8110.63
+        - w/ gt_tracker
+          - no problem at all
+        - CONCLUSION: perfect example of good behavior due to lack of false positive
+  - [X] what are the most frequent SDs?
+    - top 10 most common
+      #+begin_src text
+        sd	count	summary
+        SD-5634	270	Perception: Geometric Detection: Occupancy: False Positive
+        SD-5572	205	Perception: Tracker: False Positive
+        SD-882	133	Perception: Panorama: False Positive
+        SD-2923	127	Perception: Panorama: Accuracy
+        SD-5576	122	Perception: Geometric Detection: False Negative
+        SD-9054	117	Perception: Category: Overhang
+        SD-6190	113	Perception: Panorama: Misclassification
+        SD-2510	111	Perception: Tracker: False Negative
+        SD-9050	109	Perception: Category: FOD
+        SD-707	108	Perception: Track Classifier: Object Type: Misclassification
+      #+end_src
+    - most common SDs that mention vehicle/trailer
+      #+begin_src text
+        sd	count	summary
+        SD-1991	77	Perception: Tracker: Accuracy: Large vehicle / bus tracking
+        SD-14561	25	Perception: Category: Large Vehicle
+        SD-3644	17	Perception: Tracker: Accuracy: Vehicles with trailers
+        SD-3111	8	Perception: Track Classifier: Attribute: Missing Feature: Vehicle with Open Door
+        SD-14567	6	Perception: Category: Vehicles with trailers
+        SD-6642	5	Perception: Tracker: Accuracy: Incorrect Shape Estimates: Pedestrians Near Vehicles
+        SD-2985	1	Perception: Category: Active Emergency Vehicles
+        SD-14525	1	Perception: Track Classifier: Attribute: Misclassification: Vehicle with Left Open Door False Negative (FN)
+        SD-11085	1	Perception: Track Classifier: Attribute: Missing Feature: Vehicle Indicator Lights
+      #+end_src
+  - [X] try scene that sachin suggested
+    - https://jira.nuro.team/browse/DT-15484723
+    - SDs:
+      - SD-39: Parked Vehicle Classification: Onroad: f/n parked
+    - https://triage-dashboard.nuro.team/replay/bd5ad5d2-d3ed-4b2b-a303-cf2a0d39c84a
+    - run ID: 20211109_055854_00054
+    - CONCLUSION: not labeled for perception
+  - [-] run oracle for behavior_perception_dt_100_recent
+    - n3sblmk7 - w/o gt_tracker
+    - 79f30nwx - w/ gt_tracker
+    - http://oracle.corp.nuro.team/oracle?sourceType=SimTest&baseJobId=n3sblmk7&branchJobId=79f30nwx&sceneSet=behavior_perception_dt_100_recent&ipSet=sim_report
+    - [X] look at scenes that improved in brake jabs
+      - 20220203_153510_00020_20945.0_20970.0
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-9871722
+            - reported to SW
+          - task: 439f0691-2351-4cd6-b3bb-1ed590203f33
+          - commit: 2/2/2022
+          - brake jab due to tree branches misclassified as birds at 20961
+          - scene error: none
+          - SDs
+            - SD-5609: Perception: Category: Flying Animals
+            - SD-14535: Perception: Geometric Detection: Misclassification
+            - SD-6189: Perception: TopDown: Misclassification
+          - onroad dt resim
+        - w/o gt_tracker
+          - experience same brake jab
+        - w/ gt_tracker
+          - no labels for tree branches, so no brake jab
+        - CONCLUSION: question fidelity of labels?
+      - 20220811_063535_00111_5302.0_5327.0
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-14439157
+            - reported to SW
+          - task: a1bbf625-b28b-4035-8c33-f3e7644641e0
+          - commit: 8/19/2022
+          - brake jab at 5317 due to false positive ped
+          - scene error: none
+          - SDs
+            - SD-13240: Perception: Thermal Detection: False Positive
+            - SD-5572: Perception: Tracker: False Positive
+          - prod eval
+        - w/o gt_tracker
+          - false positive tracks all over the place. bot very slow and gets stuck
+        - w/ gt_tracker
+          - perfect performance
+        - CONCLUSION: best example yet
+      - 20220811_080615_00112_12710.0_12735.0
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-14445073
+            - reported to SW
+          - task: 589f0f96-f479-4407-a1f2-2bc576e2278c
+          - commit: 8/19/2022
+          - unnecessarily yields + brake jab to parked motorcycle at 12726
+          - SDs
+            - SD-14535 Perception: Geometric Detection: Misclassification
+            - SD-14555 Perception: Geometric Detection: Clustering: Bad Segmentation
+            - SD-14545 Perception: Tracker: Misclassification
+            - SD-6190 Perception: Panorama: Misclassification
+            - SD-5569 Perception: Tracker: Accuracy
+          - prod eval
+        - w/o gt_tracker
+          - when making a right turn, bot goes towards parked cars first, brake jabs?, then nudges around them
+          - not really clear why
+          - original triaged yield doesn't seem to occur
+        - w/ gt_tracker
+          - scene completes successfully
+        - CONCLUSION: decent example, but i don't fully understand it
+      - 20220812_070332_00119_607.0_632.0
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-14446444
+            - reported to SW
+          - task: 5b15e477-c08e-410a-a20e-0ce41873cc7d
+          - commit: 8/19/2022
+          - brake jabs for false positive track on other side of intersection at 622
+          - SDs
+            - SD-14548 Perception: Sensors: Lidar: Long range lidar: Blooming
+            - SD-14512 Perception: Geometric Detection: Obstacles: False Positive: Point Segmentation
+            - SD-1248 Perception: TopDown: False Positives
+            - SD-7965 Perception: Geometric Detection: Obstacles: False Positive: Bottom Up
+          - prod eval
+        - w/o gt_tracker
+          - no longer have original false positive track
+          - after right turn, tracks suddenly appear and bot brake jabs
+        - w/ gt_tracker
+          - scene completes successfully
+        - CONCLUSION: good example of better behavior after fixing false negative
+      - 20220812_071941_00111_2888.0_2913.0
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-14437986
+          - https://triage-dashboard.nuro.team/replay/4c02c156-d4c7-4a75-b12e-ff8e8ceb2a06
+          - commit: 8/19/2022
+          - bad nudge due to false positive ped at 2903
+          - should slow by 2 peds
+          - SDs
+            - SD-882 Perception: Panorama: False Positive
+            - SD-7788 Perception: Sensors: Camera: Day Glare
+          - prod eval
+        - w/o gt_tracker
+          - many false positive tracks. not sure where exactly the brake jab is, but likely it happened
+        - w/ gt_tracker
+          - slows correctly by 2 peds. scene ends successfully
+    - [X] look at scenes where failed w/o gt_tracker
+      - 20220207_174607_00057_14007.0_14032.0
+        - entered failover both w/ and w/o gt_tracker at 14009 due to FollowerModule (excessive pose error)
+      - 20220214_121546_00028_1627.0_1652.0
+        - entered failover both w/ and w/o gt_tracker immediately after warmup
+      - 20220721_080642_01004_9357.0_9382.0
+        - failed due to timeout at voxel stage for both w/ and w/o gt_tracker
+      - 20220810_134251_00116_14030.0_14055.0
+        - entered failover both w/ and w/o gt_tracker at 14030. another pose error issue
+      - 20220815_152331_00057_12307.0_12332.0
+        - w/o gt_tracker enters failover first at 12309 due to pose error
+        - w/ gt_tracker no failover, but has collision at 12329 (unrealistic tailgater?)
+        - CONCLUSION: don't consider scenes where a failover is involved
+    - [X] look at scenes where failed w/ gt_tracker
+      - 20220120_151911_00036_6714.0_6739.0
+        - bot is in the middle of many stopped cars at traffic light. watchdog degrades in both
+        - for some reason it's considered a sim success for w/o gt_tracker, even though there's a
+          collision in the watchdog status output
+        - same collisions for w/ gt_tracker
+        - CONCLUSION: no behavior difference, so don't consider this scene
+      - 20220123_074637_00036_12649.0_12674.0
+        - scene completes successfully w/o GT tracker, but enters failover w/ GT tracker
+        - FollowerModule pose error
+      - 20220214_203809_00046_12695.0_12720.0
+        - bot is slower to go through intersection w/ GT tracker than w/o. Vehicle collides from behind
+        - unrealistic collision?
+      - 20220628_131106_00043_433.0_458.0
+        - scene completes successfully w/o GT tracker
+        - scene ends early w/ GT tracker. obstacle collision? at 447.342. see a piece of debris on ground
+      - 20220720_141725_00056_7078.0_7103.0
+        - scene completes successfully w/o GT tracker
+        - w/ GT tracker: obstacle collision? at 7093. see some tree bark on the ground
+    - [ ] look at scenes that are worse in brake jabs
+      - 20220120_133510_00036_827.0_852.0
+        - for the onroad log, bot passes a parked vehicle that then pulls out
+        - in both sims, bot doesn't pass in time and the parked vehicle starts pulling out. behavior
+          seems slightly smoother w/o gt_tracker. w/ gt_tracker, a brake jab is recorded
+        - the triaged brake jab has nothing to do with this
+      - 20220819_151451_00054_8756.0_8781.0
+        - behavior is very similar in both videos. looks like there's a brake jab in both. this is
+          the same brake jab that was originally triaged
+    - [ ] look for scenes with the greatest increase in traveled distance
+      - 20220810_195145_00119_15458.0_15483.0
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-14439375
+            - reported to SW
+          - task: af04b119-85f6-4e8e-81d5-5da9a8d6ef91
+          - commit: 8/19/2022
+          - brake jab at 15474 for no reason
+          - SDs: false negative?
+          - prod eval
+        - w/o GT tracker
+          - gets stuck in middle of intersection
+        - w/ GT tracker
+          - completes scene. has degraded watchdog in the middle due to exceeded max number of
+            tracks in TC
+        - CONCLUSION: good example of improved behavior but don't know why
+      - 20220811_112902_00123_21698.0_21723.0
+        - overall just went slower w/o GT tracker. not too interesting
+      - 20220718_182427_00039_966.0_991.0
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-13936687
+            - reported to SW
+          - task: 114ce34f-38de-4540-9ba6-03806866e9b5
+          - commit: 7/8/2022
+          - brake jab at 982 due to false positive debris on road
+          - SDs: false positive
+          - onroad dt resim
+        - w/o GT tracker
+          - stops unnecesrily for FP track and collides
+        - w/ GT tracker
+          - scene completes smoothly
+        - CONCLUSION: improved behavior due to lack of FP track. better across the board for ML IPs
+          in sim_report
+      - 20220120_151911_00036_7709.0_7734.0
+        - pulled over at traffic light. not interesting
+      - 20220817_055345_00054_6893.0_6918.0
+        - not really any difference in behavior?
+  - [ ] run oracle for behavior_perception_dt_full
+    - w/o gt_tracker
+      - simtest: wakrt323
+      - oracle: 83bepz
+    - w/ gt_tracker
+      - simtest: tbxmhgc0
+      - oracle: lex124
+    - [ ] look at improvements in brake jabs
+      - TODO: 20210223_083802_00041_3549.0_3574.0
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-4164526
+            - reported to SW
+          - task:
+      - 20210208_062534_00043_2670.0_2695.0
+        - triaged sim
+          - https://jira.nuro.team/browse/DT-4129239
+          - task: https://triage-dashboard.nuro.team/replay/c685ea8b-dd63-4977-b089-20e6d8c64668
+          - commit: 2/4/2022
+          - brake jab by large vehicle (unsure why) at 2684
+          - SDs:
+            - SD-1991 Perception: Tracker: Accuracy: Large vehicle / bus tracking
+          - onroad dt resim
+        - w/o gt tracker
+          - same brake jab
+        - w/ gt tracker
+          - finishes successfully
+        - CONCLUSION: better behavior due to improved accuracy
+      - 20210626_080534_00064_8121.0_8146.0
+      - 20210208_062534_00043_3839.0_3864.0
+      - 20201130_120841_00055_5322.0_5347.0
+      - 20210615_080948_00037_10155.0_10180.0
+      - 20210212_132132_00036_1636.0_1661.0
+      - 20201026_171952_00048_1201.0_1226.0
+      - 20220203_153510_00020_20945.0_20970.0
+        - missing label?
+      - 20201125_171419_00051_2422.0_2447.0
+        - guardian watchdog degraded?
+      - 20201111_110215_00047_8331.0_8356.0
+        - trying to pullover?
+      - 20201111_080230_00061_7425.0_7450.0
+        - both seemed to brake jab?
+      - 20201015_160725_00037_1064.0_1089.0
+        - trying to pullover?
+    - [ ] look at most increase in distance traveled (w/o improvement in failover)
+      - 20210316_062629_00036_2359.0_2384.0
+        - enters failover w/o gt_tracker
+      - 20210223_083802_00041_3549.0_3574.0
+        - no labels w/ gt_tracker but drives fine??
+      - 20220321_180901_00031_14898.0_14923.0
+        - enters failover w/o gt_tracker
+      - 20210525_125534_00043_4861.0_4886.0
+        - better prediction with gt_tracker
+      - 20210508_173307_00038_5086.0_5111.0
+        - FP collision w/o gt_tracker?
+      - 20210210_084920_00064_3867.0_3892.0
+        - scene ends early w/o gt_tracker for some reason?
+      - 20201020_123358_00041_2085.0_2110.0
+      - 20201108_075443_00026_11568.0_11593.0
+    - [ ] look at decreases in realistic collision count
+      - 20201214_071713_00049_3517.0_3542.0
+  - [ ] figure out what sim_report metrics mean
+  - [ ] look for other large truck/trailer scene
+  - [ ] look at scenes with false negatives
+  - [ ] look for scenes for false positives
+  - [ ] where do obstacles come from? do they relate to occupancy grid?
+  - [ ] how to find DTs that are still broken?
+    - could try running oracle on all scenes and finding which ones still have behavior events that
+      were labeled
+    - 20220114_142222_00055_10694.0_10719.0
+      - in triaged sim, bot yields unnecesarily to a fast car coming up from behind in the adjacent
+        lane. doesn't really seem like a perception problem
+      - green/simtests sim w/ and w/o tracker - no problem
+    - 20210126_123315_00064_6910.0_6935.0
+      - the only example of a success w/o gt tracker and failure w/ gt tracker
+      - original triage: perception couldn't handle a trailer so bot was unnecessarily yielding
+      - w/o gt tracker: worked fine
+      - w/ gt tracker: missing label for a truck late in the scene. bot had failover
+  - [ ] run sim on behavior_perception_dt_100 + behavior_perception_dt_100_diverse
+  - [ ] run sim on behavior_perception_dt_full
+  - [ ] give xiyue questions
+    - questions for xiyue:
+      - why is state only "imported" and "qa_ready?
+      - why are there multiple tasks per scene? does each task correspond to a different labeler?
+      - what is the 'be' column in simtriage_bytask_m? Is it the ratio of labelers that agree on a
+        DT? Why is it a ratio if a task corresponds to a single labeler?
+      - does jira-168618.sim_triage.MPD_Calibration_by_task_v3_m contain scenes used for prod eval?
+        contains sim scenes as well based on blob ID (not just onroad)?
+      - so we take the latest updated sim + task for each scene?
+        - see as many as 14 different task IDs for each blob
+      - difference between be and has_be > num_responses/2?
+      - SDs that no longer exist in n/sd-tree (e.g.: SD-878). can SDs become outdated?
+      - how are the "potentially dangerous" behavior types determined? I see 6 in 10k readiness doc
+      - how to correlate SDs with behavior events? is there just one DT ticket for the whole scene
+        with SDs?
+  - [ ] read about GT prediction
+    - https://confluence.nuro.team/pages/viewpage.action?spaceKey=AUT&title=Prediction
+  - [ ] try profiling
+    - https://docs.google.com/document/d/1Xu4EJ-k1eMmhEpU8RW7vna3eLBagOsOGaC6nYSaM67k/edit#
+  - [X] review kun's PRs
+    - [X] inspect DO output of patcher w/o association in NV. compare with original sim through
+      DetectedObjectsMessage fields. use [[http://bates.corp.nuro.team/tasks/simtest/16dldbwa/categories/label_track_test/scenes/20210325_113841_00057_4722.0_4737.0/gt_tracker/_/result/1/0][label_track_test sim]]
+      - original sim: /mnt/nuro-simtest-multi-region-output/simulation/testing/history/20220928-4c13f8c72fb960c27e3d943cc6bb273f94c9e76e-16dldbwa/label_track_test/20210325_113841_00057_4722.0_4737.0/20210325_113841_00057_4722.0_4737.0.pre_mhtc.ndf
+      - original track 1 = patched track 12
+    - [X] inspect TC output w/ and w/o patcher
+      - w/o patcher: http://bates.corp.nuro.team/tasks/simtest/yhso7j78/categories/perception_quick/scenes/perception_quick-26728/mhtc/_/result/1/0
+      - w/ patcher: http://bates.corp.nuro.team/tasks/simtest/purwytrd/categories/perception_quick/scenes/perception_quick-26728/mhtc/_/result/1/1
+      - w/ patcher, no classification is generated
+      - [X] compare with object_type_dist in DO as well
+        - at latest_update_ts: 11929.3357063261, track 25 has a higher classification for
+          OT_BASIC_VEHICLE after mhtc (object_type_reclassification) than the DO message for
+          pre_mhtc
+      - noticed that there are no generated tracks for perception_quick for some reason
+    - [X] inspect TC output w/ label_track_test
+      - based on http://bates.corp.nuro.team/tasks/simtest/16dldbwa/categories/label_track_test/scenes/20210325_113841_00057_4722.0_4737.0/_/subtasks
+        - /mnt/nuro-simtest-multi-region-output/simulation/testing/history/20220928-4c13f8c72fb960c27e3d943cc6bb273f94c9e76e-16dldbwa/label_track_test/20210325_113841_00057_4722.0_4737.0/20210325_113841_00057_4722.0_4737.0.pre_mhtc.ndf
+        - re-simmed at
+          http://bates.corp.nuro.team/tasks/simtest/8eyq9cej/categories/label_track_test/scenes/20210325_113841_00057_4722.0_4737.0/mhtc/_/result/1/0
+          with newer green/simtests
+      - [X] run gt_tracker locally
+      - [X] compare measurement history and detected measurements UID w/ and w/o patcher
+        - found the following measurement topics in ndf:
+          #+begin_src text
+            "name": "/detected_objects",
+            "name": "/geometry_detect_measurements",
+            "name": "/radar_detect_measurements",
+            "name": "/rgbd_detect_measurements",
+            "name": "/thermal_detect_measurements",
+            "name": "/top_down_detect_measurements",
+          #+end_src
+        - in pre_mhtc, can see u_id correlate with messages from detected_measurements
+        - after patcher, u_id's are nonsensical
+          - num_top_down is set to about track_duration * 10. how are the u_ids generated?
+      - [X] run mhtc locally
+      - [X] compare logs for mhtc w/ and w/o patcher
+        - w/o patcher:
+          http://bates.corp.nuro.team/tasks/simtest/yhso7j78/categories/perception_quick/scenes/perception_quick-26728/mhtc/_/result/1/0
+        - w/ patcher:
+          http://bates.corp.nuro.team/tasks/simtest/purwytrd/categories/perception_quick/scenes/perception_quick-26728/mhtc/_/result/1/0
+        - differing logs:
+          #+begin_src text
+            I20221004 22:12:36.537268 2287243 simulator.cc:1237] Waiting for IO 558 ms
+            W20221004 22:12:36.649016 2287243 object_tracks_producer.cc:65] TrackClassifierOutputMessage expired, DetectedObjectsMessage sequence id 6 , TrackClassifierOutputMessage sequence id 3
+            W20221004 22:12:36.651600 2287243 object_tracks_producer.cc:97] Number of tracks exceed current max batch size setting. NumTracks: 158
+          #+end_src
+      - [X] view tc output w/ and w/o patcher in NV and JSON
+        - in NV, each measurement has a ot classification (which is in detected_measurement topics)
+        - noticed that after TC module, the detected_measurement topics don't change. the
+          per-measurement ot classification is likely only relevant to tracker's classification
+        - in NV, still tracker classifiction for gt_mhtc
+        - no TC output. the tracks appear but no score
+    - [X] look at kun's notes about TC
+      - [X] jira + slack
+      - [X] [[https://docs.google.com/document/d/1NrG_lnEr10WAvf7PExkrzYtDWT4eprgS7rYhaREENes/edit#heading=h.ewuuzwx1a3bo][GT Tracker Sim Integration Design - Google Docs]]
+      - [X] [[https://docs.google.com/document/d/1gwZ9f0QnMI5okdU8aj2bG2GPLh5N3Pz0XjKZA8Lr7TM/edit#][Ingested Label Tracks in TC - Google Docs]]
+        - after label association, TC module throws an exception
+      - [X] [[https://docs.google.com/document/d/1AJg--FoXbOYbJOy05c1w6MDT51XnTKrdbR5WZdHdoXU/edit#][Notes - Kai / Kun - Google Docs]]
+    - [X] look at how GT team's track association algo works (look for kun's PR)
+      - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/129807/files
+      - [X] try it out
+    - [X] try out kun's hound association
+  - [ ] what was the cause of oracle failures?
+  - [ ] investigate semantics of DetectedObjects
+    - [ ] investigate how latest_per_meas_timestamp is consumed
+    - [ ] investigate how oldest_per_meas_timestamp is consumed
+    - [ ] investigate how sequence_id should be set
+    - [ ] investigate how message timestamp should be set and how it differs from DO timestamp
+    - [ ] investigate how track_deletions is consumed
+    - [ ] look into how perception grid proto is set and consumed
+    - [ ] investigate if external_tracker_debug needs to be changed
+    - individual track fields
+      - [ ] how is latest_update_ts set and consumed?
+      - [ ] how is track_duration consumed?
+        - accumulates for generated tracks. same for all messages for labeled track
+      - [ ] what is object_type_dist? how does it differ from TC?
+      - [ ] what is the state vector? how is it set in tracker module? how is it set in labeled track?
+      - [ ] what is shape used for?
+      - [ ] what is historical_shape sued for? how is it set in tracker module vs labeled track?
+        - length is the same as state vector for both
+      - [ ] what are convex_hull, convex_hull_ts, and convex_hull_by_height used for? how is it calculated in both?
+        - not calculated initially by tracker module
+        - convex_hull_by_height not calculated by label track
+      - [ ] what is recent_contours used for?
+        - not calculated by label track
+      - [ ] how do labeled tracks generate meas_history?
+      - poe is always set to 1 for both
+        - [ ] is it always 1 for tracker module?
+      - limbo is false for both
+        - [ ] when are tracks in limbo?
+      - [ ] how is num_filtered_overlapping set?
+        - non-zero in original. always 0 for labeled tracks. is this guaranteed?
+      - [ ] lane_association is empty in both. when is it supposed to be set? is it even used?
+      - [ ] one anomaly in original. none in labeled tracks. is this guaranteed?
+      - [ ] how should is_confident set in labeled track? how does the logic differ from tracker module?
+      - [ ] track_tags missing from both. is this okay?
+    - [ ] look at current use cases for label track. how are the current supported fields informed?
+    - [ ] investigate how mhtc module is configured in sim
+      - [[https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/onboard/config/profiles/base/track_classifier_sim_mhtc.pbtxt?L3:16][track_classifier_sim_mhtc.pbtxt - Nuro-ai/Nuro - Sourcegraph]]
+    - [ ] what is latency_config_file? how does it relate to sim latency?
+      - found in metrics_job when figuring out how MHTC module is configured
+    - [ ] inspect perception_quick or perception_clz_100
+    - [ ] try out kun's experimental code
+    - [ ] look through hound code
+  - [ ] relevance events
+  - [ ] joint eval supplemental reading + clean up tasks
+  - [ ] review william's PRs
+  - [ ] review [[https://docs.google.com/document/d/1kIe9LpDoycJ32r20f_6sHvo8WYds0sepJynjzdAzgzw/edit#][Ground Truth Perception Scene Distribution - Google Docs]]
+    - look at perception SD buckets
+  - [ ] review https://docs.google.com/document/d/1NrG_lnEr10WAvf7PExkrzYtDWT4eprgS7rYhaREENes/edit#
+  - [ ] one pager / presentation about sim module for gt tracker
+  - [ ] create joint eval doc hub
+  - [ ] think about how to unit test ground_truth_track_patcher
+  - [ ] look at simon's code
+  - [ ] look at william's scene descriptor docs
+    - https://confluence.nuro.team/pages/viewpage.action?spaceKey=AI&title=Scene+Descriptors
+  - [ ] look at deng ziqi bug
+    - http://bates.corp.nuro.team/tasks/indexing_service/df0ba543-40da-48e4-b790-6adc3ba766cd/20220729_155104_00042-start-end_index_one_log/_/result/1/1
+    - dbw_segments is cutting out at 1848
+      #+begin_src shell
+        bazel run //tool/index_tools/indexing/scripts:index_one_log -- --config_file /home/kyang/nuro/tool/index_tools/indexing/configs/mpd.pbtxt --input_blob 20220729_155104_00042 --output_ndf_path debug_ziqi.ndf --context_map_staging_dir /nuro_map_path/download_staging/context_map --context_map_versions_path /nuro_map_path/context_map_versions --enable_world_state_timer --start_ts 1840
+        bazel run //base/file:blob_printer -- --blob 20220729_155104_00042 --topics dbw_spline_segments --exclude_all_metadata=false --time_begin 1840 --time_end 1900 >| debug_ziqi.txt
+      #+end_src
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/110870
+    - https://log.corp.nuro.team/summary/20220729_155104_00042
+      - watching video: turns into failover (watchdog?)
+    - likely need to reach out to ssmith
+  - [ ] look at michal's PRs
+  - inspect gt tracker output NDF + open PRs
+    - [ ] inspect gt tracker output NDF in NV
+    - [ ] open PRs (pass-through + sim config + label conversion)
+    - [ ] debug gt tracker issue
+      - http://bates-staging.corp.nuro.team/tasks/simtest/jdmmzvnr/categories/perception_clz_100/scenes/perception_clz_100-26480/gt_tracker/_/result/2/0
+  - [ ] look into stuff about TC module
+  - [ ] read about behavior similarity search
+    https://nuro-team.slack.com/archives/C01P69SRP4P/p1660843418942709
+  - [ ] review alan's preindexing + prediction eval PRs
+  - [ ] groom chrome tabs + session buddy
+  - [ ] read about c++ smart pointers
+    - https://docs.microsoft.com/en-us/cpp/cpp/smart-pointers-modern-cpp?view=msvc-170
+    - in michal's [[https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/126010/files][PR]], he uses reference_wrapper. why use that over (smart) pointers?
+      - google: reference_wrapper vs pointer
+        - https://stackoverflow.com/questions/26766939/what-is-the-difference-between-stdreference-wrapper-and-a-simple-pointer#:~:text=reference_wrapper%20is%20superior%20to%20raw,have%20to%20check%20for%20it.
+      - google: reference_wrapper vs shared_ptr
+    - https://stackoverflow.com/questions/7058339/when-to-use-references-vs-pointers
+    - can i assign to a reference? can i assign a value rvalue to a reference lvalue?
+    - what is rvalue reference?
+      - https://stackoverflow.com/questions/9493923/c11-why-is-assigning-rvalues-allowed
+      - https://stackoverflow.com/questions/1116641/is-returning-by-rvalue-reference-more-efficient
+    - templates vs macros - https://stackoverflow.com/a/180539/16737167
+      - templates can do dependent types
+    - template class vs typename
+      - https://stackoverflow.com/questions/2023977/difference-of-keywords-typename-and-class-in-templates
+    - can class and namespace share names? difference between namespaced function vs static method?
+      - https://stackoverflow.com/questions/5856759/can-a-class-share-a-namespaces-name - mentions ADL
+      - https://en.cppreference.com/w/cpp/language/adl
+      - google: c++ static function vs namespace
+        - https://stackoverflow.com/questions/1434937/namespace-functions-versus-static-methods-on-a-class
+    - what's the purpose of = default?
+      - https://www.delftstack.com/howto/cpp/default-constructor-cpp/
+    - how do capture lists for lambdas work?
+      - https://en.cppreference.com/w/cpp/language/lambda
+      - https://stackoverflow.com/questions/25827766/c-lambda-copy-value-in-capture-list
+      - https://stackoverflow.com/questions/33575563/c-lambda-capture-this-vs-capture-by-reference
+    - google: c++ anonymous namespace
+      - https://stackoverflow.com/questions/154469/unnamed-anonymous-namespaces-vs-static-functions
+      - https://www.learncpp.com/cpp-tutorial/unnamed-and-inline-namespaces/
+    - https://stackoverflow.com/questions/3471997/private-class-functions-vs-functions-in-unnamed-namespace
+    - https://en.cppreference.com/w/cpp/language/friend
+    - google: pimpl vs interface c++
+      - https://stackoverflow.com/questions/825018/pimpl-idiom-vs-pure-virtual-class-interface
+      - https://en.cppreference.com/w/cpp/language/pimpl
+  - [ ] read about [[https://docs.google.com/document/d/1YZ54nnXOsKPZ6vvSyvM-NsaxPT4ORSzTpAUZ7RkGVqc/edit#heading=h.po7vl0ie147x][Type-safe Zero-copy Comms - Google Docs]]
+  - [ ] re-open TAB PRs
+    - [ ] clean git stashes + local branches
+* TODO eval stories resources
+  - see details about sim ndf - https://retool.corp.nuro.team/embedded/public/96ee670a-bd26-4f96-bb1e-69984de7550e#ndfPath=
+  - scene db search - https://retool.corp.nuro.team/embedded/public/743d8be4-8235-4e03-aa18-8c85a7394c3c#searchString=
+  - synthetic scene db search - https://retool.corp.nuro.team/embedded/public/caafce1f-e53f-4bca-9f8e-072d0285815a#searchString=mpt
+  - scenefinder subsample -
+    https://retool.corp.nuro.team/embedded/public/b9f388cb-5d25-4d85-940d-c49b249f7584
+* should there be some way to access lidar shm data from indexing?
+  - on 8/4/2022, devan (SWE intern on replay sim team) asked if it's possible to access lidar shm
+    data in indexing for simulated logs:
+    https://nuro-team.slack.com/archives/C01H7LABLRG/p1659638485003179
+    - in sim, the topic is disabled here:
+      https://gitent.corp.nuro.team/Nuro-ai/Nuro/blame/04734e18a4280bb4225233660c8e2342ec37d8e2/simulation/simulator/simulator.cc#L981

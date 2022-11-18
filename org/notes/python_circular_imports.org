@@ -1,0 +1,14 @@
+#+TITLE: Python Circular Imports
+
+- https://stackabuse.com/python-circular-imports/
+- https://www.pythonpool.com/python-circular-import/
+- https://agilno.com/why-cyclic-dependency-errors-occur-a-look-into-the-python-import-mechanism/
+- https://medium.com/@hamana.hadrien/so-you-got-a-circular-import-in-python-e9142fe10591
+- https://www.stefaanlippens.net/circular-imports-type-hints-python.html
+- https://stackoverflow.com/questions/22187279/python-circular-importing
+- https://stackoverflow.com/questions/1556387/circular-import-dependency-in-python
+- https://stackoverflow.com/questions/7336802/how-to-avoid-circular-imports-in-python
+- CONCLUSION:
+  - tend to use import modules not classes/functions directly. this will work as long as you don't
+    call anything at the top-level (or extend classes, which will resolve base classes at the top-level)
+  - i want to avoid deferred imports and using the "TYPE_CHECKING" conditional import

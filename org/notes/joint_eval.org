@@ -1,0 +1,25 @@
+#+TITLE: Joint Eval
+
+* Notes
+  - met with jasper 6/27 about offline perception
+    - offline perception already used with planner eval (vegetation)
+    - track detection coming soon. classification not on roadmap
+    - will add offline labels to normal ground-truth label database
+    - recommends adding offline localization, which he got working fullstack
+  - met with william 6/27
+    - talk w/ oracle team about viz
+      - possible jupyter notebooks suffice. stakeholders to consult?
+    - talk w/ ryan about ops resources
+    - offline localization may have intricacies about keeping commits consistent
+    - can also joint eval on:
+      - open-loop vs closed-loop sim
+      - log vs synthtic
+        - synthetic_converter_job.py can convert logs to synthetic configs
+  - met with william 6/14
+    - ndf structure is list of references to topic paths (blob v2)
+      - could maybe even cache perception topics for scenes?
+    - simulator_main should have config to redirect topic paths
+    - could also write new binary that uses BlobWriter
+
+* References
+  - 

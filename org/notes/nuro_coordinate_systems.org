@@ -1,0 +1,12 @@
+#+TITLE: Nuro Coordinate Systems
+https://docs.google.com/document/d/1mdMEQ9eZImczhUpWiUazPxRbVaUz5VBaThStB9vp718/edit
+- robot frame
+  - position and orientation centered on rear axle of nurobot
+- global
+  - latitude, longitude, and altitude in WGS-84
+  - routes won't be smooth (due to precision?)
+  - orientation in radians counterclockwise from east
+- smooth
+  - 0,0 defined as robot starting point. position is found by integrating velocity
+  - robot will have smooth trajectory
+  - yaw is counterclockwise from +x axis

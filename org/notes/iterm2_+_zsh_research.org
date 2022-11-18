@@ -1,0 +1,76 @@
+#+TITLE: iTerm2 + Zsh Research
+
+* Terminal Research
+  - terminal latency comparison https://danluu.com/term-latency/
+    - terminal.app is fastest
+    - iterm2 is slow
+    - alacritty is pretty good
+    - kitty is not on here, but seems to be pretty fast as well
+  - alacritty is designed for tmux (no native scrollback)
+  - google: alacritty vs kitty
+    - https://www.reddit.com/r/archlinux/comments/n9noje/alacritty_vs_kitty/
+      - kitty seems to have better features (e.g.: font ligatures, scrollback)
+      - alacritty is on windows. kitty is not (not sure if it matters)
+      - alacritty seems to be slightly faster
+  - https://gist.github.com/XVilka/8346728
+    - terminal.app doesn’t have true color. try awk test
+    - iterm2 and alacritty pass. alacritty doesn’t pass in tmux. iterm2 does
+  - alacritty doesn’t really support option as meta…
+  - https://97amarnathk.github.io/2020/08/01/my-macos-terminal-setup.html
+    - zsh triggers to highlight errors
+    - powerelevel10k
+    - iterm2
+  - On ubuntu, use the default (Gnome terminal). Go to https://github.com/Mayccoll/Gogh to choose a theme
+
+* Zsh Research
+  - google: zsh vs bash
+    - https://www.howtogeek.com/362409/what-is-zsh-and-why-should-you-use-it-instead-of-bash/
+      - https://github.com/hmml/awesome-zsh
+      - automatic cd
+      - recursive path expansion
+      - approximation
+      - plugins/themes via oh-my-zsh
+      - list of a bunch of plugins
+      - powerlevel9k theme
+    - https://apple.stackexchange.com/questions/361870/what-are-the-practical-differences-between-bash-and-zsh
+      - minor practical differences
+      - compinit for autocompletions
+    - https://stackabuse.com/zsh-vs-bash/
+      - zmv can re-name multiple files
+  - google: zsh vs fish
+    - https://zellwk.com/blog/bash-zsh-fish/
+      - recommended plugins: zsh-autosuggestions + zsh-syntax-highlighting + git + auto jump
+      - author uses zsh
+  - google: zsh vs bash reddit
+    - https://www.reddit.com/r/linux/comments/1csl7c/bash_vs_zsh/
+      - better autocompletions (e.g.: command options)
+      - left/right prompts
+  - https://technofob.com/2020/12/24/the-ultimate-mac-m1-terminal-iterm2-oh-my-zsh-zsh-syntax-highlighting/
+    - zsh-autosuggestions + zsh-syntax-highlighting
+  - https://github.com/deniskabana/dotfiles/blob/master/.zshrc
+    - from https://www.reddit.com/r/MacOS/comments/iytijx/am_i_the_only_person_who_really_enjoys_using/
+    - uses colored-man-pages plugin
+  - https://riptutorial.com/zsh
+    - good reference on dotfiles including .zshenv, .zshrc, .zprofile, etc
+
+* Prompt Research
+  - Candidates between:
+    - starship
+    - powerlevel10k
+    - pure
+  - went with powerlevel10k. easiest to configure. also quick and supports transient prompts
+  - https://guinuxbr.com/en/posts/zsh+oh-my-zsh+starship/
+  - google: starship vs pure reddit
+    - https://www.reddit.com/r/zsh/comments/c3osfa/performance_comparison_spaceship_vs_powerlevel10k/
+      - starship is based on spaceship which is slow
+      - key takeaway: powerlevel10k is fast. pure may be slower
+  - google: starship vs oh my zsh
+    - https://www.reddit.com/r/zsh/comments/bj6rwz/what_is_a_good_ohmyzsh_alternative/
+      - powerlevel10k is fast
+    - https://towardsdatascience.com/the-ultimate-guide-to-your-terminal-makeover-e11f9b87ac99
+      - suggests other oh-my-zsh plugins (autojump + brew)
+    - https://guinuxbr.com/en/posts/zsh+oh-my-zsh+starship/
+      - many oh-my-zsh plugins (docker + python + etc)
+  - google: starship prompt reddit
+    - https://www.reddit.com/r/programming/comments/ebp1us/starship_crossshell_prompt/
+      - commenter suggests powerlevel10k

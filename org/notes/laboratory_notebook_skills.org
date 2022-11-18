@@ -1,0 +1,69 @@
+#+TITLE: Laboratory Notebook Skills
+
+https://news.ycombinator.com/item?id=28674027
+https://www.dur.ac.uk/resources/physics/students/labs/skills/notebookskills.pdf
+
+when performing exploratory research, it's important to remember how and what experiments were
+performed to ensure reproducibility. this is true in both a laboratory context and software (e.g.:
+debugging, optimization, tuning ML models). i was already bitten by this in the past when working on
+the paper w/ arunesh. what parameters are associated with a specific set of results? why did i
+perform an experiment? what was i trying to compare it with? what did i conclude? without structured
+documentation, i was easily lost trying to understand what i had previously written.
+
+* thoughts about the scientific method
+  - starts with a question, e.g.:
+    - what trajectory does a rock follow when thrown at different angles?
+      - i.e.: can we formulate a theoretical model that accurately describes real-world phenomena?
+    - what is the optimal NN architecture for classification?
+      - i.e.: can we empirically optimize some real-world phenomena despite not having a theoretical basis?
+    - what happens when you mix oil with water?
+      - i.e.: what happens when X?
+    - does the newtonian model of kinematics apply?
+    - how can performance of this software be improved?
+      - i.e.: can we find the solution to some real-world problem?
+  - science and research ultimately start with a real world phenomenon
+    - examples of real world phenomenon:
+      - chemical reactions
+      - why is my code not working?
+      - behavior and performance of deep neural networks
+      - desire to accomplish a business goal (e.g.: increase revenue, classify pictures)
+    - the questions that we formulate neatly fall into two categories:
+      1. empirical: we just want to observe results under various arbitrarily-chosen conditions
+         - e.g.: how do intermediate layer weights change in an NN as we add more layers?
+      2. theoretical: explain the phenomenon's mechanics and actually predict results under various
+         conditions
+    - in either category, we could be trying to optimize for some goal or solve some problem. it's
+      just in the empirical sense, we might not know why a certain set of conditions perform well.
+    - applied research is just a type of empirical research where the question is whether method A
+      works well on problem B, or which existing methods work on problem B, or which problems method
+      A can solve
+      - for example, which NN architecture best classifies cats? or which types of photos does a
+        given NN architecture classify best?
+      - the value and emphasis of the experiment is not on explaining why the results happened, but
+        to just observe what the results are in the first place
+      - there is a cycle between theoretical and applied science where theoretical research gives
+        rise to models that applied science can test in various environments. when applied science
+        finds counter-intuitive or interesting (like significant improvements) results, theoretical
+        research can go back to try to explain them.
+  - formulate hypotheses, e.g.:
+    - simple yes/no (the proposed model does or does not apply)
+    - predict what will happen as a result of an experiment (oil and water do or do not mix). this
+      prediction may or may not be principled (i.e.: based on a theory)
+  - perform experiments to fuzz/test hypothesis
+  - analyze results and make conclusions about the hypothesis
+
+* notes from pdf
+  - write notes even if at the time they seem unimportant
+  - start the experiment with what you're trying to achieve/observe as well as what motivated this
+    experiment and what impacts the results may have (what doc or task did this come from? for
+    example, if a piece of code is actually slow, how slow is too slow? what would it affect, and
+    how important is the effect?). write down relevant data and why it's relevant. this puts the
+    experiment into context when you come to work on it and focuses your goals
+  - if the results of an experiment are faulty due to a mistake, don't delete. just explain what
+    went wrong. the results might still be useful later
+
+* from the comments
+  - in general, for any task, write down the motivation and goals as context to help when you start
+    the task
+  - if you take a break, write down what you just did and what you were going to do next.
+  - write down references (e.g.: SO questions, API docs, requirements doc) and what you got from them

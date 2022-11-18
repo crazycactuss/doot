@@ -1,0 +1,27 @@
+#+TITLE: SW Weekly
+#+TAGS: :pin:
+
+* 2/25/2022
+  - guardian networking
+    - communication w/ vehicles via LTE
+    - turbulent bandwidth => can cause kickouts. need bandwidth estimation algorithm
+
+* 10/8/2021
+  - C++ protobuf arenas
+    - currently used in comms publishing
+    - all objects in an arena are co-located. can be destructed all at the same time (save
+      free/malloc calls)
+
+* 9/17/21
+  - prod metrics (9/7 vs 8/21). improvements in bad nudge + unnecessary yield
+  - what is the panorama model? (perception. related to improvement in false positives)
+  - 8/3 had a regression related to unnecessary yield
+  - behavior events have associated SD
+  - improvement in perception false positives
+  - planner is less reactive to other agents -> better bad nudge perf
+  - waffle is fully-connected zone in neighborhoods
+  - scope 0* - will have a follow vehicle
+
+* 9/3/2021
+  - Remove LIDAR dependence by emulating LIDAR 3D depth detection by applying transformers to 2D RGB
+    image data

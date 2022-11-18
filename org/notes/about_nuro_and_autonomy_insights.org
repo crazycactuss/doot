@@ -1,0 +1,27 @@
+#+TITLE: About Nuro and Autonomy Insights
+#+TAGS: :pin:
+
+* Nuro
+  - Project Leap (from onboarding email)
+    - https://docs.google.com/presentation/d/1GVtU2d2SmIeSzu4oGJhNXQpUXcUpZhl63xs-dqG7WDU
+    - R3 at scale by EO 2022. human cost parity by EO 2023
+  - ODD - operational design domain (location + autonomy specifications)
+    - e.g.: daytime + no rain
+  - Scope definitions (from project leap slides) - https://docs.google.com/spreadsheets/d/1gQnoo9QWyqyhz2tjURTecGTFqqk8twqJw415DkERpHc
+  - structured testing - testing w/ artificial, real-life scenes
+
+* Autonomy Insights
+  - Platform + eval tools focus on exposing data and tools to generate insights
+  - Autonomy + safety want to use insights to improve software
+  - But which insights to actually generate? The team’s goal is to determine those
+  - Autonomy insights roles + responsibilities
+      - Develop/maintain index tools infrastructure
+      - Consolidate different teams’ needs for insights into common core infra
+      - Consult with other teams to develop eval stories. Build queries on index tools to assist evaluation
+  - Autonomy Insights Initiative Slides
+      - Case studies:
+          - track GT handling
+          - examples of derived track-ego relations
+          - oversampling
+          - occlusion-derived info
+          - policy explorer

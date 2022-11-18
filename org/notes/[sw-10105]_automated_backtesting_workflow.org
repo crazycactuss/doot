@@ -1,0 +1,310 @@
+#+TITLE: [SW-10105] Automated Backtesting Workflow
+#+TAGS: :pin:
+
+* Triage Metrics Research
+  - MPCD, MPCHD
+    - onroad disengagement -> DT -> SD buckets
+    - LS collisions -> DT -> SD buckets (sqops triage)
+  - sqops pass/fail on canary (onroad + LS)
+    - [ ] are any metrics derived from canary LS runs?
+  - MPBE (MPBE * critical rate = appx MPCD)
+    - potentially dangerous behavior event = critical disengagement
+    - consensus behavior event labeling
+      - [ ] how frequently? which scenesets? LS + sim?
+      - [ ] how to find list of triaged sims? how are new sims communicated to sqops?
+    - [ ] how are triage tables populated from triage dashboard?
+  - resources from SWE tutorial
+    - onroad MPD dashboard: https://nuroteam.cloud.looker.com/dashboards/229
+    - LS dashboard: https://retool.corp.nuro.team/embedded/public/35cbc19c-0c5a-43d0-867f-f0723568666b#tag=&tier=ADHOC&user=
+    - sd tree: http://sd-tree.corp.nuro.team/
+
+* Personal PR checklist after finishing implementation
+  1. write *comments/docstrings* and maybe further documentation
+  2. double-check *generics + types* on all function signatures, class definitions, and maybe some
+     mutable variable declarations
+  3. double-check encapsulation (i.e.: *private methods/functions*)
+  4. maybe refactor shared *constants* (to the top of the file or to a shared module)
+  5. double-check *logging*
+  6. look at code overall and confirm that my *abstractions* make sense. maybe re-organize
+  7. double-check *tests*
+
+* Resources
+
+** Context
+  - [X] TAB design doc:
+    https://docs.google.com/document/d/1roenLtSoADD4DD0NEluxM3qjpZO6grPhoU9KzGleeIo/edit#
+    - TAB means "transferability automated backtesting"
+  - [X] Test representativeness: https://docs.google.com/document/d/1yjDgxC66L2COt7rfLygggJ0H49rSy4Pt5R5wB-xwphM/edit#
+    - high-level description of overall motivation for studying transferability and bigger picture effort
+  - [X] 2021 sim credibility: https://docs.google.com/document/d/15JRqDiWJEjhKUiCp707q_LaQh_BSPYikpdH0WBl1_v8/edit
+    - bigger picture of studying sim credibility (not just transferability). also includes simulator
+      realism and vehicle dynamics modeling
+
+** Technical References
+  - buildkite @ nuro:
+    - [X] https://confluence.nuro.team/pages/viewpage.action?spaceKey=DH&title=Buildkite+Documentation
+    - [X] https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/tool/buildkite/README.md
+  - jeremy's docs about workflow tools comparison
+    - [X] async eval (workflow automation) -
+      https://docs.google.com/document/d/1RAkrnmLSnsFujYMPyy1yoS85Iv0VSFydisz2vEs2bqM/edit
+      - airflow doesn't support dynamic branching well nor runtime configs/input
+    - [X] workflow tool selection matrix - https://docs.google.com/document/d/1MfZYTZCx22Ag0RWWYri_uZaaFPOenpna8URTEtZfpWs/edit?pli=1#
+      - compares celery, BATES, airflow, prefect, buildkite, prism
+  - [ ] [[https://console.cloud.google.com/bigquery?project=jira-168618&organizationId=593139165896&pli=1&page=table&d=mpd_odd&p=jira-168618&t=n_prod_table_m&ws=!1m10!1m4!1m3!1sjira-168618!2sbquxjob_217b2b88_173addcabbb!3sUS!1m4!4m3!1sjira-168618!2smpd_odd!3sn_prod_table_m][BQ table that maps release tags to commits]]
+  - kubernetes resources (if necessary)
+    - [X] https://confluence.nuro.team/display/INFRA/Guide+to+Kubernetes
+    - [ ] https://confluence.nuro.team/pages/viewpage.action?spaceKey=INFRA&title=Google+Kubernetes+Engine+Clusters
+  - [ ] prefer base.py over abseil:
+    https://stackoverflow.com/c/nuro/questions/1308/use-of-base-py-app-gflags-glog-vs-absl-app-absl-flags-absl-logging
+  - [ ] LS non-hidden critical candidates:
+    https://docs.google.com/spreadsheets/d/1mitLS3sMtI5ITtthKQml-ZTqQbE6TCAdk1EEDhzG12I/edit#gid=222434791
+    - found from sim metadata design doc
+  - [ ] LS non-hidden critical scenes:
+    https://docs.google.com/spreadsheets/d/1DQ4tBVkw0wKEXuE2Lj5wolFxN86eUhl1idgykuIMko0/edit#gid=0
+    - found from sim metadata design doc
+  - [ ] find LS logs from run id
+  - [ ] benchmark eval benchmark results sheet - https://docs.google.com/spreadsheets/d/16AIjQtGUMYI1e_06kZPMHJlGG5qxdYdDdIkwBSc62bk/edit#gid=185813161
+    - referenced from eval tracker design
+    - metadata linking jobs for a given workflow is manually stored here
+
+*** Metadata DB
+    - [ ] sim metadata design:
+      https://docs.google.com/document/d/1NW2_5AUxAUbqcL6op6AHCjPvRq1RRNCz8VollulcUVI/edit#
+      - only "criticals" for now. later maybe oracle SP's
+      - [ ] what is loglabel DB? what is the difference?
+    - [ ] metadata design: https://docs.google.com/document/d/1a4LK4LkGUyao2eQtgOdsBoBZSk43IYluVrRXW0VCLcs/edit
+    - loglabel DB docs
+      - referenced from sim metadata design doc
+      - [ ] PRD (metadata DB vision): https://docs.google.com/document/d/1fmBxxoagM7-odO-VqC7JYlaIPJrOQYy31r1c0K4Ck9E/edit#heading=h.mnlqhw1ttq5u
+      - [ ] design: https://docs.google.com/document/d/1l58UNF48CXWAucEwM1r8uq9hUK-p45RPLxXS3Bycj8M/edit
+    - [ ] eval tracker design:
+      https://docs.google.com/document/d/1Z_-mmdL4MNFNK_W6CICIwhoFuSgOeyNmxOuOhAZjmL4/edit#
+      - referenced from async eval design doc. accomplishes 2 relevant goals:
+        1. store links between simtest, oracle, and triage jobs for an instance of the workflow
+        2. query for historical workflow invocations to oracle backfill or AB testing
+           - [ ] what are AB testing jobs?
+      - "LogSource" message is similar to test protocol
+      - eval summary looker dashboard: https://nuroteam.cloud.looker.com/dashboards/226
+
+* Sceneset Research
+  - how to find how many scenes/miles in critical and BehaviorRegression?
+    - http://scene-db.corp.nuro.team/scene_sets/critical
+    - http://scene-db.corp.nuro.team/scene_sets/BehaviorRegression
+    - is there a more queryable format?
+      - tried digging into sceneDB backend. found that it uses GCP datastore (NoSQL)
+        - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/db/datastore/database.py is the
+          nuro datastore client
+      - not really possible... the entire table is a list of protos wrapped in another proto
+    - can see total # of scenes at bottom of sceneDB page
+  - https://retool.corp.nuro.team/embedded/public/de1f44f3-d405-47bb-a843-0cc35c3b71e4
+    - tracks most popular categories for oracle comparison service
+  - critical: 98 scenes
+  - BehaviorRegression: 3000 scenes
+  - critical_high_Scope1_v202202_full: 3244
+  - Benchmark20k_Scope1_Known_v202109: 20,000
+
+* V1 Design
+  - input can come from 2 sources:
+    - BK UI (input step) -> BK meta-data
+      - limited test protocol spec (e.g.: only 1 subprotocol + only simtest)
+    - CLI w/ full test protocol spec -> REST API invocation w/ metadata
+      - may have annoyances w/ BK API credentials. maybe want k8s middleman? if use middleman use
+        openapi vs grpc?
+  - command step that validates test protocol data
+    - sceneset (i.e.: categories) + metrics (i.e.: oracleconfig) existence checks
+  - discover valid commits
+  - job existence discovery
+    - e.g.: simtest, LS, oracle
+  - compute transferability
+    - add layer to run on power set of test protocol and find best sub-protocol
+  - add results to BQ
+  - email report to user
+
+** MVP Design
+   - input from BK UI -> BK meta-data. also input commits
+   - skip input validation
+   - skip commit discovery
+   - skip sceneset + metrics existence checks
+   - skip job existence checks
+   - print out params
+   - always invoke simtest + oracle
+   - compute transferability
+   - email report to user w/ graph
+
+* Oracle Comparison Service (Planner Eval)
+  - https://gitent.corp.nuro.team/Nuro-ai/Nuro/blob/develop/planning/planner_eval/README.md
+  - eval generally associated with various "scene set groups"
+    - https://gitent.corp.nuro.team/Nuro-ai/Nuro/tree/develop/planning/planner_eval/eval_sets
+    - https://retool.corp.nuro.team/embedded/public/018fc41f-5c1f-4380-b247-dc2603bc9554
+  - most common is "default" group: BR + critical_high
+    - https://retool.corp.nuro.team/embedded/public/de1f44f3-d405-47bb-a843-0cc35c3b71e4
+      - this is william's dashboard on comparison service submissions
+  - example of PR that evals "default" and a more specific sceneset:
+    https://gitent.corp.nuro.team/Nuro-ai/Nuro/pull/109812
+
+* Simulation Notes
+  - extra job dictionary parameters: https://docs.google.com/document/d/1OJNGPwKNXXPJ_qZWr8lFw49-YGB1cmXX9EOWOZ-OIxM/edit#heading=h.kbnnwsggx1qq
+
+* Cardiff + Oracle API
+  - inspected network traffic of
+    http://oracle.corp.nuro.team/oracle?branchJobId=pwk6qct9&branchVariant=15mph_srp_ignore_uz_rlp_all_no_mv&baseJobId=pwk6qct9&baseVariant=15mph_srp_ignore_uz_rlp_all_no_mv&sceneSet=BehaviorRegression&ipSet=sim_report
+  - first call to http://oracle.corp.nuro.team/api/sim_test/results/pwk6qct9
+    - initiated by https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/js_bazel/apps/cardiff/src/api/OracleApiClient.ts
+    - get associated oracle jobs and cardiff datasets
+    - searched usages of 'metric_names_from_dataset'. can also get cardiff dataset using an oracle
+      job ID via the oracle postgres DB (e.g.:
+      https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/comparison/utils/comparison_utils.py?L284
+      and
+      https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/pipeline/utils/scene_data_utils.py?L160)
+  - next call to http://sim-test.corp.nuro.team/data_server/job_metadata
+    - gets simtest metadata. initiated by SimTestApiClient.ts
+  - next call to http://10.97.0.16:8080/tool.cardiff.CarDiff/QuerySchema
+    - uses grpc w/ protobuf
+    - initiated by CarDiffApiClient.ts
+    - trying to decode the protobuf request:
+      - right-click the request to 'copy the request as cURL'
+      - the payload in the curl commmand is prefixed by $:
+        https://unix.stackexchange.com/questions/115612/understanding-two-flags-and-a-dollar-sign-in-a-curl-command
+        #+begin_src shell
+          echo -nE $'\nEtemp-6f7de8f0f98fe4e183f84e92ab98366dad23c0fdf89aabf3a41b7fc4af2e776b' | protoc --decode tool.cardiff.QuerySchemaRequest tool/cardiff/proto/query_schema_request.proto
+        #+end_src
+      - seems like need to strip the first 5 bytes for 'protoc --decode_raw' to work. either that's
+        grpc header or a protobuf length prefix
+        - https://stackoverflow.com/questions/52545703/decode-protobuf-binary-getting-failed-to-parse-input
+      - eventually found that payload is just logged straight to the console
+    - looked up QuerySchemaRequest on sourcegraph
+      - found python usage at https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/pipeline/utils/cardiff_utils.py
+        - metric_names_from_dataset
+      - also found guts of Oracle pipeline https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/pipeline/oracle_job.py?L1094
+        - this is the code that creates "cardiff datasets"
+  - next call to http://oracle.corp.nuro.team/api/job/metadata/7khjtt by OracleApiClient.ts to get
+    oracle job metadata
+    - this step seems unnecessary
+  - next call to http://10.97.0.16:8080/tool.cardiff.CarDiff/QueryMetric
+    #+begin_src shell
+      echo -nE $'\nEtemp-6f7de8f0f98fe4e183f84e92ab98366dad23c0fdf89aabf3a41b7fc4af2e776b\u001a\u0093\u0001\n\u0003job\u001aEpwk6qct9_BehaviorRegression_15mph_srp_ignore_uz_rlp_all_no_mv__7khjtt\u001aEpwk6qct9_BehaviorRegression_15mph_srp_ignore_uz_rlp_all_no_mv__7khjtt"\u0012total_scene_exists"\u0012total_ego_distance"\u0014total_scene_duration"\u001bgaussian_mean_sim_collision"\u0016gaussian_mean_failover" gaussian_mean_failover_on_engage"$gaussian_mean_failover_not_on_engage"\u001agaussian_mean_sim_degraded"+gaussian_mean_tailgater_collision_realistic">total_hard_brake_event_failover_is_false_sim_degraded_is_false"Utotal_ml_model_scene_stuck_thresholded_manual_failover_is_false_sim_degraded_is_false"Ytotal_ml_model_scene_bad_nudge_thresholded_manual_failover_is_false_sim_degraded_is_false"*total_count_aggressive_cross_traffic_merge"0total_traffic_control_event__stop_sign_violation"Dtotal_speed_event__is_over_speed_limit_speed_event__duration_ge_0_50"Ytotal_ml_model_scene_brake_jab_thresholded_manual_failover_is_false_sim_degraded_is_false"stotal_brake_event__is_unwarranted_brake_event__system_state_in_auto_healthy_failover_is_false_sim_degraded_is_false"etotal_brake_event__norm_max_gap_reduction_brake_event__system_state_in_auto_healthy_failover_is_false"\u001adistribution_sim_collision"\u0015distribution_failover"\u001fdistribution_failover_on_engage"#distribution_failover_not_on_engage"\u0019distribution_sim_degraded"*distribution_tailgater_collision_realistic"Edistribution_hard_brake_event_failover_is_false_sim_degraded_is_false"\\distribution_ml_model_scene_stuck_thresholded_manual_failover_is_false_sim_degraded_is_false"`distribution_ml_model_scene_bad_nudge_thresholded_manual_failover_is_false_sim_degraded_is_false"1distribution_count_aggressive_cross_traffic_merge"7distribution_traffic_control_event__stop_sign_violation"Kdistribution_speed_event__is_over_speed_limit_speed_event__duration_ge_0_50"`distribution_ml_model_scene_brake_jab_thresholded_manual_failover_is_false_sim_degraded_is_false"zdistribution_brake_event__is_unwarranted_brake_event__system_state_in_auto_healthy_failover_is_false_sim_degraded_is_false"ldistribution_brake_event__norm_max_gap_reduction_brake_event__system_state_in_auto_healthy_failover_is_false*\u0007\n\u0003odd(\u0001J\nscene_name'$'\nEtemp-6f7de8f0f98fe4e183f84e92ab98366dad23c0fdf89aabf3a41b7fc4af2e776b' | protoc --decode tool.cardiff.QueryMetricRequest tool/cardiff/proto/query_metric_request.proto
+    #+end_src
+    - first to get overall metrics. these are the metrics i need
+    - second to get breakdown metrics
+    - follow
+      https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/js_bazel/apps/cardiff/src/models/Oracle.ts?L286:14#tab=references
+      for how the typescript frontend constructs QueryMetricRequest
+    - also look at the console for the actual sent QueryMetricRequest
+    - looked up QueryMetricRequest on sourcegraph
+      - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/pipeline/utils/cardiff_utils.py?L115
+      - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/pipeline/utils/cardiff_utils.py?L155
+  - can overall follow places where i found usages of 'metric_names_from_dataset'
+    - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/comparison/utils/comparison_utils.py?L142:54
+    - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/scripts/long_term_issue_predictors/upload_issue_predictor_aggregates.py?L203:42
+    - https://sg.corp.nuro.team/gitent.corp.nuro.team/Nuro-ai/Nuro/-/blob/oracle/pipeline/utils/scene_data_utils.py?L166:34
+
+* Dependency Injection in Python
+  - https://stackoverflow.com/questions/2461702/why-is-ioc-di-not-common-in-python
+    - DI frameworks are not common in python, though the concept of inversion of control (IoC) is
+      still implemented
+
+* Workflow Orchestration Framework Comparison
+  - options
+    - airflow
+    - buildkite
+    - luigi
+    - prefect
+  - https://www.reddit.com/r/dataengineering/comments/n9nrye/is_airflow_a_pass%C3%A9_what_replaces_it/
+    - one comment suggests that centralized scheduling as embodied by airflow may eventually be
+      replaced with event-driven data processing
+    - prefect seems to be the commonly-recognized successor of airflow
+      - [ ] why did we choose buildkite over prefect? because of existing BK infrastructure?
+  - airflow vs prefect: https://medium.com/the-prefect-blog/why-not-airflow-4cfa423299c4
+    - airflow better suited for slow-changing workflows
+    - airflow's abstractions are built upon a schedule, and no two workflows can run
+      simultaneously. off-schedule workflows will affect future ones too
+    - airflow doesn't handle dataflow in a principled way (doesn't know about data dependencies
+      unless explicitly configured by the user in the DAG setup)
+    - airflow can't handle dynamically-sized dags (e.g.: variable number of task instances)
+  - Airflow vs. Luigi vs. Argo vs. MLFlow vs. KubeFlow:
+    https://www.datarevenue.com/en-blog/airflow-vs-luigi-vs-argo-vs-mlflow-vs-kubeflow
+    - luigi - simpler than airflow, but less powerful
+    - argo - works well with kubernetes. yaml config
+    - kubeflow - works well with kubernetes. python config. specific to ML workflows
+    - mlflow - abstractions tailored for ML (e.g.: training/deploying models, experiment tracking)
+  - airflow vs luigi:
+    https://towardsdatascience.com/data-pipelines-luigi-airflow-everything-you-need-to-know-18dc741449b7
+    - luigi doesn't also handle dynamically-sized dags straightforwardly. common to handle
+      parallelization via another framework like spark in a task
+    - luigi requires tasks to produce "output" files to determine success and invoke downstream
+      tasks. doesn't really allow pipelined parallelization between tasks
+    - luigi doesn't include scheduling
+
+* Thoughts on workflow orchestration vs choreography
+  - in the context of microservices:
+    - orchestration - main orchestrator invokes tasks and receives results. decides what to do next
+      - centralized. single point of failure. monolithic source of logic
+    - handoff - (i.e.: choreography-based saga) no orchestrator. each task directly invokes the
+      next step. will likely involve passing global state throughout the whole pipeline
+    - reactive/choreograpy - pub/sub (i.e.: event-based). each step listens for relevant
+      requests. likely similar to handoff where global state needs to be passed through
+      - difference from handoff is that services don't need to know what to invoke. new listeners
+        can be added w/o modifying broadcasting service
+    - BK is somewhat in the middle. the orchestrator schedules jobs until some dynamic behavior
+      is needed. individual jobs tell the orchestrator exactly what to schedule next by uploading
+      new pipeline files. otherwise, individual jobs don't know what's coming next
+    - in the context of workflows, the biggest advantage of choreography over orchestration is fault
+      tolerance. if the orchestrator goes down, then the whole pipeline fails. if any single service
+      fails in choreography, the pipeline can still live (assuming async requests), with queues to
+      failed services growing instead
+    - i was reminded of microservices docs i read before about orchestration/choreography (and
+      the saga pattern)
+      - about saga pattern - https://microservices.io/patterns/data/saga.html
+        - the saga pattern can be implemented via orchestration or choreography. however, it's
+          mainly contrasted with 2PC (2-phase commit) when each microservice has its own DB to
+          achieve atomic transactions
+      - about 2PC vs saga -
+        https://developers.redhat.com/blog/2018/10/01/patterns-for-distributed-transactions-within-a-microservices-architecture#possible_solutions
+        - 2PC has a prepare phase and commit phase executed by an orchestrator. can rollback in case
+          the prepare phase fails. a lock on the object to change is taken in the commit phase to
+          avoid races.
+          - sub-optimal since it's synchronous and can lead to deadlock (multiple locks acquired)
+        - raises saga pattern as alternative since it's async and can still support rollback
+          - but isn't it still susceptible to races? maybe can implement optimistic locking
+      - https://solace.com/blog/microservices-choreography-vs-orchestration/
+        - orchestration can lead to "distributed monolith". still a single source of failure with
+          the orchestrator (which needs to be scaled), and is more brittle than traditional monoliths
+        - choreography commonly associated with an event broker. async communication leads to loose
+          coupling
+        - low-quality SEO-optimized blog post
+
+* Thoughts on documentation
+  - flow of documentation
+    - Design doc exists first. add link to confluence later
+    - Wiki (i.e.: confluence) <> Github README <> source code comments/headers
+      - confluence is supposed to be a non-technical overview and a documentation hub (e.g.: links
+        to README or demos). has link to design doc
+      - README has technical quick-start docs. links to confluence and design doc
+      - source code headers refer to README
+
+* kickoff meeting w/ jeremy (10/14/2021)
+  - address comments he made to anshul
+  - buildkite seems pretty straightforward. any gotchas you want to point out off the top of your
+    head?
+  - what is prod eval? motivation of your work? any docs? TL;DR to help me contextualize
+  - address his comments in the doc
+  - do you have context on what BATES is and how it can help my use case?
+  - potentially overlapping work
+    - simtests for now. later LS + autoeval
+    - sceneset + metrics existence checks
+    - oracle job existence/launch
+    - BQ table creation
+
+* Thoughts on TAB vs sim credibility
+  - TAB is answering "how does credibility vary across scenesets and metrics?"
+    - compare values of metrics
+    - fuzzing not an option. instead, samples drawn across autonomy releases/commits (and even
+      potentially simulator releases/commits)
+    - to compute an instance of transferability, sceneset + metrics are held constant
+  - sim credibility is answering "how does credibility vary with changes to simulator logic?". Note
+    that it is evaluating credibility without taking specific scenesets into consideration
+    - comparing raw module values
+    - can fuzz scenes. samples are drawn across scenes, and potentially even autonomy
+      releases/commits
+    - to compute an instance of credibility, simulator release/commit is held constant
+

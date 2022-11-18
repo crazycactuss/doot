@@ -1,0 +1,61 @@
+#+TITLE: [SW-9488] Query for Rolling Stops for ILP
+
+- https://jira.nuro.team/browse/SW-9488
+- https://docs.google.com/document/d/1f-dSweqGBHWovY7Z6gYRLMvRS73uHGIIM9ahDwNqfxc/edit
+
+- [X] try query_one_log (from indexing README) - bazel-bin/tool/index_tools/scene_finder/scripts/query_one_log --index_path gs://nuro-log-indices/scene_finder/indices/debug/ilptrain2021q2new/86/20190424_061821_00026/5067.71_5086.71_index.ndf --query_file tool/index_tools/scene_finder/examples/rolling_stops.py --output_path scenes.pbtxt --batched
+- [X] can distance_to_intersection be negative? where is 0 defined?
+  - 0 is defined as at the edge of or in the intersection
+  - distance to intersection cannot be negative
+  - distance is measured relative to the center of the vehicle
+
+- List of query utils for scenefinder/index agg: https://index-tools.corp.nuro.team/py_docs 
+- Final query is #48579
+
+* re-evaluations w/ 0.1mph + 1s thresholds
+  - comparing #49332 with #48579, which has 0.3mph + 0.5s thresholds
+  - each run fulfills either an approach distance (>=11m) or approach duration (>=10s)
+    requirement. most fulfill distance. if not, then the examples that fulfill the duration
+    requirement instead are sus
+  - sorta_stopped is runs where stopped_duration > 0.8s
+  - close is runs where approach distance < 11 (so fulfilled duration requirement)
+  - long is runs where approach_duration > 10s (close is a subset)
+  - tested new run IDs:
+    1. RESIM_84007 - good
+    2. RESIM_83773 - stops for ~0.8s. stops twice w/ a nudge in between
+    3. RESIM_83416 - in old query as well. good. egregious rolling stop
+    4. RESIM_83424 - good. stops twice. stops for ~0.5s
+    5. RESIM_91194 - in sorta_stopped. stops twice
+    6. RESIM_92916 - in close. weird example. stopped at a far distance from the intersection b/c of
+       oncoming turning vehicle. then rolled slowly through the intersection. probably should've
+       stopped again
+    7. RESIM_70725 - in close. another weird example. car comes to full stop to wait for ped. then
+       inches forward through the intersection.
+    8. 5083 - in sorta_stopped. good. normal stop, just doesn't stop long enough
+    9. RESIM_83444 - good. stopped for ~0.5s then inches forward
+    10. RESIM_83198 - good. stopped for a split moment
+    11. RESIM_90580 - good. stops twice. stops for ~0.7s
+    12. 20200127_095731_00048 - in long. goes slowly b/c of ped. then stops briefly for ~0.7s
+    13. 20190507_094530_00038 - in long. goes slowly b/c of ped. doesn't even fully stop
+    14. 1983 - in long. similar scenario to (13)
+    15. RESIM_86296 - in long. stops twice. stops for ~0.7s
+    16. RESIM_91442 - in long. stops for ~0.4s. goes slowly b/c of oncoming car
+    17. 7946 - in sorta_stopped. stops twice. stops for 0.8s
+    18. 12824 - in sorta_stopped. good. just doesn't come to a full stop. stops for 0.9s
+    19. 20190329_060631_00032 - in sorta_stopped. good. not full stop. stops for 0.8s
+    20. RESIM_91908 - good. stops for 0.8s
+    21. 9332.00 - good. i was curious b/c approach_start_dist = 12.7 < 14, but the start of the
+        approach wasn't the start of the scene. the reason is b/c the car was going through a turn
+        and moving slowly. o/w nothing special.
+    22. 4973.00 - good. curious for same reason as (21), but nothing special
+    23. 7066.00 - good. curious for same reason as (21), but nothing special
+** interesting examples
+   - RESIM_83773, RESIM_83424, RESIM_90580: car stops twice with a nudge in between
+   - RESIM_92916: a bit of a strange example. the car stops far from the intersection due to an oncoming vehicle, then rolls through the turn. i'm not sure if this is technically a good stop, since maybe the car stopped far enough from the intersection to warrant another stop
+   - RESIM_70725: another interesting example. the car stops for a ped and then slowly rolls through the intersection to wait for the ped to finish crossing. not sure if this is technically a good stop as well
+   - 20200127_095731_00048, 20190507_094530_00038: the car moves slowly because of a ped but doesn't fully stop
+** Conclusions
+   - many examples where vehicle stops multiple times with small nudges in between. no individual
+     stop is long enough
+     - RESIM_83424, RESIM_91194
+

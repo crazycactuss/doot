@@ -1,0 +1,17 @@
+#+TITLE: Managing Python Environments
+
+- google: virtualenv tutorial
+  - https://docs.python-guide.org/dev/virtualenvs/
+    - mentions pipenv
+- google: pyenv vs pipenv
+  - https://towardsdatascience.com/python-environment-101-1d68bda3094d
+  - https://stackoverflow.com/questions/41573587/what-is-the-difference-between-venv-pyvenv-pyenv-virtualenv-virtualenvwrappe
+- google: conda vs pipenv
+  - https://towardsdatascience.com/pipenv-vs-conda-for-data-scientists-b9a372faf9d9
+- google: conda vs poetry
+  - https://ahmed-nafies.medium.com/pip-pipenv-poetry-or-conda-7d2398adbac9
+    - describes pipenv vs poetry vs conda. recommends pipenv
+- https://code.visualstudio.com/docs/python/environments#_where-the-extension-looks-for-environments
+  - need poetry, pipenv, or conda to tell vscode where to find envs/interpreters
+* Conclusion
+  - use pipenv
