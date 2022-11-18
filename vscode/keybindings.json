@@ -447,5 +447,10 @@
     "key": "ctrl+alt+[",
     "command": "-jupyter.gotoPrevCellInFile",
     "when": "editorTextFocus && jupyter.hascodecells && !notebookEditorFocused"
+  },
+  {
+    "key": "ctrl+k",
+    "command": "-emacs.C-k",
+    "when": "editorTextFocus && !editorReadonly"
   }
 ]

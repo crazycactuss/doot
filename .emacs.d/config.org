@@ -188,7 +188,8 @@
    #+begin_src emacs-lisp
      (use-package hungry-delete
        :config
-       (global-hungry-delete-mode 1))
+       (global-hungry-delete-mode 1)
+       (add-to-list 'hungry-delete-except-modes 'minibuffer-mode))
    #+end_src
 
 ** Undo Tree
@@ -349,7 +350,7 @@
                                   (error nil)) (list (projectile-project-name)))
                                ((or
                                  (memq major-mode '(org-agenda-mode))
-                                 (string-prefix-p "scratch" (buffer-name))
+                                 (string-prefix-p "stuff" (buffer-name))
                                  (string-prefix-p (format-time-string "%Y-%m-%d.org") (buffer-name))
                                  (and
                                   (buffer-base-buffer)
@@ -368,7 +369,8 @@
        (centaur-tabs-set-modified-marker t)
        (centaur-tabs-modified-marker "●")
        (centaur-tabs-adjust-buffer-order 'left)
-       (centaur-tabs-show-count t))
+       (centaur-tabs-show-count t)
+       (centaur-tabs-show-new-tab-button nil))
    #+end_src
 
 * Tools
@@ -625,6 +627,12 @@
      ;; ;;     (setq-local buffer-save-without-query t)))
    #+end_src
 
+** CSV
+
+   #+begin_src emacs-lisp
+     (use-package csv-mode)
+   #+end_src
+
 * Org Mode
 
 ** Basic Settings
@@ -669,6 +677,9 @@
 
      ;; wider line spacing
      (add-hook 'org-mode-hook '(lambda () (setq line-spacing 0.5)))
+
+     ;; indent after headlines
+     (setq org-adapt-indentation t)
    #+end_src
 
 ** Agenda
@@ -676,7 +687,7 @@
    #+begin_src emacs-lisp
      ;; show org habit graph in agenda
      (require 'org-habit)
-     (setq org-habit-graph-column 65)
+     (setq org-habit-graph-column 80)
 
      ;; show all agenda log items at startup
      (setq org-agenda-start-with-log-mode t)
@@ -709,9 +720,9 @@
      ;; refer to: https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
      (setq org-agenda-custom-commands
            '(("n" "Agenda and TODOs"
-              ((agenda "" ((org-agenda-span 'day)))
-               (tags-todo "TODO=\"IN-PROGRESS\""
+              ((tags-todo "TODO=\"IN-PROGRESS\""
                           ((org-agenda-overriding-header "Items in Progress")))
+               (agenda "" ((org-agenda-span 'day)))
                (tags "CATEGORY=\"inbox\""
                      ((org-agenda-overriding-header "Inbox")
                       (org-agenda-files '("/Users/kyang/org/agenda/inbox.org"))))
@@ -732,6 +743,9 @@
               ;; ((org-agenda-files
               ;;   '("/Users/kyang/org/agenda")))
               )))
+
+     ;; how many days out to show deadlines for
+     (setq org-deadline-warning-days 7)
     #+end_src
 
 ** Workflow & Clocking
@@ -743,7 +757,7 @@
      ;; set workflows
      (setq org-todo-keywords
            '((sequence "TODO(t)" "|" "DONE(d)" "N/A(a)") ;; small tasks
-             (sequence "IDLE(l)" "NEXT(n)" "IN-PROGRESS(i!)" "ON-HOLD(h!)" "|")
+             (sequence "IDLE(l)" "NEXT(n)" "IN-PROGRESS(i!)" "REVIEWING(r!)" "|")
              ))
 
      ;; TODO entries prevent parent task from being marked as DONE
@@ -758,7 +772,7 @@
      ;; use org-time-stamp-rounding-minutes for rounding clock timestamps
      (setq org-clock-rounding-minutes nil)
      ;; round timestamps to the nearest 15-min
-     (setq org-time-stamp-rounding-minutes '(15 15))
+     (setq org-time-stamp-rounding-minutes '(0 15))
    #+end_src
 
 ** Capture

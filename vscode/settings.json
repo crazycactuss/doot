@@ -31,5 +31,64 @@
     "yaml.schemas": {
         "https://raw.githubusercontent.com/buildkite/pipeline-schema/master/schema.json": "*pipeline.yml"
     },
-    "redhat.telemetry.enabled": false
+    "redhat.telemetry.enabled": false,
+    "[proto3]": {
+        "editor.rulers": [
+            80
+        ]
+    },
+    "[python]": {
+        "editor.rulers": [
+            100
+        ]
+    },
+    "editor.rulers": [
+        100
+    ],
+    "python.analysis.extraPaths": [
+        "/home/kyang/nuro/bazel-nuro/external/pypi__SQLAlchemy_1_3_7",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__cachetools_4_0_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__certifi_2021_10_8",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__chardet_3_0_4",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__dataclasses_json_0_5_3",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__future_0_18_2",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__glog_0_3_1",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__google_api_core_2_0_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__google_auth_2_6_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__google_cloud_bigquery_2_25_2",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__google_cloud_core_2_0_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__google_crc32c_1_3_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__google_resumable_media_2_3_2",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__googleapis_common_protos_1_55_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__grpcio_1_38_1",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__idna_2_10",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__marshmallow_3_12_2",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__marshmallow_enum_1_5_1",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__mongoengine_0_19_1",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__mypy_extensions_0_4_3",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__numpy_1_18_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__packaging_21_3",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__proto_plus_1_20_3",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__protobuf_3_19_4",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__pyasn1_0_4_8",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__pyasn1_modules_0_2_8",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__pymongo_3_12_3",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__pyparsing_2_4_2",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__python_gflags_3_1_2",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__requests_2_25_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__retrying_1_3_3",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__rsa_3_4_2",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__setuptools_57_2_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__sh_1_14_2",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__six_1_16_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__stringcase_1_2_0",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__tenacity_8_0_1",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__toposort_1_6",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__typing_extensions_3_10_0_2",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__typing_inspect_0_7_1",
+        "/home/kyang/nuro/bazel-nuro/external/pypi__urllib3_1_26_8",
+        "/home/kyang/nuro/bazel-bin"
+    ],
+    "tabnine.experimentalAutoImports": true,
+    "editor.tabSize": 2
 }
