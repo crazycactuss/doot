@@ -669,6 +669,9 @@
 
      ;; wider line spacing
      (add-hook 'org-mode-hook '(lambda () (setq line-spacing 0.5)))
+
+     ;; indent content under headings
+     (setq org-adapt-indentation t)
    #+end_src
 
 ** Agenda
