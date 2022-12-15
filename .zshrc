@@ -145,6 +145,9 @@ alias gs='echo -e "\033[0;31mSTATUS\033[0m" && git status && echo -e "\033[0;31m
 alias gc='git checkout'
 alias gb='git branch'
 
+##### Matlab #####
+alias matlab="matlab -nodesktop -nosplash -nojvm -nodisplay"
+
 # -------------------------
 # -- Tools setup scripts --
 # -------------------------
@@ -174,3 +177,6 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+##### jenv #####
+eval "$(jenv init -)"

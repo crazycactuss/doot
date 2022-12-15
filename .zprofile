@@ -3,3 +3,9 @@
 # eval "$(/usr/local/bin/brew shellenv)"
 
 . "$HOME/.cargo/env"
+
+# matlab
+export PATH="/Applications/MATLAB_R2016a.app/bin:$PATH"
+
+# jenv
+export PATH="$HOME/.jenv/bin:$PATH"
