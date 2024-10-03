@@ -42,7 +42,7 @@
      (tooltip-mode -1)
 
      ;; show line numbers relative to cursor
-     (setq-default display-line-numbers `relative)
+     (setq-default display-line-numbers 'visual)
 
      ;; highlight whitespace at end of lines when point is not there. should only apply to programming
      ;; modes. other modes (e.g.: help or deft) have trailing whitespace that i cannot control
@@ -124,6 +124,10 @@
      (use-package doom-modeline
        :config
        (doom-modeline-mode 1))
+
+     (use-package solaire-mode
+       :config
+       (solaire-global-mode +1))
    #+end_src
 
 ** Get PATH variable from shell
@@ -160,14 +164,6 @@
      (winner-mode 1)
    #+end_src
 
-** Hlinum
-
-   #+begin_src emacs-lisp
-     (use-package hlinum
-       :config
-       (hlinum-activate))
-   #+end_src
-
 ** GPG Settings
 
    #+begin_src emacs-lisp
@@ -190,7 +186,8 @@
    #+begin_src emacs-lisp
      (use-package hungry-delete
        :config
-       (global-hungry-delete-mode 1))
+       (global-hungry-delete-mode 1)
+       (add-hook 'minibuffer-setup-hook (lambda () (hungry-delete-mode -1))))
    #+end_src
 
 ** Undo Tree
@@ -226,6 +223,9 @@
 
      ;; disable transpose
      (global-set-key (kbd "C-t") nil)
+
+     ;; enable transpose lines
+     (global-set-key (kbd "C-x t") 'transpose-lines)
 
      ;; disable set-goal-column
      (global-set-key (kbd "C-x C-n") nil)
@@ -288,6 +288,7 @@
        :config
        (ivy-mode)
        (counsel-mode)
+       (setq swiper-use-visual-line-p #'ignore)
        :bind
        (([remap org-set-tags-command] . counsel-org-tag)
         ("C-s" . swiper)
@@ -328,42 +329,29 @@
             (string-prefix-p "*Flycheck" name)
             (string-prefix-p "*tramp" name)
             (string-prefix-p " *Mini" name)
-            (string-prefix-p "*Help" name)
             (string-prefix-p " *temp" name)
             (string-prefix-p "*Calendar" name)
             (string-prefix-p "*Org Select" name)
             (string-prefix-p "*Org Src" name)
             (string-prefix-p " *Org todo" name)
             )))
-       (defun centaur-tabs-buffer-groups ()
-         (if (and
-              (buffer-base-buffer)
-              (not (boundp 'ky/centaur-tabs-recompute-ibuf-group))
-              )
-             (kill-local-variable 'centaur-tabs-projectile-buffer-group-calc))
-         (let ((result (if centaur-tabs-projectile-buffer-group-calc
-                           (symbol-value 'centaur-tabs-projectile-buffer-group-calc)
-                         (set (make-local-variable 'centaur-tabs-projectile-buffer-group-calc)
-                              (cond
-                               ((string-prefix-p "*Help" (buffer-name)) '("Emacs"))
-                               ((condition-case _err
-                                    (projectile-project-root)
-                                  (error nil)) (list (projectile-project-name)))
-                               ((or
-                                 (memq major-mode '(org-agenda-mode))
-                                 (string-prefix-p "scratch" (buffer-name))
-                                 (string-prefix-p (format-time-string "%Y-%m-%d.org") (buffer-name))
-                                 (and
-                                  (buffer-base-buffer)
-                                  (memq major-mode '(org-mode)))
-                                 ) '("Home"))
-                               ((memq major-mode '(org-mode org-agenda-mode org-journal-mode)) '("Org"))
-                               ((memq major-mode '(dired-mode)) '("Dir"))
-                               (t '("Emacs"))))
-                         (symbol-value 'centaur-tabs-projectile-buffer-group-calc))))
-           (if (buffer-base-buffer) (set (make-local-variable 'ky/centaur-tabs-recompute-ibuf-group) t))
-           result
-           ))
+       (defun ky/centaur-tabs-buffer-groups ()
+         (if centaur-tabs-projectile-buffer-group-calc
+             (symbol-value 'centaur-tabs-projectile-buffer-group-calc)
+           (set (make-local-variable 'centaur-tabs-projectile-buffer-group-calc)
+                (cond
+                 ((or
+                   (memq major-mode '(org-agenda-mode))
+                   (string-prefix-p "scratch" (buffer-name))
+                   ) '("Home"))
+                 ((condition-case _err
+                      (projectile-project-root)
+                    (error nil)) (list (projectile-project-name)))
+                 ((memq major-mode '(org-mode)) '("Org"))
+                 ((memq major-mode '(dired-mode)) '("Dir"))
+                 (t '("Emacs"))))
+           (symbol-value 'centaur-tabs-projectile-buffer-group-calc)))
+       (setq centaur-tabs-buffer-groups-function 'ky/centaur-tabs-buffer-groups)
        :custom
        (centaur-tabs-set-bar 'left)
        (centaur-tabs-set-close-button nil)
@@ -419,6 +407,7 @@
 
    #+begin_src emacs-lisp
      (use-package counsel-projectile
+       :demand
        :config
        (counsel-projectile-mode)
        :bind-keymap
@@ -467,7 +456,9 @@
        :custom
        (magit-display-buffer-function 'magit-display-buffer-other-window)
        :config
-       (add-hook 'magit-refresh-buffer-hook '(lambda () (kill-local-variable 'header-line-format))))
+       (add-hook 'magit-refresh-buffer-hook #'(lambda () (kill-local-variable 'header-line-format)))
+       ;; don't open diff when opening COMMIT_EDITMSG
+       (remove-hook 'server-switch-hook 'magit-commit-diff))
    #+end_src
 
 * Languages
@@ -627,9 +618,17 @@
      ;; ;;     (setq-local buffer-save-without-query t)))
    #+end_src
 
+** Markdown Mode
+
+   #+begin_src emacs-lisp
+     ;; (use-package markdown-mode
+     ;;   :defer)
+   #+end_src
+
 * Org Mode
 
 ** Basic Settings
+   Remember to install the [[https://github.com/edwardtufte/et-book/tree/gh-pages/et-book][ET Book fonts]]
 
    #+begin_src emacs-lisp
      ;; don't truncate lines
@@ -656,24 +655,76 @@
      ;; export org to markdown
      (require 'ox-md)
 
-     ;; hide leading stars
-     (setq org-hide-leading-starts t)
-
      ;; hide stars, etc. when bolding/italicizing/etc
      (setq org-hide-emphasis-markers t)
 
      ;; re-enable easy templates: https://emacs.stackexchange.com/a/46992
      (require 'org-tempo)
 
-     ;; auto fill mode breaks lines at spaces when it becomes too wide (past fill-column chars)
-     (add-hook 'org-mode-hook '(lambda () (setq fill-column 100)))
-     (add-hook 'org-mode-hook 'turn-on-auto-fill)
+     ;; ;; auto fill mode breaks lines at spaces when it becomes too wide (past fill-column chars)
+     ;; (add-hook 'org-mode-hook #'(lambda () (setq fill-column 123)))
+     ;; (add-hook 'org-mode-hook 'turn-on-auto-fill)
+     (remove-hook 'org-mode-hook 'turn-on-auto-fill)
+     ;; disable org-fill-paragraph
+     (global-set-key (kbd "M-q") nil)
+     ;; (add-hook 'org-mode-hook #'(lambda () (define-key org-mode-map (kbd "M-q") nil)))
+
+     (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
      ;; wider line spacing
-     (add-hook 'org-mode-hook '(lambda () (setq line-spacing 0.5)))
+     (add-hook 'org-mode-hook #'(lambda () (setq line-spacing 0.5)))
 
-     ;; indent content under headings
-     (setq org-adapt-indentation t)
+     ;; use org-indent-mode
+     (setq org-startup-indented t)
+     (setq org-adapt-indentation nil)
+     (setq org-hide-leading-stars nil)
+
+     ;; no leading bullets for headings
+     (use-package org-bullets
+       :custom
+       (org-bullets-bullet-list '("1" "2" "3" "4" "5" "6" "7" "8" "9"))
+       :config
+       (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+
+     ;; replace dashes in lists with bullets
+     (font-lock-add-keywords 'org-mode
+                             '(("^ *\\([-]\\) "
+                                (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
+     (setq org-hidden-keywords '(title))
+
+     (setq org-fontify-todo-headline nil)
+     (setq org-fontify-done-headline nil)
+
+     (defun ky/org-get-level-face (n)
+       "Get the right face for match N in font-lock matching of headlines."
+       (let* ((org-l (- (match-end 1) (match-beginning 1) 1))
+              (org-f (nth (% (1- org-l) org-n-level-faces) org-level-faces)))
+         (cond
+          ((eq n 1) 'org-hide)
+          ((eq n 2) org-f)
+          (t org-f))))
+
+     (font-lock-add-keywords 'org-mode
+                             (list
+                              '("^\\(\\**\\(\\*\\) \\)\\(.*\\)" (1 'org-hide prepend) (2 'org-headline-done prepend) (3 (ky/org-get-level-face 3) prepend))
+                              (list (format "^\\(\\*+\\)\\(?: +%s\\)\\( +.*\\)[ \t]*$"
+                                            (concat
+                                             "\\(?:"
+                                             (mapconcat 'regexp-quote '("TODO" "NEXT" "IN-PROGRESS" "ON-HOLD") "\\|")
+                                             "\\)"))
+                                    '(2 'org-headline-todo prepend))
+                              (list (format "^\\(\\*+\\)\\(?: +%s\\)\\( +.*?\\)[ \t]*$"
+                                            (concat
+                                             "\\(?:"
+                                             (mapconcat 'regexp-quote '("DONE" "N/A") "\\|")
+                                             "\\)"))
+                                    '(2 'org-headline-done prepend))))
+
+     (setq org-ellipsis " ⌄")
+
+     (setq org-pretty-entities t)
    #+end_src
 
 ** Agenda
@@ -706,35 +757,46 @@
      (setq org-agenda-window-setup 'current-window)
 
      ;; wider line spacing
-     (add-hook 'org-agenda-mode-hook '(lambda () (setq line-spacing 0.5)))
+     (add-hook 'org-agenda-mode-hook #'(lambda () (setq line-spacing 0.5)))
 
      (setq org-agenda-files
            '("/Users/kaiyang/Dropbox/org/agenda"))
 
+     ;; https://emacs.stackexchange.com/questions/73602/how-can-i-see-a-list-of-done-tasks-in-org-agenda-sorted-by-closed-date
+     (defun ky/org-cmp-closed (a b)
+       (let* ((a-marker (get-text-property 0 'org-marker a))
+              (b-marker (get-text-property 0 'org-marker b))
+              (now (current-time))
+              (a-closed-ts (org-timestamp-from-string
+                            (org-entry-get a-marker "CLOSED")))
+              (b-closed-ts (org-timestamp-from-string
+                            (org-entry-get b-marker "CLOSED")))
+              (a-closed-time (or (and a-closed-ts
+                                      (org-timestamp-to-time a-closed-ts))
+                                 now))
+              (b-closed-time (or (and b-closed-ts
+                                      (org-timestamp-to-time b-closed-ts))
+                                 now)))
+         (cond ((time-less-p b-closed-time a-closed-time) +1)
+               ((time-less-p a-closed-time b-closed-time) -1)
+               (t nil))))
+
      ;; refer to: https://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
      (setq org-agenda-custom-commands
-           '(("n" "Agenda and TODOs"
+           '(("n" "Agenda"
               ((agenda "" ((org-agenda-span 'day)))
                (tags-todo "TODO=\"IN-PROGRESS\""
                           ((org-agenda-overriding-header "Items in Progress")))
                (tags "CATEGORY=\"inbox\""
                      ((org-agenda-overriding-header "Inbox")
-                      (org-agenda-files '("/Users/kaiyang/Dropbox/org/agenda/inbox.org"
-                                          "/Users/kaiyang/Dropbox/org/agenda/inbox_beorg.org"))))
+                      (org-agenda-files '("/Users/kaiyang/Dropbox/org/agenda/inbox.org"))))
                (todo "NEXT"
                      ((org-agenda-overriding-header "Unscheduled Next Items")
-                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
-               (tags-todo "TODO=\"TODO\"-CATEGORY=\"inbox\""
-                          ((org-agenda-overriding-header "Unscheduled TODOs")
-                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))
-               )
-              ;; ((org-agenda-files
-              ;;   '("/Users/kaiyang/Dropbox/org/agenda")))
-              )
-             ("i" "Personal Backlog" todo "IDLE|ON-HOLD"
-              ;; ((org-agenda-files
-              ;;   '("/Users/kaiyang/Dropbox/org/agenda")))
-              )))
+                      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
+             ("h" "History"
+              ((tags "TODO=\"DONE\""))
+              ((org-agenda-cmp-user-defined 'ky/org-cmp-closed)
+               (org-agenda-sorting-strategy '(user-defined-up))))))
     #+end_src
 
 ** Workflow & Clocking
@@ -745,9 +807,8 @@
 
      ;; set workflows
      (setq org-todo-keywords
-           '((sequence "TODO(t)" "|" "DONE(d)" "N/A(a)") ;; small tasks
-             (sequence "IDLE(l)" "NEXT(n)" "IN-PROGRESS(i!)" "ON-HOLD(h!)" "|")
-             ))
+           '((list "TODO(t)" "|" "DONE(d)" "N/A(a)") ;; small tasks
+             (list "NEXT(n)" "IN-PROGRESS(i!)" "ON-HOLD(h!)" "|")))
 
      ;; TODO entries prevent parent task from being marked as DONE
      (setq org-enforce-todo-dependencies t)
@@ -757,11 +818,6 @@
 
      ;; record clock timestamps into the CLOCK drawer
      (setq org-clock-into-drawer "CLOCK")
-
-     ;; use org-time-stamp-rounding-minutes for rounding clock timestamps
-     (setq org-clock-rounding-minutes nil)
-     ;; round timestamps to the nearest 15-min
-     (setq org-time-stamp-rounding-minutes '(15 15))
    #+end_src
 
 ** Capture
@@ -779,15 +835,9 @@
 
      (setq org-capture-templates
            '(("n" "Note" entry (file "~/Dropbox/org/agenda/inbox.org")
-              "* %?\n  %U")
+              "* %?\n  :PROPERTIES:\n  :CREATED:  %U\n  :END:")
              ("t" "Task" entry (file "~/Dropbox/org/agenda/inbox.org")
-              "* TODO %?\n  %U")
-             ("j" "Journal" entry (function org-journal-find-location)
-              "* %?\n  %(org-insert-time-stamp capture-journal-timestamp t)")
-             ("f" "Food" entry (function org-journal-find-location)
-              "* %? %^G\n%^{AT}p  %(org-insert-time-stamp capture-journal-timestamp t)")
-             ("r" "Review" entry (function org-journal-find-location)
-              "* review :review:\n  %(org-insert-time-stamp capture-journal-timestamp)\n  - completed%?\n  - postponed\n  - pomodoros: \n  - productivity score (0-5): ")))
+              "* TODO %?\n  :PROPERTIES:\n  :CREATED:  %U\n  :END:")))
 
      ;; align tags after capture
      (add-hook 'org-capture-prepare-finalize-hook 'org-align-all-tags)
@@ -804,7 +854,7 @@
      (add-hook 'org-capture-before-finalize-hook 'org-journal-sort-entries)
 
      ;; rebuild all agenda views after capture
-     (add-hook 'org-capture-after-finalize-hook '(lambda () (org-agenda-redo-all 4)))
+     (add-hook 'org-capture-after-finalize-hook #'(lambda () (org-agenda-redo-all 4)))
    #+end_src
 
 ** Refile
@@ -830,10 +880,24 @@
      (setq org-refile-target-verify-function 'verify-refile-target)
    #+end_src
 
+** Created Timestamp
+
+   #+begin_src emacs-lisp
+     (defun ky/org-insert-created-timestamp (arg)
+       "Insert a CREATED property with the current date"
+       (interactive "P")
+       (org-set-property
+        "CREATED"
+        (with-temp-buffer
+          (org-time-stamp (if arg arg '(16)))
+          (buffer-string))
+        ))
+   #+end_src
+
 ** Key Bindings
 
    #+begin_src emacs-lisp
-     (global-set-key (kbd "C-c n") '(lambda () (interactive) (org-agenda nil "n")))
+     (global-set-key (kbd "C-c n") #'(lambda () (interactive) (org-agenda nil "n")))
      (global-set-key (kbd "C-c a") 'org-agenda)
      (global-set-key (kbd "C-c t") 'org-todo)
      (global-set-key (kbd "C-c s") 'org-schedule)
@@ -842,20 +906,21 @@
      (global-set-key (kbd "C-x M-p") 'org-latex-export-to-pdf)
      (global-set-key (kbd "C-c l") 'org-store-link)
      (global-set-key (kbd "C-c l") 'org-store-link)
-     (global-set-key (kbd "C-c e") 'calendar)
+     (global-set-key (kbd "C-c e") 'ky/org-insert-created-timestamp)
      (global-set-key (kbd "M-p") 'org-move-subtree-up)
      (global-set-key (kbd "M-n") 'org-move-subtree-down)
+     (global-set-key (kbd "M-n") 'org-move-subtree-down)
      (define-key org-mode-map (kbd "C-c C-x b")
-       '(lambda () (interactive) (org-tree-to-indirect-buffer 4)))
+       #'(lambda () (interactive) (org-tree-to-indirect-buffer 4)))
      (define-key org-mode-map [C-tab] nil)
      (define-key org-mode-map (kbd "C-c C-t")
-       '(lambda () (interactive) (org-todo 'right)))
+       #'(lambda () (interactive) (org-todo 'right)))
      (define-key org-mode-map (kbd "C-c M-n")
-       '(lambda () (interactive)
+       #'(lambda () (interactive)
           (org-next-visible-heading 1)
           (while (org-entry-is-done-p) (org-next-visible-heading 1))))
      (define-key org-mode-map (kbd "C-c M-p")
-       '(lambda () (interactive)
+       #'(lambda () (interactive)
           (org-previous-visible-heading 1)
           (while (org-entry-is-done-p) (org-previous-visible-heading 1))))
    #+end_src
@@ -903,5 +968,5 @@
                 (offset 5))
            (when window
              (- (window-text-width window) offset))))
-       (add-hook 'deft-mode-hook '(lambda () (setq line-spacing 0.5))))
+       (add-hook 'deft-mode-hook #'(lambda () (setq line-spacing 0.5))))
    #+end_src

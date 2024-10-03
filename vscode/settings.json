@@ -1,32 +1,36 @@
 {
-    "window.zoomLevel": 0,
-    "files.trimTrailingWhitespace": true,
+    "breadcrumbs.enabled": true,
+    "editor.minimap.enabled": false,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
-    "extensions.ignoreRecommendations": true,
-    "terminal.integrated.fontFamily": "InconsolataG for Powerline",
-    "editor.minimap.enabled": false,
-    "breadcrumbs.enabled": true,
-    "terminal.integrated.allowChords": false,
-    "terminal.integrated.macOptionIsMeta": true,
-    "terminal.integrated.commandsToSkipShell": [
-        "workbench.action.navigateEditorGroups"
-    ],
-    "workbench.editor.enablePreview": false,
-    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "files.trimTrailingWhitespace": true,
+    "git.confirmSync": false,
     "git.untrackedChanges": "separate",
-    "python.formatting.provider": "yapf",
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true,
-    "jupyter.sendSelectionToInteractiveWindow": true,
     "jupyter.askForKernelRestart": false,
-    "jupyter.alwaysTrustNotebooks": true,
-    "jupyter.interactiveWindowMode": "perFile",
-    "python.languageServer": "Pylance",
-    "python.analysis.typeCheckingMode": "basic",
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb"
+    "python.analysis.autoFormatStrings": true,
+    "python.testing.pytestEnabled": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "terminal.integrated.commandsToSkipShell": [
+        "workbench.action.navigateEditorGroups",
+        "language-julia.interrupt"
+    ],
+    "terminal.integrated.fontFamily": "MesloLGS NF",
+    "terminal.integrated.macOptionIsMeta": true,
+    "workbench.editor.showTabs": "single",
+    "explorer.confirmDelete": false,
+    "terminal.integrated.allowChords": false,
+    "redhat.telemetry.enabled": false,
+    "diffEditor.renderSideBySide": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
     },
-    "workbench.editor.showTabs": false
+    "workbench.editor.empty.hint": "hidden",
+    "julia.symbolCacheDownload": true,
+    "julia.enableTelemetry": false,
+    "explorer.confirmDragAndDrop": false,
+    "black-formatter.importStrategy": "fromEnvironment",
+    "flake8.importStrategy": "fromEnvironment",
+    "jupyter.interactiveWindow.textEditor.executeSelection": true,
+    "python.REPL.sendToNativeREPL": true,
 }

@@ -79,6 +79,7 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     colored-man-pages
+    poetry
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -135,9 +136,9 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;31' # green for matches
 
 ##### Editor settings #####
-alias emacs='emacsclient -c --alternate-editor='
+alias emacs='emacsclient --alternate-editor='
 export EDITOR='emacsclient -t --alternate-editor='
-export VISUAL='emacsclient -c --alternate-editor='
+export VISUAL='emacsclient --alternate-editor='
 
 ##### Git shortcuts #####
 alias gl='git log --oneline -n5'
@@ -145,18 +146,15 @@ alias gs='echo -e "\033[0;31mSTATUS\033[0m" && git status && echo -e "\033[0;31m
 alias gc='git checkout'
 alias gb='git branch'
 
-##### Matlab #####
-alias matlab="matlab -nodesktop -nosplash -nojvm -nodisplay"
-
 # -------------------------
 # -- Tools setup scripts --
 # -------------------------
 
 ##### z jump #####
-. /usr/local/etc/profile.d/z.sh
+source /opt/homebrew/etc/profile.d/z.sh
 
 ##### fzf #####
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fzf --zsh)"
 
 ##### powerlevel10k #####
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -178,5 +176,12 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-##### jenv #####
-eval "$(jenv init -)"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/kaiyang/Downloads/Installers/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/kaiyang/Downloads/Installers/google-cloud-sdk/completion.zsh.inc'; fi
+
+# pyenv
+eval "$(pyenv init -)"

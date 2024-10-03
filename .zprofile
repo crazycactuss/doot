@@ -1,11 +1,16 @@
-# Uncomment the following if brew is not already in your path (e.g.: if brew is in /opt/hombrew/bin
-#   instead of /usr/local/bin)
-# eval "$(/usr/local/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-. "$HOME/.cargo/env"
-
-# matlab
-export PATH="/Applications/MATLAB_R2016a.app/bin:$PATH"
+source "$HOME/.cargo/env"
 
 # jenv
 export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
+# poetry
+export PATH="$HOME/.local/bin:$PATH"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/kaiyang/Downloads/Installers/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/kaiyang/Downloads/Installers/google-cloud-sdk/path.zsh.inc'; fi
+
+# julia
+export PATH="$HOME/.juliaup/bin:$PATH"

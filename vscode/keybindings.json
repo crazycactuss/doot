@@ -319,16 +319,6 @@
     "when": "editorHasDocumentFormattingProvider && editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly"
   },
   {
-    "key": "ctrl+c f",
-    "command": "editor.action.formatDocument.none",
-    "when": "editorTextFocus && !editorHasDocumentFormattingProvider && !editorHasDocumentFormattingProvider && !editorReadonly"
-  },
-  {
-    "key": "shift+alt+f",
-    "command": "-editor.action.formatDocument.none",
-    "when": "editorTextFocus && !editorHasDocumentFormattingProvider && !editorHasDocumentFormattingProvider && !editorReadonly"
-  },
-  {
     "key": "ctrl+x ctrl+d",
     "command": "workbench.action.debug.start",
     "when": "!inDebugMode"
@@ -415,19 +405,19 @@
   },
   {
     "key": "ctrl+tab",
-    "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
-  },
-  {
-    "key": "ctrl+tab",
     "command": "workbench.action.quickOpenPreviousRecentlyUsedEditor"
   },
   {
-    "key": "ctrl+shift+tab",
-    "command": "-workbench.action.quickOpenLeastRecentlyUsedEditorInGroup"
+    "key": "ctrl+tab",
+    "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
   },
   {
     "key": "ctrl+shift+tab",
     "command": "workbench.action.quickOpenLeastRecentlyUsedEditor"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "-workbench.action.quickOpenLeastRecentlyUsedEditorInGroup"
   },
   {
     "key": "ctrl+tab",
@@ -492,5 +482,13 @@
     "key": "ctrl+alt+[",
     "command": "-jupyter.gotoPrevCellInFile",
     "when": "editorTextFocus && jupyter.hascodecells && !notebookEditorFocused"
+  },
+  {
+    "key": "ctrl+z",
+    "command": "workbench.action.toggleMaximizedPanel"
+  },
+  {
+    "key": "ctrl+x ctrl+d",
+    "command": "debugpy.debugInTerminal"
   }
 ]
