@@ -33,4 +33,6 @@
     "flake8.importStrategy": "fromEnvironment",
     "jupyter.interactiveWindow.textEditor.executeSelection": true,
     "python.REPL.sendToNativeREPL": true,
+    "jupyter.interactiveWindow.creationMode": "perFile",
+    "python.analysis.typeCheckingMode": "strict",
 }

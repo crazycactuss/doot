@@ -79,7 +79,6 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     colored-man-pages
-    poetry
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -154,7 +153,7 @@ alias gb='git branch'
 source /opt/homebrew/etc/profile.d/z.sh
 
 ##### fzf #####
-eval "$(fzf --zsh)"
+source <(fzf --zsh)
 
 ##### powerlevel10k #####
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

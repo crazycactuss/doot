@@ -87,6 +87,7 @@
 
    #+begin_src emacs-lisp
      ;; ensure every package is loaded and installed
+     (require 'use-package-ensure)
      (setq use-package-always-ensure t)
 
      ;; see when packages are loaded and configured
@@ -245,7 +246,7 @@
      (global-set-key (kbd "C-x ?") 'help-command)
 
      ;; M-k to kill current buffer as opposed to S-k
-     (global-set-key (kbd "M-k") 'kill-this-buffer)
+     (global-set-key (kbd "M-k") 'kill-current-buffer)
 
      ;; emacs to tmux
      (global-set-key
@@ -291,8 +292,8 @@
        (setq swiper-use-visual-line-p #'ignore)
        :bind
        (([remap org-set-tags-command] . counsel-org-tag)
-        ("C-s" . swiper)
-        ("C-r" . swiper)))
+        ("C-s" . swiper-isearch)
+        ("C-r" . swiper-isearch-backward)))
    #+end_src
 
 ** Flycheck
@@ -661,13 +662,9 @@
      ;; re-enable easy templates: https://emacs.stackexchange.com/a/46992
      (require 'org-tempo)
 
-     ;; ;; auto fill mode breaks lines at spaces when it becomes too wide (past fill-column chars)
-     ;; (add-hook 'org-mode-hook #'(lambda () (setq fill-column 123)))
-     ;; (add-hook 'org-mode-hook 'turn-on-auto-fill)
      (remove-hook 'org-mode-hook 'turn-on-auto-fill)
      ;; disable org-fill-paragraph
      (global-set-key (kbd "M-q") nil)
-     ;; (add-hook 'org-mode-hook #'(lambda () (define-key org-mode-map (kbd "M-q") nil)))
 
      (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
@@ -725,6 +722,13 @@
      (setq org-ellipsis " ⌄")
 
      (setq org-pretty-entities t)
+
+     (setq org-fold-core-style 'overlays)
+
+     (defun ky/org-hide-done-entries-in-buffer()
+       (interactive)
+       (org-map-entries #'org-fold-hide-subtree
+                        "+TODO=\"DONE\"|+TODO=\"N/A\"" 'file 'archive 'comment))
    #+end_src
 
 ** Agenda
@@ -750,7 +754,7 @@
      (setq org-agenda-block-separator
            "================================================================================")
 
-     ;; use AM/PM timestamps in agenda as opposed to 25-hr timestamps
+     ;; use AM/PM timestamps in agenda as opposed to 24-hr timestamps
      (setq org-agenda-timegrid-use-ampm 1)
 
      ;; show agenda in the current window
@@ -760,7 +764,7 @@
      (add-hook 'org-agenda-mode-hook #'(lambda () (setq line-spacing 0.5)))
 
      (setq org-agenda-files
-           '("/Users/kaiyang/Dropbox/org/agenda"))
+           '("/Users/kaiyang/org/agenda"))
 
      ;; https://emacs.stackexchange.com/questions/73602/how-can-i-see-a-list-of-done-tasks-in-org-agenda-sorted-by-closed-date
      (defun ky/org-cmp-closed (a b)
@@ -789,7 +793,7 @@
                           ((org-agenda-overriding-header "Items in Progress")))
                (tags "CATEGORY=\"inbox\""
                      ((org-agenda-overriding-header "Inbox")
-                      (org-agenda-files '("/Users/kaiyang/Dropbox/org/agenda/inbox.org"))))
+                      (org-agenda-files '("/Users/kaiyang/org/agenda/inbox.org"))))
                (todo "NEXT"
                      ((org-agenda-overriding-header "Unscheduled Next Items")
                       (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))))))
@@ -797,6 +801,10 @@
               ((tags "TODO=\"DONE\""))
               ((org-agenda-cmp-user-defined 'ky/org-cmp-closed)
                (org-agenda-sorting-strategy '(user-defined-up))))))
+
+     (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
+
+     (setq org-deadline-warning-days 7)
     #+end_src
 
 ** Workflow & Clocking
@@ -834,9 +842,9 @@
        (goto-line 2))
 
      (setq org-capture-templates
-           '(("n" "Note" entry (file "~/Dropbox/org/agenda/inbox.org")
+           '(("n" "Note" entry (file "~/org/agenda/inbox.org")
               "* %?\n  :PROPERTIES:\n  :CREATED:  %U\n  :END:")
-             ("t" "Task" entry (file "~/Dropbox/org/agenda/inbox.org")
+             ("t" "Task" entry (file "~/org/agenda/inbox.org")
               "* TODO %?\n  :PROPERTIES:\n  :CREATED:  %U\n  :END:")))
 
      ;; align tags after capture
@@ -905,8 +913,8 @@
      (global-set-key (kbd "C-c C-w") 'org-refile)
      (global-set-key (kbd "C-x M-p") 'org-latex-export-to-pdf)
      (global-set-key (kbd "C-c l") 'org-store-link)
-     (global-set-key (kbd "C-c l") 'org-store-link)
      (global-set-key (kbd "C-c e") 'ky/org-insert-created-timestamp)
+     (global-set-key (kbd "C-c f") 'ky/org-hide-done-entries-in-buffer)
      (global-set-key (kbd "M-p") 'org-move-subtree-up)
      (global-set-key (kbd "M-n") 'org-move-subtree-down)
      (global-set-key (kbd "M-n") 'org-move-subtree-down)
@@ -934,7 +942,7 @@
 
      (use-package org-journal
        :custom
-       (org-journal-dir "/Users/kaiyang/Dropbox/org/journal")
+       (org-journal-dir "/Users/kaiyang/org/journal")
        (org-journal-carryover-items nil)
        (org-journal-file-format "%Y-%m-%d.org")
        (org-journal-file-header "#+CATEGORY: journal\n")
@@ -949,7 +957,7 @@
    #+begin_src emacs-lisp
      (use-package deft
        :custom
-       (deft-directory "/Users/kaiyang/Dropbox/org/notes")
+       (deft-directory "/Users/kaiyang/org/notes")
        (deft-extensions '("org"))
        (deft-default-extension "org")
        (deft-use-filter-string-for-filename t)

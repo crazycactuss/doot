@@ -22,7 +22,13 @@
  ;; If there is more than one, they won't work right.
  '(org-journal-find-file-fn #'find-file nil nil "Customized with use-package org-journal")
  '(package-selected-packages
-   '(magit solaire-mode org-bullets yaml-mode which-key use-package undo-tree smooth-scrolling pkg-info php-mode org-journal neotree markdown-mode lua-mode hungry-delete hlinum form-feed flycheck expand-region exec-path-from-shell doom-themes doom-modeline deft counsel-projectile column-enforce-mode centaur-tabs auto-package-update all-the-icons ace-window)))
+   '(ace-window all-the-icons auto-package-update centaur-tabs
+                column-enforce-mode counsel-projectile deft
+                doom-modeline doom-themes exec-path-from-shell
+                expand-region flycheck form-feed hlinum hungry-delete
+                lua-mode magit markdown-mode neotree org-bullets
+                org-journal php-mode pkg-info smooth-scrolling
+                solaire-mode undo-tree use-package which-key yaml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
